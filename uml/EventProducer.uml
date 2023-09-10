@@ -1,0 +1,51 @@
+@startuml
+
+skinparam class {
+  BackgroundColor BUSINESS
+}
+
+interface EventProducer extends java.rmi.Remote, java.io.Serializable
+{
+  + boolean addListener(EventListener listener, EventType eventType, ...)
+  + int removeAllListeners()
+  + int removeAllListeners(Class<?> ofClass)
+  + boolean removeListener(EventListener listener, EventType eventType)
+  + boolean hasListeners()
+  + int numberOfListeners(EventType eventType)
+  + void fireEvent(Event event)
+  + void fireTimedEvent(TimedEvent<C> event)
+  + void fireEvent(EventType eventType)
+  + void fireTimedEvent(EventType eventType, C time)
+  + void fireEvent(EventType eventType, Serializable value)
+  + void fireTimedEvent(EventType eventType, Serializable value, C time)
+  + void fireUnverifiedEvent(EventType eventType)
+  + void fireUnverifiedTimedEvent(EventType eventType, C time)
+  + void fireUnverifiedEvent(EventType eventType, Serializable value)
+  + void fireUnverifiedTimedEvent(EventType eventType, Serializable value, C time)
+}
+
+class LocalEventProducer implements EventProducer, java.io.Serializable
+{
+  + LocalEventProducer()
+  + EventListenerMap getEventListenerMap()
+}
+
+class RmiEventProducer implements EventProducer, java.rmi.Remote
+{
+  + RmiEventProducer(String host, int port, String bindingKey)
+  + RmiEventProducer(URL registryURL, String bindingKey)
+  + EventListenerMap getEventListenerMap()
+  + Registry getRegistry() throws RemoteException
+}
+
+class RmiObject extends java.rmi.server.UnicastRemoteObject
+{
+  + RmiObject(URL registryURL, String bindingKey)
+  + RmiObject(String host, int port, String bindingKey)
+  # register(String host, int port, String bindingKey)
+  + getRegistry(): Registry
+}
+
+RmiObject -- RmiEventProducer
+
+@enduml

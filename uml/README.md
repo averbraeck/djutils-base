@@ -1,0 +1,3 @@
+# UML diagrams
+
+The UML diagrams have been made with PlantUML, which can be used as a standalone UML editor or as a plugin to, e.g., Eclipse. For plantuml see [https://plantuml.com/](https://plantuml.com/). The class diagram syntax is at [https://plantuml.com/class-diagram](https://plantuml.com/class-diagram). Stying parameters are at [https://plantuml.com/skinparam](https://plantuml.com/skinparam). The integration with Eclipse is described at [https://plantuml.com/eclipse](https://plantuml.com/eclipse), with the more detailed information on the Github project at [https://hallvard.github.io/plantuml/](https://hallvard.github.io/plantuml/).

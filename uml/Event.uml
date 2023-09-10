@@ -1,0 +1,28 @@
+@startuml
+
+skinparam class {
+  BackgroundColor BUSINESS
+}
+skinparam genericDisplay old
+
+class Event implements Serializable {
+  +Serializable getContent()
+  +EventType getType()
+}
+
+class TimedEvent<T> extends Event implements Comparable {
+  +T getTimeStamp()
+}
+
+class EventType implements Serializable {
+  +String getName() {}
+  +MetaData getMetaData()
+}
+
+interface Comparable<T> {
+  +int compareTo(T o);
+}
+
+Event - EventType : getType() >
+
+@enduml

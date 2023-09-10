@@ -1,0 +1,26 @@
+@startuml
+
+skinparam class {
+  BackgroundColor BUSINESS
+}
+
+interface EventListener extends java.util.EventListener, java.io.Serializable
+{
+  void notify(Event event);
+}
+
+abstract class RmiEventListener extends RmiObject implements EventListener, java.rmi.Remote
+{
+  + RmiEventListener(String host, int port, String bindingKey)
+  + RmiEventListener(URL registryURL, String bindingKey)
+}
+
+class RmiObject extends java.rmi.server.UnicastRemoteObject
+{
+  + RmiObject(URL registryURL, String bindingKey)
+  + RmiObject(String host, int port, String bindingKey)
+  # register(String host, int port, String bindingKey)
+  + getRegistry(): Registry
+}
+
+@enduml

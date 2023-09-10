@@ -1,0 +1,84 @@
+site_name: DJUTILS
+site_url: https://djutils.org/
+site_favicon: images/favicon.png
+copyright: (c) 2015-2023 Delft University of Technology
+
+theme:
+  name: material
+  navigation_depth: 1
+    
+markdown_extensions:
+  - pymdownx.arithmatex:
+      generic: true
+  - admonition
+  - toc:
+      permalink: true
+      baselevel: 1
+      toc_depth: 3
+      
+extra_css: 
+  - css/custom.css
+  
+extra_javascript:
+  - js/collapse_menu.js
+  - js/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+    
+nav:
+  - Home: index.md
+  - DJUTILS project: 
+    - Introduction: djutils/index.md
+    - Mutable Primitives: djutils/mutable-primitives.md
+    - Immutable Collections: djutils/immutable-collections.md
+    - Number Parser: djutils/number-parser.md
+    - Event package: djutils/event.md
+    - Complex numbers: djutils/complex-numbers.md
+    - Complex math: djutils/complex-math.md
+    - Logging helper classes: djutils/logging.md
+    - Exception helper classes: djutils/exceptions.md
+    - URLResource class: djutils/urlresource.md
+    - Reflection helper classes: djutils/reflection.md
+    - Means package: djutils/means.md
+    - Metadata: djutils/metadata.md 
+    - DecoderDumper: djutils/decoder-dumper.md
+    - DJUTILS documentation: https://djutils.org/docs/latest/djutils/index.html
+    - DJUTILS API: https://djutils.org/docs/latest/djutils/apidocs/index.html
+  - DJUTILS-CLI project:
+    - Introduction: djutils-cli/index.md
+    - DJUTILS-CLI usage: djutils-cli/usage.md
+    - DJUTILS-CLI documentation: https://djutils.org/docs/latest/djutils-cli/index.html
+    - DJUTILS-CLI API: https://djutils.org/docs/latest/djutils-cli/apidocs/index.html
+  - DJUTILS-SERIALIZATION:
+    - Introduction: djutils-serialization/index.md
+    - Coding types: djutils-serialization/coding-types.md
+    - 'Primitive types (#0 - #8)': djutils-serialization/primitive-types.md
+    - 'String types (#9 - #10)': djutils-serialization/string-types.md
+    - 'Array types (#11 - #17)': djutils-serialization/array-types.md
+    - 'Matrix types (#18 - #24)': djutils-serialization/matrix-types.md
+    - Coding of units: djutils-serialization/coding-units.md
+    - Display types for units: djutils-serialization/display-types.md
+    - 'Scalar types with unit (#25 - #26)': djutils-serialization/scalar-units.md 
+    - 'Vector types with unit (#27 - #28)': djutils-serialization/vector-units.md 
+    - 'Matrix types with unit (#29 - #32)': djutils-serialization/matrix-units.md 
+    - SERIALIZATION documentation: https://djutils.org/docs/latest/djutils-serialization/index.html
+    - SERIALIZATION API: https://djutils.org/docs/latest/djutils-serialization/apidocs/index.html
+  - DJUTILS-DATA project:
+    - Introduction: djutils-data/index.md
+    - Using Data Tables: djutils-data/data-tables.md
+    - DJUTILS-DATA documentation: https://djutils.org/docs/latest/djutils-data/index.html
+    - DJUTILS-DATA API: https://djutils.org/docs/latest/djutils-data/apidocs/index.html
+  - DJUTILS-DRAW project:
+    - Introduction: djutils-draw/index.md
+    - Drawable interface: djutils-draw/drawable.md
+    - Affine transformations: djutils-draw/affine.md
+    - Points: djutils-draw/points.md
+    - Lines: djutils-draw/lines.md
+    - Bounds: djutils-draw/bounds.md
+    - DJUTILS-DRAW documentation: https://djutils.org/docs/latest/djutils-draw/index.html
+    - DJUTILS-DRAW API: https://djutils.org/docs/latest/djutils-draw/apidocs/index.html
+  - DJUTILS-STATS project:
+    - Introduction: djutils-stats/index.md
+    - Summarizers: djutils-stats/summarizers.md
+    - DJUTILS-STATS documentation: https://djutils.org/docs/latest/djutils-stats/index.html
+    - DJUTILS-STATS API: https://djutils.org/docs/latest/djutils-stats/apidocs/index.html
