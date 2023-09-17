@@ -141,7 +141,7 @@ public final class ComplexMath
 
     /**
      * Inverse sine function of a Complex operand. Derived from <a href=
-     * "http://cvsweb.netbsd.org/bsdweb.cgi/~checkout~/src/lib/libm/complex/casin.c?rev=1.1&content-type=text/plain">NetBSD
+     * "http://cvsweb.netbsd.org/bsdweb.cgi/~checkout~/src/lib/libm/complex/casin.c?rev=1.1&amp;content-type=text/plain">NetBSD
      * Complex casin.c</a>.
      * @param z Complex; the operand
      * @return Complex; the result of the asin function applied to the operand
@@ -160,7 +160,7 @@ public final class ComplexMath
 
     /**
      * Inverse cosine function of a Complex operand. Derived from <a href=
-     * "http://cvsweb.netbsd.org/bsdweb.cgi/~checkout~/src/lib/libm/complex/cacos.c?rev=1.1&content-type=text/plain">NetBSD
+     * "http://cvsweb.netbsd.org/bsdweb.cgi/~checkout~/src/lib/libm/complex/cacos.c?rev=1.1&amp;content-type=text/plain">NetBSD
      * Complex cacos.c</a>.
      * @param z Complex; the operand
      * @return Complex; the result of the acos function applied to the operand
@@ -176,7 +176,7 @@ public final class ComplexMath
 
     /**
      * Inverse tangent function of a Complex operand. Derived from <a href=
-     * "http://cvsweb.netbsd.org/bsdweb.cgi/~checkout~/src/lib/libm/complex/catan.c?rev=1.2&content-type=text/plain">NetBSD
+     * "http://cvsweb.netbsd.org/bsdweb.cgi/~checkout~/src/lib/libm/complex/catan.c?rev=1.2&amp;content-type=text/plain">NetBSD
      * Complex catan.c</a>.
      * @param z Complex; the operand
      * @return Complex; the result of the atan function applied to the operand
@@ -230,7 +230,7 @@ public final class ComplexMath
 
     /**
      * Inverse hyperbolic tangent of a Complex operand. Derived from
-     * <a href="http://cvsweb.netbsd.org/bsdweb.cgi/~checkout~/src/lib/libm/complex/catanh.c?rev=1.1&content-type=text/plain">
+     * <a href="http://cvsweb.netbsd.org/bsdweb.cgi/~checkout~/src/lib/libm/complex/catanh.c?rev=1.1&amp;content-type=text/plain">
      * NetBSD Complex catanh.c</a>.
      * @param z Complex; the operand
      * @return Complex; the result of the atanh function applied to the operand
