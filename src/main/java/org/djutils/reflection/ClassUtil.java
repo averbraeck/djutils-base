@@ -33,7 +33,7 @@ import org.djutils.primitives.Primitive;
 /**
  * ClassUtil is a utility class providing assistance for Java Classes.
  * <p>
- * Copyright (c) 2002-2023 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2024 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://djutils.org" target="_blank"> https://djutils.org</a>. The DJUTILS project is
  * distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://djutils.org/docs/license.html" target="_blank"> https://djutils.org/docs/license.html</a>.
@@ -1088,7 +1088,7 @@ public final class ClassUtil
      * ClassFileDescriptor contains some information about a class file, either stand-alone on the classpath, or within a Jar
      * file.<br>
      * <br>
-     * Copyright (c) 2019-2023 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2019-2024 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>.
      * The source code and binary code of this software is proprietary information of Delft University of Technology.
      * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>

@@ -17,7 +17,7 @@ import org.djutils.exceptions.Throw;
  * To output statistics at (somewhat) regular intervals call <code>print</code> method often. The default interval is 1 second;
  * this can be changed by calling the <code>setPrintInterval method</code>.
  * <p>
- * Copyright (c) 2013-2023 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved. <br>
+ * Copyright (c) 2013-2024 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved. <br>
  * BSD-style license. See <a href="https://djutils.org/docs/current/djutils/licenses.html">DJUTILS License</a>.
  * <p>
  * @version $Revision$, $LastChangedDate$, by $Author$, initial version 27 jan. 2018 <br>
@@ -276,7 +276,7 @@ public final class Profile
     /**
      * Contains info per profiling part.
      * <p>
-     * Copyright (c) 2013-2023 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2013-2024 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved.
      * <br>
      * BSD-style license. See <a href="https://djutils.org/docs/current/djutils/licenses.html">DJUTILS License</a>.
      * <p>

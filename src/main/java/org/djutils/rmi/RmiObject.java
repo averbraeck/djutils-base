@@ -13,7 +13,7 @@ import org.djutils.exceptions.Throw;
  * The RMIObject is an object that registers iteself in the RMI registry using a key by which it can be found. The class creates
  * the RMI registry when it does not exist yet.
  * <p>
- * Copyright (c) 2020-2023 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved. <br>
+ * Copyright (c) 2020-2024 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved. <br>
  * BSD-style license. See <a href="https://djutils.org/docs/license.html">DJUTILS License</a>.
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>

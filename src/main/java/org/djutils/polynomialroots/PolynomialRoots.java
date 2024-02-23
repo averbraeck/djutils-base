@@ -7,7 +7,7 @@ import org.djutils.complex.Complex;
  * from <a href="https://netlib.org/toms/954.zip">https://dl.acm.org/doi/10.1145/2699468</a>. Manual translation from Fortran90
  * to java by Peter Knoppers.
  * <p>
- * Copyright (c) 2020-2023 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved. <br>
+ * Copyright (c) 2020-2024 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved. <br>
  * BSD-style license. See <a href="https://djutils.org/docs/current/djutils/licenses.html">DJUTILS License</a>.
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>

@@ -12,7 +12,7 @@ import java.util.List;
  * <a href = "https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.3.3"> The Java Virtual Machine
  * Specification: Method Descriptors </a>.
  * <p>
- * Copyright (c) 2002-2023 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2024 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://djutils.org" target="_blank"> https://djutils.org</a>. The DJUTILS project is
  * distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://djutils.org/docs/license.html" target="_blank"> https://djutils.org/docs/license.html</a>.
