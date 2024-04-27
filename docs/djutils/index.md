@@ -24,12 +24,12 @@ Maven is one of the easiest ways to include DJUTILS in a Java project. The Maven
   <dependency>
     <groupId>org.djutils</groupId>
     <artifactId>djutils</artifactId>
-    <version>2.1.7</version>
+    <version>2.2.1</version>
   </dependency>
 </dependencies>
 ```
 
-Of course, the version number (2.1.7 in the above example) needs to be replaced with the version that one wants to include in the project.
+Of course, the version number (2.2.1 in the above example) needs to be replaced with the version that one wants to include in the project.
 
 DJUTILS jars before version 2 are kept on a server at TU Delft at [https://djutils.org/maven](https://djutils.org/maven).
 
