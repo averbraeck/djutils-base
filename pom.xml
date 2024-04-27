@@ -200,7 +200,6 @@
         <configuration>
           <links>
             <link>https://docs.oracle.com/en/java/javase/11/docs/api/</link>
-            <link>https://download.java.net/media/java3d/javadoc/1.5.1/</link>
             <link>https://tinylog.org/v1/javadoc/</link>
             <link>https://github.com/remkop/picocli/tree/main/docs/apidocs/</link>
           </links>
