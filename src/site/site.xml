@@ -1,23 +1,35 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<project name="${artifactId} ${version}" xmlns="http://maven.apache.org/DECORATION/1.6.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project name="${project.artifactId} ${project.version}" xmlns="http://maven.apache.org/DECORATION/1.6.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/DECORATION/1.6.0 http://maven.apache.org/xsd/decoration-1.6.0.xsd">
 
   <publishDate position="left" format="dd-MM-yyyy hh:mm" />
 
+  <skin>
+    <groupId>org.apache.maven.skins</groupId>
+    <artifactId>maven-fluido-skin</artifactId>
+    <version>2.0.0-M8</version>
+  </skin>
+  
+  <bannerLeft>
+    <name>${project.name}</name>
+  </bannerLeft>
+
   <bannerRight>
-    <name>${artifactId} ${version}</name>
+    <name>${project.artifactId} ${project.version}</name>
   </bannerRight>
+
 
   <body>
 
     <menu name="MODULES">
       <item name="djutils-parent" href="https://djutils.org/docs/${version}/index.html" />
-      <item name="djutils" href="https://djutils.org/docs/${version}/djutils/index.html" />
+      <item name="djutils-base" href="https://djutils.org/docs/${version}/djutils-base/index.html" />
       <item name="djutils-cli" href="https://djutils.org/docs/${version}/djutils-cli/index.html" />
       <item name="djutils-serialization" href="https://djutils.org/docs/${version}/djutils-serialization/index.html" />
       <item name="djutils-data" href="https://djutils.org/docs/${version}/djutils-data/index.html" />
       <item name="djutils-stats" href="https://djutils.org/docs/${version}/djutils-stats/index.html" />
       <item name="djutils-draw" href="https://djutils.org/docs/${version}/djutils-draw/index.html" />
+      <item name="djutils-eval" href="https://djutils.org/docs/${version}/djutils-eval/index.html" />
     </menu>
 
     <menu name="API">
