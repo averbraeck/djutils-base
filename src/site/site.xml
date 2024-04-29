@@ -22,14 +22,14 @@
   <body>
 
     <menu name="MODULES">
-      <item name="djutils-parent" href="https://djutils.org/docs/${version}/index.html" />
-      <item name="djutils-base" href="https://djutils.org/docs/${version}/djutils-base/index.html" />
-      <item name="djutils-cli" href="https://djutils.org/docs/${version}/djutils-cli/index.html" />
-      <item name="djutils-serialization" href="https://djutils.org/docs/${version}/djutils-serialization/index.html" />
-      <item name="djutils-data" href="https://djutils.org/docs/${version}/djutils-data/index.html" />
-      <item name="djutils-stats" href="https://djutils.org/docs/${version}/djutils-stats/index.html" />
-      <item name="djutils-draw" href="https://djutils.org/docs/${version}/djutils-draw/index.html" />
-      <item name="djutils-eval" href="https://djutils.org/docs/${version}/djutils-eval/index.html" />
+      <item name="djutils-parent" href="https://djutils.org/docs/${project.version}/index.html" />
+      <item name="djutils-base" href="https://djutils.org/docs/${project.version}/djutils-base/index.html" />
+      <item name="djutils-cli" href="https://djutils.org/docs/${project.version}/djutils-cli/index.html" />
+      <item name="djutils-serialization" href="https://djutils.org/docs/${project.version}/djutils-serialization/index.html" />
+      <item name="djutils-data" href="https://djutils.org/docs/${project.version}/djutils-data/index.html" />
+      <item name="djutils-stats" href="https://djutils.org/docs/${project.version}/djutils-stats/index.html" />
+      <item name="djutils-draw" href="https://djutils.org/docs/${project.version}/djutils-draw/index.html" />
+      <item name="djutils-eval" href="https://djutils.org/docs/${project.version}/djutils-eval/index.html" />
     </menu>
 
     <menu name="API">
@@ -55,7 +55,7 @@
       <item name="Project Summary" href="summary.html" />
       <item name="Dependencies" href="dependencies.html" />
       <item name="Project Team" href="team.html" />
-      <item name="Project License" href="https://djutils.org/docs/${version}/license.html" />
+      <item name="Project License" href="https://djutils.org/docs/${project.version}/license.html" />
       <item name="Versions + Changes" href="changes-report.html" />
     </menu>
 
