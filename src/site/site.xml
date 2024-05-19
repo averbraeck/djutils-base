@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<project name="${project.artifactId} ${project.version}" xmlns="http://maven.apache.org/DECORATION/1.6.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/DECORATION/1.6.0 http://maven.apache.org/xsd/decoration-1.6.0.xsd">
+<site xmlns="http://maven.apache.org/SITE/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SITE/2.0.0 https://maven.apache.org/xsd/site-2.0.0.xsd"
+  name="${project.artifactId} ${project.version}">
 
-  <publishDate position="left" format="dd-MM-yyyy hh:mm" />
+  <publishDate position="left" format="dd-MM-yyyy HH:mm" />
+
+  <bannerLeft name="${project.name}" />
+  <bannerRight name="${project.artifactId} ${project.version}" />
 
   <skin>
     <groupId>org.apache.maven.skins</groupId>
@@ -10,26 +14,17 @@
     <version>2.0.0-M8</version>
   </skin>
   
-  <bannerLeft>
-    <name>${project.name}</name>
-  </bannerLeft>
-
-  <bannerRight>
-    <name>${project.artifactId} ${project.version}</name>
-  </bannerRight>
-
-
   <body>
 
     <menu name="MODULES">
-      <item name="djutils-parent" href="https://djutils.org/docs/${project.version}/index.html" />
-      <item name="djutils-base" href="https://djutils.org/docs/${project.version}/djutils-base/index.html" />
-      <item name="djutils-cli" href="https://djutils.org/docs/${project.version}/djutils-cli/index.html" />
-      <item name="djutils-serialization" href="https://djutils.org/docs/${project.version}/djutils-serialization/index.html" />
-      <item name="djutils-data" href="https://djutils.org/docs/${project.version}/djutils-data/index.html" />
-      <item name="djutils-stats" href="https://djutils.org/docs/${project.version}/djutils-stats/index.html" />
-      <item name="djutils-draw" href="https://djutils.org/docs/${project.version}/djutils-draw/index.html" />
-      <item name="djutils-eval" href="https://djutils.org/docs/${project.version}/djutils-eval/index.html" />
+      <item name="djutils-parent" href="../index.html" />
+      <item name="djutils-base" href="index.html" />
+      <item name="djutils-cli" href="../djutils-cli/index.html" />
+      <item name="djutils-data" href="../djutils-data/index.html" />
+      <item name="djutils-draw" href="../djutils-draw/index.html" />
+      <item name="djutils-eval" href="../djutils-eval/index.html" />
+      <item name="djutils-serialization" href="../djutils-serialization/index.html" />
+      <item name="djutils-stats" href="../djutils-stats/index.html" />
     </menu>
 
     <menu name="API">
@@ -55,12 +50,12 @@
       <item name="Project Summary" href="summary.html" />
       <item name="Dependencies" href="dependencies.html" />
       <item name="Project Team" href="team.html" />
-      <item name="Project License" href="https://djutils.org/docs/${project.version}/license.html" />
-      <item name="Versions + Changes" href="changes-report.html" />
+      <item name="Project License" href="../license.html" />
+      <item name="Versions + Changes" href="../changes-report.html" />
+      <item name="DJUTILS manual" href="../manual/" target="_blank" />
     </menu>
 
     <menu name="RELATED">
-      <item name="DJUTILS manual" href="https://djutils.org" target="_blank" />
       <item name="DJUNITS" href="https://djunits.org" target="_blank" />
       <item name="SIM0MQ" href="https://sim0mq.org" target="_blank" />
       <item name="DSOL" href="https://simulation.tudelft.nl/dsol/manual" target="_blank" />
@@ -71,4 +66,4 @@
     </menu>
 
   </body>
-</project>
+</site>
