@@ -139,7 +139,7 @@ public interface EventProducer extends Serializable, Remote
     /**
      * Return the map with the EventListener entries and the reference types.
      * @return EventListenerMap; the map with the EventListener entries and the reference types
-     * @throws RemoteException on netowrk error
+     * @throws RemoteException on network error
      */
     EventListenerMap getEventListenerMap() throws RemoteException;
 
