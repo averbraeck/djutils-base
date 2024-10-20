@@ -49,7 +49,7 @@ public class ObjectDescriptor implements Serializable
      * Retrieve the name of the object.
      * @return String; description of the object
      */
-    String getName()
+    public String getName()
     {
         return this.name;
     }
@@ -58,7 +58,7 @@ public class ObjectDescriptor implements Serializable
      * Retrieve the description of the object.
      * @return String; description of the object
      */
-    String getDescription()
+    public String getDescription()
     {
         return this.description;
     }
