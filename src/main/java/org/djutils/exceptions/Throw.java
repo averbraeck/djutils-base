@@ -71,7 +71,7 @@ public final class Throw
     {
         if (condition)
         {
-            throwMessage(throwableClass, message, new ArrayList<>());
+            throwMessage(throwableClass, message, null);
         }
     }
 
@@ -198,7 +198,8 @@ public final class Throw
      * Private method to handle the throwing an Exception, Throwable or Error.
      * @param throwableClass Class&lt;T&gt;; the Throwable type to throw
      * @param message String; the message to use in the exception, with potential formatting identifiers
-     * @param argList List&lt;Object&gt;; List with potential values to use for the formatting identifiers
+     * @param argList List&lt;Object&gt;; List with potential values to use for the formatting identifiers, or null when there
+     *            are no formatting identifiers
      * @throws T the throwable to throw
      * @param <T> the Throwable type
      */
@@ -211,15 +212,21 @@ public final class Throw
         steList.remove(0); // remove the when(...) call
         StackTraceElement[] ste = steList.toArray(new StackTraceElement[steList.size()]);
         String where = ste[0].getClassName() + "." + ste[0].getMethodName() + " (" + ste[0].getLineNumber() + "): ";
-        Object[] args = argList.toArray();
         String formattedMessage;
-        try
+        if (argList == null)
         {
-            formattedMessage = where + String.format(message, args);
+            formattedMessage = message;
         }
-        catch (IllegalFormatException exception)
+        else
         {
-            formattedMessage = where + message + " [FormatException; args=" + argList + "]";
+            try
+            {
+                formattedMessage = where + String.format(message, argList.toArray());
+            }
+            catch (IllegalFormatException exception)
+            {
+                formattedMessage = where + message + " [FormatException; args=" + argList + "]";
+            }
         }
 
         // throw all other exceptions through reflection
@@ -261,7 +268,7 @@ public final class Throw
     {
         if (condition)
         {
-            throwMessage(throwableClass, message, new ArrayList<>());
+            throwMessage(throwableClass, message, null);
         }
         return object;
     }
@@ -409,11 +416,19 @@ public final class Throw
      * Throw a NullPointerException if object is null, e.g. for pre- and postcondition checking. Use as follows: <br>
      * 
      * <pre>
-     * Throw.when(object.getValue(), &quot;Value may not be null.&quot;);
+     * Throw.when(value, &quot;value may not be null.&quot;);
+     * </pre>
+     *
+     * A shortened version where the text " may not be null" is automatically appended after the variable name is just listing
+     * the variable name without any spaces:
+     * 
+     * <pre>
+     * Throw.when(value, &quot;value&quot;);
      * </pre>
      * 
-     * @param object object to check; an exception will be thrown if this is <b>null</b>
-     * @param message String; the message to use in the exception
+     * @param object object to check; an exception will be thrown if the object is <b>null</b>
+     * @param message String; the message to use in the exception, or the variable name that will be appended with " may not be
+     *            null"
      * @param <O> the Object type to return
      * @return the object that was passed as the first parameter
      * @throws NullPointerException if object is null
@@ -422,7 +437,10 @@ public final class Throw
     {
         if (object == null)
         {
-            throwMessage(NullPointerException.class, message, new ArrayList<>());
+            if (message.matches("\\S+")) // \S+ is any non-whitespace character
+                throwMessage(NullPointerException.class, message + " may not be null", null);
+            else
+                throwMessage(NullPointerException.class, message, null);
         }
         return object;
     }
@@ -568,7 +586,7 @@ public final class Throw
      */
     public static void throwUnchecked(final Throwable e)
     {
-        Throw.<RuntimeException>throwAny(e);
+        Throw.<RuntimeException> throwAny(e);
     }
 
     /**

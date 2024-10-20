@@ -25,7 +25,7 @@ public class ThrowTest
     /**
      * Test the Throw class.
      */
-    @SuppressWarnings({"checkstyle:methodlength", "cast"})
+    @SuppressWarnings("checkstyle:methodlength")
     @Test
     public void testThrow()
     {
@@ -48,6 +48,16 @@ public class ThrowTest
         catch (Exception e)
         {
             assertTrue(e.getMessage().endsWith(message), e.getMessage() + " / " + message);
+        }
+
+        try
+        {
+            Throw.whenNull(objectNull, "objectNull");
+        }
+        catch (Exception e)
+        {
+            assertTrue(e.getMessage().endsWith("objectNull may not be null"),
+                    e.getMessage() + " does not end with 'may not be null'");
         }
 
         String message1arg = "Throw error has occurred for %s. Correct";
