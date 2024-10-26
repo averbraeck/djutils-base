@@ -276,6 +276,1004 @@ public class ThrowTest
     }
 
     /**
+     * Test the Throw.whenNaN methods.
+     */
+    @SuppressWarnings("checkstyle:methodlength")
+    @Test
+    public void testThrowWhenNaN()
+    {
+        Double od = Double.valueOf(20.0);
+        Float of = Float.valueOf(20.0f);
+        double d = 20.0;
+        float f = 20.0f;
+
+        Double odnull = null;
+        Float ofnull = null;
+
+        Double odnan = Double.NaN;
+        Float ofnan = Float.NaN;
+        double dnan = Double.NaN;
+        float fnan = Float.NaN;
+
+        //
+        // Throw.whenNaN(...) -> ArithmeticException with message
+        //
+
+        String message = "Throw error has occurred. Correct";
+        try
+        {
+            Throw.whenNaN(odnan, message);
+            fail("Throw.whenNaN should have resulted in an ArithmeticException");
+        }
+        catch (ArithmeticException e)
+        {
+            assertTrue(e.getMessage().endsWith(message), e.getMessage() + " / " + message);
+        }
+
+        try
+        {
+            Throw.whenNaN(ofnan, message);
+            fail("Throw.whenNaN should have resulted in an ArithmeticException");
+        }
+        catch (ArithmeticException e)
+        {
+            assertTrue(e.getMessage().endsWith(message), e.getMessage() + " / " + message);
+        }
+
+        try
+        {
+            Throw.whenNaN(dnan, message);
+            fail("Throw.whenNaN should have resulted in an ArithmeticException");
+        }
+        catch (ArithmeticException e)
+        {
+            assertTrue(e.getMessage().endsWith(message), e.getMessage() + " / " + message);
+        }
+
+        try
+        {
+            Throw.whenNaN(fnan, message);
+            fail("Throw.whenNaN should have resulted in an ArithmeticException");
+        }
+        catch (ArithmeticException e)
+        {
+            assertTrue(e.getMessage().endsWith(message), e.getMessage() + " / " + message);
+        }
+
+        //
+        // Throw.whenNaN(...) -> ArithmeticException with standard message
+        //
+
+        try
+        {
+            Throw.whenNaN(odnan, "value");
+            fail("Throw.whenNaN should have resulted in an ArithmeticException");
+        }
+        catch (ArithmeticException e)
+        {
+            assertTrue(e.getMessage().endsWith("value may not be NaN"), e.getMessage() + " does not end with 'may not be NaN'");
+        }
+
+        try
+        {
+            Throw.whenNaN(ofnan, "value");
+            fail("Throw.whenNaN should have resulted in an ArithmeticException");
+        }
+        catch (ArithmeticException e)
+        {
+            assertTrue(e.getMessage().endsWith("value may not be NaN"), e.getMessage() + " does not end with 'may not be NaN'");
+        }
+
+        try
+        {
+            Throw.whenNaN(dnan, "value");
+            fail("Throw.whenNaN should have resulted in an ArithmeticException");
+        }
+        catch (ArithmeticException e)
+        {
+            assertTrue(e.getMessage().endsWith("value may not be NaN"), e.getMessage() + " does not end with 'may not be NaN'");
+        }
+
+        try
+        {
+            Throw.whenNaN(fnan, "value");
+            fail("Throw.whenNaN should have resulted in an ArithmeticException");
+        }
+        catch (ArithmeticException e)
+        {
+            assertTrue(e.getMessage().endsWith("value may not be NaN"), e.getMessage() + " does not end with 'may not be NaN'");
+        }
+
+        //
+        // Throw.whenNaN(value) -> NO ArithmeticException
+        //
+
+        try
+        {
+            Throw.whenNaN(od, message);
+        }
+        catch (ArithmeticException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an ArithmeticException");
+        }
+
+        try
+        {
+            Throw.whenNaN(of, message);
+        }
+        catch (ArithmeticException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an ArithmeticException");
+        }
+
+        try
+        {
+            Throw.whenNaN(d, message);
+        }
+        catch (ArithmeticException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an ArithmeticException");
+        }
+
+        try
+        {
+            Throw.whenNaN(f, message);
+        }
+        catch (ArithmeticException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an ArithmeticException");
+        }
+
+        //
+        // Throw.whenNaN(value) -> NO ArithmeticException
+        //
+
+        try
+        {
+            Throw.whenNaN(od, "value");
+        }
+        catch (ArithmeticException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an ArithmeticException");
+        }
+
+        try
+        {
+            Throw.whenNaN(of, "value");
+        }
+        catch (ArithmeticException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an ArithmeticException");
+        }
+
+        try
+        {
+            Throw.whenNaN(d, "value");
+        }
+        catch (ArithmeticException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an ArithmeticException");
+        }
+
+        try
+        {
+            Throw.whenNaN(f, "value");
+        }
+        catch (ArithmeticException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an ArithmeticException");
+        }
+
+        //
+        // Throw.whenNaN(null) -> NO ArithmeticException
+        //
+
+        try
+        {
+            Throw.whenNaN(odnull, message);
+        }
+        catch (ArithmeticException e)
+        {
+            fail("Throw.whenNaN of a null value should NOT have resulted in an ArithmeticException");
+        }
+
+        try
+        {
+            Throw.whenNaN(ofnull, message);
+        }
+        catch (ArithmeticException e)
+        {
+            fail("Throw.whenNaN of a null value should NOT have resulted in an ArithmeticException");
+        }
+
+        //
+        // Throw.whenNaN(null) -> NO ArithmeticException
+        //
+
+        try
+        {
+            Throw.whenNaN(odnull, "value");
+        }
+        catch (ArithmeticException e)
+        {
+            fail("Throw.whenNaN of a null value should NOT have resulted in an ArithmeticException");
+        }
+
+        try
+        {
+            Throw.whenNaN(ofnull, "value");
+        }
+        catch (ArithmeticException e)
+        {
+            fail("Throw.whenNaN of a null value should NOT have resulted in an ArithmeticException");
+        }
+    }
+    
+    /**
+     * Test the Throw.whenNaN methods with one argument.
+     */
+    @SuppressWarnings("checkstyle:methodlength")
+    @Test
+    public void testThrowWhenNaNArg1()
+    {
+        Double od = Double.valueOf(20.0);
+        Float of = Float.valueOf(20.0f);
+        double d = 20.0;
+        float f = 20.0f;
+
+        Double odnull = null;
+        Float ofnull = null;
+
+        Double odnan = Double.NaN;
+        Float ofnan = Float.NaN;
+        double dnan = Double.NaN;
+        float fnan = Float.NaN;
+        
+        String s1 = "arg1";
+
+        //
+        // Throw.whenNaN(...) -> ArithmeticException with message
+        //
+
+        String message1arg = "Throw error has occurred for %s. Correct";
+        String message1 = "Throw error has occurred for arg1. Correct";
+        
+        try
+        {
+            Throw.whenNaN(odnan, message1arg, s1); 
+            fail("Throw.whenNaN should have resulted in an ArithmeticException");
+        }
+        catch (ArithmeticException e)
+        {
+            assertTrue(e.getMessage().endsWith(message1), e.getMessage() + " / " + message1);
+        }
+
+        try
+        {
+            Throw.whenNaN(ofnan, message1arg, s1);
+            fail("Throw.whenNaN should have resulted in an ArithmeticException");
+        }
+        catch (ArithmeticException e)
+        {
+            assertTrue(e.getMessage().endsWith(message1), e.getMessage() + " / " + message1);
+        }
+
+        try
+        {
+            Throw.whenNaN(dnan, message1arg, s1);
+            fail("Throw.whenNaN should have resulted in an ArithmeticException");
+        }
+        catch (ArithmeticException e)
+        {
+            assertTrue(e.getMessage().endsWith(message1), e.getMessage() + " / " + message1);
+        }
+
+        try
+        {
+            Throw.whenNaN(fnan, message1arg, s1);
+            fail("Throw.whenNaN should have resulted in an ArithmeticException");
+        }
+        catch (ArithmeticException e)
+        {
+            assertTrue(e.getMessage().endsWith(message1), e.getMessage() + " / " + message1);
+        }
+
+        //
+        // Throw.whenNaN(value) -> NO ArithmeticException
+        //
+
+        try
+        {
+            Throw.whenNaN(od, message1arg, s1);
+        }
+        catch (ArithmeticException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an ArithmeticException");
+        }
+
+        try
+        {
+            Throw.whenNaN(of, message1arg, s1);
+        }
+        catch (ArithmeticException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an ArithmeticException");
+        }
+
+        try
+        {
+            Throw.whenNaN(d, message1arg, s1);
+        }
+        catch (ArithmeticException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an ArithmeticException");
+        }
+
+        try
+        {
+            Throw.whenNaN(f, message1arg, s1);
+        }
+        catch (ArithmeticException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an ArithmeticException");
+        }
+
+        //
+        // Throw.whenNaN(null) -> NO ArithmeticException
+        //
+
+        try
+        {
+            Throw.whenNaN(odnull, message1arg, s1);
+        }
+        catch (ArithmeticException e)
+        {
+            fail("Throw.whenNaN of a null value should NOT have resulted in an ArithmeticException");
+        }
+
+        try
+        {
+            Throw.whenNaN(ofnull, message1arg, s1);
+        }
+        catch (ArithmeticException e)
+        {
+            fail("Throw.whenNaN of a null value should NOT have resulted in an ArithmeticException");
+        }
+    }
+
+    /**
+     * Test the Throw.whenNaN methods with two arguments.
+     */
+    @SuppressWarnings("checkstyle:methodlength")
+    @Test
+    public void testThrowWhenNaNArg2()
+    {
+        Double od = Double.valueOf(20.0);
+        Float of = Float.valueOf(20.0f);
+        double d = 20.0;
+        float f = 20.0f;
+
+        Double odnull = null;
+        Float ofnull = null;
+
+        Double odnan = Double.NaN;
+        Float ofnan = Float.NaN;
+        double dnan = Double.NaN;
+        float fnan = Float.NaN;
+        
+        String s1 = "arg1";
+        Integer i1 = 12;
+
+        //
+        // Throw.whenNaN(...) -> ArithmeticException with message
+        //
+
+        String message2arg = "Throw error has occurred for %s, id=%d. Correct";
+        String message2 = "Throw error has occurred for arg1, id=12. Correct";
+        
+        try
+        {
+            Throw.whenNaN(odnan, message2arg, s1, i1); 
+            fail("Throw.whenNaN should have resulted in an ArithmeticException");
+        }
+        catch (ArithmeticException e)
+        {
+            assertTrue(e.getMessage().endsWith(message2), e.getMessage() + " / " + message2);
+        }
+
+        try
+        {
+            Throw.whenNaN(ofnan, message2arg, s1, i1);
+            fail("Throw.whenNaN should have resulted in an ArithmeticException");
+        }
+        catch (ArithmeticException e)
+        {
+            assertTrue(e.getMessage().endsWith(message2), e.getMessage() + " / " + message2);
+        }
+
+        try
+        {
+            Throw.whenNaN(dnan, message2arg, s1, i1);
+            fail("Throw.whenNaN should have resulted in an ArithmeticException");
+        }
+        catch (ArithmeticException e)
+        {
+            assertTrue(e.getMessage().endsWith(message2), e.getMessage() + " / " + message2);
+        }
+
+        try
+        {
+            Throw.whenNaN(fnan, message2arg, s1, i1);
+            fail("Throw.whenNaN should have resulted in an ArithmeticException");
+        }
+        catch (ArithmeticException e)
+        {
+            assertTrue(e.getMessage().endsWith(message2), e.getMessage() + " / " + message2);
+        }
+
+        //
+        // Throw.whenNaN(value) -> NO ArithmeticException
+        //
+
+        try
+        {
+            Throw.whenNaN(od, message2arg, s1, i1);
+        }
+        catch (ArithmeticException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an ArithmeticException");
+        }
+
+        try
+        {
+            Throw.whenNaN(of, message2arg, s1, i1);
+        }
+        catch (ArithmeticException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an ArithmeticException");
+        }
+
+        try
+        {
+            Throw.whenNaN(d, message2arg, s1, i1);
+        }
+        catch (ArithmeticException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an ArithmeticException");
+        }
+
+        try
+        {
+            Throw.whenNaN(f, message2arg, s1, i1);
+        }
+        catch (ArithmeticException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an ArithmeticException");
+        }
+
+        //
+        // Throw.whenNaN(null) -> NO ArithmeticException
+        //
+
+        try
+        {
+            Throw.whenNaN(odnull, message2arg, s1, i1);
+        }
+        catch (ArithmeticException e)
+        {
+            fail("Throw.whenNaN of a null value should NOT have resulted in an ArithmeticException");
+        }
+
+        try
+        {
+            Throw.whenNaN(ofnull, message2arg, s1, i1);
+        }
+        catch (ArithmeticException e)
+        {
+            fail("Throw.whenNaN of a null value should NOT have resulted in an ArithmeticException");
+        }
+    }
+
+    /**
+     * Test the Throw.whenNaN methods with another RTE.
+     */
+    @SuppressWarnings("checkstyle:methodlength")
+    @Test
+    public void testThrowRTEWhenNaN()
+    {
+        Double od = Double.valueOf(20.0);
+        Float of = Float.valueOf(20.0f);
+        double d = 20.0;
+        float f = 20.0f;
+
+        Double odnull = null;
+        Float ofnull = null;
+
+        Double odnan = Double.NaN;
+        Float ofnan = Float.NaN;
+        double dnan = Double.NaN;
+        float fnan = Float.NaN;
+
+        //
+        // Throw.whenNaN(...) -> IllegalArgumentException with message
+        //
+
+        String message = "Throw error has occurred. Correct";
+        try
+        {
+            Throw.whenNaN(odnan, IllegalArgumentException.class, message);
+            fail("Throw.whenNaN should have resulted in an IllegalArgumentException");
+        }
+        catch (IllegalArgumentException e)
+        {
+            assertTrue(e.getMessage().endsWith(message), e.getMessage() + " / " + message);
+        }
+
+        try
+        {
+            Throw.whenNaN(ofnan, IllegalArgumentException.class, message);
+            fail("Throw.whenNaN should have resulted in an IllegalArgumentException");
+        }
+        catch (IllegalArgumentException e)
+        {
+            assertTrue(e.getMessage().endsWith(message), e.getMessage() + " / " + message);
+        }
+
+        try
+        {
+            Throw.whenNaN(dnan, IllegalArgumentException.class, message);
+            fail("Throw.whenNaN should have resulted in an IllegalArgumentException");
+        }
+        catch (IllegalArgumentException e)
+        {
+            assertTrue(e.getMessage().endsWith(message), e.getMessage() + " / " + message);
+        }
+
+        try
+        {
+            Throw.whenNaN(fnan, IllegalArgumentException.class, message);
+            fail("Throw.whenNaN should have resulted in an IllegalArgumentException");
+        }
+        catch (IllegalArgumentException e)
+        {
+            assertTrue(e.getMessage().endsWith(message), e.getMessage() + " / " + message);
+        }
+
+        //
+        // Throw.whenNaN(...) -> IllegalArgumentException with standard message
+        //
+
+        try
+        {
+            Throw.whenNaN(odnan, IllegalArgumentException.class, "value");
+            fail("Throw.whenNaN should have resulted in an IllegalArgumentException");
+        }
+        catch (IllegalArgumentException e)
+        {
+            assertTrue(e.getMessage().endsWith("value may not be NaN"), e.getMessage() + " does not end with 'may not be NaN'");
+        }
+
+        try
+        {
+            Throw.whenNaN(ofnan, IllegalArgumentException.class, "value");
+            fail("Throw.whenNaN should have resulted in an IllegalArgumentException");
+        }
+        catch (IllegalArgumentException e)
+        {
+            assertTrue(e.getMessage().endsWith("value may not be NaN"), e.getMessage() + " does not end with 'may not be NaN'");
+        }
+
+        try
+        {
+            Throw.whenNaN(dnan, IllegalArgumentException.class, "value");
+            fail("Throw.whenNaN should have resulted in an IllegalArgumentException");
+        }
+        catch (IllegalArgumentException e)
+        {
+            assertTrue(e.getMessage().endsWith("value may not be NaN"), e.getMessage() + " does not end with 'may not be NaN'");
+        }
+
+        try
+        {
+            Throw.whenNaN(fnan, IllegalArgumentException.class, "value");
+            fail("Throw.whenNaN should have resulted in an IllegalArgumentException");
+        }
+        catch (IllegalArgumentException e)
+        {
+            assertTrue(e.getMessage().endsWith("value may not be NaN"), e.getMessage() + " does not end with 'may not be NaN'");
+        }
+
+        //
+        // Throw.whenNaN(value) -> NO IllegalArgumentException
+        //
+
+        try
+        {
+            Throw.whenNaN(od, IllegalArgumentException.class, message);
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an IllegalArgumentException");
+        }
+
+        try
+        {
+            Throw.whenNaN(of, IllegalArgumentException.class, message);
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an IllegalArgumentException");
+        }
+
+        try
+        {
+            Throw.whenNaN(d, IllegalArgumentException.class, message);
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an IllegalArgumentException");
+        }
+
+        try
+        {
+            Throw.whenNaN(f, IllegalArgumentException.class, message);
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an IllegalArgumentException");
+        }
+
+        //
+        // Throw.whenNaN(value) -> NO IllegalArgumentException
+        //
+
+        try
+        {
+            Throw.whenNaN(od, IllegalArgumentException.class, "value");
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an IllegalArgumentException");
+        }
+
+        try
+        {
+            Throw.whenNaN(of, IllegalArgumentException.class, "value");
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an IllegalArgumentException");
+        }
+
+        try
+        {
+            Throw.whenNaN(d, IllegalArgumentException.class, "value");
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an IllegalArgumentException");
+        }
+
+        try
+        {
+            Throw.whenNaN(f, IllegalArgumentException.class, "value");
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an IllegalArgumentException");
+        }
+
+        //
+        // Throw.whenNaN(null) -> NO IllegalArgumentException
+        //
+
+        try
+        {
+            Throw.whenNaN(odnull, IllegalArgumentException.class, message);
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail("Throw.whenNaN of a null value should NOT have resulted in an IllegalArgumentException");
+        }
+
+        try
+        {
+            Throw.whenNaN(ofnull, IllegalArgumentException.class, message);
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail("Throw.whenNaN of a null value should NOT have resulted in an IllegalArgumentException");
+        }
+
+        //
+        // Throw.whenNaN(null) -> NO IllegalArgumentException
+        //
+
+        try
+        {
+            Throw.whenNaN(odnull, IllegalArgumentException.class, "value");
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail("Throw.whenNaN of a null value should NOT have resulted in an IllegalArgumentException");
+        }
+
+        try
+        {
+            Throw.whenNaN(ofnull, IllegalArgumentException.class, "value");
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail("Throw.whenNaN of a null value should NOT have resulted in an IllegalArgumentException");
+        }
+    }
+    
+    /**
+     * Test the Throw.whenNaN methods with one argument.
+     */
+    @SuppressWarnings("checkstyle:methodlength")
+    @Test
+    public void testThrowRTEWhenNaNArg1()
+    {
+        Double od = Double.valueOf(20.0);
+        Float of = Float.valueOf(20.0f);
+        double d = 20.0;
+        float f = 20.0f;
+
+        Double odnull = null;
+        Float ofnull = null;
+
+        Double odnan = Double.NaN;
+        Float ofnan = Float.NaN;
+        double dnan = Double.NaN;
+        float fnan = Float.NaN;
+        
+        String s1 = "arg1";
+
+        //
+        // Throw.whenNaN(...) -> IllegalArgumentException with message
+        //
+
+        String message1arg = "Throw error has occurred for %s. Correct";
+        String message1 = "Throw error has occurred for arg1. Correct";
+        
+        try
+        {
+            Throw.whenNaN(odnan, IllegalArgumentException.class, message1arg, s1); 
+            fail("Throw.whenNaN should have resulted in an IllegalArgumentException");
+        }
+        catch (IllegalArgumentException e)
+        {
+            assertTrue(e.getMessage().endsWith(message1), e.getMessage() + " / " + message1);
+        }
+
+        try
+        {
+            Throw.whenNaN(ofnan, IllegalArgumentException.class, message1arg, s1);
+            fail("Throw.whenNaN should have resulted in an IllegalArgumentException");
+        }
+        catch (IllegalArgumentException e)
+        {
+            assertTrue(e.getMessage().endsWith(message1), e.getMessage() + " / " + message1);
+        }
+
+        try
+        {
+            Throw.whenNaN(dnan, IllegalArgumentException.class, message1arg, s1);
+            fail("Throw.whenNaN should have resulted in an IllegalArgumentException");
+        }
+        catch (IllegalArgumentException e)
+        {
+            assertTrue(e.getMessage().endsWith(message1), e.getMessage() + " / " + message1);
+        }
+
+        try
+        {
+            Throw.whenNaN(fnan, IllegalArgumentException.class, message1arg, s1);
+            fail("Throw.whenNaN should have resulted in an IllegalArgumentException");
+        }
+        catch (IllegalArgumentException e)
+        {
+            assertTrue(e.getMessage().endsWith(message1), e.getMessage() + " / " + message1);
+        }
+
+        //
+        // Throw.whenNaN(value) -> NO IllegalArgumentException
+        //
+
+        try
+        {
+            Throw.whenNaN(od, IllegalArgumentException.class, message1arg, s1);
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an IllegalArgumentException");
+        }
+
+        try
+        {
+            Throw.whenNaN(of, IllegalArgumentException.class, message1arg, s1);
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an IllegalArgumentException");
+        }
+
+        try
+        {
+            Throw.whenNaN(d, IllegalArgumentException.class, message1arg, s1);
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an IllegalArgumentException");
+        }
+
+        try
+        {
+            Throw.whenNaN(f, IllegalArgumentException.class, message1arg, s1);
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an IllegalArgumentException");
+        }
+
+        //
+        // Throw.whenNaN(null) -> NO IllegalArgumentException
+        //
+
+        try
+        {
+            Throw.whenNaN(odnull, IllegalArgumentException.class, message1arg, s1);
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail("Throw.whenNaN of a null value should NOT have resulted in an IllegalArgumentException");
+        }
+
+        try
+        {
+            Throw.whenNaN(ofnull, IllegalArgumentException.class, message1arg, s1);
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail("Throw.whenNaN of a null value should NOT have resulted in an IllegalArgumentException");
+        }
+    }
+
+    /**
+     * Test the Throw.whenNaN methods with two arguments.
+     */
+    @SuppressWarnings("checkstyle:methodlength")
+    @Test
+    public void testThrowRTEWhenNaNArg2()
+    {
+        Double od = Double.valueOf(20.0);
+        Float of = Float.valueOf(20.0f);
+        double d = 20.0;
+        float f = 20.0f;
+
+        Double odnull = null;
+        Float ofnull = null;
+
+        Double odnan = Double.NaN;
+        Float ofnan = Float.NaN;
+        double dnan = Double.NaN;
+        float fnan = Float.NaN;
+        
+        String s1 = "arg1";
+        Integer i1 = 12;
+
+        //
+        // Throw.whenNaN(...) -> IllegalArgumentException with message
+        //
+
+        String message2arg = "Throw error has occurred for %s, id=%d. Correct";
+        String message2 = "Throw error has occurred for arg1, id=12. Correct";
+        
+        try
+        {
+            Throw.whenNaN(odnan, IllegalArgumentException.class, message2arg, s1, i1); 
+            fail("Throw.whenNaN should have resulted in an IllegalArgumentException");
+        }
+        catch (IllegalArgumentException e)
+        {
+            assertTrue(e.getMessage().endsWith(message2), e.getMessage() + " / " + message2);
+        }
+
+        try
+        {
+            Throw.whenNaN(ofnan, IllegalArgumentException.class, message2arg, s1, i1);
+            fail("Throw.whenNaN should have resulted in an IllegalArgumentException");
+        }
+        catch (IllegalArgumentException e)
+        {
+            assertTrue(e.getMessage().endsWith(message2), e.getMessage() + " / " + message2);
+        }
+
+        try
+        {
+            Throw.whenNaN(dnan, IllegalArgumentException.class, message2arg, s1, i1);
+            fail("Throw.whenNaN should have resulted in an IllegalArgumentException");
+        }
+        catch (IllegalArgumentException e)
+        {
+            assertTrue(e.getMessage().endsWith(message2), e.getMessage() + " / " + message2);
+        }
+
+        try
+        {
+            Throw.whenNaN(fnan, IllegalArgumentException.class, message2arg, s1, i1);
+            fail("Throw.whenNaN should have resulted in an IllegalArgumentException");
+        }
+        catch (IllegalArgumentException e)
+        {
+            assertTrue(e.getMessage().endsWith(message2), e.getMessage() + " / " + message2);
+        }
+
+        //
+        // Throw.whenNaN(value) -> NO IllegalArgumentException
+        //
+
+        try
+        {
+            Throw.whenNaN(od, IllegalArgumentException.class, message2arg, s1, i1);
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an IllegalArgumentException");
+        }
+
+        try
+        {
+            Throw.whenNaN(of, IllegalArgumentException.class, message2arg, s1, i1);
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an IllegalArgumentException");
+        }
+
+        try
+        {
+            Throw.whenNaN(d, IllegalArgumentException.class, message2arg, s1, i1);
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an IllegalArgumentException");
+        }
+
+        try
+        {
+            Throw.whenNaN(f, IllegalArgumentException.class, message2arg, s1, i1);
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail("Throw.whenNaN of a normal value should NOT have resulted in an IllegalArgumentException");
+        }
+
+        //
+        // Throw.whenNaN(null) -> NO IllegalArgumentException
+        //
+
+        try
+        {
+            Throw.whenNaN(odnull, IllegalArgumentException.class, message2arg, s1, i1);
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail("Throw.whenNaN of a null value should NOT have resulted in an IllegalArgumentException");
+        }
+
+        try
+        {
+            Throw.whenNaN(ofnull, IllegalArgumentException.class, message2arg, s1, i1);
+        }
+        catch (IllegalArgumentException e)
+        {
+            fail("Throw.whenNaN of a null value should NOT have resulted in an IllegalArgumentException");
+        }
+    }
+
+    /**
      * Test the Throw.throwUnchecked() method.
      */
     @Test

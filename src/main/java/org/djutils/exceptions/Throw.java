@@ -416,14 +416,14 @@ public final class Throw
      * Throw a NullPointerException if object is null, e.g. for pre- and postcondition checking. Use as follows: <br>
      * 
      * <pre>
-     * Throw.when(value, &quot;value may not be null.&quot;);
+     * Throw.whenNull(value, &quot;value may not be null.&quot;);
      * </pre>
      *
      * A shortened version where the text " may not be null" is automatically appended after the variable name is just listing
      * the variable name without any spaces:
      * 
      * <pre>
-     * Throw.when(value, &quot;value&quot;);
+     * Throw.whenNull(value, &quot;value&quot;);
      * </pre>
      * 
      * @param object object to check; an exception will be thrown if the object is <b>null</b>
@@ -560,6 +560,382 @@ public final class Throw
             throwMessage(NullPointerException.class, message, argList);
         }
         return object;
+    }
+
+    /**
+     * Throw an ArithmeticException if value is NaN, e.g. for pre- and postcondition checking. Use as follows: <br>
+     * 
+     * <pre>
+     * Throw.whenNaN(value, &quot;value may not be NaN.&quot;);
+     * </pre>
+     *
+     * A shortened version where the text " may not be NaN" is automatically appended after the variable name is just listing
+     * the variable name without any spaces:
+     * 
+     * <pre>
+     * Throw.whenNaN(value, &quot;value&quot;);
+     * </pre>
+     * 
+     * @param value double; value to check; an exception will be thrown if the object is <b>NaN</b>
+     * @param message String; the message to use in the exception, or the variable name that will be appended with " may not be
+     *            NaN"
+     * @return double; the value that was passed as the first parameter
+     * @throws ArithmeticException if value is NaN
+     */
+    public static double whenNaN(final double value, final String message) throws ArithmeticException
+    {
+        if (Double.isNaN(value))
+        {
+            if (message.matches("\\S+")) // \S+ is any non-whitespace character
+                throwMessage(ArithmeticException.class, message + " may not be NaN", null);
+            else
+                throwMessage(ArithmeticException.class, message, null);
+        }
+        return value;
+    }
+
+    /**
+     * Throw an ArithmeticException if value is NaN, e.g. for pre- and postcondition checking. Use as follows: <br>
+     * 
+     * <pre>
+     * Throw.whenNaN(value, &quot;value may not be NaN.&quot;);
+     * </pre>
+     *
+     * A shortened version where the text " may not be NaN" is automatically appended after the variable name is just listing
+     * the variable name without any spaces:
+     * 
+     * <pre>
+     * Throw.whenNaN(value, &quot;value&quot;);
+     * </pre>
+     * 
+     * @param value float; value to check; an exception will be thrown if the object is <b>NaN</b>
+     * @param message String; the message to use in the exception, or the variable name that will be appended with " may not be
+     *            NaN"
+     * @return float; the value that was passed as the first parameter
+     * @throws ArithmeticException if value is NaN
+     */
+    public static float whenNaN(final float value, final String message) throws ArithmeticException
+    {
+        if (Float.isNaN(value))
+        {
+            if (message.matches("\\S+")) // \S+ is any non-whitespace character
+                throwMessage(ArithmeticException.class, message + " may not be NaN", null);
+            else
+                throwMessage(ArithmeticException.class, message, null);
+        }
+        return value;
+    }
+
+    /**
+     * Throw an ArithmeticException if value is NaN, e.g. for pre- and postcondition checking. Use as follows: <br>
+     * 
+     * <pre>
+     * Throw.whenNaN(value, &quot;value may not be NaN.&quot;);
+     * </pre>
+     *
+     * A shortened version where the text " may not be NaN" is automatically appended after the variable name is just listing
+     * the variable name without any spaces:
+     * 
+     * <pre>
+     * Throw.whenNaN(value, &quot;value&quot;);
+     * </pre>
+     * 
+     * @param value Double; value to check; an exception will be thrown if the object is <b>NaN</b>
+     * @param message String; the message to use in the exception, or the variable name that will be appended with " may not be
+     *            NaN"
+     * @return Double; the value that was passed as the first parameter
+     * @throws ArithmeticException if value is NaN
+     */
+    public static Double whenNaN(final Double value, final String message) throws ArithmeticException
+    {
+        if (value != null && Double.isNaN(value))
+        {
+            if (message.matches("\\S+")) // \S+ is any non-whitespace character
+                throwMessage(ArithmeticException.class, message + " may not be NaN", null);
+            else
+                throwMessage(ArithmeticException.class, message, null);
+        }
+        return value;
+    }
+
+    /**
+     * Throw an ArithmeticException if value is NaN, e.g. for pre- and postcondition checking. Use as follows: <br>
+     * 
+     * <pre>
+     * Throw.whenNaN(value, &quot;Value may not be NaN for object %s with name %s, id %s.&quot;, object, name, id);
+     * </pre>
+     * 
+     * @param value Double; the value to check; an exception will be thrown if this is <b>NaN</b>
+     * @param message String; the message to use in the exception, with formatting identifiers
+     * @param arg1 Object; 1st value to use for the formatting identifiers
+     * @param args Object...; potential 2nd and further values to use for the formatting identifiers
+     * @return Double; the value that was passed as the first parameter
+     * @throws ArithmeticException if value is NaN
+     */
+    public static Double whenNaN(final Double value, final String message, final Object arg1, final Object... args)
+            throws ArithmeticException
+    {
+        if (value != null && Double.isNaN(value))
+        {
+            List<Object> argList = new ArrayList<>();
+            argList.add(arg1);
+            argList.addAll(Arrays.asList(args));
+            throwMessage(ArithmeticException.class, message, argList);
+        }
+        return value;
+    }
+
+    /**
+     * Throw an ArithmeticException if value is NaN, e.g. for pre- and postcondition checking. Use as follows: <br>
+     * 
+     * <pre>
+     * Throw.whenNaN(value, &quot;value may not be NaN.&quot;);
+     * </pre>
+     *
+     * A shortened version where the text " may not be NaN" is automatically appended after the variable name is just listing
+     * the variable name without any spaces:
+     * 
+     * <pre>
+     * Throw.whenNaN(value, &quot;value&quot;);
+     * </pre>
+     * 
+     * @param value Float; value to check; an exception will be thrown if the object is <b>NaN</b>
+     * @param message String; the message to use in the exception, or the variable name that will be appended with " may not be
+     *            NaN"
+     * @return Float; the value that was passed as the first parameter
+     * @throws ArithmeticException if value is NaN
+     */
+    public static Float whenNaN(final Float value, final String message) throws ArithmeticException
+    {
+        if (value != null && Float.isNaN(value))
+        {
+            if (message.matches("\\S+")) // \S+ is any non-whitespace character
+                throwMessage(ArithmeticException.class, message + " may not be NaN", null);
+            else
+                throwMessage(ArithmeticException.class, message, null);
+        }
+        return value;
+    }
+
+    /**
+     * Throw an ArithmeticException if value is NaN, e.g. for pre- and postcondition checking. Use as follows: <br>
+     * 
+     * <pre>
+     * Throw.whenNaN(value, &quot;Value may not be NaN for object %s with name %s, id %s.&quot;, object, name, id);
+     * </pre>
+     * 
+     * @param value Float; the value to check; an exception will be thrown if this is <b>NaN</b>
+     * @param message String; the message to use in the exception, with formatting identifiers
+     * @param arg1 Object; 1st value to use for the formatting identifiers
+     * @param args Object...; potential 2nd and further values to use for the formatting identifiers
+     * @return Float; the value that was passed as the first parameter
+     * @throws ArithmeticException if value is NaN
+     */
+    public static Float whenNaN(final Float value, final String message, final Object arg1, final Object... args)
+            throws ArithmeticException
+    {
+        if (value != null && Float.isNaN(value))
+        {
+            List<Object> argList = new ArrayList<>();
+            argList.add(arg1);
+            argList.addAll(Arrays.asList(args));
+            throwMessage(ArithmeticException.class, message, argList);
+        }
+        return value;
+    }
+
+    /**
+     * Throw a specified exception if value is NaN, e.g. for pre- and postcondition checking. Use as follows: <br>
+     * 
+     * <pre>
+     * Throw.whenNaN(value, IllegalArgumentException.class, &quot;value may not be NaN.&quot;);
+     * </pre>
+     *
+     * A shortened version where the text " may not be NaN" is automatically appended after the variable name is just listing
+     * the variable name without any spaces:
+     * 
+     * <pre>
+     * Throw.whenNaN(value, IllegalArgumentException.class, &quot;value&quot;);
+     * </pre>
+     * 
+     * @param value double; value to check; an exception will be thrown if the object is <b>NaN</b>
+     * @param throwableClass Class&lt;T&gt;; the Throwable type to throw
+     * @param message String; the message to use in the exception, or the variable name that will be appended with " may not be
+     *            NaN"
+     * @return double; the value that was passed as the first parameter
+     * @throws T if value is NaN
+     */
+    public static <T extends Throwable> double whenNaN(final double value, final Class<T> throwableClass, final String message)
+            throws T
+    {
+        if (Double.isNaN(value))
+        {
+            if (message.matches("\\S+")) // \S+ is any non-whitespace character
+                throwMessage(throwableClass, message + " may not be NaN", null);
+            else
+                throwMessage(throwableClass, message, null);
+        }
+        return value;
+    }
+
+    /**
+     * Throw a specified exception if value is NaN, e.g. for pre- and postcondition checking. Use as follows: <br>
+     * 
+     * <pre>
+     * Throw.whenNaN(value, IllegalArgumentException.class, &quot;value may not be NaN.&quot;);
+     * </pre>
+     *
+     * A shortened version where the text " may not be NaN" is automatically appended after the variable name is just listing
+     * the variable name without any spaces:
+     * 
+     * <pre>
+     * Throw.whenNaN(value, IllegalArgumentException.class, &quot;value&quot;);
+     * </pre>
+     * 
+     * @param value float; value to check; an exception will be thrown if the object is <b>NaN</b>
+     * @param throwableClass Class&lt;T&gt;; the Throwable type to throw
+     * @param message String; the message to use in the exception, or the variable name that will be appended with " may not be
+     *            NaN"
+     * @return float; the value that was passed as the first parameter
+     * @throws T if value is NaN
+     */
+    public static <T extends Throwable> float whenNaN(final float value, final Class<T> throwableClass, final String message)
+            throws T
+    {
+        if (Float.isNaN(value))
+        {
+            if (message.matches("\\S+")) // \S+ is any non-whitespace character
+                throwMessage(throwableClass, message + " may not be NaN", null);
+            else
+                throwMessage(throwableClass, message, null);
+        }
+        return value;
+    }
+
+    /**
+     * Throw a specified exception if value is NaN, e.g. for pre- and postcondition checking. Use as follows: <br>
+     * 
+     * <pre>
+     * Throw.whenNaN(value, IllegalArgumentException.class, &quot;value may not be NaN.&quot;);
+     * </pre>
+     *
+     * A shortened version where the text " may not be NaN" is automatically appended after the variable name is just listing
+     * the variable name without any spaces:
+     * 
+     * <pre>
+     * Throw.whenNaN(value, IllegalArgumentException.class, &quot;value&quot;);
+     * </pre>
+     * 
+     * @param value Double; value to check; an exception will be thrown if the object is <b>NaN</b>
+     * @param throwableClass Class&lt;T&gt;; the Throwable type to throw
+     * @param message String; the message to use in the exception, or the variable name that will be appended with " may not be
+     *            NaN"
+     * @return Double; the value that was passed as the first parameter
+     * @throws T if value is NaN
+     */
+    public static <T extends Throwable> Double whenNaN(final Double value, final Class<T> throwableClass, final String message)
+            throws T
+    {
+        if (value != null && Double.isNaN(value))
+        {
+            if (message.matches("\\S+")) // \S+ is any non-whitespace character
+                throwMessage(throwableClass, message + " may not be NaN", null);
+            else
+                throwMessage(throwableClass, message, null);
+        }
+        return value;
+    }
+
+    /**
+     * Throw a specified exception if value is NaN, e.g. for pre- and postcondition checking. Use as follows: <br>
+     * 
+     * <pre>
+     * Throw.whenNaN(value, IllegalArgumentException.class, &quot;Value may not be NaN for object %s with name %s, 
+     *          id %s.&quot;, object, name, id);
+     * </pre>
+     * 
+     * @param value Double; the value to check; an exception will be thrown if this is <b>NaN</b>
+     * @param throwableClass Class&lt;T&gt;; the Throwable type to throw
+     * @param message String; the message to use in the exception, with formatting identifiers
+     * @param arg1 Object; 1st value to use for the formatting identifiers
+     * @param args Object...; potential 2nd and further values to use for the formatting identifiers
+     * @return Double; the value that was passed as the first parameter
+     * @throws T if value is NaN
+     */
+    public static <T extends Throwable> Double whenNaN(final Double value, final Class<T> throwableClass, final String message,
+            final Object arg1, final Object... args) throws T
+    {
+        if (value != null && Double.isNaN(value))
+        {
+            List<Object> argList = new ArrayList<>();
+            argList.add(arg1);
+            argList.addAll(Arrays.asList(args));
+            throwMessage(throwableClass, message, argList);
+        }
+        return value;
+    }
+
+    /**
+     * Throw a specified exception if value is NaN, e.g. for pre- and postcondition checking. Use as follows: <br>
+     * 
+     * <pre>
+     * Throw.whenNaN(value, IllegalArgumentException.class, &quot;value may not be NaN.&quot;);
+     * </pre>
+     *
+     * A shortened version where the text " may not be NaN" is automatically appended after the variable name is just listing
+     * the variable name without any spaces:
+     * 
+     * <pre>
+     * Throw.whenNaN(value, IllegalArgumentException.class, &quot;value&quot;);
+     * </pre>
+     * 
+     * @param value Float; value to check; an exception will be thrown if the object is <b>NaN</b>
+     * @param throwableClass Class&lt;T&gt;; the Throwable type to throw
+     * @param message String; the message to use in the exception, or the variable name that will be appended with " may not be
+     *            NaN"
+     * @return Float; the value that was passed as the first parameter
+     * @throws T if value is NaN
+     */
+    public static <T extends Throwable> Float whenNaN(final Float value, final Class<T> throwableClass, final String message)
+            throws T
+    {
+        if (value != null && Float.isNaN(value))
+        {
+            if (message.matches("\\S+")) // \S+ is any non-whitespace character
+                throwMessage(throwableClass, message + " may not be NaN", null);
+            else
+                throwMessage(throwableClass, message, null);
+        }
+        return value;
+    }
+
+    /**
+     * Throw a specified exception if value is NaN, e.g. for pre- and postcondition checking. Use as follows: <br>
+     * 
+     * <pre>
+     * Throw.whenNaN(value, IllegalArgumentException.class, &quot;Value may not be NaN for object %s with name %s, 
+     *          id %s.&quot;, object, name, id);
+     * </pre>
+     * 
+     * @param value Float; the value to check; an exception will be thrown if this is <b>NaN</b>
+     * @param throwableClass Class&lt;T&gt;; the Throwable type to throw
+     * @param message String; the message to use in the exception, with formatting identifiers
+     * @param arg1 Object; 1st value to use for the formatting identifiers
+     * @param args Object...; potential 2nd and further values to use for the formatting identifiers
+     * @return Float; the value that was passed as the first parameter
+     * @throws T if value is NaN
+     */
+    public static <T extends Throwable> Float whenNaN(final Float value, final Class<T> throwableClass, final String message,
+            final Object arg1, final Object... args) throws T
+    {
+        if (value != null && Float.isNaN(value))
+        {
+            List<Object> argList = new ArrayList<>();
+            argList.add(arg1);
+            argList.addAll(Arrays.asList(args));
+            throwMessage(throwableClass, message, argList);
+        }
+        return value;
     }
 
     /**
