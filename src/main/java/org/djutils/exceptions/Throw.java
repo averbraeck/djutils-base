@@ -438,9 +438,13 @@ public final class Throw
         if (object == null)
         {
             if (message.matches("\\S+")) // \S+ is any non-whitespace character
+            {
                 throwMessage(NullPointerException.class, message + " may not be null", null);
+            }
             else
+            {
                 throwMessage(NullPointerException.class, message, null);
+            }
         }
         return object;
     }
@@ -587,9 +591,13 @@ public final class Throw
         if (Double.isNaN(value))
         {
             if (message.matches("\\S+")) // \S+ is any non-whitespace character
+            {
                 throwMessage(ArithmeticException.class, message + " may not be NaN", null);
+            }
             else
+            {
                 throwMessage(ArithmeticException.class, message, null);
+            }
         }
         return value;
     }
@@ -619,9 +627,13 @@ public final class Throw
         if (Float.isNaN(value))
         {
             if (message.matches("\\S+")) // \S+ is any non-whitespace character
+            {
                 throwMessage(ArithmeticException.class, message + " may not be NaN", null);
+            }
             else
+            {
                 throwMessage(ArithmeticException.class, message, null);
+            }
         }
         return value;
     }
@@ -651,9 +663,13 @@ public final class Throw
         if (value != null && Double.isNaN(value))
         {
             if (message.matches("\\S+")) // \S+ is any non-whitespace character
+            {
                 throwMessage(ArithmeticException.class, message + " may not be NaN", null);
+            }
             else
+            {
                 throwMessage(ArithmeticException.class, message, null);
+            }
         }
         return value;
     }
@@ -710,9 +726,13 @@ public final class Throw
         if (value != null && Float.isNaN(value))
         {
             if (message.matches("\\S+")) // \S+ is any non-whitespace character
+            {
                 throwMessage(ArithmeticException.class, message + " may not be NaN", null);
+            }
             else
+            {
                 throwMessage(ArithmeticException.class, message, null);
+            }
         }
         return value;
     }
@@ -762,6 +782,7 @@ public final class Throw
      * @param throwableClass Class&lt;T&gt;; the Throwable type to throw
      * @param message String; the message to use in the exception, or the variable name that will be appended with " may not be
      *            NaN"
+     * @param <T> the Throwable class
      * @return double; the value that was passed as the first parameter
      * @throws T if value is NaN
      */
@@ -771,9 +792,13 @@ public final class Throw
         if (Double.isNaN(value))
         {
             if (message.matches("\\S+")) // \S+ is any non-whitespace character
+            {
                 throwMessage(throwableClass, message + " may not be NaN", null);
+            }
             else
+            {
                 throwMessage(throwableClass, message, null);
+            }
         }
         return value;
     }
@@ -796,6 +821,7 @@ public final class Throw
      * @param throwableClass Class&lt;T&gt;; the Throwable type to throw
      * @param message String; the message to use in the exception, or the variable name that will be appended with " may not be
      *            NaN"
+     * @param <T> the Throwable class
      * @return float; the value that was passed as the first parameter
      * @throws T if value is NaN
      */
@@ -805,9 +831,13 @@ public final class Throw
         if (Float.isNaN(value))
         {
             if (message.matches("\\S+")) // \S+ is any non-whitespace character
+            {
                 throwMessage(throwableClass, message + " may not be NaN", null);
+            }
             else
+            {
                 throwMessage(throwableClass, message, null);
+            }
         }
         return value;
     }
@@ -830,6 +860,7 @@ public final class Throw
      * @param throwableClass Class&lt;T&gt;; the Throwable type to throw
      * @param message String; the message to use in the exception, or the variable name that will be appended with " may not be
      *            NaN"
+     * @param <T> the Throwable class
      * @return Double; the value that was passed as the first parameter
      * @throws T if value is NaN
      */
@@ -839,9 +870,13 @@ public final class Throw
         if (value != null && Double.isNaN(value))
         {
             if (message.matches("\\S+")) // \S+ is any non-whitespace character
+            {
                 throwMessage(throwableClass, message + " may not be NaN", null);
+            }
             else
+            {
                 throwMessage(throwableClass, message, null);
+            }
         }
         return value;
     }
@@ -859,6 +894,7 @@ public final class Throw
      * @param message String; the message to use in the exception, with formatting identifiers
      * @param arg1 Object; 1st value to use for the formatting identifiers
      * @param args Object...; potential 2nd and further values to use for the formatting identifiers
+     * @param <T> the Throwable class
      * @return Double; the value that was passed as the first parameter
      * @throws T if value is NaN
      */
@@ -893,6 +929,7 @@ public final class Throw
      * @param throwableClass Class&lt;T&gt;; the Throwable type to throw
      * @param message String; the message to use in the exception, or the variable name that will be appended with " may not be
      *            NaN"
+     * @param <T> the Throwable class
      * @return Float; the value that was passed as the first parameter
      * @throws T if value is NaN
      */
@@ -902,9 +939,13 @@ public final class Throw
         if (value != null && Float.isNaN(value))
         {
             if (message.matches("\\S+")) // \S+ is any non-whitespace character
+            {
                 throwMessage(throwableClass, message + " may not be NaN", null);
+            }
             else
+            {
                 throwMessage(throwableClass, message, null);
+            }
         }
         return value;
     }
@@ -922,6 +963,7 @@ public final class Throw
      * @param message String; the message to use in the exception, with formatting identifiers
      * @param arg1 Object; 1st value to use for the formatting identifiers
      * @param args Object...; potential 2nd and further values to use for the formatting identifiers
+     * @param <T> the Throwable class
      * @return Float; the value that was passed as the first parameter
      * @throws T if value is NaN
      */
@@ -962,7 +1004,7 @@ public final class Throw
      */
     public static void throwUnchecked(final Throwable e)
     {
-        Throw.<RuntimeException> throwAny(e);
+        Throw.<RuntimeException>throwAny(e);
     }
 
     /**
