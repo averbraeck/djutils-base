@@ -18,8 +18,14 @@ import java.lang.reflect.Constructor;
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @author <a href="https://www.github.com/WJSchakel">Wouter Schakel</a>
  */
-public class ExceptionTest
+public final class ExceptionTest
 {
+    /** */
+    private ExceptionTest()
+    {
+        // utility class.
+    }
+    
     /**
      * Test exception class on constructors: empty, only message, only Throwable, message and Throwable.
      * @param clazz exception class to test.
