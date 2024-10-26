@@ -107,7 +107,7 @@ public class TestExceptionTest
     }
     
     /** Private exception with private constructors. */
-    private static class PrivateException extends Exception
+    private static final class PrivateException extends Exception
     {
         /** */
         private static final long serialVersionUID = 1L;
