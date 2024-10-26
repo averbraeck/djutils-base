@@ -274,6 +274,7 @@
 		<!-- See http://checkstyle.sf.net/config_design.html -->
 		<module name="DesignForExtension">
 			<property name="severity" value="warning" />
+      <property name="ignoredAnnotations" value="Override"/>
 		</module>
 		<module name="FinalClass">
 			<property name="severity" value="warning" />
