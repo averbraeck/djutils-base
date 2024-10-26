@@ -17,7 +17,6 @@ public class TimeStamper implements Decoder
     /** Result of next call to getResult. */
     private String result = "";
 
-    /** {@inheritDoc} */
     @Override
     public String getResult()
     {
@@ -26,14 +25,12 @@ public class TimeStamper implements Decoder
         return retVal;
     }
 
-    /** {@inheritDoc} */
     @Override
     public int getMaximumWidth()
     {
         return 14;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean append(final int address, final byte theByte) throws IOException
     {
@@ -45,14 +42,12 @@ public class TimeStamper implements Decoder
         return false;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean ignoreForIdenticalOutputCheck()
     {
         return false;
     }
 
-    /** {@inheritDoc} */
     @Override
     public String toString()
     {

@@ -57,21 +57,18 @@ public class ImmutableLinkedHashSet<E> extends ImmutableAbstractSet<E>
                 : set.getUnderlyingCollection(), copyOrWrap);
     }
 
-    /** {@inheritDoc} */
     @Override
     protected Set<E> getUnderlyingCollection()
     {
         return super.getUnderlyingCollection();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final Set<E> toSet()
     {
         return new LinkedHashSet<E>(getUnderlyingCollection());
     }
 
-    /** {@inheritDoc} */
     @Override
     public final String toString()
     {

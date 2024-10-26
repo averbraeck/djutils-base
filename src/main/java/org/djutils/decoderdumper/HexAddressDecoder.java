@@ -28,7 +28,6 @@ public class HexAddressDecoder implements Decoder
     /** Result returned by getResult. */
     private String result = "";
 
-    /** {@inheritDoc} */
     @Override
     public String getResult()
     {
@@ -37,14 +36,12 @@ public class HexAddressDecoder implements Decoder
         return retVal;
     }
 
-    /** {@inheritDoc} */
     @Override
     public int getMaximumWidth()
     {
         return 8;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean append(final int address, final byte theByte)
     {
@@ -52,14 +49,12 @@ public class HexAddressDecoder implements Decoder
         return this.roundToMultiple > 1 && address % this.roundToMultiple == this.roundToMultiple - 1;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean ignoreForIdenticalOutputCheck()
     {
         return true;
     }
 
-    /** {@inheritDoc} */
     @Override
     public String toString()
     {

@@ -42,42 +42,36 @@ public class EventProducingListIterator<T> extends EventProducingIterator<T> imp
         super(wrappedIterator);
     }
 
-    /** {@inheritDoc} */
     @Override
     protected ListIterator<T> getWrappedIterator()
     {
         return (ListIterator<T>) super.getWrappedIterator();
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean hasPrevious()
     {
         return getWrappedIterator().hasPrevious();
     }
 
-    /** {@inheritDoc} */
     @Override
     public T previous()
     {
         return getWrappedIterator().previous();
     }
 
-    /** {@inheritDoc} */
     @Override
     public int nextIndex()
     {
         return getWrappedIterator().nextIndex();
     }
 
-    /** {@inheritDoc} */
     @Override
     public int previousIndex()
     {
         return getWrappedIterator().previousIndex();
     }
 
-    /** {@inheritDoc} */
     @Override
     public void set(final T e)
     {
@@ -85,7 +79,6 @@ public class EventProducingListIterator<T> extends EventProducingIterator<T> imp
         fireEvent(OBJECT_CHANGED_EVENT);
     }
 
-    /** {@inheritDoc} */
     @Override
     public void add(final T e)
     {

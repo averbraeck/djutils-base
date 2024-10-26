@@ -111,21 +111,18 @@ public class TestImmutableEntry
             this.value = value;
         }
 
-        /** {@inheritDoc} */
         @Override
         public final K getKey()
         {
             return this.key;
         }
 
-        /** {@inheritDoc} */
         @Override
         public final V getValue()
         {
             return this.value;
         }
 
-        /** {@inheritDoc} */
         @Override
         public final V setValue(final V newValue)
         {
@@ -133,7 +130,6 @@ public class TestImmutableEntry
             return this.value;
         }
 
-        /** {@inheritDoc} */
         @Override
         public String toString()
         {

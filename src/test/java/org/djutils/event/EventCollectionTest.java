@@ -599,7 +599,6 @@ public class EventCollectionTest
             return this.receivedEvent;
         }
 
-        /** {@inheritDoc} */
         @Override
         public void notify(final Event event) throws RemoteException
         {

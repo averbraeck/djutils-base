@@ -14,14 +14,12 @@ package org.djutils.means;
  */
 public class ArithmeticMean<V extends Number, W extends Number> extends AbstractMean<ArithmeticMean<V, W>, V, W>
 {
-    /** {@inheritDoc} */
     @Override
     public final double getMean()
     {
         return getSum() / getSumOfWeights();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final ArithmeticMean<V, W> addImpl(final V value, final Number weight)
     {
@@ -29,7 +27,6 @@ public class ArithmeticMean<V extends Number, W extends Number> extends Abstract
         return this;
     }
 
-    /** {@inheritDoc} */
     @Override
     public final String toString()
     {

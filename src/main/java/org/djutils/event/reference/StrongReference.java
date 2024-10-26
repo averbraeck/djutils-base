@@ -41,7 +41,6 @@ public class StrongReference<T extends Serializable> extends Reference<T>
         this.referent = referent;
     }
 
-    /** {@inheritDoc} */
     @Override
     public final T get()
     {

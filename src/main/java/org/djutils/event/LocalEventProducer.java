@@ -41,7 +41,6 @@ public class LocalEventProducer implements EventProducer, Serializable
     /** The collection of interested listeners. */
     private EventListenerMap eventListenerMap = new EventListenerMap();
 
-    /** {@inheritDoc} */
     @Override
     public EventListenerMap getEventListenerMap()
     {
@@ -52,7 +51,6 @@ public class LocalEventProducer implements EventProducer, Serializable
     /* *********************** (RE) IMPLEMENTATION OF METHODS WITHOUT REMOTEEXCEPTION ********************* */
     /* **************************************************************************************************** */
 
-    /** {@inheritDoc} */
     @Override
     public boolean addListener(final EventListener listener, final EventType eventType, final int position,
             final ReferenceType referenceType)
@@ -67,7 +65,6 @@ public class LocalEventProducer implements EventProducer, Serializable
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean addListener(final EventListener listener, final EventType eventType)
     {
@@ -81,7 +78,6 @@ public class LocalEventProducer implements EventProducer, Serializable
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean addListener(final EventListener listener, final EventType eventType, final ReferenceType referenceType)
     {
@@ -96,7 +92,6 @@ public class LocalEventProducer implements EventProducer, Serializable
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean addListener(final EventListener listener, final EventType eventType, final int position)
     {
@@ -111,7 +106,6 @@ public class LocalEventProducer implements EventProducer, Serializable
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public int removeAllListeners()
     {
@@ -126,7 +120,6 @@ public class LocalEventProducer implements EventProducer, Serializable
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public int removeAllListeners(final Class<?> ofClass)
     {
@@ -141,7 +134,6 @@ public class LocalEventProducer implements EventProducer, Serializable
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean removeListener(final EventListener listener, final EventType eventType)
     {
@@ -156,7 +148,6 @@ public class LocalEventProducer implements EventProducer, Serializable
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean hasListeners()
     {
@@ -171,7 +162,6 @@ public class LocalEventProducer implements EventProducer, Serializable
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public int numberOfListeners(final EventType eventType)
     {
@@ -186,7 +176,6 @@ public class LocalEventProducer implements EventProducer, Serializable
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public List<Reference<EventListener>> getListenerReferences(final EventType eventType)
     {
@@ -201,7 +190,6 @@ public class LocalEventProducer implements EventProducer, Serializable
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public Set<EventType> getEventTypesWithListeners()
     {
@@ -216,7 +204,6 @@ public class LocalEventProducer implements EventProducer, Serializable
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public void fireEvent(final Event event)
     {
@@ -231,7 +218,6 @@ public class LocalEventProducer implements EventProducer, Serializable
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public <C extends Comparable<C> & Serializable> void fireTimedEvent(final TimedEvent<C> event)
     {
@@ -246,7 +232,6 @@ public class LocalEventProducer implements EventProducer, Serializable
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public void fireEvent(final EventType eventType)
     {
@@ -261,7 +246,6 @@ public class LocalEventProducer implements EventProducer, Serializable
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public <C extends Comparable<C> & Serializable> void fireTimedEvent(final EventType eventType, final C time)
     {
@@ -276,7 +260,6 @@ public class LocalEventProducer implements EventProducer, Serializable
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public void fireEvent(final EventType eventType, final Serializable value)
     {
@@ -291,7 +274,6 @@ public class LocalEventProducer implements EventProducer, Serializable
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public <C extends Comparable<C> & Serializable> void fireTimedEvent(final EventType eventType, final Serializable value,
             final C time)
@@ -308,7 +290,6 @@ public class LocalEventProducer implements EventProducer, Serializable
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public void fireUnverifiedEvent(final EventType eventType)
     {
@@ -323,7 +304,6 @@ public class LocalEventProducer implements EventProducer, Serializable
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public <C extends Comparable<C> & Serializable> void fireUnverifiedTimedEvent(final EventType eventType, final C time)
 
@@ -339,7 +319,6 @@ public class LocalEventProducer implements EventProducer, Serializable
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public void fireUnverifiedEvent(final EventType eventType, final Serializable value)
     {
@@ -354,7 +333,6 @@ public class LocalEventProducer implements EventProducer, Serializable
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public <C extends Comparable<C> & Serializable> void fireUnverifiedTimedEvent(final EventType eventType,
             final Serializable value, final C time)

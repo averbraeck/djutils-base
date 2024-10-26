@@ -45,21 +45,18 @@ public class EventProducingIterator<T> extends LocalEventProducer implements Ite
         this.wrappedIterator = wrappedIterator;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean hasNext()
     {
         return getWrappedIterator().hasNext();
     }
 
-    /** {@inheritDoc} */
     @Override
     public T next()
     {
         return getWrappedIterator().next();
     }
 
-    /** {@inheritDoc} */
     @Override
     public void remove()
     {

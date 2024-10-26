@@ -51,14 +51,12 @@ public class MutableBoolean
         this.value = !this.value;
     }
 
-    /** {@inheritDoc} */
     @Override
     public int hashCode()
     {
         return Objects.hash(this.value);
     }
 
-    /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:needbraces")
     public boolean equals(final Object obj)
@@ -73,7 +71,6 @@ public class MutableBoolean
         return this.value == other.value;
     }
 
-    /** {@inheritDoc} */
     @Override
     public String toString()
     {

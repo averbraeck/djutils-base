@@ -1191,7 +1191,6 @@ public final class ClassUtil
             return this.lastChangedDate;
         }
 
-        /** {@inheritDoc} */
         @Override
         public String toString()
         {

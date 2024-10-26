@@ -61,21 +61,18 @@ public class EventProducingCollection<T> extends LocalEventProducer implements E
         this.wrappedCollection = wrappedCollection;
     }
 
-    /** {@inheritDoc} */
     @Override
     public int size()
     {
         return this.wrappedCollection.size();
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean isEmpty()
     {
         return this.wrappedCollection.isEmpty();
     }
 
-    /** {@inheritDoc} */
     @Override
     public void clear()
     {
@@ -87,7 +84,6 @@ public class EventProducingCollection<T> extends LocalEventProducer implements E
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean add(final T o)
     {
@@ -103,7 +99,6 @@ public class EventProducingCollection<T> extends LocalEventProducer implements E
         return changed;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean addAll(final Collection<? extends T> c)
     {
@@ -122,21 +117,18 @@ public class EventProducingCollection<T> extends LocalEventProducer implements E
         return changed;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean contains(final Object o)
     {
         return this.wrappedCollection.contains(o);
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean containsAll(final Collection<?> c)
     {
         return this.wrappedCollection.containsAll(c);
     }
 
-    /** {@inheritDoc} */
     @Override
     public EventProducingIterator<T> iterator()
     {
@@ -146,7 +138,6 @@ public class EventProducingCollection<T> extends LocalEventProducer implements E
         return iterator;
     }
 
-    /** {@inheritDoc} */
     @Override
     public void notify(final Event event) throws RemoteException
     {
@@ -157,7 +148,6 @@ public class EventProducingCollection<T> extends LocalEventProducer implements E
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean remove(final Object o)
     {
@@ -169,7 +159,6 @@ public class EventProducingCollection<T> extends LocalEventProducer implements E
         return changed;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean removeAll(final Collection<?> c)
     {
@@ -181,7 +170,6 @@ public class EventProducingCollection<T> extends LocalEventProducer implements E
         return changed;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean retainAll(final Collection<?> c)
     {
@@ -193,14 +181,12 @@ public class EventProducingCollection<T> extends LocalEventProducer implements E
         return changed;
     }
 
-    /** {@inheritDoc} */
     @Override
     public Object[] toArray()
     {
         return this.wrappedCollection.toArray();
     }
 
-    /** {@inheritDoc} */
     @Override
     public <E> E[] toArray(final E[] a)
     {

@@ -88,14 +88,12 @@ public class Event implements Serializable
         return this.type;
     }
 
-    /** {@inheritDoc} */
     @Override
     public int hashCode()
     {
         return Objects.hash(this.content, this.type);
     }
 
-    /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:needbraces")
     public boolean equals(final Object obj)
@@ -110,7 +108,6 @@ public class Event implements Serializable
         return Objects.equals(this.content, other.content) && Objects.equals(this.type, other.type);
     }
 
-    /** {@inheritDoc} */
     @Override
     public String toString()
     {

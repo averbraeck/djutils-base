@@ -41,7 +41,6 @@ public class HexDecoder implements Decoder
     /** String builder for current output line. */
     private StringBuilder buffer = new StringBuilder();
 
-    /** {@inheritDoc} */
     @Override
     public String getResult()
     {
@@ -50,14 +49,12 @@ public class HexDecoder implements Decoder
         return result;
     }
 
-    /** {@inheritDoc} */
     @Override
     public int getMaximumWidth()
     {
         return this.prototypeLine.length();
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean append(final int address, final byte theByte) throws IOException
     {
@@ -71,14 +68,12 @@ public class HexDecoder implements Decoder
         return lineByte == this.fieldsPerLine - 1;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean ignoreForIdenticalOutputCheck()
     {
         return false;
     }
 
-    /** {@inheritDoc} */
     @Override
     public String toString()
     {

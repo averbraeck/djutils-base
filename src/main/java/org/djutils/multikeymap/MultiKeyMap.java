@@ -237,7 +237,6 @@ public class MultiKeyMap<T>
         return subMap.map.remove(keys.get(keys.size() - 1));
     }
 
-    /** {@inheritDoc} */
     @Override
     public String toString()
     {

@@ -51,7 +51,6 @@ public class Base64Decoder implements Decoder
         this.internalDumper.addDecoder(new CharDecoder(maximumBytesPerOutputLine, extraSpaceAfterEvery));
     }
 
-    /** {@inheritDoc} */
     @Override
     public String getResult()
     {
@@ -69,14 +68,12 @@ public class Base64Decoder implements Decoder
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public int getMaximumWidth()
     {
         return this.internalDumper.getMaximumWidth();
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean append(final int address, final byte theByte) throws IOException
     {
@@ -137,7 +134,6 @@ public class Base64Decoder implements Decoder
         return false;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean ignoreForIdenticalOutputCheck()
     {

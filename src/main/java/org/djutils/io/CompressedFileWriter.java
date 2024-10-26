@@ -73,7 +73,6 @@ public final class CompressedFileWriter implements AutoCloseable
         return this.bufferedWriter;
     }
 
-    /** {@inheritDoc} */
     @Override
     public void close() throws IOException
     {

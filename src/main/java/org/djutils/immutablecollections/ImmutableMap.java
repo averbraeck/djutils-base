@@ -454,7 +454,6 @@ public interface ImmutableMap<K, V> extends Serializable
             return this.wrappedEntry.getValue();
         }
 
-        /** {@inheritDoc} */
         @Override
         public int hashCode()
         {
@@ -464,7 +463,6 @@ public interface ImmutableMap<K, V> extends Serializable
             return result;
         }
 
-        /** {@inheritDoc} */
         @Override
         @SuppressWarnings("checkstyle:needbraces")
         public boolean equals(final Object obj)
@@ -558,7 +556,6 @@ public interface ImmutableMap<K, V> extends Serializable
                     c2.getValue());
         }
 
-        /** {@inheritDoc} */
         @Override
         public String toString()
         {

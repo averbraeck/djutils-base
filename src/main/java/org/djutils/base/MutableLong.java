@@ -95,14 +95,12 @@ public class MutableLong
         this.value /= divisor;
     }
 
-    /** {@inheritDoc} */
     @Override
     public int hashCode()
     {
         return Objects.hash(this.value);
     }
 
-    /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:needbraces")
     public boolean equals(final Object obj)
@@ -117,7 +115,6 @@ public class MutableLong
         return this.value == other.value;
     }
 
-    /** {@inheritDoc} */
     @Override
     public String toString()
     {

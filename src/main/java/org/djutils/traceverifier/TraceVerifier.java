@@ -92,7 +92,6 @@ public class TraceVerifier implements Closeable
         writer.close();
     }
 
-    /** {@inheritDoc} */
     @Override
     public void close() throws IOException
     {
@@ -102,7 +101,6 @@ public class TraceVerifier implements Closeable
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public String toString()
     {

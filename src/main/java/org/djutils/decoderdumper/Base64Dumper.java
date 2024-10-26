@@ -69,7 +69,6 @@ public class Base64Dumper extends Dumper<Base64Dumper>
         return base64Dumper(0, bytes);
     }
 
-    /** {@inheritDoc} */
     @Override
     public String toString()
     {

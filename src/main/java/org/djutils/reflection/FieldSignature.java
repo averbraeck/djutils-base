@@ -65,7 +65,6 @@ public class FieldSignature implements Serializable
         return FieldSignature.toClass(this.value);
     }
 
-    /** {@inheritDoc} */
     @Override
     public String toString()
     {

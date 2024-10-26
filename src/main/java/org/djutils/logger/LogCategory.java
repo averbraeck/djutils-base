@@ -34,7 +34,6 @@ public class LogCategory
         this.hashCode = calcHashCode();
     }
 
-    /** {@inheritDoc} */
     @Override
     public int hashCode()
     {
@@ -54,7 +53,6 @@ public class LogCategory
         return result;
     }
 
-    /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:needbraces")
     public boolean equals(final Object obj)
@@ -71,7 +69,6 @@ public class LogCategory
         return true;
     }
 
-    /** {@inheritDoc} */
     @Override
     public String toString()
     {

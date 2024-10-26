@@ -167,7 +167,6 @@ class Bounded implements Envelope
         this.id = id;
     }
 
-    /** {@inheritDoc} */
     @Override
     public Rectangle getBoundingRectangle()
     {
@@ -192,7 +191,6 @@ class Bounded implements Envelope
         return false;
     }
 
-    /** {@inheritDoc} */
     @Override
     public String toString()
     {

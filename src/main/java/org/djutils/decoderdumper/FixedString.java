@@ -29,7 +29,6 @@ public class FixedString implements Decoder
         this.fixedResult = fixedResult;
     }
 
-    /** {@inheritDoc} */
     @Override
     public String getResult()
     {
@@ -41,14 +40,12 @@ public class FixedString implements Decoder
         return "";
     }
 
-    /** {@inheritDoc} */
     @Override
     public int getMaximumWidth()
     {
         return this.fixedResult.length();
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean append(final int address, final byte theByte)
     {
@@ -56,14 +53,12 @@ public class FixedString implements Decoder
         return false;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean ignoreForIdenticalOutputCheck()
     {
         return false;
     }
 
-    /** {@inheritDoc} */
     @Override
     public String toString()
     {

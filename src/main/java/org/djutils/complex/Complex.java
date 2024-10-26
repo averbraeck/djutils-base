@@ -300,14 +300,12 @@ public class Complex
         return new Complex(this.re / rightOperand, this.im / rightOperand);
     }
 
-    /** {@inheritDoc} */
     @Override
     public String toString()
     {
         return "Complex [re=" + this.re + ", im=" + this.im + "]";
     }
 
-    /** {@inheritDoc} */
     @Override
     public int hashCode()
     {
@@ -321,7 +319,6 @@ public class Complex
         return result;
     }
 
-    /** {@inheritDoc} */
     @SuppressWarnings("checkstyle:needbraces")
     @Override
     public boolean equals(final Object obj)

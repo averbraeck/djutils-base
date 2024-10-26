@@ -69,21 +69,18 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
         return this.minimumSize;
     }
 
-    /** {@inheritDoc} */
     @Override
     public int size()
     {
         return this.tree.size();
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean isEmpty()
     {
         return this.tree.size() == 0;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean contains(final Object o)
     {
@@ -96,7 +93,6 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
         return this.tree.recursiveContains(new RectangleAndPayload<T>(t.getBoundingRectangle(), t));
     }
 
-    /** {@inheritDoc} */
     @Override
     public Iterator<T> iterator()
     {
@@ -114,14 +110,12 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
         return collect(searchArea).iterator();
     }
 
-    /** {@inheritDoc} */
     @Override
     public Object[] toArray()
     {
         return collect(this.tree.getBoundingBox()).toArray();
     }
 
-    /** {@inheritDoc} */
     @SuppressWarnings("hiding")
     @Override
     public <T> T[] toArray(final T[] a)
@@ -145,14 +139,12 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
         return result;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean add(final T e)
     {
         return this.tree.add(new RectangleAndPayload<T>(e.getBoundingRectangle(), e));
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean remove(final Object o)
     {
@@ -165,14 +157,12 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
         return this.tree.remove(new RectangleAndPayload<T>(t.getBoundingRectangle(), t));
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean containsAll(final Collection<?> c)
     {
         return collect(this.tree.getBoundingBox()).containsAll(c);
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean addAll(final Collection<? extends T> c)
     {
@@ -184,7 +174,6 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
         return result;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean removeAll(final Collection<?> c)
     {
@@ -196,14 +185,12 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
         return result;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean retainAll(final Collection<?> c)
     {
         throw new RuntimeException("Not (yet) implemented");
     }
 
-    /** {@inheritDoc} */
     @Override
     public void clear()
     {
@@ -227,7 +214,6 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
         return this.totalSubTrees;
     }
 
-    /** {@inheritDoc} */
     @Override
     public String toString()
     {
@@ -526,7 +512,6 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
             // System.out.println("At end of reBalanceof " + this.toString(1));
         }
 
-        /** {@inheritDoc} */
         @Override
         public String toString()
         {
@@ -650,14 +635,12 @@ class RectangleAndPayload<T extends Object> implements Serializable
         return this.payload;
     }
 
-    /** {@inheritDoc} */
     @Override
     public String toString()
     {
         return "RectangleAndPayload [rectangle=" + this.rectangle + ", payload=" + this.payload + "]";
     }
 
-    /** {@inheritDoc} */
     @Override
     public int hashCode()
     {
@@ -668,7 +651,6 @@ class RectangleAndPayload<T extends Object> implements Serializable
         return result;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean equals(final Object obj)
     {

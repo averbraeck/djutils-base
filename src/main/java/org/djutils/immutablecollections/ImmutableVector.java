@@ -60,7 +60,6 @@ public class ImmutableVector<E> extends ImmutableAbstractList<E>
                 copyOrWrap);
     }
 
-    /** {@inheritDoc} */
     @Override
     public final List<E> toList()
     {
@@ -76,14 +75,12 @@ public class ImmutableVector<E> extends ImmutableAbstractList<E>
         return new Vector<E>(getUnderlyingCollection());
     }
 
-    /** {@inheritDoc} */
     @Override
     protected Vector<E> getUnderlyingCollection()
     {
         return (Vector<E>) super.getUnderlyingCollection();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final ImmutableList<E> subList(final int fromIndex, final int toIndex)
     {
@@ -193,7 +190,6 @@ public class ImmutableVector<E> extends ImmutableAbstractList<E>
         return getUnderlyingCollection().lastElement();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final String toString()
     {

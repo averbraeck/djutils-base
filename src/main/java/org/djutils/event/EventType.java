@@ -112,14 +112,12 @@ public class EventType implements Serializable
         return this.metaData;
     }
 
-    /** {@inheritDoc} */
     @Override
     public int hashCode()
     {
         return Objects.hash(this.definingClassName, this.name);
     }
 
-    /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:needbraces")
     public boolean equals(final Object obj)
@@ -134,7 +132,6 @@ public class EventType implements Serializable
         return Objects.equals(this.definingClassName, other.definingClassName) && Objects.equals(this.name, other.name);
     }
 
-    /** {@inheritDoc} */
     @Override
     public String toString()
     {

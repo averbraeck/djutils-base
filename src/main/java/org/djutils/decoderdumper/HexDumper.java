@@ -70,7 +70,6 @@ public class HexDumper extends Dumper<HexDumper>
         return hexDumper(0, bytes);
     }
 
-    /** {@inheritDoc} */
     @Override
     public String toString()
     {

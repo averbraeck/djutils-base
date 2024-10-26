@@ -279,7 +279,6 @@ public class EventListenerMapTest implements Serializable
             return this.receivedEvent;
         }
 
-        /** {@inheritDoc} */
         @Override
         public void notify(final Event event) throws RemoteException
         {
@@ -308,7 +307,6 @@ public class EventListenerMapTest implements Serializable
             super("localhost", 2050, "testListener");
         }
 
-        /** {@inheritDoc} */
         @Override
         public void notify(final Event event) throws RemoteException
         {

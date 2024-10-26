@@ -62,21 +62,18 @@ public class EventProducingList<E> extends LocalEventProducer implements EventLi
         this.wrappedList = wrappedList;
     }
 
-    /** {@inheritDoc} */
     @Override
     public int size()
     {
         return this.wrappedList.size();
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean isEmpty()
     {
         return this.wrappedList.isEmpty();
     }
 
-    /** {@inheritDoc} */
     @Override
     public void clear()
     {
@@ -88,7 +85,6 @@ public class EventProducingList<E> extends LocalEventProducer implements EventLi
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public void add(final int index, final E element)
     {
@@ -96,7 +92,6 @@ public class EventProducingList<E> extends LocalEventProducer implements EventLi
         fireEvent(OBJECT_ADDED_EVENT, this.wrappedList.size());
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean add(final E o)
     {
@@ -108,7 +103,6 @@ public class EventProducingList<E> extends LocalEventProducer implements EventLi
         return result;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean addAll(final Collection<? extends E> c)
     {
@@ -120,7 +114,6 @@ public class EventProducingList<E> extends LocalEventProducer implements EventLi
         return result;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean addAll(final int index, final Collection<? extends E> c)
     {
@@ -132,35 +125,30 @@ public class EventProducingList<E> extends LocalEventProducer implements EventLi
         return result;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean contains(final Object o)
     {
         return this.wrappedList.contains(o);
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean containsAll(final Collection<?> c)
     {
         return this.wrappedList.containsAll(c);
     }
 
-    /** {@inheritDoc} */
     @Override
     public E get(final int index)
     {
         return this.wrappedList.get(index);
     }
 
-    /** {@inheritDoc} */
     @Override
     public int indexOf(final Object o)
     {
         return this.wrappedList.indexOf(o);
     }
 
-    /** {@inheritDoc} */
     @Override
     public EventProducingIterator<E> iterator()
     {
@@ -170,14 +158,12 @@ public class EventProducingList<E> extends LocalEventProducer implements EventLi
         return iterator;
     }
 
-    /** {@inheritDoc} */
     @Override
     public EventProducingListIterator<E> listIterator()
     {
         return listIterator(0);
     }
 
-    /** {@inheritDoc} */
     @Override
     public EventProducingListIterator<E> listIterator(final int index)
     {
@@ -189,7 +175,6 @@ public class EventProducingList<E> extends LocalEventProducer implements EventLi
         return iterator;
     }
 
-    /** {@inheritDoc} */
     @Override
     public void notify(final Event event) throws RemoteException
     {
@@ -208,14 +193,12 @@ public class EventProducingList<E> extends LocalEventProducer implements EventLi
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public int lastIndexOf(final Object o)
     {
         return this.wrappedList.lastIndexOf(o);
     }
 
-    /** {@inheritDoc} */
     @Override
     public E remove(final int index)
     {
@@ -224,7 +207,6 @@ public class EventProducingList<E> extends LocalEventProducer implements EventLi
         return result;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean remove(final Object o)
     {
@@ -236,7 +218,6 @@ public class EventProducingList<E> extends LocalEventProducer implements EventLi
         return result;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean removeAll(final Collection<?> c)
     {
@@ -248,7 +229,6 @@ public class EventProducingList<E> extends LocalEventProducer implements EventLi
         return result;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean retainAll(final Collection<?> c)
     {
@@ -260,7 +240,6 @@ public class EventProducingList<E> extends LocalEventProducer implements EventLi
         return result;
     }
 
-    /** {@inheritDoc} */
     @Override
     public E set(final int index, final E element)
     {
@@ -269,21 +248,18 @@ public class EventProducingList<E> extends LocalEventProducer implements EventLi
         return result;
     }
 
-    /** {@inheritDoc} */
     @Override
     public List<E> subList(final int fromIndex, final int toIndex)
     {
         return this.wrappedList.subList(fromIndex, toIndex);
     }
 
-    /** {@inheritDoc} */
     @Override
     public Object[] toArray()
     {
         return this.wrappedList.toArray();
     }
 
-    /** {@inheritDoc} */
     @Override
     public <T> T[] toArray(final T[] a)
     {

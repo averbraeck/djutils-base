@@ -685,35 +685,30 @@ public class LoggerTest
         /** Last output. */
         private String result = null;
 
-        /** {@inheritDoc} */
         @Override
         public Set<LogEntryValue> getRequiredLogEntryValues()
         {
             return EnumSet.of(LogEntryValue.LEVEL, LogEntryValue.RENDERED_LOG_ENTRY);
         }
 
-        /** {@inheritDoc} */
         @Override
         public void init(final Configuration configuration) throws Exception
         {
             // Nothing to do
         }
 
-        /** {@inheritDoc} */
         @Override
         public void write(final LogEntry logEntry) throws Exception
         {
             this.result = logEntry.getRenderedLogEntry();
         }
 
-        /** {@inheritDoc} */
         @Override
         public void flush() throws Exception
         {
             // Nothing to do
         }
 
-        /** {@inheritDoc} */
         @Override
         public void close() throws Exception
         {

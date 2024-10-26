@@ -15,14 +15,12 @@ package org.djutils.means;
 public class GeometricMean<V extends Number, W extends Number> extends AbstractMean<GeometricMean<V, W>, V, W>
 {
 
-    /** {@inheritDoc} */
     @Override
     public final double getMean()
     {
         return Math.exp(getSum() / getSumOfWeights());
     }
 
-    /** {@inheritDoc} */
     @Override
     public final GeometricMean<V, W> addImpl(final V value, final Number weight)
     {
@@ -30,7 +28,6 @@ public class GeometricMean<V extends Number, W extends Number> extends AbstractM
         return this;
     }
 
-    /** {@inheritDoc} */
     @Override
     public final String toString()
     {

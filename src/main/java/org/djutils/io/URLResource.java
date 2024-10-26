@@ -257,7 +257,6 @@ public final class URLResource
             this.password = password;
         }
 
-        /** {@inheritDoc} */
         @Override
         protected PasswordAuthentication getPasswordAuthentication()
         {

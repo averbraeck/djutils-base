@@ -111,7 +111,6 @@ public class MethodSignature implements Serializable
         return MethodSignature.getReturnType(this.value);
     }
 
-    /** {@inheritDoc} */
     @Override
     public String toString()
     {

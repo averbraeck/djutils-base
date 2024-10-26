@@ -436,7 +436,6 @@ public final class Profile
             return this.maxTime / NANOSECONDSPERSECOND;
         }
 
-        /** {@inheritDoc} */
         @Override
         public String toString()
         {

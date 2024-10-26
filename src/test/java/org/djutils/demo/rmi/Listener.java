@@ -38,14 +38,12 @@ public class Listener extends RmiObject implements ListenerInterface
         producer.addListener(this);
     }
 
-    /** {@inheritDoc} */
     @Override
     public String getName() throws RemoteException
     {
         return this.listenerName;
     }
 
-    /** {@inheritDoc} */
     @Override
     public void notify(final String payload) throws RemoteException
     {

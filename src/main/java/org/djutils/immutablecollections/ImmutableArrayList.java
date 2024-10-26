@@ -57,28 +57,24 @@ public class ImmutableArrayList<E> extends ImmutableAbstractList<E>
                 copyOrWrap);
     }
 
-    /** {@inheritDoc} */
     @Override
     public final ArrayList<E> toList()
     {
         return new ArrayList<E>(getUnderlyingCollection());
     }
 
-    /** {@inheritDoc} */
     @Override
     protected List<E> getUnderlyingCollection()
     {
         return super.getUnderlyingCollection();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final ImmutableList<E> subList(final int fromIndex, final int toIndex)
     {
         return new ImmutableArrayList<>(getUnderlyingCollection().subList(fromIndex, toIndex));
     }
 
-    /** {@inheritDoc} */
     @Override
     public final String toString()
     {

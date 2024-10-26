@@ -67,21 +67,18 @@ public class ImmutableTreeMap<K, V> extends ImmutableAbstractMap<K, V> implement
                 : immutableTreeMap.getUnderlyingMap(), copyOrWrap);
     }
 
-    /** {@inheritDoc} */
     @Override
     protected final NavigableMap<K, V> getUnderlyingMap()
     {
         return (NavigableMap<K, V>) super.getUnderlyingMap();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final NavigableMap<K, V> toMap()
     {
         return new TreeMap<K, V>(super.getUnderlyingMap());
     }
 
-    /** {@inheritDoc} */
     @Override
     public final ImmutableSortedSet<K> keySet()
     {
@@ -94,7 +91,6 @@ public class ImmutableTreeMap<K, V> extends ImmutableAbstractMap<K, V> implement
         return this.cachedKeySet;
     }
 
-    /** {@inheritDoc} */
     @Override
     public ImmutableSortedSet<ImmutableEntry<K, V>> entrySet()
     {
@@ -102,7 +98,6 @@ public class ImmutableTreeMap<K, V> extends ImmutableAbstractMap<K, V> implement
         {
             NavigableSet<ImmutableEntry<K, V>> immutableEntrySet = new TreeSet<>(new Comparator<ImmutableEntry<K, V>>()
             {
-                /** {@inheritDoc} */
                 @SuppressWarnings("unchecked")
                 @Override
                 public int compare(final ImmutableEntry<K, V> o1, final ImmutableEntry<K, V> o2)
@@ -120,7 +115,6 @@ public class ImmutableTreeMap<K, V> extends ImmutableAbstractMap<K, V> implement
         return this.cachedEntrySet;
     }
 
-    /** {@inheritDoc} */
     @Override
     public ImmutableSortedSet<V> values()
     {
@@ -132,84 +126,72 @@ public class ImmutableTreeMap<K, V> extends ImmutableAbstractMap<K, V> implement
         return (ImmutableNavigableSet<V>) this.cachedValues;
     }
 
-    /** {@inheritDoc} */
     @Override
     public final Comparator<? super K> comparator()
     {
         return getUnderlyingMap().comparator();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final ImmutableSortedMap<K, V> subMap(final K fromKey, final K toKey)
     {
         return new ImmutableTreeMap<K, V>(getUnderlyingMap().subMap(fromKey, toKey));
     }
 
-    /** {@inheritDoc} */
     @Override
     public final ImmutableSortedMap<K, V> headMap(final K toKey)
     {
         return new ImmutableTreeMap<K, V>(getUnderlyingMap().headMap(toKey));
     }
 
-    /** {@inheritDoc} */
     @Override
     public final ImmutableSortedMap<K, V> tailMap(final K fromKey)
     {
         return new ImmutableTreeMap<K, V>(getUnderlyingMap().tailMap(fromKey));
     }
 
-    /** {@inheritDoc} */
     @Override
     public final K firstKey()
     {
         return getUnderlyingMap().firstKey();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final K lastKey()
     {
         return getUnderlyingMap().lastKey();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final K lowerKey(final K key)
     {
         return getUnderlyingMap().lowerKey(key);
     }
 
-    /** {@inheritDoc} */
     @Override
     public final K floorKey(final K key)
     {
         return getUnderlyingMap().floorKey(key);
     }
 
-    /** {@inheritDoc} */
     @Override
     public final K ceilingKey(final K key)
     {
         return getUnderlyingMap().ceilingKey(key);
     }
 
-    /** {@inheritDoc} */
     @Override
     public final K higherKey(final K key)
     {
         return getUnderlyingMap().higherKey(key);
     }
 
-    /** {@inheritDoc} */
     @Override
     public final ImmutableNavigableMap<K, V> descendingMap()
     {
         return new ImmutableTreeMap<K, V>(getUnderlyingMap().descendingMap());
     }
 
-    /** {@inheritDoc} */
     @Override
     public final ImmutableNavigableMap<K, V> subMap(final K fromKey, final boolean fromInclusive, final K toKey,
             final boolean toInclusive)
@@ -217,21 +199,18 @@ public class ImmutableTreeMap<K, V> extends ImmutableAbstractMap<K, V> implement
         return new ImmutableTreeMap<K, V>(getUnderlyingMap().subMap(fromKey, fromInclusive, toKey, toInclusive));
     }
 
-    /** {@inheritDoc} */
     @Override
     public final ImmutableNavigableMap<K, V> headMap(final K toKey, final boolean inclusive)
     {
         return new ImmutableTreeMap<K, V>(getUnderlyingMap().headMap(toKey, inclusive));
     }
 
-    /** {@inheritDoc} */
     @Override
     public final ImmutableNavigableMap<K, V> tailMap(final K fromKey, final boolean inclusive)
     {
         return new ImmutableTreeMap<K, V>(getUnderlyingMap().tailMap(fromKey, inclusive));
     }
 
-    /** {@inheritDoc} */
     @Override
     public final String toString()
     {

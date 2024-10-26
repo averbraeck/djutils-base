@@ -516,7 +516,6 @@ public class RMITest
             return this.name;
         }
 
-        /** {@inheritDoc} */
         @Override
         public int hashCode()
         {
@@ -526,7 +525,6 @@ public class RMITest
             return result;
         }
 
-        /** {@inheritDoc} */
         @SuppressWarnings("checkstyle:needbraces")
         @Override
         public boolean equals(final Object obj)
@@ -628,7 +626,6 @@ public class RMITest
             super(registryURL, bindingKey);
         }
 
-        /** {@inheritDoc} */
         @Override
         public void addListener(final ListenerInterface listener) throws RemoteException
         {
@@ -683,14 +680,12 @@ public class RMITest
             producer.addListener(this);
         }
 
-        /** {@inheritDoc} */
         @Override
         public String getName() throws RemoteException
         {
             return this.listenerName;
         }
 
-        /** {@inheritDoc} */
         @Override
         public void notify(final String payload) throws RemoteException
         {

@@ -59,42 +59,36 @@ public abstract class ImmutableAbstractMap<K, V> implements ImmutableMap<K, V>
         return this.map;
     }
 
-    /** {@inheritDoc} */
     @Override
     public final int size()
     {
         return this.map.size();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final boolean isEmpty()
     {
         return this.map.isEmpty();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final boolean containsKey(final Object key)
     {
         return this.map.containsKey(key);
     }
 
-    /** {@inheritDoc} */
     @Override
     public final boolean containsValue(final Object value)
     {
         return this.map.containsValue(value);
     }
 
-    /** {@inheritDoc} */
     @Override
     public final V get(final Object key)
     {
         return this.map.get(key);
     }
 
-    /** {@inheritDoc} */
     @Override
     public ImmutableCollection<V> values()
     {
@@ -106,14 +100,12 @@ public abstract class ImmutableAbstractMap<K, V> implements ImmutableMap<K, V>
         return this.cachedValues;
     }
 
-    /** {@inheritDoc} */
     @Override
     public final boolean isWrap()
     {
         return this.copyOrWrap.isWrap();
     }
 
-    /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:designforextension")
     public int hashCode()
@@ -124,7 +116,6 @@ public abstract class ImmutableAbstractMap<K, V> implements ImmutableMap<K, V>
         return result;
     }
 
-    /** {@inheritDoc} */
     @Override
     @SuppressWarnings({"checkstyle:designforextension", "checkstyle:needbraces"})
     public boolean equals(final Object obj)

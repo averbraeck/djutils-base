@@ -41,112 +41,96 @@ public abstract class ImmutableAbstractSet<E> extends ImmutableAbstractCollectio
         this.set = set;
     }
 
-    /** {@inheritDoc} */
     @Override
     public final Collection<E> toCollection()
     {
         return toSet();
     }
 
-    /** {@inheritDoc} */
     @Override
     protected Set<E> getUnderlyingCollection()
     {
         return this.set;
     }
 
-    /** {@inheritDoc} */
     @Override
     public final int size()
     {
         return this.set.size();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final boolean isEmpty()
     {
         return this.set.isEmpty();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final boolean contains(final Object o)
     {
         return this.set.contains(o);
     }
 
-    /** {@inheritDoc} */
     @Override
     public final Object[] toArray()
     {
         return this.set.toArray();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final <T> T[] toArray(final T[] a)
     {
         return this.set.toArray(a);
     }
 
-    /** {@inheritDoc} */
     @Override
     public final ImmutableIterator<E> iterator()
     {
         return new ImmutableIterator<E>(this.set.iterator());
     }
 
-    /** {@inheritDoc} */
     @Override
     public final void forEach(final Consumer<? super E> action)
     {
         this.set.forEach(action);
     }
 
-    /** {@inheritDoc} */
     @Override
     public final Spliterator<E> spliterator()
     {
         return this.set.spliterator();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final boolean containsAll(final Collection<?> c)
     {
         return this.set.containsAll(c);
     }
 
-    /** {@inheritDoc} */
     @Override
     public final boolean containsAll(final ImmutableCollection<?> c)
     {
         return this.set.containsAll(c.toCollection());
     }
 
-    /** {@inheritDoc} */
     @Override
     public final Stream<E> stream()
     {
         return this.set.stream();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final Stream<E> parallelStream()
     {
         return this.set.parallelStream();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final boolean isWrap()
     {
         return this.copyOrWrap.isWrap();
     }
 
-    /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:designforextension")
     public int hashCode()
@@ -157,7 +141,6 @@ public abstract class ImmutableAbstractSet<E> extends ImmutableAbstractCollectio
         return result;
     }
 
-    /** {@inheritDoc} */
     @Override
     @SuppressWarnings({"checkstyle:designforextension", "checkstyle:needbraces"})
     public boolean equals(final Object obj)

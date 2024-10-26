@@ -1294,7 +1294,6 @@ public class ThrowTest
     /** Class that has a method with an exception. */
     class NoThrow implements NoThrowInterface
     {
-        /** {@inheritDoc} */
         @Override
         public void doSomethingWithoutException()
         {

@@ -35,7 +35,6 @@ public class Producer extends RmiObject implements ProducerInterface
         super("localhost", 1099, "producer");
     }
 
-    /** {@inheritDoc} */
     @Override
     public void addListener(final ListenerInterface listener) throws RemoteException
     {

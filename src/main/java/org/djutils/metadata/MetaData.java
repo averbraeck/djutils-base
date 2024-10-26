@@ -195,7 +195,6 @@ public class MetaData implements Serializable
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public int hashCode()
     {
@@ -207,7 +206,6 @@ public class MetaData implements Serializable
         return result;
     }
 
-    /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:needbraces")
     public boolean equals(final Object obj)
@@ -228,7 +226,6 @@ public class MetaData implements Serializable
         return true;
     }
 
-    /** {@inheritDoc} */
     @Override
     public String toString()
     {

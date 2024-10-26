@@ -61,42 +61,36 @@ public class EventProducingMap<K, V> extends LocalEventProducer implements Map<K
         this.wrappedMap = wrappedMap;
     }
 
-    /** {@inheritDoc} */
     @Override
     public int size()
     {
         return this.wrappedMap.size();
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean isEmpty()
     {
         return this.wrappedMap.isEmpty();
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean containsKey(final Object key)
     {
         return this.wrappedMap.containsKey(key);
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean containsValue(final Object value)
     {
         return this.wrappedMap.containsValue(value);
     }
 
-    /** {@inheritDoc} */
     @Override
     public V get(final Object key)
     {
         return this.wrappedMap.get(key);
     }
 
-    /** {@inheritDoc} */
     @Override
     public V put(final K key, final V value)
     {
@@ -113,7 +107,6 @@ public class EventProducingMap<K, V> extends LocalEventProducer implements Map<K
         return result;
     }
 
-    /** {@inheritDoc} */
     @Override
     public V remove(final Object key)
     {
@@ -126,7 +119,6 @@ public class EventProducingMap<K, V> extends LocalEventProducer implements Map<K
         return result;
     }
 
-    /** {@inheritDoc} */
     @Override
     public void putAll(final Map<? extends K, ? extends V> map)
     {
@@ -145,7 +137,6 @@ public class EventProducingMap<K, V> extends LocalEventProducer implements Map<K
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public void clear()
     {
@@ -157,21 +148,18 @@ public class EventProducingMap<K, V> extends LocalEventProducer implements Map<K
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public Set<K> keySet()
     {
         return this.wrappedMap.keySet();
     }
 
-    /** {@inheritDoc} */
     @Override
     public Collection<V> values()
     {
         return this.wrappedMap.values();
     }
 
-    /** {@inheritDoc} */
     @Override
     public Set<Map.Entry<K, V>> entrySet()
     {

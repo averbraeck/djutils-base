@@ -1088,21 +1088,18 @@ public class ClassUtilTest
             //
         }
 
-        /** {@inheritDoc} */
         @Override
         void packageVoid()
         {
             //
         }
 
-        /** {@inheritDoc} */
         @Override
         protected void protectedVoid()
         {
             //
         }
 
-        /** {@inheritDoc} */
         @Override
         public void publicVoid()
         {
@@ -1117,21 +1114,18 @@ public class ClassUtilTest
             return 1;
         }
 
-        /** {@inheritDoc} */
         @Override
         int packageInt()
         {
             return 2;
         }
 
-        /** {@inheritDoc} */
         @Override
         protected int protectedInt()
         {
             return 3;
         }
 
-        /** {@inheritDoc} */
         @Override
         public int publicInt()
         {
@@ -1147,21 +1141,18 @@ public class ClassUtilTest
             //
         }
 
-        /** {@inheritDoc} */
         @Override
         void packageArgs(final String s, final double d)
         {
             //
         }
 
-        /** {@inheritDoc} */
         @Override
         protected void protectedArgs(final String s, final double d)
         {
             //
         }
 
-        /** {@inheritDoc} */
         @Override
         public void publicArgs(final String s, final double d)
         {

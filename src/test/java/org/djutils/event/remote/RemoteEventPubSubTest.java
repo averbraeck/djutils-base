@@ -853,7 +853,6 @@ public class RemoteEventPubSubTest
             return this.receivedEvent;
         }
 
-        /** {@inheritDoc} */
         @Override
         public void notify(final Event event) throws RemoteException
         {
@@ -935,7 +934,6 @@ public class RemoteEventPubSubTest
             return this.receivedEvent;
         }
 
-        /** {@inheritDoc} */
         @SuppressWarnings("unchecked")
         @Override
         public void notify(final Event event) throws RemoteException

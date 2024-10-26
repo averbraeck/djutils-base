@@ -158,7 +158,6 @@ public class Rectangle implements Serializable
         return other.left >= this.left && other.right <= this.right && other.bottom >= this.bottom && other.top <= this.top;
     }
 
-    /** {@inheritDoc} */
     @Override
     public String toString()
     {

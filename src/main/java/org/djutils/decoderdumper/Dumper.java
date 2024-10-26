@@ -263,7 +263,6 @@ public class Dumper<T>
         return result;
     }
 
-    /** {@inheritDoc} */
     @Override
     public String toString()
     {

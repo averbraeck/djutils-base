@@ -83,7 +83,6 @@ public class RmiEventProducer implements EventProducer, Remote
         return this.rmiObject.getRegistry();
     }
 
-    /** {@inheritDoc} */
     @Override
     public EventListenerMap getEventListenerMap() throws RemoteException
     {

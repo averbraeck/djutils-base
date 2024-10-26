@@ -62,7 +62,6 @@ public class TimedEvent<T extends Comparable<T> & Serializable> extends Event im
         return this.timeStamp;
     }
 
-    /** {@inheritDoc} */
     @Override
     public int hashCode()
     {
@@ -72,7 +71,6 @@ public class TimedEvent<T extends Comparable<T> & Serializable> extends Event im
         return result;
     }
 
-    /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:needbraces")
     public boolean equals(final Object obj)
@@ -92,14 +90,12 @@ public class TimedEvent<T extends Comparable<T> & Serializable> extends Event im
         return true;
     }
 
-    /** {@inheritDoc} */
     @Override
     public int compareTo(final TimedEvent<T> o)
     {
         return this.timeStamp.compareTo(o.getTimeStamp());
     }
 
-    /** {@inheritDoc} */
     @Override
     public String toString()
     {

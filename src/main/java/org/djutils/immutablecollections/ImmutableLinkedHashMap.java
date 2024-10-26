@@ -65,21 +65,18 @@ public class ImmutableLinkedHashMap<K, V> extends ImmutableAbstractMap<K, V>
                 : immutableMap.getUnderlyingMap(), copyOrWrap);
     }
 
-    /** {@inheritDoc} */
     @Override
     protected final Map<K, V> getUnderlyingMap()
     {
         return super.getUnderlyingMap();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final Map<K, V> toMap()
     {
         return new LinkedHashMap<K, V>(getUnderlyingMap());
     }
 
-    /** {@inheritDoc} */
     @Override
     public final ImmutableSet<K> keySet()
     {
@@ -91,7 +88,6 @@ public class ImmutableLinkedHashMap<K, V> extends ImmutableAbstractMap<K, V>
         return this.cachedKeySet;
     }
 
-    /** {@inheritDoc} */
     @Override
     public ImmutableSet<ImmutableEntry<K, V>> entrySet()
     {
@@ -107,7 +103,6 @@ public class ImmutableLinkedHashMap<K, V> extends ImmutableAbstractMap<K, V>
         return this.cachedEntrySet;
     }
 
-    /** {@inheritDoc} */
     @Override
     public ImmutableCollection<V> values()
     {
@@ -119,7 +114,6 @@ public class ImmutableLinkedHashMap<K, V> extends ImmutableAbstractMap<K, V>
         return this.cachedValues;
     }
 
-    /** {@inheritDoc} */
     @Override
     public final String toString()
     {

@@ -15,14 +15,12 @@ package org.djutils.means;
 public class HarmonicMean<V extends Number, W extends Number> extends AbstractMean<HarmonicMean<V, W>, V, W>
 {
 
-    /** {@inheritDoc} */
     @Override
     public final double getMean()
     {
         return getSumOfWeights() / getSum();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final HarmonicMean<V, W> addImpl(final V value, final Number weight)
     {
@@ -30,7 +28,6 @@ public class HarmonicMean<V extends Number, W extends Number> extends AbstractMe
         return this;
     }
 
-    /** {@inheritDoc} */
     @Override
     public final String toString()
     {

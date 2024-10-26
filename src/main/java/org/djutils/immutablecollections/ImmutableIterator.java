@@ -28,21 +28,18 @@ public class ImmutableIterator<E> implements Iterator<E>
         this.iterator = iterator;
     }
 
-    /** {@inheritDoc} */
     @Override
     public final boolean hasNext()
     {
         return this.iterator.hasNext();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final E next()
     {
         return this.iterator.next();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final String toString()
     {

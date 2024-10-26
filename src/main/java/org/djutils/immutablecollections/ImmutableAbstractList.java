@@ -42,133 +42,114 @@ public abstract class ImmutableAbstractList<E> extends ImmutableAbstractCollecti
         this.list = list;
     }
 
-    /** {@inheritDoc} */
     @Override
     public final Collection<E> toCollection()
     {
         return toList();
     }
 
-    /** {@inheritDoc} */
     @Override
     protected List<E> getUnderlyingCollection()
     {
         return this.list;
     }
 
-    /** {@inheritDoc} */
     @Override
     public final int size()
     {
         return this.list.size();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final boolean isEmpty()
     {
         return this.list.isEmpty();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final boolean contains(final Object o)
     {
         return this.list.contains(o);
     }
 
-    /** {@inheritDoc} */
     @Override
     public final int indexOf(final Object o)
     {
         return this.list.indexOf(o);
     }
 
-    /** {@inheritDoc} */
     @Override
     public final int lastIndexOf(final Object o)
     {
         return this.list.lastIndexOf(o);
     }
 
-    /** {@inheritDoc} */
     @Override
     public final Object[] toArray()
     {
         return this.list.toArray();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final <T> T[] toArray(final T[] a)
     {
         return this.list.toArray(a);
     }
 
-    /** {@inheritDoc} */
     @Override
     public final E get(final int index)
     {
         return this.list.get(index);
     }
 
-    /** {@inheritDoc} */
     @Override
     public final ImmutableIterator<E> iterator()
     {
         return new ImmutableIterator<E>(this.list.iterator());
     }
 
-    /** {@inheritDoc} */
     @Override
     public final void forEach(final Consumer<? super E> action)
     {
         this.list.forEach(action);
     }
 
-    /** {@inheritDoc} */
     @Override
     public final Spliterator<E> spliterator()
     {
         return this.list.spliterator();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final boolean containsAll(final Collection<?> c)
     {
         return this.list.containsAll(c);
     }
 
-    /** {@inheritDoc} */
     @Override
     public final boolean containsAll(final ImmutableCollection<?> c)
     {
         return this.list.containsAll(c.toCollection());
     }
 
-    /** {@inheritDoc} */
     @Override
     public final Stream<E> stream()
     {
         return this.list.stream();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final Stream<E> parallelStream()
     {
         return this.list.parallelStream();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final boolean isWrap()
     {
         return this.copyOrWrap.isWrap();
     }
 
-    /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:designforextension")
     public int hashCode()
@@ -179,7 +160,6 @@ public abstract class ImmutableAbstractList<E> extends ImmutableAbstractCollecti
         return result;
     }
 
-    /** {@inheritDoc} */
     @Override
     @SuppressWarnings({"checkstyle:designforextension", "checkstyle:needbraces"})
     public boolean equals(final Object obj)

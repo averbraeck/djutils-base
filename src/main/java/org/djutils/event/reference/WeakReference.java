@@ -39,7 +39,6 @@ public class WeakReference<T extends Serializable> extends Reference<T>
         this.referent = new java.lang.ref.WeakReference<T>(referent);
     }
 
-    /** {@inheritDoc} */
     @Override
     public final T get()
     {

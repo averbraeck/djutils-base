@@ -60,21 +60,18 @@ public class ImmutableHashSet<E> extends ImmutableAbstractSet<E>
                 copyOrWrap);
     }
 
-    /** {@inheritDoc} */
     @Override
     protected Set<E> getUnderlyingCollection()
     {
         return super.getUnderlyingCollection();
     }
 
-    /** {@inheritDoc} */
     @Override
     public final Set<E> toSet()
     {
         return new HashSet<E>(getUnderlyingCollection());
     }
 
-    /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:designforextension")
     public String toString()

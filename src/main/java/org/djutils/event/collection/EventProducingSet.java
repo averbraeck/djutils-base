@@ -62,21 +62,18 @@ public class EventProducingSet<E> extends LocalEventProducer implements EventLis
         this.wrappedSet = wrappedSet;
     }
 
-    /** {@inheritDoc} */
     @Override
     public int size()
     {
         return this.wrappedSet.size();
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean isEmpty()
     {
         return this.wrappedSet.isEmpty();
     }
 
-    /** {@inheritDoc} */
     @Override
     public void clear()
     {
@@ -88,7 +85,6 @@ public class EventProducingSet<E> extends LocalEventProducer implements EventLis
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean add(final E o)
     {
@@ -104,7 +100,6 @@ public class EventProducingSet<E> extends LocalEventProducer implements EventLis
         return changed;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean addAll(final Collection<? extends E> c)
     {
@@ -123,21 +118,18 @@ public class EventProducingSet<E> extends LocalEventProducer implements EventLis
         return changed;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean contains(final Object o)
     {
         return this.wrappedSet.contains(o);
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean containsAll(final Collection<?> c)
     {
         return this.wrappedSet.containsAll(c);
     }
 
-    /** {@inheritDoc} */
     @Override
     public EventProducingIterator<E> iterator()
     {
@@ -147,7 +139,6 @@ public class EventProducingSet<E> extends LocalEventProducer implements EventLis
         return iterator;
     }
 
-    /** {@inheritDoc} */
     @Override
     public void notify(final Event event) throws RemoteException
     {
@@ -158,7 +149,6 @@ public class EventProducingSet<E> extends LocalEventProducer implements EventLis
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean remove(final Object o)
     {
@@ -170,7 +160,6 @@ public class EventProducingSet<E> extends LocalEventProducer implements EventLis
         return changed;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean removeAll(final Collection<?> c)
     {
@@ -182,7 +171,6 @@ public class EventProducingSet<E> extends LocalEventProducer implements EventLis
         return changed;
     }
 
-    /** {@inheritDoc} */
     @Override
     public boolean retainAll(final Collection<?> c)
     {
@@ -194,14 +182,12 @@ public class EventProducingSet<E> extends LocalEventProducer implements EventLis
         return changed;
     }
 
-    /** {@inheritDoc} */
     @Override
     public Object[] toArray()
     {
         return this.wrappedSet.toArray();
     }
 
-    /** {@inheritDoc} */
     @Override
     public <T> T[] toArray(final T[] a)
     {
