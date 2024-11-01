@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
  * <p>
  * Copyright (c) 2013-2024 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved. <br>
  * BSD-style license. See <a href="https://djutils.org/docs/current/djutils/licenses.html">DJUTILS License</a>.
- * <p>
+ * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @author <a href="https://www.tudelft.nl/staff/p.knoppers/">Peter Knoppers</a>
  */
@@ -194,12 +194,12 @@ public class MeansTests
         am = new ArithmeticMean<Double, Double>();
         hm = new HarmonicMean<Double, Double>();
         gm = new GeometricMean<Double, Double>();
-        assertEquals(am, am.add(new ArrayList<Double>(Arrays.asList(testValues)), (Double v) -> map.get(v)),
+        assertEquals(am, am.add(new ArrayList<Double>(Arrays.asList(testValues)), (final Double v) -> map.get(v)),
                 "add returns object for method chaining");
         assertEquals(sum / sumWeights, am.getMean(), sum / sumWeights / 99999999, "arithmetic mean");
-        hm.add(new ArrayList<Double>(Arrays.asList(testValues)), (Double v) -> map.get(v));
+        hm.add(new ArrayList<Double>(Arrays.asList(testValues)), (final Double v) -> map.get(v));
         assertEquals(sumWeights / recipSum, hm.getMean(), sumWeights / recipSum / 999999999, "harmonic mean");
-        gm.add(new ArrayList<Double>(Arrays.asList(testValues)), (Double v) -> map.get(v));
+        gm.add(new ArrayList<Double>(Arrays.asList(testValues)), (final Double v) -> map.get(v));
         assertEquals(geometricMean, gm.getMean(), geometricMean / 99999999, "geometric mean");
 
         am = new ArithmeticMean<Double, Double>();
@@ -207,12 +207,12 @@ public class MeansTests
         gm = new GeometricMean<Double, Double>();
         Integer[] indices = new Integer[] {0, 1, 2, 3};
         List<Integer> indexList = new ArrayList<>(Arrays.asList(indices));
-        assertEquals(am, am.add(indexList, (Integer i) -> testValues[i], (Integer i) -> testWeights[i]),
+        assertEquals(am, am.add(indexList, (final Integer i) -> testValues[i], (final Integer i) -> testWeights[i]),
                 "add returns object for method chaining");
         assertEquals(sum / sumWeights, am.getMean(), sum / sumWeights / 99999999, "arithmetic mean");
-        hm.add(indexList, (Integer i) -> testValues[i], (Integer i) -> testWeights[i]);
+        hm.add(indexList, (final Integer i) -> testValues[i], (final Integer i) -> testWeights[i]);
         assertEquals(sumWeights / recipSum, hm.getMean(), sumWeights / recipSum / 999999999, "harmonic mean");
-        gm.add(indexList, (Integer i) -> testValues[i], (Integer i) -> testWeights[i]);
+        gm.add(indexList, (final Integer i) -> testValues[i], (final Integer i) -> testWeights[i]);
         assertEquals(geometricMean, gm.getMean(), geometricMean / 99999999, "geometric mean");
 
         assertTrue(am.toString().contains("ArithmeticMean"), "toString method returns something descriptive");
