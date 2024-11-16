@@ -23,8 +23,10 @@
       <item name="djutils-data" href="../djutils-data/index.html" />
       <item name="djutils-draw" href="../djutils-draw/index.html" />
       <item name="djutils-eval" href="../djutils-eval/index.html" />
+      <item name="djutils-math" href="../djutils-math/index.html" />
       <item name="djutils-serialization" href="../djutils-serialization/index.html" />
       <item name="djutils-stats" href="../djutils-stats/index.html" />
+      <item name="djutils-swing" href="../djutils-swing/index.html" />
     </menu>
 
     <menu name="API">
