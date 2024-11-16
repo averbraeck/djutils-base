@@ -1,7 +1,7 @@
                    --------------------------------
                    DJUTILS - Delft Java Utilities
                    --------------------------------
-                   February, 2020
+                   November, 2024
                    --------------------------------
                    
 DJUTILS - Delft Java Utilities
@@ -14,8 +14,6 @@ DJUTILS - Delft Java Utilities
 
     * The URLResource class that can help to obtain a URL from a local directory, a resource location,
       or within a JAR file.
-
-    * Calculation classes for arithmetic mean, geometric mean, and harmonic mean.
 
     * Methods for creating easy access loggers that use tinylog as their basis.
 
