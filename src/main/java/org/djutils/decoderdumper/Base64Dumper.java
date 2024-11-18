@@ -16,7 +16,7 @@ public class Base64Dumper extends Dumper<Base64Dumper>
 {
     /**
      * Construct a new Base64Dumper.
-     * @param addressOffset int; address of the first byte that will be appended
+     * @param addressOffset address of the first byte that will be appended
      */
     public Base64Dumper(final int addressOffset)
     {
@@ -39,9 +39,9 @@ public class Base64Dumper extends Dumper<Base64Dumper>
 
     /**
      * Create a HexDumper object; use it to dump an array of bytes and return the dump as a String.
-     * @param addressOffset int; address of the first byte
-     * @param bytes byte[]; the bytes to hex-dump
-     * @return String; the hexadecimal and character dump of the base64 decoded <code>bytes</code>
+     * @param addressOffset address of the first byte
+     * @param bytes the bytes to hex-dump
+     * @return the hexadecimal and character dump of the base64 decoded <code>bytes</code>
      */
     public static String base64Dumper(final int addressOffset, final byte[] bytes)
     {
@@ -60,8 +60,8 @@ public class Base64Dumper extends Dumper<Base64Dumper>
 
     /**
      * Create a HexDumper object with addressOffset 0; use it to dump an array of bytes and return the dump as a String.
-     * @param bytes byte[]; the bytes to hex-dump
-     * @return String; the hexadecimal and character dump of the base64 decoded <code>bytes</code>
+     * @param bytes the bytes to hex-dump
+     * @return the hexadecimal and character dump of the base64 decoded <code>bytes</code>
      */
     public static String base64Dumper(final byte[] bytes)
     {

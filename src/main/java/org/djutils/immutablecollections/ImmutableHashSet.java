@@ -23,7 +23,7 @@ public class ImmutableHashSet<E> extends ImmutableAbstractSet<E>
 
     /**
      * Construct a new ImmutableHashSet containing a copy of the provided collection.
-     * @param collection Collection&lt;? extends E&gt;; the collection to use for the immutable set.
+     * @param collection the collection to use for the immutable set.
      */
     public ImmutableHashSet(final Collection<? extends E> collection)
     {
@@ -32,8 +32,8 @@ public class ImmutableHashSet<E> extends ImmutableAbstractSet<E>
 
     /**
      * Construct a new ImmutableHashSet containing the provided set.
-     * @param set Set&lt;E&gt;; the set to use for the immutable set.
-     * @param copyOrWrap COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original collection
+     * @param set the set to use for the immutable set.
+     * @param copyOrWrap WRAP stores a pointer to the original collection
      */
     public ImmutableHashSet(final Set<E> set, final Immutable copyOrWrap)
     {
@@ -42,7 +42,7 @@ public class ImmutableHashSet<E> extends ImmutableAbstractSet<E>
 
     /**
      * Construct a new ImmutableHashSet containing a copy of the provided Collection.
-     * @param collection ImmutableAbstractCollection&lt;? extends E&gt;; the collection to use for the immutable set.
+     * @param collection the collection to use for the immutable set.
      */
     public ImmutableHashSet(final ImmutableAbstractCollection<? extends E> collection)
     {
@@ -51,8 +51,8 @@ public class ImmutableHashSet<E> extends ImmutableAbstractSet<E>
 
     /**
      * Construct a new ImmutableHashSet containing the provided set.
-     * @param set ImmutableAbstractSet&lt;E&gt;; the set to use for the immutable set.
-     * @param copyOrWrap COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original collection
+     * @param set the set to use for the immutable set.
+     * @param copyOrWrap WRAP stores a pointer to the original collection
      */
     public ImmutableHashSet(final ImmutableAbstractSet<E> set, final Immutable copyOrWrap)
     {

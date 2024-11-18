@@ -25,7 +25,7 @@ public interface ImmutableSet<E> extends ImmutableCollection<E>
 
     /**
      * Force to redefine equals for the implementations of immutable collection classes.
-     * @param obj Object; the object to compare this collection with
+     * @param obj the object to compare this collection with
      * @return whether the objects are equal
      */
     @Override
@@ -40,7 +40,7 @@ public interface ImmutableSet<E> extends ImmutableCollection<E>
 
     /**
      * Force to redefine toString.
-     * @return String; a description of this immutable set
+     * @return a description of this immutable set
      */
     @Override
     String toString();
@@ -48,7 +48,7 @@ public interface ImmutableSet<E> extends ImmutableCollection<E>
     /**
      * Return an empty ImmutableSet, backed by a LinkedHashSet.
      * @param <E> the value type
-     * @return ImmutableSet&lt;K, V&gt;; an empty ImmutableSet
+     * @return an empty ImmutableSet
      */
     static <E> ImmutableSet<E> of()
     {
@@ -58,8 +58,8 @@ public interface ImmutableSet<E> extends ImmutableCollection<E>
     /**
      * Return an ImmutableSet with 1 entry, backed by a LinkedHashSet.
      * @param <E> the value type
-     * @param v1 E; value 1
-     * @return ImmutableSet&lt;K, V&gt;; an ImmutableSet with 1 entry, backed by a LinkedHashSet
+     * @param v1 value 1
+     * @return an ImmutableSet with 1 entry, backed by a LinkedHashSet
      */
     static <E> ImmutableSet<E> of(final E v1)
     {
@@ -71,9 +71,9 @@ public interface ImmutableSet<E> extends ImmutableCollection<E>
     /**
      * Return an ImmutableSet with 2 entries, backed by a LinkedHashSet.
      * @param <E> the value type
-     * @param v1 E; value 1
-     * @param v2 E; value 2
-     * @return ImmutableSet&lt;K, V&gt;; an ImmutableSet with 2 entries, backed by a LinkedHashSet
+     * @param v1 value 1
+     * @param v2 value 2
+     * @return an ImmutableSet with 2 entries, backed by a LinkedHashSet
      */
     static <E> ImmutableSet<E> of(final E v1, final E v2)
     {
@@ -86,10 +86,10 @@ public interface ImmutableSet<E> extends ImmutableCollection<E>
     /**
      * Return an ImmutableSet with 3 entries, backed by a LinkedHashSet.
      * @param <E> the value type
-     * @param v1 E; value 1
-     * @param v2 E; value 2
-     * @param v3 E; value 3
-     * @return ImmutableSet&lt;K, V&gt;; an ImmutableSet with 3 entries, backed by a LinkedHashSet
+     * @param v1 value 1
+     * @param v2 value 2
+     * @param v3 value 3
+     * @return an ImmutableSet with 3 entries, backed by a LinkedHashSet
      */
     static <E> ImmutableSet<E> of(final E v1, final E v2, final E v3)
     {
@@ -103,11 +103,11 @@ public interface ImmutableSet<E> extends ImmutableCollection<E>
     /**
      * Return an ImmutableSet with 4 entries, backed by a LinkedHashSet.
      * @param <E> the value type
-     * @param v1 E; value 1
-     * @param v2 E; value 2
-     * @param v3 E; value 3
-     * @param v4 E; value 4
-     * @return ImmutableSet&lt;K, V&gt;; an ImmutableSet with 4 entries, backed by a LinkedHashSet
+     * @param v1 value 1
+     * @param v2 value 2
+     * @param v3 value 3
+     * @param v4 value 4
+     * @return an ImmutableSet with 4 entries, backed by a LinkedHashSet
      */
     static <E> ImmutableSet<E> of(final E v1, final E v2, final E v3, final E v4)
     {
@@ -122,13 +122,13 @@ public interface ImmutableSet<E> extends ImmutableCollection<E>
     /**
      * Return an ImmutableSet with 5 or more entries, backed by a LinkedHashSet.
      * @param <E> the value type
-     * @param v1 E; value 1
-     * @param v2 E; value 2
-     * @param v3 E; value 3
-     * @param v4 E; value 4
-     * @param v5 E; value 5
-     * @param vn E...; values 6 and beyond
-     * @return ImmutableSet&lt;K, V&gt;; an ImmutableSet with 5 or more entries, backed by a LinkedHashSet
+     * @param v1 value 1
+     * @param v2 value 2
+     * @param v3 value 3
+     * @param v4 value 4
+     * @param v5 value 5
+     * @param vn values 6 and beyond
+     * @return an ImmutableSet with 5 or more entries, backed by a LinkedHashSet
      */
     @SuppressWarnings("unchecked")
     static <E> ImmutableSet<E> of(final E v1, final E v2, final E v3, final E v4, final E v5, final E... vn)

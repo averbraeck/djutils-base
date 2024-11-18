@@ -51,9 +51,9 @@ public class TestImmutableLinkedHashMap
 
     /**
      * ...
-     * @param map Map&lt;Integer, Integer&gt;; map
-     * @param imMap ImmutableMap&lt;Integer, Integer&gt;; immutable map
-     * @param copyOrWrap Immutable;
+     * @param map map
+     * @param imMap immutable map
+     * @param copyOrWrap 
      */
     private void testIntMap(final Map<Integer, Integer> map, final ImmutableMap<Integer, Integer> imMap,
             final Immutable copyOrWrap)
@@ -113,9 +113,9 @@ public class TestImmutableLinkedHashMap
 
     /**
      * Determine if two collections contain the same objects.
-     * @param a Collection&lt;?&gt;; collection
-     * @param b Collection&lt;?&gt;; another collection
-     * @return boolean; true if the collections contain the same objects
+     * @param a collection
+     * @param b another collection
+     * @return true if the collections contain the same objects
      */
     private boolean sameContent(final Collection<?> a, final Collection<?> b)
     {
@@ -124,9 +124,9 @@ public class TestImmutableLinkedHashMap
 
     /**
      * Determine if two entry sets contain the same entries.
-     * @param es Set&lt;Engry&gt;Integer, Integer&gt;&gt;; entry set
-     * @param ies Set&lt;ImmutableEngry&gt;Integer, Integer&gt;&gt;; immutable entry set
-     * @return boolean; true if the entry sets contain the same set of keys, each with the same values
+     * @param es entry set
+     * @param ies immutable entry set
+     * @return true if the entry sets contain the same set of keys, each with the same values
      */
     private boolean checkEntrySets(final Set<Entry<Integer, Integer>> es, final Set<ImmutableEntry<Integer, Integer>> ies)
     {

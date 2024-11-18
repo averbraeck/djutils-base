@@ -203,9 +203,9 @@ public class TestImmutableHashMap
 
     /**
      * Check that two collection contain the same objects.
-     * @param a Collection&lt;?&gt;;
-     * @param b Collection&lt;?&gt;;
-     * @return boolean;
+     * @param a 
+     * @param b 
+     * @return 
      */
     private boolean sameContent(final Collection<?> a, final Collection<?> b)
     {
@@ -216,7 +216,7 @@ public class TestImmutableHashMap
      * Check that two Sets of Entries contain the same entries.
      * @param es Set&lt;Entry&ltInteger, Integer&gt;&gt;; a set of Entries
      * @param ies Set&lt;Entry&ltInteger, Integer&gt;&gt;; an immutable set of Entries
-     * @return boolean; true if the two sets contain the same entries
+     * @return true if the two sets contain the same entries
      */
     private boolean checkEntrySets(final Set<Entry<Integer, Integer>> es, final Set<ImmutableEntry<Integer, Integer>> ies)
     {

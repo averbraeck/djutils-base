@@ -24,9 +24,9 @@ public class HexDecoder implements Decoder
 
     /**
      * Construct a new HexDecoder.
-     * @param fieldsPerLine int; maximum number of hex values on one output line this.extraSpaceAfterEvery =
+     * @param fieldsPerLine maximum number of hex values on one output line this.extraSpaceAfterEvery =
      *            extraSpaceAfterEvery;
-     * @param extraSpaceAfterEvery int; insert an extra space after every N fields
+     * @param extraSpaceAfterEvery insert an extra space after every N fields
      */
     public HexDecoder(final int fieldsPerLine, final int extraSpaceAfterEvery)
     {

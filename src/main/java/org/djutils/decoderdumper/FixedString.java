@@ -21,7 +21,7 @@ public class FixedString implements Decoder
 
     /**
      * Construct a Decoder that returns a fixed result in the <code>getResult</code> method.
-     * @param fixedResult String; the String that the <code>getResult</code> method will return on each invocation
+     * @param fixedResult the String that the <code>getResult</code> method will return on each invocation
      */
     public FixedString(final String fixedResult)
     {

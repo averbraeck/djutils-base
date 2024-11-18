@@ -908,11 +908,11 @@ public class NumberParserTest
 
     /**
      * Test a parsing testcase for Double values.
-     * @param text String; the text to parse
-     * @param expectedAnswer double; the expected numerical answer
+     * @param text the text to parse
+     * @param expectedAnswer the expected numerical answer
      * @param expectedTrailing String the expected trailing info
-     * @param strict boolean; whether the text String is strict or not
-     * @param locale Locale; the locale to test for
+     * @param strict whether the text String is strict or not
+     * @param locale the locale to test for
      */
     public void testDouble(final String text, final double expectedAnswer, final String expectedTrailing, final boolean strict,
             final Locale locale)
@@ -974,11 +974,11 @@ public class NumberParserTest
 
     /**
      * Test a parsing testcase for Float values.
-     * @param text String; the text to parse
-     * @param expectedAnswer float; the expected numerical answer
+     * @param text the text to parse
+     * @param expectedAnswer the expected numerical answer
      * @param expectedTrailing String the expected trailing info
-     * @param strict boolean; whether the text String is strict or not
-     * @param locale Locale; the locale to test for
+     * @param strict whether the text String is strict or not
+     * @param locale the locale to test for
      */
     public void testFloat(final String text, final float expectedAnswer, final String expectedTrailing, final boolean strict,
             final Locale locale)
@@ -1040,10 +1040,10 @@ public class NumberParserTest
 
     /**
      * Test whether parsing of double fails as expected.
-     * @param text String; the text to parse
-     * @param strict boolean; whether to apply strict parsing or not
-     * @param trailing boolean; whether to allow trailing or not
-     * @param locale Locale; the locale to use
+     * @param text the text to parse
+     * @param strict whether to apply strict parsing or not
+     * @param trailing whether to allow trailing or not
+     * @param locale the locale to use
      */
     public void testDoubleFail(final String text, final boolean strict, final boolean trailing, final Locale locale)
     {
@@ -1054,10 +1054,10 @@ public class NumberParserTest
 
     /**
      * Test whether parsing of float fails as expected.
-     * @param text String; the text to parse
-     * @param strict boolean; whether to apply strict parsing or not
-     * @param trailing boolean; whether to allow trailing or not
-     * @param locale Locale; the locale to use
+     * @param text the text to parse
+     * @param strict whether to apply strict parsing or not
+     * @param trailing whether to allow trailing or not
+     * @param locale the locale to use
      */
     public void testFloatFail(final String text, final boolean strict, final boolean trailing, final Locale locale)
     {
@@ -1068,9 +1068,9 @@ public class NumberParserTest
 
     /**
      * Make a NumberParser through chaining with all possible combinations.
-     * @param lenient boolean; lenient or strict
-     * @param trailing boolean; trailing info on or off
-     * @param locale Locale; when null, no locale is set (using Locale.getDefault())
+     * @param lenient lenient or strict
+     * @param trailing trailing info on or off
+     * @param locale when null, no locale is set (using Locale.getDefault())
      * @return NumberParser made through chaining
      */
     NumberParser makeNumberParserChaining(final boolean lenient, final boolean trailing, final Locale locale)
@@ -1145,7 +1145,7 @@ public class NumberParserTest
         /**
          * Make a test case.
          * @param text String text to parse
-         * @param expectedValue double; expected value
+         * @param expectedValue expected value
          * @param expectedTrail String expected trailing characters
          */
         TestCase(final String text, final double expectedValue, final String expectedTrail)
@@ -1173,8 +1173,8 @@ public class NumberParserTest
         /**
          * Make a failed test case.
          * @param text String text to parse
-         * @param strict boolean; strict or not
-         * @param trailing boolean; trailing allowed or not
+         * @param strict strict or not
+         * @param trailing trailing allowed or not
          */
         TestCaseFail(final String text, final boolean strict, final boolean trailing)
         {

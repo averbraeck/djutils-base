@@ -259,7 +259,7 @@ public class TryTest
 
     /**
      * setter for the value to be called from execute() method.
-     * @param newResult String; the value to set
+     * @param newResult the value to set
      */
     protected void setResult(final String newResult)
     {
@@ -1343,7 +1343,7 @@ public class TryTest
 
     /**
      * Can we get our intermittent test result to show up without the JUnit test harness?
-     * @param args String[]; the command line arguments
+     * @param args the command line arguments
      */
     public static void main(final String[] args)
     {

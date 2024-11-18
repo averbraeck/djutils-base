@@ -31,8 +31,8 @@ public abstract class ImmutableAbstractSet<E> extends ImmutableAbstractCollectio
     /**
      * Construct an abstract immutable set. Make sure that the argument is a safe copy of the set of the right type! Copying
      * does not take place in the Abstract class!
-     * @param set Set&lt;E&gt;; a safe copy of the set to use for the immutable set
-     * @param copyOrWrap Immutable; indicate whether the immutable is a copy or a wrap
+     * @param set a safe copy of the set to use for the immutable set
+     * @param copyOrWrap indicate whether the immutable is a copy or a wrap
      */
     protected ImmutableAbstractSet(final Set<E> set, final Immutable copyOrWrap)
     {

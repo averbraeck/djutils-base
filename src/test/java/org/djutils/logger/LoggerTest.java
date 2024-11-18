@@ -35,7 +35,7 @@ public class LoggerTest
 
     /**
      * Helper method.
-     * @param expectedMessage String; expected subString in result of stringWriter. If null; there should be no message recorded
+     * @param expectedMessage expected subString in result of stringWriter. If null; there should be no message recorded
      *            in the stringWriter.
      */
     private void verifyLogMessage(final String expectedMessage)
@@ -717,7 +717,7 @@ public class LoggerTest
 
         /**
          * Return the last logged message.
-         * @return String; the last logged message
+         * @return the last logged message
          */
         public String getResult()
         {

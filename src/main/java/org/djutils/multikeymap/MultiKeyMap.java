@@ -35,7 +35,7 @@ public class MultiKeyMap<T>
 
     /**
      * Construct a new MultiKeyMap.
-     * @param keyTypes Class&lt;?&gt;...; the types of the keys
+     * @param keyTypes the types of the keys
      */
     public MultiKeyMap(final Class<?>... keyTypes)
     {
@@ -45,10 +45,10 @@ public class MultiKeyMap<T>
 
     /**
      * Retrieve a value from this MultiKeyMap. Can create a new entry if it does not exist yet.
-     * @param supplier Supplier&lt;T&gt;; supplier of {@code T} in case the leaf does not exist yet. Set this to
+     * @param supplier supplier of {@code T} in case the leaf does not exist yet. Set this to
      *            <code>null</code> to suppress creation of new branches and a new leaf
-     * @param keys Object...; list of key objects
-     * @return T; the existing value, or the value that was obtained through the <code>supplier</code>. Returns
+     * @param keys list of key objects
+     * @return the existing value, or the value that was obtained through the <code>supplier</code>. Returns
      *         <code>null</code> if the leaf does not exist and <code>supplier</code> is <code>null</code>
      */
     public T get(final Supplier<T> supplier, final Object... keys)
@@ -58,8 +58,8 @@ public class MultiKeyMap<T>
 
     /**
      * Retrieve a value from this MultiKeyMap.
-     * @param keys Object...; the key objects
-     * @return T; value, or null if no value is stored under the provided key objects
+     * @param keys the key objects
+     * @return value, or null if no value is stored under the provided key objects
      */
     public T get(final Object... keys)
     {
@@ -68,8 +68,8 @@ public class MultiKeyMap<T>
 
     /**
      * Retrieve a sub map.
-     * @param keys Object...; the key objects (must be at least one item shorter than the full depth)
-     * @return MultiKeyMap&lt;T&gt;; the sub map
+     * @param keys the key objects (must be at least one item shorter than the full depth)
+     * @return the sub map
      */
     public MultiKeyMap<T> getSubMap(final Object... keys)
     {
@@ -79,9 +79,9 @@ public class MultiKeyMap<T>
 
     /**
      * Put (add or replace) a value in this MultiKeyMap.
-     * @param newValue T; the new value
-     * @param keys Object...; the key objects
-     * @return T; the previous value stored under the key objects, or null if no value was currently stored under the key
+     * @param newValue the new value
+     * @param keys the key objects
+     * @return the previous value stored under the key objects, or null if no value was currently stored under the key
      *         objects
      */
     public T put(final T newValue, final Object... keys)
@@ -94,8 +94,8 @@ public class MultiKeyMap<T>
 
     /**
      * Select and verify the type of the last key.
-     * @param keys List&lt;Object&gt;; the keys
-     * @return Object; the last element of keys
+     * @param keys the keys
+     * @return the last element of keys
      */
     private Object getFinalKey(final List<Object> keys)
     {
@@ -108,10 +108,10 @@ public class MultiKeyMap<T>
 
     /**
      * Walk the tree up to (but not including) the last level.
-     * @param createBranches boolean; if true; missing branches are constructed; if false; missing branches cause this method to
+     * @param createBranches if true; missing branches are constructed; if false; missing branches cause this method to
      *            return null;
-     * @param keys List&lt;Object&gt;; the keys.
-     * @return Map&lt;T&gt;; the lowest level map
+     * @param keys the keys.
+     * @return the lowest level map
      */
     @SuppressWarnings("unchecked")
     private Map<Object, T> getFinalMap(final boolean createBranches, final List<Object> keys)
@@ -127,10 +127,10 @@ public class MultiKeyMap<T>
 
     /**
      * Retrieve a value. This uses a {@code List} rather than an array because that is easier to slice.
-     * @param supplier Supplier&lt;T&gt;; supplier of {@code T} for if it wasn't cached yet. Set <code>supplier</code> to null
+     * @param supplier supplier of {@code T} for if it wasn't cached yet. Set <code>supplier</code> to null
      *            to suppress construction of missing branches and a leaf
-     * @param keys List&lt;Object&gt;; list of key objects
-     * @return T; value, or null if no value was stored under the specified list of keys and <code>supplier</code> was null
+     * @param keys list of key objects
+     * @return value, or null if no value was stored under the specified list of keys and <code>supplier</code> was null
      */
     private T getValue(final Supplier<T> supplier, final List<Object> keys)
     {
@@ -157,8 +157,8 @@ public class MultiKeyMap<T>
 
     /**
      * Return set of key objects on this level.
-     * @param keys Object...; list of key objects (may be empty to select the key set at the top level
-     * @return Set; set of key objects on this level. This is not a safe copy; this set reflects subsequent changes in this
+     * @param keys list of key objects (may be empty to select the key set at the top level
+     * @return set of key objects on this level. This is not a safe copy; this set reflects subsequent changes in this
      *         MultiKeyMap and modifying this set would modify this MultiKeyMap (potentially making it inconsistent).
      */
     public Set<Object> getKeys(final Object... keys)
@@ -168,9 +168,9 @@ public class MultiKeyMap<T>
 
     /**
      * Walk the tree to the requested branch.
-     * @param createMissingBranches boolean; if true; missing branches will be created.
-     * @param keys List&lt;Object&gt;; the keys
-     * @return MultiKeyMap&lt;T&gt;; the branch at the end of the list of keys, or null if that branch does not exist and
+     * @param createMissingBranches if true; missing branches will be created.
+     * @param keys the keys
+     * @return the branch at the end of the list of keys, or null if that branch does not exist and
      *         <code>createMissingBranches</code> is false
      */
     @SuppressWarnings("unchecked")
@@ -201,8 +201,8 @@ public class MultiKeyMap<T>
 
     /**
      * Clears the mapping for a key combination.
-     * @param keys Object...; key combination to clear the map for
-     * @return Object; object that was previously mapped to the key combination, or {@code null} if it was not cached.
+     * @param keys key combination to clear the map for
+     * @return object that was previously mapped to the key combination, or {@code null} if it was not cached.
      */
     public Object clear(final Object... keys)
     {
@@ -212,8 +212,8 @@ public class MultiKeyMap<T>
 
     /**
      * Clear the mapping for a key combination.
-     * @param keys List&lt;Object&gt;; key combination to clear the map for
-     * @return Object; object that was previously mapped to the key combination, or {@code null} if it was not cached.
+     * @param keys key combination to clear the map for
+     * @return object that was previously mapped to the key combination, or {@code null} if it was not cached.
      */
     @SuppressWarnings("unchecked")
     private Object clear(final List<Object> keys)

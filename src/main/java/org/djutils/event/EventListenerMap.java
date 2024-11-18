@@ -43,7 +43,7 @@ public final class EventListenerMap implements Serializable
 
     /**
      * Return the size of the EventListenerMap, i.e. the number of EventTypes that are registered.
-     * @return int; the size of the EventListenerMap, i.e. the number of EventTypes that are registered
+     * @return the size of the EventListenerMap, i.e. the number of EventTypes that are registered
      */
     public int size()
     {
@@ -60,7 +60,7 @@ public final class EventListenerMap implements Serializable
 
     /**
      * Return whether the EventListenerMap is empty.
-     * @return boolean; whether the EventListenerMap is empty
+     * @return whether the EventListenerMap is empty
      */
     public boolean isEmpty()
     {
@@ -69,8 +69,8 @@ public final class EventListenerMap implements Serializable
 
     /**
      * Return whether the EventListenerMap contains the EventType as a key.
-     * @param eventType EventType; the EventType key to search for
-     * @return boolean; whether the EventListenerMap contains the EventType as a key
+     * @param eventType the EventType key to search for
+     * @return whether the EventListenerMap contains the EventType as a key
      */
     public boolean containsKey(final EventType eventType)
     {
@@ -80,8 +80,8 @@ public final class EventListenerMap implements Serializable
 
     /**
      * Return whether the EventListenerMap contains the eventListener as one of the subscribers.
-     * @param eventListener EventListenerInterface; the EventListener value to search for
-     * @return boolean; true if the EventListenerMap contains the eventListener as one of the subscribers; false otherwise
+     * @param eventListener the EventListener value to search for
+     * @return true if the EventListenerMap contains the eventListener as one of the subscribers; false otherwise
      */
     public boolean containsValue(final EventListener eventListener)
     {
@@ -101,8 +101,8 @@ public final class EventListenerMap implements Serializable
 
     /**
      * Returns whether the EventListenerMap contains the reference to the eventListener as one of the subscribers.
-     * @param reference Reference&lt;EventListenerInterface&gt;; the reference pointer an EventListener to search for
-     * @return boolean; true if the EventListenerMap contains the reference to the eventListener as one of the subscribers;
+     * @param reference the reference pointer an EventListener to search for
+     * @return true if the EventListenerMap contains the reference to the eventListener as one of the subscribers;
      *         false otherwise
      */
     public boolean containsValue(final Reference<EventListener> reference)
@@ -124,7 +124,7 @@ public final class EventListenerMap implements Serializable
     /**
      * Returns a safe copy of the collection of lists of references to EventListeners, i.e. all the listeners registered in the
      * map
-     * @return Collection&lt;List&lt;Reference&lt;EventListenerInterface&gt;&gt;&gt;; a safe copy of the collection of lists of
+     * @return a safe copy of the collection of lists of
      *         references to EventListeners, i.e. all the listeners registered in the map
      */
     public Collection<List<Reference<EventListener>>> values()
@@ -140,7 +140,7 @@ public final class EventListenerMap implements Serializable
     /**
      * Add all entries of the map to the EventListenerMap. The lists of listeners are added as a safe copy, so the list will not
      * be changed when the entries from copied map will be changed.
-     * @param m EventListenerMap; the map with references to event listeners to add to the current EventListenerMap
+     * @param m the map with references to event listeners to add to the current EventListenerMap
      */
     public void putAll(final EventListenerMap m)
     {
@@ -166,7 +166,7 @@ public final class EventListenerMap implements Serializable
 
     /**
      * Returns a safe copy of the Set of EventTypes for which listeners are registered.
-     * @return Set&lt;EventType&gt;; a safe copy of the Set of EventType keys for which listeners are
+     * @return a safe copy of the Set of EventType keys for which listeners are
      *         registered
      */
     public Set<EventType> keySet()
@@ -178,8 +178,8 @@ public final class EventListenerMap implements Serializable
      * Returns the original List of references to EventListeners for the given EventType. Note: this is <b>not</b> a
      * safe copy, so the list is backed by the original data structure and will change when listeners are added or removed. The
      * method will return null when the EventType is not found.
-     * @param key EventType; the eventType to look up the listeners for
-     * @return List&lt;Reference&lt;EventListenerInterface&gt;; the List of references to EventListeners for the given
+     * @param key the eventType to look up the listeners for
+     * @return the List of references to EventListeners for the given
      *         EventType, or null when the EventType is not found. Note: this is <b>not</b> a safe copy.
      */
     public List<Reference<EventListener>> get(final EventType key)
@@ -190,8 +190,8 @@ public final class EventListenerMap implements Serializable
 
     /**
      * Remove the List of references to EventListeners for the given EventType.
-     * @param key EventType; the eventType to remove the listeners for
-     * @return List&lt;Reference&lt;EventListenerInterface&gt;&gt;; the removed List of references to EventListeners for the
+     * @param key the eventType to remove the listeners for
+     * @return the removed List of references to EventListeners for the
      *         given EventType
      */
     public List<Reference<EventListener>> remove(final EventType key)
@@ -204,10 +204,10 @@ public final class EventListenerMap implements Serializable
      * Add the List of references to EventListeners for the given EventType to the underlying Map. A safe copy will be
      * added, so the original list will not be affected when listeners are removed or added, nor will the underlying map be
      * affected when the provided list is changed.
-     * @param key EventType; the eventType to store the listeners for
-     * @param value List&lt;Reference&lt;EventListenerInterface&gt;&gt;; the references to EventListeners to store for the given
+     * @param key the eventType to store the listeners for
+     * @param value the references to EventListeners to store for the given
      *            EventType
-     * @return List&lt;Reference&lt;EventListenerInterface&gt;; the previous List of references to EventListeners for the given
+     * @return the previous List of references to EventListeners for the given
      *         EventType, or null when there was no previous mapping
      */
     public List<Reference<EventListener>> put(final EventType key,
@@ -222,7 +222,7 @@ public final class EventListenerMap implements Serializable
      * Write the EventListenerMap to a stream. RemoteEventListeners are not written, as they are fully dependent on the state of
      * the network, which might not be the same when the EventListenerMap is read back. Weak references and strong references
      * are both written to the stream.
-     * @param out ObjectOutputStream; the output stream
+     * @param out the output stream
      * @throws IOException on IOException
      */
     private synchronized void writeObject(final ObjectOutputStream out) throws IOException

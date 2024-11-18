@@ -37,9 +37,9 @@ public class MetaData implements Serializable
 
     /**
      * Construct a new MetaData object that can check an array of Object.
-     * @param name String; name of the new MetaData object, which cannot be null or the empty string
-     * @param description String; description of the new MetaData object
-     * @param objectDescriptors ObjectDescriptor...; array of ObjectDescriptor. This constructor does &lt;b&gt;not&lt;/b&gt;
+     * @param name name of the new MetaData object, which cannot be null or the empty string
+     * @param description description of the new MetaData object
+     * @param objectDescriptors array of ObjectDescriptor. This constructor does &lt;b&gt;not&lt;/b&gt;
      *            make a deep copy of this array; subsequent modification of the contents of the provided
      *            <code>objectDescriptors</code> array will affect the behavior of the MetaData object.
      */
@@ -60,7 +60,7 @@ public class MetaData implements Serializable
 
     /**
      * Retrieve the name of this MetaData object.
-     * @return String; the name of this MetaData object
+     * @return the name of this MetaData object
      */
     public String getName()
     {
@@ -69,7 +69,7 @@ public class MetaData implements Serializable
 
     /**
      * Retrieve the description of this MetaData object.
-     * @return String; the description of this MetaData object
+     * @return the description of this MetaData object
      */
     public String getDescription()
     {
@@ -78,7 +78,7 @@ public class MetaData implements Serializable
 
     /**
      * Retrieve the length of described Object array.
-     * @return int; the length of the described Object array; returns 0 if this MetaDataObject is not set up to validate an
+     * @return the length of the described Object array; returns 0 if this MetaDataObject is not set up to validate an
      *         array of Object.
      */
     public int size()
@@ -88,7 +88,7 @@ public class MetaData implements Serializable
 
     /**
      * Returns a safe copy of the object descriptors. As the object descriptors are immutable objects, they are not cloned.
-     * @return ObjectDescriptor[]; a safe copy of the object descriptors
+     * @return a safe copy of the object descriptors
      */
     public ObjectDescriptor[] getObjectDescriptors()
     {
@@ -97,9 +97,9 @@ public class MetaData implements Serializable
 
     /**
      * Retrieve the name of one element in the Object array.
-     * @param index int; index of the element in the Object array (must be 0 if this MetaData object is not set up to validate
+     * @param index index of the element in the Object array (must be 0 if this MetaData object is not set up to validate
      *            an array of Object)
-     * @return String; name of the argument
+     * @return name of the argument
      */
     public String getFieldName(final int index)
     {
@@ -108,9 +108,9 @@ public class MetaData implements Serializable
 
     /**
      * Retrieve the description of one element in the Object array.
-     * @param index int; index of the element in the Object array (must be 0 if this MetaData object is not set up to validate
+     * @param index index of the element in the Object array (must be 0 if this MetaData object is not set up to validate
      *            an array of Object)
-     * @return String; description of the argument
+     * @return description of the argument
      */
     public String getObjectDescription(final int index)
     {
@@ -119,9 +119,9 @@ public class MetaData implements Serializable
 
     /**
      * Retrieve the java class of one element in the Object array.
-     * @param index int; index of the element in the Object array (must be 0 if this MetaData object is not set up to validate
+     * @param index index of the element in the Object array (must be 0 if this MetaData object is not set up to validate
      *            an array of Object)
-     * @return Class&lt;?&gt;; java class of the element
+     * @return java class of the element
      */
     public Class<?> getObjectClass(final int index)
     {
@@ -130,9 +130,9 @@ public class MetaData implements Serializable
 
     /**
      * Select one of the ObjectDescriptors.
-     * @param index int; index of the ObjectDescriptor (must be 0 in case this MetaData object is not set up to validate an
+     * @param index index of the ObjectDescriptor (must be 0 in case this MetaData object is not set up to validate an
      *            array of Object)
-     * @return ObjectDescriptor; the selected ObjectDescriptor
+     * @return the selected ObjectDescriptor
      */
     public ObjectDescriptor getObjectDescriptor(final int index)
     {
@@ -143,7 +143,7 @@ public class MetaData implements Serializable
 
     /**
      * Verify that an Object array has the prescribed composition.
-     * @param objectArray Object[]; the Object array to verify. If the array is supposed to have 0 length, a null pointer is
+     * @param objectArray the Object array to verify. If the array is supposed to have 0 length, a null pointer is
      *            deemed OK.
      * @throws NullPointerException when the object array is null and the size of the object descriptors array is not 0 or 1
      * @throws IndexOutOfBoundsException when size of the object descriptors array is not equal to the size of the object array
@@ -176,7 +176,7 @@ public class MetaData implements Serializable
     /**
      * Verify that an Object has the prescribed composition. In order for one object to fit the metadata, the array of expected
      * objects needs to have a length of 1.
-     * @param object Object; the Object to verify.
+     * @param object the Object to verify.
      * @throws IndexOutOfBoundsException when size of the object descriptors array is not 1
      * @throws ClassCastException when the object is of the wrong class
      */

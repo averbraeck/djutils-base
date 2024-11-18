@@ -183,7 +183,7 @@ public class CompressedFileWriterTest
 
     /**
      * Check if the zip file contains the right data.
-     * @param path String; the path of the zip file to check
+     * @param path the path of the zip file to check
      * @throws IOException on errors with the temporary zip file
      */
     private void checkZip(final String path) throws IOException

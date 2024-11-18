@@ -1206,7 +1206,7 @@ public class ClassUtilTest
     @Retention(RetentionPolicy.RUNTIME)
     public @interface AnnString
     {
-        /** @return String; the value */
+        /** @return the value */
         String value();
     }
 

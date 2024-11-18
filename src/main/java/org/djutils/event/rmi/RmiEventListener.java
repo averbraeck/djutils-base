@@ -31,9 +31,9 @@ public abstract class RmiEventListener extends RmiObject implements EventListene
      * Create a remote event listener and register the listener in the RMI registry. When the RMI registry does not exist yet,
      * it will be created, but <b>only</b> on the local host. Remote creation of a registry on another computer is not possible.
      * Any attempt to do so will cause an AccessException to be fired.
-     * @param host String; the host where the RMI registry resides or will be created. Creation is only possible on localhost.
-     * @param port int; the port where the RMI registry can be found or will be created
-     * @param bindingKey String; the key under which this object will be bound in the RMI registry
+     * @param host the host where the RMI registry resides or will be created. Creation is only possible on localhost.
+     * @param port the port where the RMI registry can be found or will be created
+     * @param bindingKey the key under which this object will be bound in the RMI registry
      * @throws RemoteException when there is a problem with the RMI registry
      * @throws AlreadyBoundException when there is already another object bound to the bindingKey
      * @throws NullPointerException when host, path, or bindingKey is null
@@ -51,8 +51,8 @@ public abstract class RmiEventListener extends RmiObject implements EventListene
      * URL, 127.0.0.1 will be used. When the port has not been specified in the URL, the default RMI port 1099 will be used.
      * When the RMI registry does not exist yet, it will be created, but <b>only</b> on the local host. Remote creation of a
      * registry on another computer is not possible. Any attempt to do so will cause an AccessException to be fired.
-     * @param registryURL URL; the URL of the registry, e.g., "http://localhost:1099" or "http://130.161.185.14:28452"
-     * @param bindingKey String; the key under which this object will be bound in the RMI registry
+     * @param registryURL the URL of the registry, e.g., "http://localhost:1099" or "http://130.161.185.14:28452"
+     * @param bindingKey the key under which this object will be bound in the RMI registry
      * @throws RemoteException when there is a problem with the RMI registry
      * @throws AlreadyBoundException when there is already another object bound to the bindingKey
      * @throws NullPointerException when registryURL or bindingKey is null

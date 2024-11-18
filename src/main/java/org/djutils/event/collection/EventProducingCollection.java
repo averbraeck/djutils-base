@@ -53,7 +53,7 @@ public class EventProducingCollection<T> extends LocalEventProducer implements E
 
     /**
      * constructs a new EventProducingCollection with a local EventProducer.
-     * @param wrappedCollection Collection&lt;T&gt;; the wrapped collection.
+     * @param wrappedCollection the wrapped collection.
      */
     public EventProducingCollection(final Collection<T> wrappedCollection)
     {

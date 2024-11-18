@@ -20,7 +20,7 @@ public interface ImmutableList<E> extends ImmutableCollection<E>
 {
     /**
      * Returns the element at the specified position in this immutable list.
-     * @param index int; index of the element to return
+     * @param index index of the element to return
      * @return the element at the specified position in this immutable list
      * @throws IndexOutOfBoundsException if the index is out of range (<code>index &lt; 0 || index &gt;= size()</code>)
      */
@@ -30,7 +30,7 @@ public interface ImmutableList<E> extends ImmutableCollection<E>
      * Returns the index of the first occurrence of the specified element in this immutable list, or -1 if this immutable list
      * does not contain the element. More formally, returns the lowest index <code>i</code> such that
      * <code>(o==null&nbsp;?&nbsp;get(i)==null&nbsp;:&nbsp;o.equals(get(i)))</code>, or -1 if there is no such index.
-     * @param o Object; element to search for
+     * @param o element to search for
      * @return the index of the first occurrence of the specified element in this immutable list, or -1 if this immutable list
      *         does not contain the element
      * @throws ClassCastException if the type of the specified element is incompatible with this immutable list
@@ -42,7 +42,7 @@ public interface ImmutableList<E> extends ImmutableCollection<E>
      * Returns the index of the last occurrence of the specified element in this immutable list, or -1 if this immutable list
      * does not contain the element. More formally, returns the highest index <code>i</code> such that
      * <code>(o==null&nbsp;?&nbsp;get(i)==null&nbsp;:&nbsp;o.equals(get(i)))</code>, or -1 if there is no such index.
-     * @param o Object; element to search for
+     * @param o element to search for
      * @return the index of the last occurrence of the specified element in this immutable list, or -1 if this immutable list
      *         does not contain the element
      * @throws ClassCastException if the type of the specified element is incompatible with this immutable list
@@ -54,8 +54,8 @@ public interface ImmutableList<E> extends ImmutableCollection<E>
      * Returns a safe, immutable copy of the portion of this immutable list between the specified <code>fromIndex</code>,
      * inclusive, and <code>toIndex</code>, exclusive. (If <code>fromIndex</code> and <code>toIndex</code> are equal, the
      * returned immutable list is empty).
-     * @param fromIndex int; low endpoint (inclusive) of the subList
-     * @param toIndex int; high endpoint (exclusive) of the subList
+     * @param fromIndex low endpoint (inclusive) of the subList
+     * @param toIndex high endpoint (exclusive) of the subList
      * @return a view of the specified range within this immutable list
      * @throws IndexOutOfBoundsException for an illegal endpoint index value (<code>fromIndex &lt; 0 || toIndex &gt; size ||
      *         fromIndex &gt; toIndex</code>)
@@ -70,7 +70,7 @@ public interface ImmutableList<E> extends ImmutableCollection<E>
 
     /**
      * Force to redefine equals for the implementations of immutable collection classes.
-     * @param obj Object; the object to compare this collection with
+     * @param obj the object to compare this collection with
      * @return whether the objects are equal
      */
     @Override
@@ -85,7 +85,7 @@ public interface ImmutableList<E> extends ImmutableCollection<E>
 
     /**
      * Force to redefine toString.
-     * @return String; a description of this immutable list
+     * @return a description of this immutable list
      */
     @Override
     String toString();
@@ -93,7 +93,7 @@ public interface ImmutableList<E> extends ImmutableCollection<E>
     /**
      * Return an empty ImmutableList, backed by a ArrayList.
      * @param <E> the value type
-     * @return ImmutableList&lt;K, V&gt;; an empty ImmutableList
+     * @return an empty ImmutableList
      */
     static <E> ImmutableList<E> of()
     {
@@ -103,8 +103,8 @@ public interface ImmutableList<E> extends ImmutableCollection<E>
     /**
      * Return an ImmutableList with 1 entry, backed by a ArrayList.
      * @param <E> the value type
-     * @param v1 E; value 1
-     * @return ImmutableList&lt;K, V&gt;; an ImmutableList with 1 entry, backed by a ArrayList
+     * @param v1 value 1
+     * @return an ImmutableList with 1 entry, backed by a ArrayList
      */
     static <E> ImmutableList<E> of(final E v1)
     {
@@ -116,9 +116,9 @@ public interface ImmutableList<E> extends ImmutableCollection<E>
     /**
      * Return an ImmutableList with 2 entries, backed by a ArrayList.
      * @param <E> the value type
-     * @param v1 E; value 1
-     * @param v2 E; value 2
-     * @return ImmutableList&lt;K, V&gt;; an ImmutableList with 2 entries, backed by a ArrayList
+     * @param v1 value 1
+     * @param v2 value 2
+     * @return an ImmutableList with 2 entries, backed by a ArrayList
      */
     static <E> ImmutableList<E> of(final E v1, final E v2)
     {
@@ -131,10 +131,10 @@ public interface ImmutableList<E> extends ImmutableCollection<E>
     /**
      * Return an ImmutableList with 3 entries, backed by a ArrayList.
      * @param <E> the value type
-     * @param v1 E; value 1
-     * @param v2 E; value 2
-     * @param v3 E; value 3
-     * @return ImmutableList&lt;K, V&gt;; an ImmutableList with 3 entries, backed by a ArrayList
+     * @param v1 value 1
+     * @param v2 value 2
+     * @param v3 value 3
+     * @return an ImmutableList with 3 entries, backed by a ArrayList
      */
     static <E> ImmutableList<E> of(final E v1, final E v2, final E v3)
     {
@@ -148,11 +148,11 @@ public interface ImmutableList<E> extends ImmutableCollection<E>
     /**
      * Return an ImmutableList with 4 entries, backed by a ArrayList.
      * @param <E> the value type
-     * @param v1 E; value 1
-     * @param v2 E; value 2
-     * @param v3 E; value 3
-     * @param v4 E; value 4
-     * @return ImmutableList&lt;K, V&gt;; an ImmutableList with 4 entries, backed by a ArrayList
+     * @param v1 value 1
+     * @param v2 value 2
+     * @param v3 value 3
+     * @param v4 value 4
+     * @return an ImmutableList with 4 entries, backed by a ArrayList
      */
     static <E> ImmutableList<E> of(final E v1, final E v2, final E v3, final E v4)
     {
@@ -167,13 +167,13 @@ public interface ImmutableList<E> extends ImmutableCollection<E>
     /**
      * Return an ImmutableList with 5 or more entries, backed by a ArrayList.
      * @param <E> the value type
-     * @param v1 E; value 1
-     * @param v2 E; value 2
-     * @param v3 E; value 3
-     * @param v4 E; value 4
-     * @param v5 E; value 5
-     * @param vn E...; values 6 and beyond
-     * @return ImmutableList&lt;K, V&gt;; an ImmutableList with 5 or more entries, backed by a ArrayList
+     * @param v1 value 1
+     * @param v2 value 2
+     * @param v3 value 3
+     * @param v4 value 4
+     * @param v5 value 5
+     * @param vn values 6 and beyond
+     * @return an ImmutableList with 5 or more entries, backed by a ArrayList
      */
     @SuppressWarnings("unchecked")
     static <E> ImmutableList<E> of(final E v1, final E v2, final E v3, final E v4, final E v5, final E... vn)

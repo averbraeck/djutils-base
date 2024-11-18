@@ -36,8 +36,8 @@ public class Base64Decoder implements Decoder
 
     /**
      * Construct a new Base64Decoder.
-     * @param decodedBytesPerLine int; maximum number of decoded input characters resulting in one output line
-     * @param extraSpaceAfterEvery int; insert an extra space after every N output fields (a multiple of 3 makes sense for the
+     * @param decodedBytesPerLine maximum number of decoded input characters resulting in one output line
+     * @param extraSpaceAfterEvery insert an extra space after every N output fields (a multiple of 3 makes sense for the
      *            base64 decoder because base64 encodes three bytes into 4 characters)
      */
     public Base64Decoder(final int decodedBytesPerLine, final int extraSpaceAfterEvery)

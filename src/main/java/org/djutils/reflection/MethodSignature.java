@@ -29,7 +29,7 @@ public class MethodSignature implements Serializable
 
     /**
      * constructs a new MethodSignature.
-     * @param value String; the descriptor
+     * @param value the descriptor
      */
     public MethodSignature(final String value)
     {
@@ -38,7 +38,7 @@ public class MethodSignature implements Serializable
 
     /**
      * constructs a new MethodSignature.
-     * @param method Method; the method
+     * @param method the method
      */
     public MethodSignature(final Method method)
     {
@@ -57,7 +57,7 @@ public class MethodSignature implements Serializable
 
     /**
      * constructs a new MethodSignature.
-     * @param constructor Constructor&lt;?&gt;; the constructor
+     * @param constructor the constructor
      */
     public MethodSignature(final Constructor<?> constructor)
     {
@@ -119,7 +119,7 @@ public class MethodSignature implements Serializable
 
     /**
      * @return Returns the parameterDescriptor
-     * @param methodDescriptor String; the methodDescriptor
+     * @param methodDescriptor the methodDescriptor
      */
     public static String getParameterDescriptor(final String methodDescriptor)
     {
@@ -128,7 +128,7 @@ public class MethodSignature implements Serializable
 
     /**
      * returns the parameterTypes.
-     * @param methodDescriptor String; the string
+     * @param methodDescriptor the string
      * @return ClassDescriptor[] the result
      * @throws ClassNotFoundException on incomplete classPath
      */
@@ -163,7 +163,7 @@ public class MethodSignature implements Serializable
 
     /**
      * @return Returns the returnDescriptor
-     * @param methodDescriptor String; the methodDescriptor
+     * @param methodDescriptor the methodDescriptor
      */
     public static String getReturnDescriptor(final String methodDescriptor)
     {
@@ -172,7 +172,7 @@ public class MethodSignature implements Serializable
 
     /**
      * returns the returnType of this methodDescriptor.
-     * @param methodDescriptor String; the returnDescriptor
+     * @param methodDescriptor the returnDescriptor
      * @return Returns the returnType
      * @throws ClassNotFoundException on incomplete classPath
      */

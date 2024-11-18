@@ -37,12 +37,12 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
 
     /**
      * Create a new QuadTree object (or a sub-tree).
-     * @param maximumLoad int; number of elements at any level that warrants investigating if the tree can be re-balanced
-     * @param minimumSize double; minimum width or height of a sub tree Rectangle (smaller sub tree are never created)
-     * @param left double; the lowest X-coordinate that is allowed (inclusive)
-     * @param bottom double; the lowest Y-coordinate that is allowed (inclusive)
-     * @param right double; the highest X-coordinate that is allowed (exclusive)
-     * @param top double; the highest Y-coordinate that is allowed (exclusive)
+     * @param maximumLoad number of elements at any level that warrants investigating if the tree can be re-balanced
+     * @param minimumSize minimum width or height of a sub tree Rectangle (smaller sub tree are never created)
+     * @param left the lowest X-coordinate that is allowed (inclusive)
+     * @param bottom the lowest Y-coordinate that is allowed (inclusive)
+     * @param right the highest X-coordinate that is allowed (exclusive)
+     * @param top the highest Y-coordinate that is allowed (exclusive)
      */
     public QuadTree(final int maximumLoad, final double minimumSize, final double left, final double bottom, final double right,
             final double top)
@@ -56,7 +56,7 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
 
     /**
      * Return the number of objects at which it is time to try to re-balance.
-     * @return int; the number of objects at which it is time to try to re-balance
+     * @return the number of objects at which it is time to try to re-balance
      */
     public int getMaxLoad()
     {
@@ -65,7 +65,7 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
 
     /**
      * Return the minimum sub-tree rectangle size.
-     * @return double; the minimum sub-tree rectangle size
+     * @return the minimum sub-tree rectangle size
      */
     public double getMinimumSize()
     {
@@ -105,8 +105,8 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
     /**
      * Find all elements intersecting a given bounding box. This iterator cannot be used to remove elements, but the remove
      * method can be safely called while the iterator is active.
-     * @param searchArea Rectangle; the bounding box
-     * @return Iterator&lt;T&gt;; iterator that returns all elements that intersect the given bounding box
+     * @param searchArea the bounding box
+     * @return iterator that returns all elements that intersect the given bounding box
      */
     public Iterator<T> iterator(final Rectangle searchArea)
     {
@@ -128,8 +128,8 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
 
     /**
      * Construct a set containing all payload elements within a specified area.
-     * @param searchArea Rectangle; the search area
-     * @return Set&lt;T&gt;; the set containing all payload elements whose bounding areas intersect the specified area
+     * @param searchArea the search area
+     * @return the set containing all payload elements whose bounding areas intersect the specified area
      */
     private Set<T> collect(final Rectangle searchArea)
     {
@@ -210,7 +210,7 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
 
     /**
      * Return the total number of sub trees.
-     * @return int; the total number of sub trees
+     * @return the total number of sub trees
      */
     public int getSubTreeCount()
     {
@@ -225,8 +225,8 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
 
     /**
      * Make a textual description of this quad tree drilling down to the prescribed depth.
-     * @param expandDepth int; maximum depth to descend
-     * @return String; textual description of this quad tree
+     * @param expandDepth maximum depth to descend
+     * @return textual description of this quad tree
      */
     public String toString(final int expandDepth)
     {
@@ -236,8 +236,8 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
 
     /**
      * Dump a quad tree.
-     * @param indent String; prefix for each output line
-     * @return String; textual description of this quad tree.
+     * @param indent prefix for each output line
+     * @return textual description of this quad tree.
      */
     public String dump(final String indent)
     {
@@ -271,8 +271,8 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
 
         /**
          * Construct a new sub tree.
-         * @param root QuadTree&lt;T&gt;; the root
-         * @param boundingBox Rectangle; the bounding box of the new sub tree
+         * @param root the root
+         * @param boundingBox the bounding box of the new sub tree
          */
         SubTree(final QuadTree<T> root, final Rectangle boundingBox)
         {
@@ -283,7 +283,7 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
 
         /**
          * Retrieve the bounding box of this sub tree.
-         * @return Rectangle; the bounding box of this sub tree
+         * @return the bounding box of this sub tree
          */
         public final Rectangle getBoundingBox()
         {
@@ -292,7 +292,7 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
 
         /**
          * Return the number of objects stored in and under this SubTree.
-         * @return int; the number of objects stored in and under this SubTree
+         * @return the number of objects stored in and under this SubTree
          */
         public int size()
         {
@@ -301,8 +301,8 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
 
         /**
          * Add a RectangleAndPayload to this SubTree.
-         * @param e RectangleAndPayload&lt;T&gt;; the object to add
-         * @return boolean; true if this SubTree was changed (object was added); false if this SubTree did not change
+         * @param e the object to add
+         * @return true if this SubTree was changed (object was added); false if this SubTree did not change
          */
         public boolean add(final RectangleAndPayload<T> e)
         {
@@ -322,8 +322,8 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
 
         /**
          * Remove a RectangleAndPayload from this SubTree.
-         * @param o RectangleAndPayload&lt;T&gt;; the object to remove
-         * @return boolean; true if this SubTree was changed (object was removed); false if this SubTree did not change
+         * @param o the object to remove
+         * @return true if this SubTree was changed (object was removed); false if this SubTree did not change
          */
         public boolean remove(final RectangleAndPayload<T> o)
         {
@@ -368,8 +368,8 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
 
         /**
          * Determine if this SubTree contains a specific object.
-         * @param o RectangleAndPayload&lt;T&gt;; the object to search
-         * @return boolean; true if this SubTree contains the object
+         * @param o the object to search
+         * @return true if this SubTree contains the object
          */
         public boolean contains(final RectangleAndPayload<T> o)
         {
@@ -382,8 +382,8 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
 
         /**
          * Recursively search for a particular object.
-         * @param o RectangleAndPayload&lt;T&gt;; the object to search for
-         * @return boolean; true if this quad tree contains the object; false if this quad tree does not contain the object
+         * @param o the object to search for
+         * @return true if this quad tree contains the object; false if this quad tree does not contain the object
          */
         boolean recursiveContains(final RectangleAndPayload<T> o)
         {
@@ -414,8 +414,8 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
 
         /**
          * Recursively collect all elements that intersect the given rectangle.
-         * @param rectangle Rectangle; the rectangle
-         * @return Set&lt;RectangleAndPayload&lt;T&gt;&gt;; all stored elements that intersect the given rectangle
+         * @param rectangle the rectangle
+         * @return all stored elements that intersect the given rectangle
          */
         public Set<RectangleAndPayload<T>> recursiveCollect(final Rectangle rectangle)
         {
@@ -524,8 +524,8 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
 
         /**
          * Return a textual representation of this quad tree up to the specified depth.
-         * @param expandDepth int; the maximum depth to expand
-         * @return String; textual representation of this quad tree
+         * @param expandDepth the maximum depth to expand
+         * @return textual representation of this quad tree
          */
         public String toString(final int expandDepth)
         {
@@ -546,8 +546,8 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
 
         /**
          * Dump a quad tree.
-         * @param indent String; prefix for each output line
-         * @return String; textual description of this quad tree.
+         * @param indent prefix for each output line
+         * @return textual description of this quad tree.
          */
         public String dump(final String indent)
         {
@@ -611,8 +611,8 @@ class RectangleAndPayload<T extends Object> implements Serializable
 
     /**
      * Construct a new RectangleAndPayload object.
-     * @param rectangle Rectangle; the bounding rectangle of the payload
-     * @param payload T; the payload
+     * @param rectangle the bounding rectangle of the payload
+     * @param payload the payload
      */
     RectangleAndPayload(final Rectangle rectangle, final T payload)
     {
@@ -622,7 +622,7 @@ class RectangleAndPayload<T extends Object> implements Serializable
 
     /**
      * Retrieve the bounding rectangle.
-     * @return Rectangle; the bounding rectangle
+     * @return the bounding rectangle
      */
     public Rectangle getRectangle()
     {
@@ -631,7 +631,7 @@ class RectangleAndPayload<T extends Object> implements Serializable
 
     /**
      * Retrieve the payload.
-     * @return T; the payload
+     * @return the payload
      */
     public T getPayload()
     {

@@ -19,7 +19,7 @@ public class MutableInt
 
     /**
      * Initialize the mutable integer with a value.
-     * @param value int; the initial value of the mutable integer
+     * @param value the initial value of the mutable integer
      */
     public MutableInt(final int value)
     {
@@ -28,7 +28,7 @@ public class MutableInt
 
     /**
      * set the mutable integer to a new value.
-     * @param newValue int; the new value of the mutable integer
+     * @param newValue the new value of the mutable integer
      */
     public void set(final int newValue)
     {
@@ -36,7 +36,7 @@ public class MutableInt
     }
 
     /**
-     * @return int; the current value of the mutable integer
+     * @return the current value of the mutable integer
      */
     public int get()
     {
@@ -45,7 +45,7 @@ public class MutableInt
 
     /**
      * Increment the modifiable int with a value.
-     * @param increment int; the value to increment the modifiable int with
+     * @param increment the value to increment the modifiable int with
      */
     public void inc(final int increment)
     {
@@ -62,7 +62,7 @@ public class MutableInt
 
     /**
      * Decrement the modifiable int with a value.
-     * @param decrement int; the value to decrement the modifiable int with
+     * @param decrement the value to decrement the modifiable int with
      */
     public void dec(final int decrement)
     {
@@ -79,7 +79,7 @@ public class MutableInt
 
     /**
      * Increment the modifiable int with a value.
-     * @param multiplier int; the value to multiply the modifiable int with
+     * @param multiplier the value to multiply the modifiable int with
      */
     public void mul(final int multiplier)
     {
@@ -88,7 +88,7 @@ public class MutableInt
 
     /**
      * Divide the modifiable int by a value.
-     * @param divisor int; the value to divide the modifiable int by
+     * @param divisor the value to divide the modifiable int by
      */
     public void div(final int divisor)
     {

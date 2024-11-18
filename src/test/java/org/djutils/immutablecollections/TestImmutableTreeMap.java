@@ -115,9 +115,9 @@ public class TestImmutableTreeMap
 
     /**
      * ...
-     * @param map Navigablemap&lt;Integer, Integer&gt;; map
-     * @param imMap ImmutabletreeMap&lt;Integer, Integer&gt;; immutable map
-     * @param copyOrWrap Immutable;
+     * @param map map
+     * @param imMap immutable map
+     * @param copyOrWrap 
      */
     private void testIntMap(final NavigableMap<Integer, Integer> map, final ImmutableTreeMap<Integer, Integer> imMap,
             final Immutable copyOrWrap)
@@ -180,9 +180,9 @@ public class TestImmutableTreeMap
 
     /**
      * Determine if two entry sets contain the same keys and corresponding values.
-     * @param es Set&lt;Entry&lt;Integer, Integer&gt;&gt;; entry set
-     * @param ies Set&gt;ImmutableEntry&lt;Integer, Integer&gt;&gt;; immutable entry set
-     * @return boolean; true if the sets contain the same keys and corresponding values
+     * @param es entry set
+     * @param ies immutable entry set
+     * @return true if the sets contain the same keys and corresponding values
      */
     private boolean checkEntrySets(final Set<Entry<Integer, Integer>> es, final Set<ImmutableEntry<Integer, Integer>> ies)
     {

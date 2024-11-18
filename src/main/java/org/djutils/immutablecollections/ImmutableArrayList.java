@@ -23,7 +23,7 @@ public class ImmutableArrayList<E> extends ImmutableAbstractList<E>
     private static final long serialVersionUID = 20160507L;
 
     /**
-     * @param collection Collection&lt;? extends E&gt;; the collection to use for the immutable list.
+     * @param collection the collection to use for the immutable list.
      */
     public ImmutableArrayList(final Collection<? extends E> collection)
     {
@@ -31,8 +31,8 @@ public class ImmutableArrayList<E> extends ImmutableAbstractList<E>
     }
 
     /**
-     * @param list List&lt;E&gt;; the list to use for the immutable list.
-     * @param copyOrWrap COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original collection
+     * @param list the list to use for the immutable list.
+     * @param copyOrWrap WRAP stores a pointer to the original collection
      */
     public ImmutableArrayList(final List<E> list, final Immutable copyOrWrap)
     {
@@ -40,7 +40,7 @@ public class ImmutableArrayList<E> extends ImmutableAbstractList<E>
     }
 
     /**
-     * @param collection ImmutableAbstractCollection&lt;? extends E&gt;; the collection to use for the immutable list.
+     * @param collection the collection to use for the immutable list.
      */
     public ImmutableArrayList(final ImmutableAbstractCollection<? extends E> collection)
     {
@@ -48,8 +48,8 @@ public class ImmutableArrayList<E> extends ImmutableAbstractList<E>
     }
 
     /**
-     * @param list ImmutableAbstractList&lt;E&gt;; the list to use for the immutable list.
-     * @param copyOrWrap COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original collection
+     * @param list the list to use for the immutable list.
+     * @param copyOrWrap WRAP stores a pointer to the original collection
      */
     public ImmutableArrayList(final ImmutableAbstractList<E> list, final Immutable copyOrWrap)
     {

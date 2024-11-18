@@ -19,7 +19,7 @@ public class MutableByte
 
     /**
      * Initialize the mutable byte with a value.
-     * @param value byte; the initial value of the mutable byte
+     * @param value the initial value of the mutable byte
      */
     public MutableByte(final byte value)
     {
@@ -28,7 +28,7 @@ public class MutableByte
 
     /**
      * set the mutable byte to a new value.
-     * @param newValue byte; the new value of the mutable byte
+     * @param newValue the new value of the mutable byte
      */
     public void set(final byte newValue)
     {
@@ -36,7 +36,7 @@ public class MutableByte
     }
 
     /**
-     * @return byte; the current value of the mutable byte
+     * @return the current value of the mutable byte
      */
     public byte get()
     {
@@ -45,7 +45,7 @@ public class MutableByte
 
     /**
      * Increment the modifiable byte with a value.
-     * @param increment byte; the value to increment the modifiable byte with
+     * @param increment the value to increment the modifiable byte with
      */
     public void inc(final byte increment)
     {
@@ -62,7 +62,7 @@ public class MutableByte
 
     /**
      * Decrement the modifiable byte with a value.
-     * @param decrement byte; the value to decrement the modifiable byte with
+     * @param decrement the value to decrement the modifiable byte with
      */
     public void dec(final byte decrement)
     {
@@ -79,7 +79,7 @@ public class MutableByte
 
     /**
      * Increment the modifiable byte with a value.
-     * @param multiplier byte; the value to multiply the modifiable byte with
+     * @param multiplier the value to multiply the modifiable byte with
      */
     public void mul(final byte multiplier)
     {
@@ -88,7 +88,7 @@ public class MutableByte
 
     /**
      * Divide the modifiable byte by a value.
-     * @param divisor byte; the value to divide the modifiable byte by
+     * @param divisor the value to divide the modifiable byte by
      */
     public void div(final byte divisor)
     {

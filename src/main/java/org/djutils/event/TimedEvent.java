@@ -30,9 +30,9 @@ public class TimedEvent<T extends Comparable<T> & Serializable> extends Event im
 
     /**
      * Construct a new timed event, where compliance with the metadata is verified.
-     * @param type EventType; the eventType of the event.
-     * @param content Serializable; the content of the event.
-     * @param timeStamp T; the timeStamp.
+     * @param type the eventType of the event.
+     * @param content the content of the event.
+     * @param timeStamp the timeStamp.
      */
     public TimedEvent(final EventType type, final Serializable content, final T timeStamp)
     {
@@ -41,10 +41,10 @@ public class TimedEvent<T extends Comparable<T> & Serializable> extends Event im
 
     /**
      * Construct a new timed event, with a choice to verify compliance with metadata.
-     * @param type EventType; the eventType of the event.
-     * @param content Serializable; the content of the event.
-     * @param timeStamp T; the timeStamp.
-     * @param verifyMetaData boolean; whether to verify the compliance with metadata or not
+     * @param type the eventType of the event.
+     * @param content the content of the event.
+     * @param timeStamp the timeStamp.
+     * @param verifyMetaData whether to verify the compliance with metadata or not
      */
     public TimedEvent(final EventType type, final Serializable content, final T timeStamp, final boolean verifyMetaData)
     {
@@ -55,7 +55,7 @@ public class TimedEvent<T extends Comparable<T> & Serializable> extends Event im
 
     /**
      * Returns the timeStamp of this event.
-     * @return T; the time stamp
+     * @return the time stamp
      */
     public T getTimeStamp()
     {

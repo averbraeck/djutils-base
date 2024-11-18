@@ -55,7 +55,7 @@ public final class Profile
 
     /**
      * Starts timing on the calling class and method, specified by given name.
-     * @param name String; name
+     * @param name name
      */
     public static void start(final String name)
     {
@@ -64,8 +64,8 @@ public final class Profile
 
     /**
      * Forwarding method used for consistent stack trace filtering.
-     * @param name String; name
-     * @param nanoTime Long; time obtained by entrance method
+     * @param name name
+     * @param nanoTime time obtained by entrance method
      */
     private static void start0(final String name, final Long nanoTime)
     {
@@ -82,7 +82,7 @@ public final class Profile
 
     /**
      * Ends timing on the calling class and method, specified by given name.
-     * @param name String; name
+     * @param name name
      */
     public static void end(final String name)
     {
@@ -91,8 +91,8 @@ public final class Profile
 
     /**
      * Forwarding method used for consistent stack trace filtering.
-     * @param name String; name
-     * @param nanoTime Long; time obtained by entrance method
+     * @param name name
+     * @param nanoTime time obtained by entrance method
      */
     private static void end0(final String name, final Long nanoTime)
     {
@@ -101,9 +101,9 @@ public final class Profile
 
     /**
      * Returns the profile info, which is created if none was present.
-     * @param name String; name
-     * @param start boolean; start command; if true; an entry may be added to the LINES map
-     * @return ProfileInfo; applicable info
+     * @param name name
+     * @param start start command; if true; an entry may be added to the LINES map
+     * @return applicable info
      */
     private static ProfileInfo getProfileInfo(final String name, final boolean start)
     {
@@ -207,8 +207,8 @@ public final class Profile
 
     /**
      * Return statistics of one sampler (which must have identified itself with a name).
-     * @param name String; name that was used in <code>start</code> and <code>end</code> calls.
-     * @return String; the results, or null if no information was gathered under that name
+     * @param name name that was used in <code>start</code> and <code>end</code> calls.
+     * @return the results, or null if no information was gathered under that name
      */
     public static String statistics(final String name)
     {
@@ -245,7 +245,7 @@ public final class Profile
 
     /**
      * Sets a print interval.
-     * @param printInterval long; print interval in ms
+     * @param printInterval print interval in ms
      */
     public static void setPrintInterval(final long printInterval)
     {
@@ -311,7 +311,7 @@ public final class Profile
 
         /**
          * Constructor.
-         * @param name String; user given name
+         * @param name user given name
          */
         ProfileInfo(final String name)
         {
@@ -333,7 +333,7 @@ public final class Profile
 
         /**
          * Sets the start time .
-         * @param startTime long; start time in nanoseconds
+         * @param startTime start time in nanoseconds
          */
         public void start(final long startTime)
         {
@@ -344,7 +344,7 @@ public final class Profile
 
         /**
          * Adds to total profiling time.
-         * @param endTime long; end time in nanoseconds
+         * @param endTime end time in nanoseconds
          */
         public void end(final long endTime)
         {
@@ -368,7 +368,7 @@ public final class Profile
 
         /**
          * Returns the user given id.
-         * @return String; user given id
+         * @return user given id
          */
         public String getName()
         {
@@ -377,7 +377,7 @@ public final class Profile
 
         /**
          * Returns total profiling time [s].
-         * @return double; total profiling time [s]
+         * @return total profiling time [s]
          */
         public double getTotal()
         {
@@ -386,7 +386,7 @@ public final class Profile
 
         /**
          * Returns profiling time deviation [s].
-         * @return double; profiling time deviation [s], or NaN if only one invocation was logged
+         * @return profiling time deviation [s], or NaN if only one invocation was logged
          */
         public double getStandardDeviation()
         {
@@ -400,7 +400,7 @@ public final class Profile
 
         /**
          * Returns the number of invocations.
-         * @return int; number of invocations
+         * @return number of invocations
          */
         public int getInvocations()
         {
@@ -409,7 +409,7 @@ public final class Profile
 
         /**
          * Returns the mean execution time [s].
-         * @return double; mean execution time [s]
+         * @return mean execution time [s]
          */
         public double getMean()
         {

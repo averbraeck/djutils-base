@@ -49,8 +49,8 @@ public class EventType implements Serializable
     /**
      * Construct a new EventType. Only events of the type Event, and no subclasses of Event, can be used to fire events of this
      * type. This means that firing a TimedEvent of this type will result in an error.
-     * @param name String; the name of the new eventType. Two values are not appreciated: null and the empty string.
-     * @param metaData MetaData; describes the payload of events of the new EventType;
+     * @param name the name of the new eventType. Two values are not appreciated: null and the empty string.
+     * @param metaData describes the payload of events of the new EventType;
      */
     public EventType(final String name, final MetaData metaData)
     {
@@ -76,7 +76,7 @@ public class EventType implements Serializable
      * Construct a new EventType. The name of the metadata will function as the name of the event. Only events of the type
      * Event, and no subclasses of Event, can be used to fire events of this type. This means that firing a TimedEvent of this
      * type will result in an error.
-     * @param metaData MetaData; describes the payload of events of the new EventType;
+     * @param metaData describes the payload of events of the new EventType;
      */
     public EventType(final MetaData metaData)
     {
@@ -86,7 +86,7 @@ public class EventType implements Serializable
     /**
      * Construct a new EventType with no meta data. Only events of the type Event, and no subclasses of Event, can be used to
      * fire events of this type. This means that firing a TimedEvent of this type will result in an error.
-     * @param name String; the name of the new eventType. Two values are not appreciated: null and the empty string.
+     * @param name the name of the new eventType. Two values are not appreciated: null and the empty string.
      */
     @Deprecated
     public EventType(final String name)
@@ -96,7 +96,7 @@ public class EventType implements Serializable
 
     /**
      * Return the event type name.
-     * @return String; the event type name
+     * @return the event type name
      */
     public String getName()
     {
@@ -105,7 +105,7 @@ public class EventType implements Serializable
 
     /**
      * Retrieve the MetaData that describes the payload of events of this EventType.
-     * @return MetaData; describes the payload of events of this EventType
+     * @return describes the payload of events of this EventType
      */
     public MetaData getMetaData()
     {

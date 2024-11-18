@@ -17,7 +17,7 @@ public class TraceVerifierException extends RuntimeException
 
     /**
      * Create a specific RuntimeException that shows the difference between the sample and the expected sample.
-     * @param message String; the message of the exception, showing the difference between the sample and the expected sample
+     * @param message the message of the exception, showing the difference between the sample and the expected sample
      */
     public TraceVerifierException(final String message)
     {

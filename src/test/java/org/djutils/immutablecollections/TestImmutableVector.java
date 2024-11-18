@@ -163,8 +163,8 @@ public class TestImmutableVector
 
     /**
      * ...
-     * @param vector Vector&lt;Integer&gt;; a vector of Integer
-     * @param imVector ImmutableVector&lt;Integer&gt;; an immutable vector of Integer
+     * @param vector a vector of Integer
+     * @param imVector an immutable vector of Integer
      * @param copyOrWrap Immutable
      */
     private void testIntVector(final Vector<Integer> vector, final ImmutableVector<Integer> imVector,

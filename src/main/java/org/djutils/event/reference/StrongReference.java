@@ -34,7 +34,7 @@ public class StrongReference<T extends Serializable> extends Reference<T>
 
     /**
      * Creates a new strong reference that refers to the given object. The new reference is not registered with any queue.
-     * @param referent T; object the new strong reference will refer to
+     * @param referent object the new strong reference will refer to
      */
     public StrongReference(final T referent)
     {
@@ -49,7 +49,7 @@ public class StrongReference<T extends Serializable> extends Reference<T>
 
     /**
      * writes a serializable referent to stream.
-     * @param out ObjectOutputStream; the output stream
+     * @param out the output stream
      * @throws IOException on IOException
      */
     private synchronized void writeObject(final ObjectOutputStream out) throws IOException

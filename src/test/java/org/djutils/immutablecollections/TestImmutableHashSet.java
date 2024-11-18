@@ -48,8 +48,8 @@ public class TestImmutableHashSet
 
     /**
      * ...
-     * @param set Set&lt;Integer&gt;; set
-     * @param imSet ImmutableSet&lt;Integer&gt;; immutable set
+     * @param set set
+     * @param imSet immutable set
      * @param copyOrWrap Immutable
      */
     private void testIntSet(final Set<Integer> set, final ImmutableSet<Integer> imSet, final Immutable copyOrWrap)

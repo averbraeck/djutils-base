@@ -32,8 +32,8 @@ public abstract class ImmutableAbstractList<E> extends ImmutableAbstractCollecti
     /**
      * Construct an abstract immutable list. Make sure that the argument is a safe copy of the list or pointer to the list of
      * the right type! Copying does not take place in the Abstract class!
-     * @param list List&lt;E&gt;; a safe copy of the list, or pointer to the list to use for the immutable list
-     * @param copyOrWrap Immutable; indicate whether the immutable is a copy or a wrap
+     * @param list a safe copy of the list, or pointer to the list to use for the immutable list
+     * @param copyOrWrap indicate whether the immutable is a copy or a wrap
      */
     protected ImmutableAbstractList(final List<E> list, final Immutable copyOrWrap)
     {

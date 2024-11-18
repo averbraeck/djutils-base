@@ -23,8 +23,8 @@ public final class Primitive
 
     /**
      * casts a set of values to classes.
-     * @param classes Class&lt;?&gt;[]; the classes to cast to
-     * @param values Object[]; the values
+     * @param classes the classes to cast to
+     * @param values the values
      * @return the newly creates values
      */
     public static Object[] cast(final Class<?>[] classes, final Object[] values)
@@ -38,9 +38,9 @@ public final class Primitive
 
     /**
      * casts an object to a instance of clazz.
-     * @param clazz Class&lt;?&gt;; the class to cast to
-     * @param object Object; the object to cast
-     * @return Object; the casted object
+     * @param clazz the class to cast to
+     * @param object the object to cast
+     * @return the casted object
      */
     public static Object cast(final Class<?> clazz, final Object object)
     {
@@ -102,7 +102,7 @@ public final class Primitive
     /**
      * returns the primitiveClass of the name given as defined by the Java VM class constants. (i.e. both "int" and "I" return
      * int.class). Both void and "V" return void.class. null is returned whenever an unknown className is given.
-     * @param className String; the className
+     * @param className the className
      * @return Class the primitiveClass
      */
     public static Class<?> forName(final String className)
@@ -148,7 +148,7 @@ public final class Primitive
 
     /**
      * gets the primitive of the given wrapperClass.
-     * @param wrapperClass Class&lt;?&gt;; the wrapper class
+     * @param wrapperClass the wrapper class
      * @return the primitive Class. null is returned whenever wrapperClass is not a wrapperclass.
      */
     public static Class<?> getPrimitive(final Class<?> wrapperClass)
@@ -190,7 +190,7 @@ public final class Primitive
 
     /**
      * gets the wrapper of this primitive class.
-     * @param primitiveClass Class&lt;?&gt;; the primitive class
+     * @param primitiveClass the primitive class
      * @return the Class. null is returned whenever wrapperClass is not a wrapperclass.
      */
     public static Class<?> getWrapper(final Class<?> primitiveClass)
@@ -232,7 +232,7 @@ public final class Primitive
 
     /**
      * casts an object to Boolean.
-     * @param object Object; the object
+     * @param object the object
      * @return Boolean
      */
     public static Boolean toBoolean(final Object object)
@@ -255,7 +255,7 @@ public final class Primitive
 
     /**
      * casts an object to Byte.
-     * @param object Object; the object
+     * @param object the object
      * @return Byte
      */
     public static Byte toByte(final Object object)
@@ -269,7 +269,7 @@ public final class Primitive
 
     /**
      * casts an object to Character.
-     * @param object Object; the object to parse
+     * @param object the object to parse
      * @return Integer the result
      */
     public static Character toCharacter(final Object object)
@@ -283,7 +283,7 @@ public final class Primitive
 
     /**
      * casts an object to Double.
-     * @param object Object; the object to parse
+     * @param object the object to parse
      * @return Integer the result
      */
     public static Double toDouble(final Object object)
@@ -293,7 +293,7 @@ public final class Primitive
 
     /**
      * casts an object to Float.
-     * @param object Object; the object to parse
+     * @param object the object to parse
      * @return Float the result
      */
     public static Float toFloat(final Object object)
@@ -303,7 +303,7 @@ public final class Primitive
 
     /**
      * casts an object to Long.
-     * @param object Object; the object to parse
+     * @param object the object to parse
      * @return Long the result
      */
     public static Long toLong(final Object object)
@@ -313,7 +313,7 @@ public final class Primitive
 
     /**
      * casts an object to Short.
-     * @param object Object; the object to parse
+     * @param object the object to parse
      * @return Long the result
      */
     public static Short toShort(final Object object)
@@ -323,7 +323,7 @@ public final class Primitive
 
     /**
      * casts an object to Integer.
-     * @param object Object; the object to parse
+     * @param object the object to parse
      * @return Integer the result
      */
     public static Integer toInteger(final Object object)
@@ -349,8 +349,8 @@ public final class Primitive
      * Integer i = new Number(4) will not work). This method also takes into account primitive types, so when firstClass is
      * Number, and secondClass is int, the result is true, or when the firstClass is int, and the second class is Integer /
      * firstClass is Integer and secondClass is int, the result will also be true.
-     * @param firstClass Class&lt;?&gt;; the class to which secondClass should be assignable
-     * @param secondClass Class&lt;?&gt;; the class from which firstClass should be assignable
+     * @param firstClass the class to which secondClass should be assignable
+     * @param secondClass the class from which firstClass should be assignable
      * @return firstClass.isAssignableFrom(secondClass) taking into acount primitive types
      */
     public static boolean isPrimitiveAssignableFrom(final Class<?> firstClass, final Class<?> secondClass)

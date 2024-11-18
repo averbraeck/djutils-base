@@ -19,7 +19,7 @@ public class MutableFloat
 
     /**
      * Initialize the mutable float with a value.
-     * @param value float; the initial value of the mutable float
+     * @param value the initial value of the mutable float
      */
     public MutableFloat(final float value)
     {
@@ -28,7 +28,7 @@ public class MutableFloat
 
     /**
      * set the mutable float to a new value.
-     * @param newValue float; the new value of the mutable float
+     * @param newValue the new value of the mutable float
      */
     public void set(final float newValue)
     {
@@ -36,7 +36,7 @@ public class MutableFloat
     }
 
     /**
-     * @return float; the current value of the mutable float
+     * @return the current value of the mutable float
      */
     public float get()
     {
@@ -45,7 +45,7 @@ public class MutableFloat
 
     /**
      * Increment the modifiable float with a value.
-     * @param increment float; the value to increment the modifiable float with
+     * @param increment the value to increment the modifiable float with
      */
     public void inc(final float increment)
     {
@@ -62,7 +62,7 @@ public class MutableFloat
 
     /**
      * Decrement the modifiable float with a value.
-     * @param decrement float; the value to decrement the modifiable float with
+     * @param decrement the value to decrement the modifiable float with
      */
     public void dec(final float decrement)
     {
@@ -79,7 +79,7 @@ public class MutableFloat
 
     /**
      * Increment the modifiable float with a value.
-     * @param multiplier float; the value to multiply the modifiable float with
+     * @param multiplier the value to multiply the modifiable float with
      */
     public void mul(final float multiplier)
     {
@@ -88,7 +88,7 @@ public class MutableFloat
 
     /**
      * Divide the modifiable float by a value.
-     * @param divisor float; the value to divide the modifiable float by
+     * @param divisor the value to divide the modifiable float by
      */
     public void div(final float divisor)
     {

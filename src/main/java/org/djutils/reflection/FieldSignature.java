@@ -32,7 +32,7 @@ public class FieldSignature implements Serializable
 
     /**
      * constructs a new FieldSignature.
-     * @param value String; the value of the descriptor
+     * @param value the value of the descriptor
      */
     public FieldSignature(final String value)
     {
@@ -41,7 +41,7 @@ public class FieldSignature implements Serializable
 
     /**
      * constructs a new FieldSignature.
-     * @param clazz Class&lt;?&gt;; The class
+     * @param clazz The class
      */
     public FieldSignature(final Class<?> clazz)
     {
@@ -73,7 +73,7 @@ public class FieldSignature implements Serializable
 
     /**
      * converts an array of fields to its descriptor.
-     * @param classes Class&lt;?&gt;[]; the classes to represent
+     * @param classes the classes to represent
      * @return String the descriptor String
      */
     public static final String toDescriptor(final Class<?>[] classes)
@@ -88,7 +88,7 @@ public class FieldSignature implements Serializable
 
     /**
      * converts a field to its descriptor.
-     * @param clazz Class&lt;?&gt;; the clazz to represent
+     * @param clazz the clazz to represent
      * @return String the descriptor String
      */
     public static final String toDescriptor(final Class<?> clazz)
@@ -138,7 +138,7 @@ public class FieldSignature implements Serializable
 
     /**
      * converts a fieldDescriptor to its class representation.
-     * @param descriptor String; the descriptor
+     * @param descriptor the descriptor
      * @return Class the class
      * @throws ClassNotFoundException on failure
      */

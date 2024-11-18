@@ -18,7 +18,7 @@ public enum ReferenceType
 
     /**
      * Return whether the reference is strong.
-     * @return boolean; true when reference is strong
+     * @return true when reference is strong
      */
     public boolean isStrong()
     {
@@ -27,7 +27,7 @@ public enum ReferenceType
 
     /**
      * Return whether the reference is weak.
-     * @return boolean; true when reference is weak
+     * @return true when reference is weak
      */
     public boolean isWeak()
     {

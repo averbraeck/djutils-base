@@ -38,7 +38,7 @@ public interface ImmutableNavigableMap<K, V> extends ImmutableSortedMap<K, V>
 
     /**
      * Returns the greatest key in this immutable map strictly less than the given key, or {@code null} if there is no such key.
-     * @param e K; the value to match
+     * @param e the value to match
      * @return the greatest key less than {@code e}, or {@code null} if there is no such key
      * @throws ClassCastException if the specified key cannot be compared with the keys currently in the immutable map
      * @throws NullPointerException if the specified key is null and this immutable map does not permit null keys
@@ -48,7 +48,7 @@ public interface ImmutableNavigableMap<K, V> extends ImmutableSortedMap<K, V>
     /**
      * Returns the greatest key in this immutable map less than or equal to the given key, or {@code null} if there is no such
      * key.
-     * @param e K; the value to match
+     * @param e the value to match
      * @return the greatest key less than or equal to {@code e}, or {@code null} if there is no such key
      * @throws ClassCastException if the specified key cannot be compared with the keys currently in the immutable map
      * @throws NullPointerException if the specified key is null and this immutable map does not permit null keys
@@ -58,7 +58,7 @@ public interface ImmutableNavigableMap<K, V> extends ImmutableSortedMap<K, V>
     /**
      * Returns the least key in this immutable map greater than or equal to the given key, or {@code null} if there is no such
      * key.
-     * @param e K; the value to match
+     * @param e the value to match
      * @return the least key greater than or equal to {@code e}, or {@code null} if there is no such key
      * @throws ClassCastException if the specified key cannot be compared with the keys currently in the immutable map
      * @throws NullPointerException if the specified key is null and this immutable map does not permit null keys
@@ -67,7 +67,7 @@ public interface ImmutableNavigableMap<K, V> extends ImmutableSortedMap<K, V>
 
     /**
      * Returns the least key in this immutable map strictly greater than the given key, or {@code null} if there is no such key.
-     * @param e K; the value to match
+     * @param e the value to match
      * @return the least key greater than {@code e}, or {@code null} if there is no such key
      * @throws ClassCastException if the specified key cannot be compared with the keys currently in the immutable map
      * @throws NullPointerException if the specified key is null and this immutable map does not permit null keys
@@ -88,10 +88,10 @@ public interface ImmutableNavigableMap<K, V> extends ImmutableSortedMap<K, V>
      * Returns a view of the portion of this immutable map whose keys range from {@code fromKey} to {@code toKey}. If
      * {@code fromKey} and {@code toKey} are equal, the returned immutable map is empty unless {@code fromInclusive} and
      * {@code toInclusive} are both true.
-     * @param fromKey K; low endpoint of the returned immutable map
-     * @param fromInclusive boolean; {@code true} if the low endpoint is to be included in the returned view
-     * @param toKey K; high endpoint of the returned immutable map
-     * @param toInclusive boolean; {@code true} if the high endpoint is to be included in the returned view
+     * @param fromKey low endpoint of the returned immutable map
+     * @param fromInclusive {@code true} if the low endpoint is to be included in the returned view
+     * @param toKey high endpoint of the returned immutable map
+     * @param toInclusive {@code true} if the high endpoint is to be included in the returned view
      * @return a view of the portion of this immutable map whose keys range from {@code fromKey}, inclusive, to {@code toKey},
      *         exclusive
      * @throws ClassCastException if {@code fromKey} and {@code toKey} cannot be compared to one another using this immutable
@@ -107,8 +107,8 @@ public interface ImmutableNavigableMap<K, V> extends ImmutableSortedMap<K, V>
     /**
      * Returns a view of the portion of this immutable map whose keys are less than (or equal to, if {@code inclusive} is true)
      * {@code toKey}.
-     * @param toKey K; high endpoint of the returned immutable map
-     * @param inclusive boolean; {@code true} if the high endpoint is to be included in the returned view
+     * @param toKey high endpoint of the returned immutable map
+     * @param inclusive {@code true} if the high endpoint is to be included in the returned view
      * @return a view of the portion of this immutable map whose keys are less than (or equal to, if {@code inclusive} is true)
      *         {@code toKey}
      * @throws ClassCastException if {@code toKey} is not compatible with this immutable map's comparator (or, if the immutable
@@ -124,8 +124,8 @@ public interface ImmutableNavigableMap<K, V> extends ImmutableSortedMap<K, V>
     /**
      * Returns a view of the portion of this immutable map whose keys are greater than (or equal to, if {@code inclusive} is
      * true) {@code fromKey}.
-     * @param fromKey K; low endpoint of the returned immutable map
-     * @param inclusive boolean; {@code true} if the low endpoint is to be included in the returned view
+     * @param fromKey low endpoint of the returned immutable map
+     * @param inclusive {@code true} if the low endpoint is to be included in the returned view
      * @return a view of the portion of this immutable map whose keys are greater than or equal to {@code fromKey}
      * @throws ClassCastException if {@code fromKey} is not compatible with this immutable map's comparator (or, if the
      *             immutable map has no comparator, if {@code fromKey} does not implement {@link Comparable}). Implementations
@@ -139,7 +139,7 @@ public interface ImmutableNavigableMap<K, V> extends ImmutableSortedMap<K, V>
 
     /**
      * Force to redefine equals for the implementations of immutable collection classes.
-     * @param obj Object; the object to compare this collection with
+     * @param obj the object to compare this collection with
      * @return whether the objects are equal
      */
     @Override

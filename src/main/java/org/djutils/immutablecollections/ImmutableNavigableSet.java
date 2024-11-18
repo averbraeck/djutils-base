@@ -31,7 +31,7 @@ public interface ImmutableNavigableSet<E> extends ImmutableSortedSet<E>
     /**
      * Returns the greatest element in this immutable set strictly less than the given element, or {@code null} if there is no
      * such element.
-     * @param e E; the value to match
+     * @param e the value to match
      * @return the greatest element less than {@code e}, or {@code null} if there is no such element
      * @throws ClassCastException if the specified element cannot be compared with the elements currently in the immutable set
      * @throws NullPointerException if the specified element is null and this immutable set does not permit null elements
@@ -41,7 +41,7 @@ public interface ImmutableNavigableSet<E> extends ImmutableSortedSet<E>
     /**
      * Returns the greatest element in this immutable set less than or equal to the given element, or {@code null} if there is
      * no such element.
-     * @param e E; the value to match
+     * @param e the value to match
      * @return the greatest element less than or equal to {@code e}, or {@code null} if there is no such element
      * @throws ClassCastException if the specified element cannot be compared with the elements currently in the immutable set
      * @throws NullPointerException if the specified element is null and this immutable set does not permit null elements
@@ -51,7 +51,7 @@ public interface ImmutableNavigableSet<E> extends ImmutableSortedSet<E>
     /**
      * Returns the least element in this immutable set greater than or equal to the given element, or {@code null} if there is
      * no such element.
-     * @param e E; the value to match
+     * @param e the value to match
      * @return the least element greater than or equal to {@code e}, or {@code null} if there is no such element
      * @throws ClassCastException if the specified element cannot be compared with the elements currently in the immutable set
      * @throws NullPointerException if the specified element is null and this immutable set does not permit null elements
@@ -61,7 +61,7 @@ public interface ImmutableNavigableSet<E> extends ImmutableSortedSet<E>
     /**
      * Returns the least element in this immutable set strictly greater than the given element, or {@code null} if there is no
      * such element.
-     * @param e E; the value to match
+     * @param e the value to match
      * @return the least element greater than {@code e}, or {@code null} if there is no such element
      * @throws ClassCastException if the specified element cannot be compared with the elements currently in the immutable set
      * @throws NullPointerException if the specified element is null and this immutable set does not permit null elements
@@ -89,10 +89,10 @@ public interface ImmutableNavigableSet<E> extends ImmutableSortedSet<E>
      * Returns a view of the portion of this immutable set whose elements range from {@code fromElement} to {@code toElement}.
      * If {@code fromElement} and {@code toElement} are equal, the returned immutable set is empty unless {@code fromInclusive}
      * and {@code toInclusive} are both true.
-     * @param fromElement E; low endpoint of the returned immutable set
-     * @param fromInclusive boolean; {@code true} if the low endpoint is to be included in the returned view
-     * @param toElement E; high endpoint of the returned immutable set
-     * @param toInclusive boolean; {@code true} if the high endpoint is to be included in the returned view
+     * @param fromElement low endpoint of the returned immutable set
+     * @param fromInclusive {@code true} if the low endpoint is to be included in the returned view
+     * @param toElement high endpoint of the returned immutable set
+     * @param toInclusive {@code true} if the high endpoint is to be included in the returned view
      * @return a view of the portion of this immutable set whose elements range from {@code fromElement}, inclusive, to
      *         {@code toElement}, exclusive
      * @throws ClassCastException if {@code fromElement} and {@code toElement} cannot be compared to one another using this
@@ -110,8 +110,8 @@ public interface ImmutableNavigableSet<E> extends ImmutableSortedSet<E>
     /**
      * Returns a view of the portion of this immutable set whose elements are less than (or equal to, if {@code inclusive} is
      * true) {@code toElement}.
-     * @param toElement E; high endpoint of the returned immutable set
-     * @param inclusive boolean; {@code true} if the high endpoint is to be included in the returned view
+     * @param toElement high endpoint of the returned immutable set
+     * @param inclusive {@code true} if the high endpoint is to be included in the returned view
      * @return a view of the portion of this immutable set whose elements are less than (or equal to, if {@code inclusive} is
      *         true) {@code toElement}
      * @throws ClassCastException if {@code toElement} is not compatible with this immutable set's comparator (or, if the
@@ -127,8 +127,8 @@ public interface ImmutableNavigableSet<E> extends ImmutableSortedSet<E>
     /**
      * Returns a view of the portion of this immutable set whose elements are greater than (or equal to, if {@code inclusive} is
      * true) {@code fromElement}.
-     * @param fromElement E; low endpoint of the returned immutable set
-     * @param inclusive boolean; {@code true} if the low endpoint is to be included in the returned view
+     * @param fromElement low endpoint of the returned immutable set
+     * @param inclusive {@code true} if the low endpoint is to be included in the returned view
      * @return a view of the portion of this immutable set whose elements are greater than or equal to {@code fromElement}
      * @throws ClassCastException if {@code fromElement} is not compatible with this immutable set's comparator (or, if the
      *             immutable set has no comparator, if {@code fromElement} does not implement {@link Comparable}).
@@ -142,7 +142,7 @@ public interface ImmutableNavigableSet<E> extends ImmutableSortedSet<E>
 
     /**
      * Force to redefine equals for the implementations of immutable collection classes.
-     * @param obj Object; the object to compare this collection with
+     * @param obj the object to compare this collection with
      * @return whether the objects are equal
      */
     @Override

@@ -21,7 +21,7 @@ public class ImmutableIterator<E> implements Iterator<E>
     private final Iterator<E> iterator;
 
     /**
-     * @param iterator Iterator&lt;E&gt;; the iterator to wrap as an immutable iterator.
+     * @param iterator the iterator to wrap as an immutable iterator.
      */
     public ImmutableIterator(final Iterator<E> iterator)
     {

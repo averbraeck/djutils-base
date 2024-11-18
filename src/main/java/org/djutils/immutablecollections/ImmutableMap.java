@@ -42,7 +42,7 @@ public interface ImmutableMap<K, V> extends Serializable
      * Returns <code>true</code> if this map contains a mapping for the specified key. More formally, returns <code>true</code>
      * if and only if this map contains a mapping for a key <code>k</code> such that
      * <code>(key==null ? k==null : key.equals(k))</code>. (There can be at most one such mapping.)
-     * @param key Object; key whose presence in this map is to be tested
+     * @param key key whose presence in this map is to be tested
      * @return <code>true</code> if this map contains a mapping for the specified key
      * @throws ClassCastException if the key is of an inappropriate type for this map
      * @throws NullPointerException if the specified key is null and this map does not permit null keys
@@ -54,7 +54,7 @@ public interface ImmutableMap<K, V> extends Serializable
      * <code>true</code> if and only if this map contains at least one mapping to a value <code>v</code> such that
      * <code>(value==null ? v==null : value.equals(v))</code>. This operation will probably require time linear in the map size
      * for most implementations of the <code>Map</code> interface.
-     * @param value Object; value whose presence in this map is to be tested
+     * @param value value whose presence in this map is to be tested
      * @return <code>true</code> if this map maps one or more keys to the specified value
      * @throws ClassCastException if the value is of an inappropriate type for this map
      * @throws NullPointerException if the specified value is null and this map does not permit null values
@@ -71,7 +71,7 @@ public interface ImmutableMap<K, V> extends Serializable
      * If this map permits null values, then a return value of {@code null} does not <i>necessarily</i> indicate that the map
      * contains no mapping for the key; it's also possible that the map explicitly maps the key to {@code null}. The
      * {@link #containsKey containsKey} operation may be used to distinguish these two cases.
-     * @param key Object; the key whose associated value is to be returned
+     * @param key the key whose associated value is to be returned
      * @return the value to which the specified key is mapped, or {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the key is of an inappropriate type for this map
      * @throws NullPointerException if the specified key is null and this map does not permit null keys
@@ -100,8 +100,8 @@ public interface ImmutableMap<K, V> extends Serializable
      * Returns the value to which the specified key is mapped, or {@code defaultValue} if this map contains no mapping for the
      * key. The default implementation makes no guarantees about synchronization or atomicity properties of this method. Any
      * implementation providing atomicity guarantees must override this method and document its concurrency properties.
-     * @param key Object; the key whose associated value is to be returned
-     * @param defaultValue V; the default mapping of the key
+     * @param key the key whose associated value is to be returned
+     * @param defaultValue the default mapping of the key
      * @return the value to which the specified key is mapped, or {@code defaultValue} if this map contains no mapping for the
      *         key
      * @throws ClassCastException if the key is of an inappropriate type for this map
@@ -119,7 +119,7 @@ public interface ImmutableMap<K, V> extends Serializable
      * iteration (if an iteration order is specified.) Exceptions thrown by the action are relayed to the caller. The default
      * implementation makes no guarantees about synchronization or atomicity properties of this method. Any implementation
      * providing atomicity guarantees must override this method and document its concurrency properties.
-     * @param action BiConsumer&lt;? super K,? super V&gt;; The action to be performed for each entry
+     * @param action The action to be performed for each entry
      * @throws NullPointerException if the specified action is null
      * @throws ConcurrentModificationException if an entry is found to be removed during iteration
      */
@@ -152,7 +152,7 @@ public interface ImmutableMap<K, V> extends Serializable
 
     /**
      * Force to redefine equals for the implementations of immutable collection classes.
-     * @param obj Object; the object to compare this collection with
+     * @param obj the object to compare this collection with
      * @return whether the objects are equal
      */
     @Override
@@ -169,7 +169,7 @@ public interface ImmutableMap<K, V> extends Serializable
      * Return whether the internal storage is a wrapped pointer to the original map. If true, this means that anyone holding a
      * pointer to this data structure can still change it. The users of the ImmutableMap itself can, however, not make any
      * changes.
-     * @return boolean; whether the internal storage is a wrapped pointer to the original map
+     * @return whether the internal storage is a wrapped pointer to the original map
      */
     boolean isWrap();
 
@@ -177,7 +177,7 @@ public interface ImmutableMap<K, V> extends Serializable
      * Return whether the internal storage is a (shallow) copy of the original map. If true, this means that anyone holding a
      * pointer to the original of the data structure can not change it anymore. Nor can the users of the ImmutableMap itself
      * make any changes.
-     * @return boolean; whether the internal storage is a safe copy of the original map
+     * @return whether the internal storage is a safe copy of the original map
      */
     default boolean isCopy()
     {
@@ -188,7 +188,7 @@ public interface ImmutableMap<K, V> extends Serializable
      * Return an empty ImmutableMap, backed by a LinkedHashMap.
      * @param <K> the key type
      * @param <V> the value type
-     * @return ImmutableMap&lt;K, V&gt;; an empty ImmutableMap
+     * @return an empty ImmutableMap
      */
     static <K, V> ImmutableMap<K, V> of()
     {
@@ -199,9 +199,9 @@ public interface ImmutableMap<K, V> extends Serializable
      * Return an ImmutableMap with 1 entry, backed by a LinkedHashMap.
      * @param <K> the key type
      * @param <V> the value type
-     * @param k1 K; key 1
-     * @param v1 V; value 1
-     * @return ImmutableMap&lt;K, V&gt;; an ImmutableMap with 1 entry, backed by a LinkedHashMap
+     * @param k1 key 1
+     * @param v1 value 1
+     * @return an ImmutableMap with 1 entry, backed by a LinkedHashMap
      */
     static <K, V> ImmutableMap<K, V> of(final K k1, final V v1)
     {
@@ -214,11 +214,11 @@ public interface ImmutableMap<K, V> extends Serializable
      * Return an ImmutableMap with 2 entries, backed by a LinkedHashMap.
      * @param <K> the key type
      * @param <V> the value type
-     * @param k1 K; key 1
-     * @param v1 V; value 1
-     * @param k2 K; key 2
-     * @param v2 V; value 2
-     * @return ImmutableMap&lt;K, V&gt;; an ImmutableMap with 2 entries, backed by a LinkedHashMap
+     * @param k1 key 1
+     * @param v1 value 1
+     * @param k2 key 2
+     * @param v2 value 2
+     * @return an ImmutableMap with 2 entries, backed by a LinkedHashMap
      */
     static <K, V> ImmutableMap<K, V> of(final K k1, final V v1, final K k2, final V v2)
     {
@@ -232,13 +232,13 @@ public interface ImmutableMap<K, V> extends Serializable
      * Return an ImmutableMap with 3 entries, backed by a LinkedHashMap.
      * @param <K> the key type
      * @param <V> the value type
-     * @param k1 K; key 1
-     * @param v1 V; value 1
-     * @param k2 K; key 2
-     * @param v2 V; value 2
-     * @param k3 K; key 3
-     * @param v3 V; value 3
-     * @return ImmutableMap&lt;K, V&gt;; an ImmutableMap with 3 entries, backed by a LinkedHashMap
+     * @param k1 key 1
+     * @param v1 value 1
+     * @param k2 key 2
+     * @param v2 value 2
+     * @param k3 key 3
+     * @param v3 value 3
+     * @return an ImmutableMap with 3 entries, backed by a LinkedHashMap
      */
     static <K, V> ImmutableMap<K, V> of(final K k1, final V v1, final K k2, final V v2, final K k3, final V v3)
     {
@@ -253,15 +253,15 @@ public interface ImmutableMap<K, V> extends Serializable
      * Return an ImmutableMap with 4 entries, backed by a LinkedHashMap.
      * @param <K> the key type
      * @param <V> the value type
-     * @param k1 K; key 1
-     * @param v1 V; value 1
-     * @param k2 K; key 2
-     * @param v2 V; value 2
-     * @param k3 K; key 3
-     * @param v3 V; value 3
-     * @param k4 K; key 4
-     * @param v4 V; value 4
-     * @return ImmutableMap&lt;K, V&gt;; an ImmutableMap with 4 entries, backed by a LinkedHashMap
+     * @param k1 key 1
+     * @param v1 value 1
+     * @param k2 key 2
+     * @param v2 value 2
+     * @param k3 key 3
+     * @param v3 value 3
+     * @param k4 key 4
+     * @param v4 value 4
+     * @return an ImmutableMap with 4 entries, backed by a LinkedHashMap
      */
     @SuppressWarnings("checkstyle:parameternumber")
     static <K, V> ImmutableMap<K, V> of(final K k1, final V v1, final K k2, final V v2, final K k3, final V v3, final K k4,
@@ -279,17 +279,17 @@ public interface ImmutableMap<K, V> extends Serializable
      * Return an ImmutableMap with 5 entries, backed by a LinkedHashMap.
      * @param <K> the key type
      * @param <V> the value type
-     * @param k1 K; key 1
-     * @param v1 V; value 1
-     * @param k2 K; key 2
-     * @param v2 V; value 2
-     * @param k3 K; key 3
-     * @param v3 V; value 3
-     * @param k4 K; key 4
-     * @param v4 V; value 4
-     * @param k5 K; key 5
-     * @param v5 V; value 5
-     * @return ImmutableMap&lt;K, V&gt;; an ImmutableMap with 5 entries, backed by a LinkedHashMap
+     * @param k1 key 1
+     * @param v1 value 1
+     * @param k2 key 2
+     * @param v2 value 2
+     * @param k3 key 3
+     * @param v3 value 3
+     * @param k4 key 4
+     * @param v4 value 4
+     * @param k5 key 5
+     * @param v5 value 5
+     * @return an ImmutableMap with 5 entries, backed by a LinkedHashMap
      */
     @SuppressWarnings("checkstyle:parameternumber")
     static <K, V> ImmutableMap<K, V> of(final K k1, final V v1, final K k2, final V v2, final K k3, final V v3, final K k4,
@@ -308,19 +308,19 @@ public interface ImmutableMap<K, V> extends Serializable
      * Return an ImmutableMap with 6 entries, backed by a LinkedHashMap.
      * @param <K> the key type
      * @param <V> the value type
-     * @param k1 K; key 1
-     * @param v1 V; value 1
-     * @param k2 K; key 2
-     * @param v2 V; value 2
-     * @param k3 K; key 3
-     * @param v3 V; value 3
-     * @param k4 K; key 4
-     * @param v4 V; value 4
-     * @param k5 K; key 5
-     * @param v5 V; value 5
-     * @param k6 K; key 6
-     * @param v6 V; value 6
-     * @return ImmutableMap&lt;K, V&gt;; an ImmutableMap with 6 entries, backed by a LinkedHashMap
+     * @param k1 key 1
+     * @param v1 value 1
+     * @param k2 key 2
+     * @param v2 value 2
+     * @param k3 key 3
+     * @param v3 value 3
+     * @param k4 key 4
+     * @param v4 value 4
+     * @param k5 key 5
+     * @param v5 value 5
+     * @param k6 key 6
+     * @param v6 value 6
+     * @return an ImmutableMap with 6 entries, backed by a LinkedHashMap
      */
     @SuppressWarnings("checkstyle:parameternumber")
     static <K, V> ImmutableMap<K, V> of(final K k1, final V v1, final K k2, final V v2, final K k3, final V v3, final K k4,
@@ -340,21 +340,21 @@ public interface ImmutableMap<K, V> extends Serializable
      * Return an ImmutableMap with 7 entries, backed by a LinkedHashMap.
      * @param <K> the key type
      * @param <V> the value type
-     * @param k1 K; key 1
-     * @param v1 V; value 1
-     * @param k2 K; key 2
-     * @param v2 V; value 2
-     * @param k3 K; key 3
-     * @param v3 V; value 3
-     * @param k4 K; key 4
-     * @param v4 V; value 4
-     * @param k5 K; key 5
-     * @param v5 V; value 5
-     * @param k6 K; key 6
-     * @param v6 V; value 6
-     * @param k7 K; key 7
-     * @param v7 V; value 7
-     * @return ImmutableMap&lt;K, V&gt;; an ImmutableMap with 7 entries, backed by a LinkedHashMap
+     * @param k1 key 1
+     * @param v1 value 1
+     * @param k2 key 2
+     * @param v2 value 2
+     * @param k3 key 3
+     * @param v3 value 3
+     * @param k4 key 4
+     * @param v4 value 4
+     * @param k5 key 5
+     * @param v5 value 5
+     * @param k6 key 6
+     * @param v6 value 6
+     * @param k7 key 7
+     * @param v7 value 7
+     * @return an ImmutableMap with 7 entries, backed by a LinkedHashMap
      */
     @SuppressWarnings("checkstyle:parameternumber")
     static <K, V> ImmutableMap<K, V> of(final K k1, final V v1, final K k2, final V v2, final K k3, final V v3, final K k4,
@@ -375,23 +375,23 @@ public interface ImmutableMap<K, V> extends Serializable
      * Return an ImmutableMap with 8 entries, backed by a LinkedHashMap.
      * @param <K> the key type
      * @param <V> the value type
-     * @param k1 K; key 1
-     * @param v1 V; value 1
-     * @param k2 K; key 2
-     * @param v2 V; value 2
-     * @param k3 K; key 3
-     * @param v3 V; value 3
-     * @param k4 K; key 4
-     * @param v4 V; value 4
-     * @param k5 K; key 5
-     * @param v5 V; value 5
-     * @param k6 K; key 6
-     * @param v6 V; value 6
-     * @param k7 K; key 7
-     * @param v7 V; value 7
-     * @param k8 K; key 8
-     * @param v8 V; value 8
-     * @return ImmutableMap&lt;K, V&gt;; an ImmutableMap with 8 entries, backed by a LinkedHashMap
+     * @param k1 key 1
+     * @param v1 value 1
+     * @param k2 key 2
+     * @param v2 value 2
+     * @param k3 key 3
+     * @param v3 value 3
+     * @param k4 key 4
+     * @param v4 value 4
+     * @param k5 key 5
+     * @param v5 value 5
+     * @param k6 key 6
+     * @param v6 value 6
+     * @param k7 key 7
+     * @param v7 value 7
+     * @param k8 key 8
+     * @param v8 value 8
+     * @return an ImmutableMap with 8 entries, backed by a LinkedHashMap
      */
     @SuppressWarnings("checkstyle:parameternumber")
     static <K, V> ImmutableMap<K, V> of(final K k1, final V v1, final K k2, final V v2, final K k3, final V v3, final K k4,
@@ -424,7 +424,7 @@ public interface ImmutableMap<K, V> extends Serializable
         private final Entry<K, V> wrappedEntry;
 
         /**
-         * @param wrappedEntry Entry&lt;K,V&gt;; the wrapped entry
+         * @param wrappedEntry the wrapped entry
          */
         public ImmutableEntry(final Entry<K, V> wrappedEntry)
         {
@@ -526,7 +526,7 @@ public interface ImmutableMap<K, V> extends Serializable
          * The returned comparator is serializable if the specified comparator is also serializable.
          * @param <K> the type of the map keys
          * @param <V> the type of the map values
-         * @param cmp Comparator&lt;? super K&gt;; the key {@link Comparator}
+         * @param cmp the key {@link Comparator}
          * @return a comparator that compares {@link ImmutableMap.ImmutableEntry} by the key.
          * @since 1.8
          */
@@ -544,7 +544,7 @@ public interface ImmutableMap<K, V> extends Serializable
          * The returned comparator is serializable if the specified comparator is also serializable.
          * @param <K> the type of the map keys
          * @param <V> the type of the map values
-         * @param cmp Comparator&lt;? super V&gt;; the value {@link Comparator}
+         * @param cmp the value {@link Comparator}
          * @return a comparator that compares {@link ImmutableMap.ImmutableEntry} by the value.
          * @since 1.8
          */
@@ -566,7 +566,7 @@ public interface ImmutableMap<K, V> extends Serializable
 
     /**
      * Force to redefine toString.
-     * @return String; a description of this immutable map
+     * @return a description of this immutable map
      */
     @Override
     String toString();

@@ -147,7 +147,7 @@ class Bounded implements Envelope
     /**
      * Construct a new Bounded object for testing.
      * @param points Point2D.Double[]; array of Point2D.Double
-     * @param id String; id of the test object
+     * @param id id of the test object
      */
     Bounded(final Point2D.Double[] points, final String id)
     {
@@ -175,8 +175,8 @@ class Bounded implements Envelope
 
     /**
      * Determine if this object intersects a given Rectangle.
-     * @param rectangle Rectangle; the rectangle
-     * @return boolean; true if this object intersects the given Rectangle; false if this object does not intersect the given
+     * @param rectangle the rectangle
+     * @return true if this object intersects the given Rectangle; false if this object does not intersect the given
      *         Rectangle
      */
     public boolean intersects(final Rectangle rectangle)

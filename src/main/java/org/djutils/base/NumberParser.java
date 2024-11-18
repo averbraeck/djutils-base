@@ -67,10 +67,10 @@ public class NumberParser
     /**
      * Create a new NumberParser, with settings for lenient parsing, whether or not to allow trailing information, and the
      * Locale to use.
-     * @param trailing boolean; whether trailing information is accepted
-     * @param lenient boolean; when false, strict parsing according to the Locale will be performed; when true, certain
+     * @param trailing whether trailing information is accepted
+     * @param lenient when false, strict parsing according to the Locale will be performed; when true, certain
      *            violations will be accepted
-     * @param locale Locale; the locale to use for parsing
+     * @param locale the locale to use for parsing
      * @throws NullPointerException when locale is null
      */
     public NumberParser(final boolean trailing, final boolean lenient, final Locale locale)
@@ -84,8 +84,8 @@ public class NumberParser
     /**
      * Create a new NumberParser, with settings for lenient parsing, whether or not to allow trailing information, and the
      * current Locale.
-     * @param trailing boolean; whether trailing information is accepted
-     * @param lenient boolean; when false, strict parsing according to the Locale will be performed; when true, certain
+     * @param trailing whether trailing information is accepted
+     * @param lenient when false, strict parsing according to the Locale will be performed; when true, certain
      *            violations will be accepted
      * @throws NullPointerException when locale is null
      */
@@ -97,7 +97,7 @@ public class NumberParser
     /**
      * Create a new NumberParser with lenient parsing and using the current Locale, with a setting whether or not to allow
      * trailing information.
-     * @param trailing boolean; whether trailing information is accepted
+     * @param trailing whether trailing information is accepted
      */
     public NumberParser(final boolean trailing)
     {
@@ -181,7 +181,7 @@ public class NumberParser
      * new NumberParser().lenient().trailing().locale(Locale.US).parseDouble(text);
      * </pre>
      * 
-     * @param newLocale Locale; the new Locale to use
+     * @param newLocale the new Locale to use
      * @return the current NumberParser for chaining
      */
     public NumberParser locale(final Locale newLocale)
@@ -194,9 +194,9 @@ public class NumberParser
     /**
      * Parse a String and return a Number value. Independent whether lenient is true or false, leading and trailing white space
      * will be ignored in the provided text.
-     * @param text String; the text to parse
-     * @param integerOnly boolean; whether to parse an integer or a floating point value
-     * @return Number; the parsed number as part of the text
+     * @param text the text to parse
+     * @param integerOnly whether to parse an integer or a floating point value
+     * @return the parsed number as part of the text
      * @throws NumberFormatException when the text could not be parsed given the flags
      */
     private Number parse(final String text, final boolean integerOnly)
@@ -287,8 +287,8 @@ public class NumberParser
     /**
      * Parse a String and return a double value. Independent whether lenient is true or false, leading and trailing white space
      * will be ignored in the provided text.
-     * @param text String; the text to parse
-     * @return double; the double number as part of the text
+     * @param text the text to parse
+     * @return the double number as part of the text
      * @throws NumberFormatException when the text could not be parsed given the flags
      */
     public double parseDouble(final String text)
@@ -299,8 +299,8 @@ public class NumberParser
     /**
      * Parse a String and return a float value. Independent whether lenient is true or false, leading and trailing white space
      * will be ignored in the provided text.
-     * @param text String; the text to parse
-     * @return float; the float number as part of the text
+     * @param text the text to parse
+     * @return the float number as part of the text
      * @throws NumberFormatException when the text could not be parsed given the flags
      */
     public float parseFloat(final String text)
@@ -311,8 +311,8 @@ public class NumberParser
     /**
      * Parse a String and return an int value. Independent whether lenient is true or false, leading and trailing white space
      * will be ignored in the provided text.
-     * @param text String; the text to parse
-     * @return int; the int number as part of the text
+     * @param text the text to parse
+     * @return the int number as part of the text
      * @throws NumberFormatException when the text could not be parsed given the flags
      */
     public int parseInt(final String text)
@@ -323,8 +323,8 @@ public class NumberParser
     /**
      * Parse a String and return a long value. Independent whether lenient is true or false, leading and trailing white space
      * will be ignored in the provided text.
-     * @param text String; the text to parse
-     * @return long; the long number as part of the text
+     * @param text the text to parse
+     * @return the long number as part of the text
      * @throws NumberFormatException when the text could not be parsed given the flags
      */
     public long parseLong(final String text)
@@ -343,7 +343,7 @@ public class NumberParser
      * </pre>
      * 
      * The substring starting with the trailing position returns leading and trailing spaces.
-     * @return int; the trailing position that denotes the first character after the parsing of the number stopped
+     * @return the trailing position that denotes the first character after the parsing of the number stopped
      */
     public int getTrailingPosition()
     {

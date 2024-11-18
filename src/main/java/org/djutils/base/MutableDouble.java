@@ -19,7 +19,7 @@ public class MutableDouble
 
     /**
      * Initialize the mutable double with a value.
-     * @param value double; the initial value of the mutable double
+     * @param value the initial value of the mutable double
      */
     public MutableDouble(final double value)
     {
@@ -28,7 +28,7 @@ public class MutableDouble
 
     /**
      * set the mutable double to a new value.
-     * @param newValue double; the new value of the mutable double
+     * @param newValue the new value of the mutable double
      */
     public void set(final double newValue)
     {
@@ -36,7 +36,7 @@ public class MutableDouble
     }
 
     /**
-     * @return double; the current value of the mutable double
+     * @return the current value of the mutable double
      */
     public double get()
     {
@@ -45,7 +45,7 @@ public class MutableDouble
 
     /**
      * Increment the modifiable double with a value.
-     * @param increment double; the value to increment the modifiable double with
+     * @param increment the value to increment the modifiable double with
      */
     public void inc(final double increment)
     {
@@ -62,7 +62,7 @@ public class MutableDouble
 
     /**
      * Decrement the modifiable double with a value.
-     * @param decrement double; the value to decrement the modifiable double with
+     * @param decrement the value to decrement the modifiable double with
      */
     public void dec(final double decrement)
     {
@@ -79,7 +79,7 @@ public class MutableDouble
 
     /**
      * Increment the modifiable double with a value.
-     * @param multiplier double; the value to multiply the modifiable double with
+     * @param multiplier the value to multiply the modifiable double with
      */
     public void mul(final double multiplier)
     {
@@ -88,7 +88,7 @@ public class MutableDouble
 
     /**
      * Divide the modifiable double by a value.
-     * @param divisor double; the value to divide the modifiable double by
+     * @param divisor the value to divide the modifiable double by
      */
     public void div(final double divisor)
     {

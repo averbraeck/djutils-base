@@ -478,7 +478,7 @@ public class RMITest
     }
 
     /**
-     * @param msec int; the number of msec to sleep.
+     * @param msec the number of msec to sleep.
      */
     private static void sleep(final int msec)
     {
@@ -597,8 +597,8 @@ public class RMITest
 
         /**
          * Register this object in the RMI registry.
-         * @param host String; the host where the RMI registry resides or will be created.
-         * @param port int; the port where the RMI registry can be found or will be created
+         * @param host the host where the RMI registry resides or will be created.
+         * @param port the port where the RMI registry can be found or will be created
          * @param bindingKey the key under which this object will be bound in the RMI registry
          * @throws RemoteException when there is a problem with the RMI registry
          * @throws AlreadyBoundException when there is already another object bound to the bindingKey
@@ -614,8 +614,8 @@ public class RMITest
 
         /**
          * Register this object in the RMI registry.
-         * @param registryURL URL; the URL of the registry, e.g., "http://localhost:1099"
-         * @param bindingKey String; the key under which this object will be bound in the RMI registry
+         * @param registryURL the URL of the registry, e.g., "http://localhost:1099"
+         * @param bindingKey the key under which this object will be bound in the RMI registry
          * @throws RemoteException when there is a problem with the RMI registry
          * @throws AlreadyBoundException when there is already another object bound to the bindingKey
          * @throws NullPointerException when registryURL or bindingKey is null

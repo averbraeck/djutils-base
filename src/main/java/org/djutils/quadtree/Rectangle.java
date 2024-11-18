@@ -37,11 +37,11 @@ public class Rectangle implements Serializable
 
     /**
      * Construct a new Rectangle; all arguments are checked for having sensible values.
-     * @param left double; the left boundary (inclusive)
-     * @param bottom double; the bottom boundary (inclusive)
-     * @param right double; the right boundary (not inclusive)
-     * @param top double; the top boundary (not inclusive)
-     * @param check boolean; if true; the values are checked for making sense
+     * @param left the left boundary (inclusive)
+     * @param bottom the bottom boundary (inclusive)
+     * @param right the right boundary (not inclusive)
+     * @param top the top boundary (not inclusive)
+     * @param check if true; the values are checked for making sense
      */
     public Rectangle(final double left, final double bottom, final double right, final double top, final boolean check)
     {
@@ -59,10 +59,10 @@ public class Rectangle implements Serializable
 
     /**
      * Construct a new Rectangle without checking the arguments for making sense.
-     * @param left double; the left boundary (inclusive)
-     * @param bottom double; the bottom boundary (inclusive)
-     * @param right double; the right boundary (not inclusive)
-     * @param top double; the top boundary (not inclusive)
+     * @param left the left boundary (inclusive)
+     * @param bottom the bottom boundary (inclusive)
+     * @param right the right boundary (not inclusive)
+     * @param top the top boundary (not inclusive)
      */
     public Rectangle(final double left, final double bottom, final double right, final double top)
     {
@@ -74,7 +74,7 @@ public class Rectangle implements Serializable
 
     /**
      * Retrieve the left boundary value.
-     * @return double; the left boundary value
+     * @return the left boundary value
      */
     public double getLeft()
     {
@@ -83,7 +83,7 @@ public class Rectangle implements Serializable
 
     /**
      * Retrieve the bottom boundary value.
-     * @return double; the bottom boundary value
+     * @return the bottom boundary value
      */
     public double getBottom()
     {
@@ -92,7 +92,7 @@ public class Rectangle implements Serializable
 
     /**
      * Retrieve the right boundary value.
-     * @return double; the right boundary value
+     * @return the right boundary value
      */
     public double getRight()
     {
@@ -101,7 +101,7 @@ public class Rectangle implements Serializable
 
     /**
      * Retrieve the top boundary value.
-     * @return double; the top boundary value
+     * @return the top boundary value
      */
     public double getTop()
     {
@@ -110,7 +110,7 @@ public class Rectangle implements Serializable
 
     /**
      * Return the width of this Rectangle.
-     * @return double; the width of this Rectangle
+     * @return the width of this Rectangle
      */
     public double getWidth()
     {
@@ -119,7 +119,7 @@ public class Rectangle implements Serializable
 
     /**
      * Return the height of this Rectangle.
-     * @return double; the height of this Rectangle
+     * @return the height of this Rectangle
      */
     public double getHeight()
     {
@@ -128,8 +128,8 @@ public class Rectangle implements Serializable
 
     /**
      * Determine if this Rectangle intersects another Rectangle.
-     * @param other Rectangle; the other rectangle
-     * @return boolean; true if the rectangles intersect, false if the rectangles do not intersect
+     * @param other the other rectangle
+     * @return true if the rectangles intersect, false if the rectangles do not intersect
      */
     public boolean intersects(final Rectangle other)
     {
@@ -138,9 +138,9 @@ public class Rectangle implements Serializable
 
     /**
      * Determine if this Rectangle contains a point.
-     * @param x double; x-coordinate of the point
-     * @param y double; y-coordinate of the point
-     * @return boolean; true if this Rectangle contains the point; false if this Rectangle does not contain the point
+     * @param x x-coordinate of the point
+     * @param y y-coordinate of the point
+     * @return true if this Rectangle contains the point; false if this Rectangle does not contain the point
      */
     public boolean contains(final double x, final double y)
     {
@@ -149,8 +149,8 @@ public class Rectangle implements Serializable
 
     /**
      * Determine if this Rectangle contains all points of another Rectangle.
-     * @param other Rectangle; the other rectangle
-     * @return boolean; true if this Rectangle contains all points of the other Rectangle; false if this Rectangle does not
+     * @param other the other rectangle
+     * @return true if this Rectangle contains all points of the other Rectangle; false if this Rectangle does not
      *         contain all points of the other Rectangle
      */
     public boolean contains(final Rectangle other)

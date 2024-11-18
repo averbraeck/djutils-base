@@ -38,8 +38,8 @@ public abstract class ImmutableAbstractMap<K, V> implements ImmutableMap<K, V>
     /**
      * Construct an abstract immutable map. Make sure that the argument is a safe copy of the map of the right type! Copying
      * does not take place in the Abstract class!
-     * @param map Map&lt;K,V&gt;; a safe copy of the map to use for the immutable map
-     * @param copyOrWrap Immutable; indicate whether the immutable is a copy or a wrap
+     * @param map a safe copy of the map to use for the immutable map
+     * @param copyOrWrap indicate whether the immutable is a copy or a wrap
      */
     protected ImmutableAbstractMap(final Map<K, V> map, final Immutable copyOrWrap)
     {
@@ -51,7 +51,7 @@ public abstract class ImmutableAbstractMap<K, V> implements ImmutableMap<K, V>
 
     /**
      * Return the raw underlying map.
-     * @return Map&lt;K, V&gt;; the raw underlying map
+     * @return the raw underlying map
      */
     @SuppressWarnings("checkstyle:designforextension")
     protected Map<K, V> getUnderlyingMap()

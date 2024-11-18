@@ -30,9 +30,9 @@ public class ObjectDescriptor implements Serializable
 
     /**
      * Construct a new FieldDescription object.
-     * @param name String; name of the object
-     * @param description String; description of the object
-     * @param objectClass Class&lt;?&gt;; class of the object
+     * @param name name of the object
+     * @param description description of the object
+     * @param objectClass class of the object
      */
     public ObjectDescriptor(final String name, final String description, final Class<?> objectClass)
     {
@@ -47,7 +47,7 @@ public class ObjectDescriptor implements Serializable
 
     /**
      * Retrieve the name of the object.
-     * @return String; description of the object
+     * @return description of the object
      */
     public String getName()
     {
@@ -56,7 +56,7 @@ public class ObjectDescriptor implements Serializable
 
     /**
      * Retrieve the description of the object.
-     * @return String; description of the object
+     * @return description of the object
      */
     public String getDescription()
     {
@@ -65,7 +65,7 @@ public class ObjectDescriptor implements Serializable
 
     /**
      * Retrieve the Class of the object.
-     * @return String; class name of the object
+     * @return class name of the object
      */
     public Class<?> getObjectClass()
     {

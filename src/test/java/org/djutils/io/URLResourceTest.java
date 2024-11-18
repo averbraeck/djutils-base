@@ -145,8 +145,8 @@ public class URLResourceTest
 
     /**
      * Copy a plain file into a jar file.
-     * @param fileName String; name of the file to copy
-     * @param jos JarOutputStream; stream for writing into the jar file
+     * @param fileName name of the file to copy
+     * @param jos stream for writing into the jar file
      * @throws FileNotFoundException when the input file could not be found
      * @throws IOException when the input file could not be read, or writing to the jar stream fails
      */

@@ -44,7 +44,7 @@ public class Dumper<T>
 
     /**
      * Construct a new Dumper.
-     * @param addressOffset int; address for the first byte that will be appended
+     * @param addressOffset address for the first byte that will be appended
      */
     public Dumper(final int addressOffset)
     {
@@ -61,8 +61,8 @@ public class Dumper<T>
 
     /**
      * Set or replace the active output stream. (The default output stream is <code>System.out</code>.)
-     * @param newOutputStream OutputStream; the new output stream
-     * @return Dumper&lt;T&gt;; this Dumper object (for method chaining)
+     * @param newOutputStream the new output stream
+     * @return this Dumper object (for method chaining)
      */
     public Dumper<T> setOutputStream(final OutputStream newOutputStream)
     {
@@ -72,9 +72,9 @@ public class Dumper<T>
 
     /**
      * Set the output compression mode.
-     * @param newState boolean; if true; groups of three or more output lines with the significant content are compressed; if
+     * @param newState if true; groups of three or more output lines with the significant content are compressed; if
      *            false; no output is suppressed
-     * @return Dumper&lt;T&gt;; this Dumper object (for method chaining)
+     * @return this Dumper object (for method chaining)
      */
     public Dumper<T> setSuppressMultipleIdenticalLines(final boolean newState)
     {
@@ -84,7 +84,7 @@ public class Dumper<T>
 
     /**
      * Add a Decoder at the end of the current list of decoders.
-     * @param decoder Decoder; the decoder to add or insert
+     * @param decoder the decoder to add or insert
      */
     public void addDecoder(final Decoder decoder)
     {
@@ -93,9 +93,9 @@ public class Dumper<T>
 
     /**
      * Add a Decoder at a specified index.
-     * @param index int; the position where the Decoder must be added (inserted)
-     * @param decoder Decoder; the decoder to add or insert
-     * @return Dumper&lt;T&gt;; this Dumper object (for method chaining)
+     * @param index the position where the Decoder must be added (inserted)
+     * @param decoder the decoder to add or insert
+     * @return this Dumper object (for method chaining)
      * @throws IndexOutOfBoundsException when the provided index is invalid
      */
     public Dumper<T> addDecoder(final int index, final Decoder decoder) throws IndexOutOfBoundsException
@@ -106,7 +106,7 @@ public class Dumper<T>
 
     /**
      * Write some output.
-     * @param outputText String; text to write.
+     * @param outputText text to write.
      * @throws IOException when an outputStream has been set and it throws an IOException
      */
     private void writeOutput(final String outputText) throws IOException
@@ -116,8 +116,8 @@ public class Dumper<T>
 
     /**
      * Write some output, applying suppression of multiple lines with the same dumped bytes (if that option is active).
-     * @param outputText String; text to write.
-     * @param pattern String; pattern that should be used to check for multiple identical output lines
+     * @param outputText text to write.
+     * @param pattern pattern that should be used to check for multiple identical output lines
      * @throws IOException when an outputStream has been set and it throws an IOException
      */
     private void writeFilteringOutput(final String outputText, final String pattern) throws IOException
@@ -150,8 +150,8 @@ public class Dumper<T>
 
     /**
      * Append one byte to this dump.
-     * @param theByte byte; the byte to append
-     * @return boolean; true if output was generated; false if the byte was accumulated, but did not result in immediate output
+     * @param theByte the byte to append
+     * @return true if output was generated; false if the byte was accumulated, but did not result in immediate output
      * @throws IOException when output was generated and writing to the output stream generated an IOException
      */
     public boolean append(final byte theByte) throws IOException
@@ -171,8 +171,8 @@ public class Dumper<T>
 
     /**
      * Append an array of bytes.
-     * @param bytes byte[]; the bytes to append
-     * @return Dumper&lt;T&gt;; this Dumper object (for method chaining)
+     * @param bytes the bytes to append
+     * @return this Dumper object (for method chaining)
      * @throws IOException when an outputStream has been set and it throws an IOException
      */
     public Dumper<T> append(final byte[] bytes) throws IOException
@@ -182,11 +182,11 @@ public class Dumper<T>
 
     /**
      * Append a slice of an array of bytes.
-     * @param bytes byte[]; byte array from which to take the bytes to append
-     * @param start int; index of first byte in <code>bytes</code> to append (NB. using non-zero does <b>not</b> cause a jump in
+     * @param bytes byte array from which to take the bytes to append
+     * @param start index of first byte in <code>bytes</code> to append (NB. using non-zero does <b>not</b> cause a jump in
      *            the address that is printed before the dumped bytes)
-     * @param len int; number of bytes to append
-     * @return Dumper&lt;T&gt;; this Dumper object (for method chaining)
+     * @param len number of bytes to append
+     * @return this Dumper object (for method chaining)
      * @throws IOException when an outputStream has been set and it throws an IOException
      */
     public Dumper<T> append(final byte[] bytes, final int start, final int len) throws IOException
@@ -202,8 +202,8 @@ public class Dumper<T>
      * Consume an entire input stream and append what it produces to this Dumpmer. The input stream is <b>not</b> closed by this
      * <code>append</code> method. This method does not return until the <code>inputStream</code> returns end of file, or throws
      * an IOException (which is - actually - not a return to the caller, but a jump to the closest handler for that exception).
-     * @param inputStream InputStream; the input stream that is to be consumed
-     * @return Dumper&lt;T&gt;; this Dumper object (for method chaining)
+     * @param inputStream the input stream that is to be consumed
+     * @return this Dumper object (for method chaining)
      * @throws IOException when the <code>inputStream</code> throws that exception, or when an output stream has been set and
      *             that throws an IOException
      */
@@ -221,7 +221,7 @@ public class Dumper<T>
     /**
      * Force the currently assembled output to be written (write partial result if the output line currently being assembled is
      * not full).
-     * @return boolean; true if output was generated; false if no output was generated
+     * @return true if output was generated; false if no output was generated
      * @throws IOException when output was generated and writing to the output stream generated an IOException
      */
     public boolean flush() throws IOException
@@ -250,7 +250,7 @@ public class Dumper<T>
 
     /**
      * Return the maximum width of an output line.
-     * @return int; the maximum width of an output line
+     * @return the maximum width of an output line
      */
     public int getMaximumWidth()
     {

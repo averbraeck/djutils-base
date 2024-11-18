@@ -56,9 +56,9 @@ public class TestImmutableLinkedHashSet
 
     /**
      * ...
-     * @param set Set&lt;Integer&gt;; a set
-     * @param imSet ImmutableSet&lt;Integer&gt;; an immutable set
-     * @param copyOrWrap Immutable;
+     * @param set a set
+     * @param imSet an immutable set
+     * @param copyOrWrap 
      */
     private void testIntSet(final Set<Integer> set, final ImmutableSet<Integer> imSet, final Immutable copyOrWrap)
     {

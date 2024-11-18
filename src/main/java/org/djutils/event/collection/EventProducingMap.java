@@ -53,7 +53,7 @@ public class EventProducingMap<K, V> extends LocalEventProducer implements Map<K
 
     /**
      * constructs a new EventProducingMap.
-     * @param wrappedMap Map&lt;K,V&gt;; the embedded map.
+     * @param wrappedMap the embedded map.
      */
     public EventProducingMap(final Map<K, V> wrappedMap)
     {

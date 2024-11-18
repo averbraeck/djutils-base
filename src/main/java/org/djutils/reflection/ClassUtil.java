@@ -59,7 +59,7 @@ public final class ClassUtil
      * Returns all the constructors of a class. Public, package, protected and private constructors are returned. This method
      * returns an array of length 0 if the class object represents an interface, a primitive type, an array class, or void. Note
      * that the constructors of the superclass are not returned as these can never be invoked.
-     * @param clazz Class&lt;T&gt;; the class to resolve the constructors for.
+     * @param clazz the class to resolve the constructors for.
      * @return an array with all constructors
      * @param <T> the class of the constructors
      */
@@ -72,8 +72,8 @@ public final class ClassUtil
     /**
      * Returns a constructor with the given signature, possibly from the cache. When the constructor is resolved for the first
      * time, it will be added to the cache.
-     * @param clazz Class&lt;T&gt;; the class to resolve the constructor for
-     * @param parameterTypes Class&lt;?&gt;[]; the parameter types of the signature
+     * @param clazz the class to resolve the constructor for
+     * @param parameterTypes the parameter types of the signature
      * @return the constructor with the given signature, if found
      * @throws NoSuchMethodException if the constructor cannot be resolved
      * @param <T> the class of the constructor
@@ -97,9 +97,9 @@ public final class ClassUtil
      * constructor. So a private constructor will not be invoked, unless the caller class is the class that defines the
      * constructor. For a protected class the superclass and classes in the same package can invoke the constructor, but other
      * classes should not be able to invoke the constructor.
-     * @param clazz Class&lt;T&gt;; the class for which the constructor needs to be
-     * @param callerClass Class&lt;?&gt;; the calling class for which the test is carried out whether the constructor is visible
-     * @param parameterTypes Class&lt;?&gt;[]; the parameter types for the constructor's signature
+     * @param clazz the class for which the constructor needs to be
+     * @param callerClass the calling class for which the test is carried out whether the constructor is visible
+     * @param parameterTypes the parameter types for the constructor's signature
      * @return the retrieved constructor
      * @throws NoSuchMethodException if the constructor with the given signature does not exist
      * @throws IllegalAccessException if the constructor exists but is not callable from the callerClass
@@ -118,8 +118,8 @@ public final class ClassUtil
 
     /**
      * returns the interface method.
-     * @param clazz Class&lt;T&gt;; the class to start with
-     * @param parameterTypes Class&lt;?&gt;[]; the parameterTypes
+     * @param clazz the class to start with
+     * @param parameterTypes the parameterTypes
      * @return Constructor
      * @throws NoSuchMethodException if the method cannot be resolved
      * @param <T> the class of the constructor
@@ -155,8 +155,8 @@ public final class ClassUtil
 
     /**
      * returns the constructor.
-     * @param clazz Class&lt;T&gt;; the clazz to start with
-     * @param arguments Object[]; the arguments
+     * @param clazz the clazz to start with
+     * @param arguments the arguments
      * @return Constructor
      * @throws NoSuchMethodException on lookup failure
      * @param <T> the class of the constructor
@@ -190,8 +190,8 @@ public final class ClassUtil
 
     /**
      * Filters an array methods for signatures that are compatible with a given signature.
-     * @param constructor Constructor&lt;?&gt;; which are constructors to be filtered.
-     * @param argTypes Class&lt;?&gt;[]; are the constructor's argument types
+     * @param constructor which are constructors to be filtered.
+     * @param argTypes are the constructor's argument types
      * @return boolean if methodParameters assignable from argTypes
      */
     public static boolean matchSignature(final Constructor<?> constructor, final Class<?>[] argTypes)
@@ -213,8 +213,8 @@ public final class ClassUtil
 
     /**
      * Filters an array methods for signatures that are compatible with a given signature.
-     * @param constructors Constructor&lt;T&gt;[]; which are constructors to be filtered.
-     * @param argTypes Class&lt;?&gt;[]; are the constructor's argument types
+     * @param constructors which are constructors to be filtered.
+     * @param argTypes are the constructor's argument types
      * @return Constructor&lt;?&gt;[] An unordered Constructor-array consisting of the elements of 'constructors' that match
      *         with the given signature. An array with 0 elements is returned when no matching Method objects are found.
      * @param <T> the class of the constructor
@@ -237,8 +237,8 @@ public final class ClassUtil
 
     /**
      * gets all the fields of a class (public, protected, package, and private) and adds the result to the return value.
-     * @param clazz Class&lt;?&gt;; the class
-     * @param result Set&lt;Field&gt;; the resulting set
+     * @param clazz the class
+     * @param result the resulting set
      * @return the set of fields including all fields of the field clazz
      */
     public static Set<Field> getAllFields(final Class<?> clazz, final Set<Field> result)
@@ -257,7 +257,7 @@ public final class ClassUtil
 
     /**
      * gets all the fields of a class (public, protected, package, and private).
-     * @param clazz Class&lt;?&gt;; the class
+     * @param clazz the class
      * @return all fields of the class
      */
     public static Set<Field> getAllFields(final Class<?> clazz)
@@ -302,9 +302,9 @@ public final class ClassUtil
 
     /**
      * returns the field.
-     * @param clazz Class&lt;?&gt;; the class to start with
-     * @param callerClass Class&lt;?&gt;; the calling class
-     * @param name String; the fieldName
+     * @param clazz the class to start with
+     * @param callerClass the calling class
+     * @param name the fieldName
      * @return Constructor
      * @throws NoSuchFieldException if the method cannot be resolved
      */
@@ -321,8 +321,8 @@ public final class ClassUtil
 
     /**
      * resolves the field for a given object instance.
-     * @param object Object; the object to resolve the field for
-     * @param fieldName String; name of the field to resolve
+     * @param object the object to resolve the field for
+     * @param fieldName name of the field to resolve
      * @return the field (if found)
      * @throws NoSuchFieldException if the field cannot be resolved
      */
@@ -339,8 +339,8 @@ public final class ClassUtil
 
     /**
      * gets all the methods of a class (public, protected, package, and private) and adds the result to the return value.
-     * @param clazz Class&lt;?&gt;; the class
-     * @param result List&lt;Method&gt;; the resulting set
+     * @param clazz the class
+     * @param result the resulting set
      * @return the set of methods including all methods of the field clazz
      */
     public static List<Method> getAllMethods(final Class<?> clazz, final List<Method> result)
@@ -359,7 +359,7 @@ public final class ClassUtil
 
     /**
      * gets all the methods of a class (public, protected, package, and private).
-     * @param clazz Class&lt;?&gt;; the class
+     * @param clazz the class
      * @return all methods of the class
      */
     public static List<Method> getAllMethods(final Class<?> clazz)
@@ -371,9 +371,9 @@ public final class ClassUtil
     /**
      * gets all the methods of a class (public, protected, package, and private) with a certain name and adds the result to the
      * return value.
-     * @param clazz Class&lt;?&gt;; the class
-     * @param name String; the name of the method to look up
-     * @param result List&lt;Method&gt;; the resulting set
+     * @param clazz the class
+     * @param name the name of the method to look up
+     * @param result the resulting set
      * @return the set of methods including all methods with the given name of the field clazz
      */
     public static List<Method> getAllMethods(final Class<?> clazz, final String name, final List<Method> result)
@@ -395,8 +395,8 @@ public final class ClassUtil
 
     /**
      * gets all the methods of a class (public, protected, package, and private) with a certain name.
-     * @param clazz Class&lt;?&gt;; the class
-     * @param name String; the name of the method to look up
+     * @param clazz the class
+     * @param name the name of the method to look up
      * @return all methods of the class with a certain name
      */
     public static List<Method> getAllMethods(final Class<?> clazz, final String name)
@@ -407,10 +407,10 @@ public final class ClassUtil
 
     /**
      * returns the interface method.
-     * @param clazz Class&lt;?&gt;; the class to start with
-     * @param callerClass Class&lt;?&gt;; the caller class
-     * @param name String; the name of the method
-     * @param parameterTypes Class&lt;?&gt;[]; the parameterTypes
+     * @param clazz the class to start with
+     * @param callerClass the caller class
+     * @param name the name of the method
+     * @param parameterTypes the parameterTypes
      * @return Method
      * @throws NoSuchMethodException on lookup failure
      */
@@ -427,9 +427,9 @@ public final class ClassUtil
 
     /**
      * returns the interface method.
-     * @param clazz Class&lt;?&gt;; the class to start with
-     * @param name String; the name of the method
-     * @param parameterTypes Class&lt;?&gt;[]; the parameterTypes
+     * @param clazz the class to start with
+     * @param name the name of the method
+     * @param parameterTypes the parameterTypes
      * @return Method
      * @throws NoSuchMethodException on lookup failure
      */
@@ -463,9 +463,9 @@ public final class ClassUtil
 
     /**
      * resolves a method the method.
-     * @param object Object; the object to start with
-     * @param name String; the name of the method
-     * @param parameterTypes Class&lt;?&gt;[]; the parameterTypes
+     * @param object the object to start with
+     * @param name the name of the method
+     * @param parameterTypes the parameterTypes
      * @return Method
      * @throws NoSuchMethodException on lookup failure
      */
@@ -481,9 +481,9 @@ public final class ClassUtil
 
     /**
      * returns the method.
-     * @param object Object; the object to start with
-     * @param name String; the name of the method
-     * @param arguments Object[]; the arguments
+     * @param object the object to start with
+     * @param name the name of the method
+     * @param arguments the arguments
      * @return Method
      * @throws NoSuchMethodException on lookup failure
      */
@@ -525,8 +525,8 @@ public final class ClassUtil
 
     /**
      * gets all the annotations of a class (public, protected, package, and private) and adds the result to the return value.
-     * @param clazz Class&lt;?&gt;; the class
-     * @param result Set&lt;Annotation&gt;; the resulting set
+     * @param clazz the class
+     * @param result the resulting set
      * @return the set of annotations including all annotations of the annotation clazz
      */
     public static Set<Annotation> getAllAnnotations(final Class<?> clazz, final Set<Annotation> result)
@@ -545,7 +545,7 @@ public final class ClassUtil
 
     /**
      * gets all the annotations of a class (public, protected, package, and private).
-     * @param clazz Class&lt;?&gt;; the class
+     * @param clazz the class
      * @return all annotations of the class
      */
     public static Set<Annotation> getAllAnnotations(final Class<?> clazz)
@@ -593,9 +593,9 @@ public final class ClassUtil
 
     /**
      * Returns whether a declaringClass is accessible according to the modifiers.
-     * @param modifiers int; the modifiers
-     * @param declaringClass Class&lt;?&gt;; the declaringClass
-     * @param caller Class&lt;?&gt;; the caller
+     * @param modifiers the modifiers
+     * @param declaringClass the declaringClass
+     * @param caller the caller
      * @return boolean isVisible
      */
     public static boolean isVisible(final int modifiers, final Class<?> declaringClass, final Class<?> caller)
@@ -628,8 +628,8 @@ public final class ClassUtil
      * Specification par 15.12.
      * @return true if 'a' is more specific than b, false otherwise. 'false' is also returned when constructors are
      *         incompatible, e.g. have different names or a different number of parameters.
-     * @param a Class&lt;?&gt;[]; reflects the first constructor
-     * @param b Class&lt;?&gt;[]; reflects the second constructor
+     * @param a reflects the first constructor
+     * @param b reflects the second constructor
      */
     public static boolean isMoreSpecific(final Class<?>[] a, final Class<?>[] b)
     {
@@ -654,8 +654,8 @@ public final class ClassUtil
      * Specification par 15.12.
      * @return true if 'a' is more specific than b, false otherwise. 'false' is also returned when constructors are
      *         incompatible, e.g. have different names or a different number of parameters.
-     * @param a Constructor&lt;?&gt;; the first constructor
-     * @param b Constructor&lt;?&gt;; the second constructor
+     * @param a the first constructor
+     * @param b the second constructor
      */
     public static boolean isMoreSpecific(final Constructor<?> a, final Constructor<?> b)
     {
@@ -674,8 +674,8 @@ public final class ClassUtil
      * Specification par 15.12.
      * @return true if 'a' is more specific than b, false otherwise. 'false' is also returned when constructors are
      *         incompatible, e.g. have different names or a different number of parameters.
-     * @param a Method; reflects the first method
-     * @param b Method; reflects the second method
+     * @param a reflects the first method
+     * @param b reflects the second method
      */
     public static boolean isMoreSpecific(final Method a, final Method b)
     {
@@ -688,8 +688,8 @@ public final class ClassUtil
 
     /**
      * Returns whether a field is visible for a caller.
-     * @param field Field; The field
-     * @param caller Class&lt;?&gt;; The class of the caller for whom invocation visibility is checked.
+     * @param field The field
+     * @param caller The class of the caller for whom invocation visibility is checked.
      * @return boolean yes or no
      */
     public static boolean isVisible(final Field field, final Class<?> caller)
@@ -699,8 +699,8 @@ public final class ClassUtil
 
     /**
      * Returns whether a constructor is visible for a caller.
-     * @param constructor Constructor&lt;?&gt;; The constructor
-     * @param caller Class&lt;?&gt;; The class of the caller for whom invocation visibility is checked.
+     * @param constructor The constructor
+     * @param caller The class of the caller for whom invocation visibility is checked.
      * @return boolean yes or no
      */
     public static boolean isVisible(final Constructor<?> constructor, final Class<?> caller)
@@ -710,8 +710,8 @@ public final class ClassUtil
 
     /**
      * Returns whether a method is visible for a caller.
-     * @param method Method; The method
-     * @param caller Class&lt;?&gt;; The class of the caller for whom invocation visibility is checked.
+     * @param method The method
+     * @param caller The class of the caller for whom invocation visibility is checked.
      * @return boolean yes or no
      */
     public static boolean isVisible(final Method method, final Class<?> caller)
@@ -721,9 +721,9 @@ public final class ClassUtil
 
     /**
      * Filters an array methods for signatures that are compatible with a given signature.
-     * @param methods List&lt;Method&gt;; which are methods to be filtered.
-     * @param name String; reflects the method's name, part of the signature
-     * @param argTypes Class&lt;?&gt;[]; are the method's argument types
+     * @param methods which are methods to be filtered.
+     * @param name reflects the method's name, part of the signature
+     * @param argTypes are the method's argument types
      * @return Method[] An unordered Method-array consisting of the elements of 'methods' that match with the given signature.
      *         An array with 0 elements is returned when no matching Method objects are found.
      */
@@ -742,9 +742,9 @@ public final class ClassUtil
 
     /**
      * Filters an array methods for signatures that are compatible with a given signature.
-     * @param method Method; The method to be filtered.
-     * @param name String; reflects the method's name, part of the signature
-     * @param argTypes Class&lt;?&gt;[]; are the method's argument types
+     * @param method The method to be filtered.
+     * @param name reflects the method's name, part of the signature
+     * @param argTypes are the method's argument types
      * @return boolean if methodParameters assignable from argTypes
      */
     public static boolean matchSignature(final Method method, final String name, final Class<?>[] argTypes)
@@ -772,8 +772,8 @@ public final class ClassUtil
      * Converts an array of objects to their corresponding classes. Note that primitive types are always autoboxed to the
      * corresponding object types. So an int in the array will have an Integer.class at the position in the resulting Class
      * array.
-     * @param array Object[]; the array to invoke
-     * @return Class&lt;?&gt;[] the result;
+     * @param array the array to invoke
+     * @return the array of classes
      */
     public static Class<?>[] getClass(final Object[] array)
     {
@@ -800,8 +800,8 @@ public final class ClassUtil
 
     /**
      * checks the input of an array.
-     * @param array Object[]; the array
-     * @param myClass Class&lt;?&gt;; the class of the result
+     * @param array the array
+     * @param myClass the class of the result
      * @return Returns array if array!=null else returns myClass[0]
      */
     private static Object checkInput(final Object[] array, final Class<?> myClass)
@@ -816,7 +816,7 @@ public final class ClassUtil
     /**
      * Determines & returns the most specific constructor as defined in the Java Language Specification par 15.12. The current
      * algorithm is simple and reliable, but probably slow.
-     * @param methods Constructor&lt;?&gt;[]; are the constructors to be searched. They are assumed to have the same name and
+     * @param methods are the constructors to be searched. They are assumed to have the same name and
      *            number of parameters, as determined by the constructor matchSignature.
      * @return Constructor which is the most specific constructor.
      * @throws NoSuchMethodException when no constructor is found that's more specific than the others.
@@ -862,7 +862,7 @@ public final class ClassUtil
     /**
      * Determines & returns the most specific method as defined in the Java Language Specification par 15.12. The current
      * algorithm is simple and reliable, but probably slow.
-     * @param methods List&lt;Method&gt;; which are the methods to be searched. They are assumed to have the same name and
+     * @param methods which are the methods to be searched. They are assumed to have the same name and
      *            number of parameters, as determined by the method matchSignature.
      * @return The most specific method.
      * @throws NoSuchMethodException when no method is found that's more specific than the others.
@@ -908,9 +908,9 @@ public final class ClassUtil
 
     /**
      * returns the interface method.
-     * @param clazz Class&lt;?&gt;; the class to start with
-     * @param name String; the name of the method
-     * @param parameterTypes Class&lt;?&gt;[]; the parameterTypes
+     * @param clazz the class to start with
+     * @param name the name of the method
+     * @param parameterTypes the parameterTypes
      * @return Method
      * @throws NoSuchMethodException on lookup failure
      */
@@ -942,8 +942,8 @@ public final class ClassUtil
 
     /**
      * resolves the field for a class, taking into account superclasses.
-     * @param clazz Class&lt;?&gt;; the class for which superclasses will be probed
-     * @param fieldName String; the name of the field to resolve
+     * @param clazz the class for which superclasses will be probed
+     * @param fieldName the name of the field to resolve
      * @return the field (if found)
      * @throws NoSuchFieldException if the field cannot be resolved
      */
@@ -974,8 +974,8 @@ public final class ClassUtil
 
     /**
      * resolves the annotation for a class, taking into account superclasses.
-     * @param clazz Class&lt;?&gt;; the class for which superclasses will be probed
-     * @param annotationClass Class&lt;? extends Annotation&gt;; the class of the annotation to resolve
+     * @param clazz the class for which superclasses will be probed
+     * @param annotationClass the class of the annotation to resolve
      * @return the annotation (if found)
      * @throws NoSuchElementException if the annotation cannot be resolved
      */
@@ -1020,7 +1020,7 @@ public final class ClassUtil
 
     /**
      * Retrieve a file pointer of a class, e.g. to request the last compilation date.
-     * @param object Object; the object for which the class information should be retrieved
+     * @param object the object for which the class information should be retrieved
      * @return a ClassFileDescriptor with some information of the .class file
      */
     public static ClassFileDescriptor classFileDescriptor(final Object object)
@@ -1030,7 +1030,7 @@ public final class ClassUtil
 
     /**
      * Retrieve a file pointer of a class, e.g. to request the last compilation date.
-     * @param clazz Class&lt;?&gt;; the class for which a file descriptor should be retrieved
+     * @param clazz the class for which a file descriptor should be retrieved
      * @return a ClassFileDescriptor with some information of the .class file
      */
     public static ClassFileDescriptor classFileDescriptor(final Class<?> clazz)
@@ -1041,7 +1041,7 @@ public final class ClassUtil
 
     /**
      * Retrieve a file pointer of a class, e.g. to request the last compilation date.
-     * @param clazzUrl URL; the URL to a class for which a file descriptor should be retrieved
+     * @param clazzUrl the URL to a class for which a file descriptor should be retrieved
      * @return a ClassFileDescriptor with some information of the .class file
      */
     public static ClassFileDescriptor classFileDescriptor(final URL clazzUrl)
@@ -1109,7 +1109,7 @@ public final class ClassUtil
 
         /**
          * Construct a ClassFileDescriptor from a File.
-         * @param classFile File; the file to use.
+         * @param classFile the file to use.
          */
         public ClassFileDescriptor(final File classFile)
         {
@@ -1135,8 +1135,8 @@ public final class ClassUtil
 
         /**
          * Construct a ClassFileDescriptor from a JarEntry.
-         * @param jarEntry JarEntry; the JarEntry to use.
-         * @param path String; the path of the JarEntry
+         * @param jarEntry the JarEntry to use.
+         * @param path the path of the JarEntry
          */
         public ClassFileDescriptor(final JarEntry jarEntry, final String path)
         {
@@ -1148,8 +1148,8 @@ public final class ClassUtil
 
         /**
          * Construct a ClassFileDescriptor from a ZipEntry.
-         * @param zipEntry ZipEntry; the ZipEntry to use.
-         * @param path String; the path of the ZipEntry
+         * @param zipEntry the ZipEntry to use.
+         * @param path the path of the ZipEntry
          */
         public ClassFileDescriptor(final ZipEntry zipEntry, final String path)
         {

@@ -34,8 +34,8 @@ public class Event implements Serializable
 
     /**
      * Construct a new Event, where compliance with the metadata is verified.
-     * @param type EventType; the name of the Event.
-     * @param content Serializable; the content of the event
+     * @param type the name of the Event.
+     * @param content the content of the event
      */
     public Event(final EventType type, final Serializable content)
     {
@@ -44,9 +44,9 @@ public class Event implements Serializable
 
     /**
      * Construct a new Event, with a choice to verify compliance with metadata.
-     * @param type EventType; the name of the Event.
-     * @param content Serializable; the content of the event
-     * @param verifyMetaData boolean; whether to verify the compliance with metadata or not
+     * @param type the name of the Event.
+     * @param content the content of the event
+     * @param verifyMetaData whether to verify the compliance with metadata or not
      */
     public Event(final EventType type, final Serializable content, final boolean verifyMetaData)
     {
@@ -72,7 +72,7 @@ public class Event implements Serializable
 
     /**
      * Return the content (payload) of this event.
-     * @return Serializable; the content (payload) of this event
+     * @return the content (payload) of this event
      */
     public final Serializable getContent()
     {
@@ -81,7 +81,7 @@ public class Event implements Serializable
 
     /**
      * Return the type of the event.
-     * @return EventType; the type of the event
+     * @return the type of the event
      */
     public EventType getType()
     {

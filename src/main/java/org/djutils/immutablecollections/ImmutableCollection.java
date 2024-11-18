@@ -38,7 +38,7 @@ public interface ImmutableCollection<E> extends Iterable<E>, Serializable
      * Returns <code>true</code> if this immutable collection contains the specified element. More formally, returns
      * <code>true</code> if and only if this immutable collection contains at least one element <code>e</code> such that
      * <code>(o==null&nbsp;?&nbsp;e==null&nbsp;:&nbsp;o.equals(e))</code>.
-     * @param o Object; element whose presence in this immutable collection is to be tested
+     * @param o element whose presence in this immutable collection is to be tested
      * @return <code>true</code> if this immutable collection contains the specified element
      * @throws ClassCastException if the type of the specified element is incompatible with this immutable collection
      * @throws NullPointerException if the specified element is null and this immutable collection does not permit null elements
@@ -71,7 +71,7 @@ public interface ImmutableCollection<E> extends Iterable<E>, Serializable
      * <p>
      * See java.util.Collection.toArray(T[]) for more details.
      * @param <T> the runtime type of the array to contain the immutable collection
-     * @param a the array into which the elements of this immutable collection are to be stored, if it is big enough; otherwise,
+     * @param a otherwise,
      *            a new array of the same runtime type is allocated for this purpose.
      * @return an array containing all of the elements in this immutable collection
      * @throws ArrayStoreException if the runtime type of the specified array is not a supertype of the runtime type of every
@@ -82,7 +82,7 @@ public interface ImmutableCollection<E> extends Iterable<E>, Serializable
 
     /**
      * Returns <code>true</code> if this immutable collection contains all of the elements in the specified collection.
-     * @param c Collection&lt;?&gt;; collection to be checked for containment in this immutable collection
+     * @param c collection to be checked for containment in this immutable collection
      * @return <code>true</code> if this immutable collection contains all of the elements in the specified collection
      * @throws ClassCastException if the types of one or more elements in the specified collection are incompatible with this
      *             immutable collection
@@ -95,7 +95,7 @@ public interface ImmutableCollection<E> extends Iterable<E>, Serializable
     /**
      * Returns <code>true</code> if this immutable collection contains all of the elements in the specified immutable
      * collection.
-     * @param c ImmutableCollection&lt;?&gt;; immutable collection to be checked for containment in this immutable collection
+     * @param c immutable collection to be checked for containment in this immutable collection
      * @return <code>true</code> if this immutable collection contains all of the elements in the specified immutable collection
      * @throws ClassCastException if the types of one or more elements in the specified immutable collection are incompatible
      *             with this immutable collection
@@ -149,7 +149,7 @@ public interface ImmutableCollection<E> extends Iterable<E>, Serializable
 
     /**
      * Force to redefine equals for the implementations of immutable collection classes.
-     * @param obj Object; the object to compare this collection with
+     * @param obj the object to compare this collection with
      * @return whether the objects are equal
      */
     @Override
@@ -166,7 +166,7 @@ public interface ImmutableCollection<E> extends Iterable<E>, Serializable
      * Return whether the internal storage is a wrapped pointer to the original collection. If true, this means that anyone
      * holding a pointer to this data structure can still change it. The users of the ImmutableCollection itself can, however,
      * not make any changes.
-     * @return boolean; whether the internal storage is a wrapped pointer to the original collection
+     * @return whether the internal storage is a wrapped pointer to the original collection
      */
     boolean isWrap();
 
@@ -174,7 +174,7 @@ public interface ImmutableCollection<E> extends Iterable<E>, Serializable
      * Return whether the internal storage is a (shallow) copy of the original collection. If true, this means that anyone
      * holding a pointer to the original of the data structure can not change it anymore. Nor can the users of the
      * ImmutableCollection itself make any changes.
-     * @return boolean; whether the internal storage is a safe copy of the original collection
+     * @return whether the internal storage is a safe copy of the original collection
      */
     default boolean isCopy()
     {

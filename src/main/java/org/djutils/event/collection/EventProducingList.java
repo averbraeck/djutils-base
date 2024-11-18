@@ -54,7 +54,7 @@ public class EventProducingList<E> extends LocalEventProducer implements EventLi
 
     /**
      * constructs a new EventProducingList.
-     * @param wrappedList List&lt;E&gt;; the embedded list.
+     * @param wrappedList the embedded list.
      */
     public EventProducingList(final List<E> wrappedList)
     {

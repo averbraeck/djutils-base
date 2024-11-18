@@ -62,9 +62,9 @@ public class TestImmutableTreeSet
 
     /**
      * ...
-     * @param set NavigableSet&lt;Integer&gt;; set
-     * @param imSet ImmutableTreeSet&lt;Integer&gt;; immutable set
-     * @param copyOrWrap Immutable;
+     * @param set set
+     * @param imSet immutable set
+     * @param copyOrWrap 
      */
     private void testIntSet(final NavigableSet<Integer> set, final ImmutableTreeSet<Integer> imSet, final Immutable copyOrWrap)
     {

@@ -16,7 +16,7 @@ public class HexAddressDecoder implements Decoder
 
     /**
      * Construct a new HexAddressDecoder.
-     * @param roundToMultiple int; if &gt; 1 round addresses down to the nearest (lower) multiple of this value and the append
+     * @param roundToMultiple if &gt; 1 round addresses down to the nearest (lower) multiple of this value and the append
      *            method will return true when the last byte before such a multiple is added.
      */
     public HexAddressDecoder(final int roundToMultiple)

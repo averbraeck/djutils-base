@@ -101,8 +101,8 @@ public class TestImmutableEntry
 
         /**
          * Construct a new MyEntry object.
-         * @param key K; key of the entry
-         * @param value V; value of the entry
+         * @param key key of the entry
+         * @param value value of the entry
          */
         MyEntry(final K key, final V value)
         {

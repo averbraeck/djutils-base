@@ -37,7 +37,7 @@ public class EventProducingIterator<T> extends LocalEventProducer implements Ite
 
     /**
      * constructs a new EventProducingIterator, embedding the parent Iterator.
-     * @param wrappedIterator Iterator&lt;T&gt;; parent.
+     * @param wrappedIterator parent.
      */
     public EventProducingIterator(final Iterator<T> wrappedIterator)
     {
@@ -66,7 +66,7 @@ public class EventProducingIterator<T> extends LocalEventProducer implements Ite
 
     /**
      * Return the embedded iterator.
-     * @return parent Iterator&lt;T&gt;; the embedded iterator
+     * @return the embedded iterator
      */
     protected Iterator<T> getWrappedIterator()
     {

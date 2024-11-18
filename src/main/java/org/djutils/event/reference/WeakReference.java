@@ -32,7 +32,7 @@ public class WeakReference<T extends Serializable> extends Reference<T>
 
     /**
      * Creates a new weak reference that refers to the given object. The new reference is not registered with any queue.
-     * @param referent T; object the new weak reference will refer to
+     * @param referent object the new weak reference will refer to
      */
     public WeakReference(final T referent)
     {
@@ -47,7 +47,7 @@ public class WeakReference<T extends Serializable> extends Reference<T>
 
     /**
      * Write a serializable method to a stream.
-     * @param out ObjectOutputStream; the output stream
+     * @param out the output stream
      * @throws IOException on IOException
      */
     private synchronized void writeObject(final ObjectOutputStream out) throws IOException

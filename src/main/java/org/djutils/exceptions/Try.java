@@ -69,10 +69,10 @@ public final class Try
 
     /**
      * Tries to return a value to assign. Will throw a RuntimeException if the try fails.
-     * @param assignment Assignment&lt;V&gt;; functional interface to assign value
-     * @param message String; the message to use in the throwable
+     * @param assignment functional interface to assign value
+     * @param message the message to use in the throwable
      * @param <V> value type
-     * @return V; value to assign
+     * @return value to assign
      * @throws RuntimeException on failed Try
      */
     public static <V> V assign(final Assignment<V> assignment, final String message) throws RuntimeException
@@ -89,11 +89,11 @@ public final class Try
 
     /**
      * Tries to return a value to assign. Will throw a RuntimeException if the try fails.
-     * @param assignment Assignment&lt;V&gt;; functional interface to assign value
-     * @param message String; the message to use in the throwable, with formatting identifier
-     * @param arg Object; value to use for the formatting identifier
+     * @param assignment functional interface to assign value
+     * @param message the message to use in the throwable, with formatting identifier
+     * @param arg value to use for the formatting identifier
      * @param <V> value type
-     * @return V; value to assign
+     * @return value to assign
      * @throws RuntimeException on failed Try
      */
     public static <V> V assign(final Assignment<V> assignment, final String message, final Object arg) throws RuntimeException
@@ -112,12 +112,12 @@ public final class Try
 
     /**
      * Tries to return a value to assign. Will throw a RuntimeException if the try fails.
-     * @param assignment Assignment&lt;V&gt;; functional interface to assign value
-     * @param message String; the message to use in the throwable, with formatting identifiers
-     * @param arg1 Object; 1st value to use for the formatting identifiers
-     * @param arg2 Object; 2nd value to use for the formatting identifiers
+     * @param assignment functional interface to assign value
+     * @param message the message to use in the throwable, with formatting identifiers
+     * @param arg1 1st value to use for the formatting identifiers
+     * @param arg2 2nd value to use for the formatting identifiers
      * @param <V> value type
-     * @return V; value to assign
+     * @return value to assign
      * @throws RuntimeException on failed Try
      */
     public static <V> V assign(final Assignment<V> assignment, final String message, final Object arg1, final Object arg2)
@@ -138,13 +138,13 @@ public final class Try
 
     /**
      * Tries to return a value to assign. Will throw a RuntimeException if the try fails.
-     * @param assignment Assignment&lt;V&gt;; functional interface to assign value
-     * @param message String; the message to use in the throwable, with formatting identifiers
-     * @param arg1 Object; 1st value to use for the formatting identifiers
-     * @param arg2 Object; 2nd value to use for the formatting identifiers
-     * @param arg3 Object; 3rd value to use for the formatting identifiers
+     * @param assignment functional interface to assign value
+     * @param message the message to use in the throwable, with formatting identifiers
+     * @param arg1 1st value to use for the formatting identifiers
+     * @param arg2 2nd value to use for the formatting identifiers
+     * @param arg3 3rd value to use for the formatting identifiers
      * @param <V> value type
-     * @return V; value to assign
+     * @return value to assign
      * @throws RuntimeException on failed Try
      */
     public static <V> V assign(final Assignment<V> assignment, final String message, final Object arg1, final Object arg2,
@@ -166,14 +166,14 @@ public final class Try
 
     /**
      * Tries to return a value to assign. Will throw a RuntimeException if the try fails.
-     * @param assignment Assignment&lt;V&gt;; functional interface to assign value
-     * @param message String; the message to use in the throwable, with formatting identifiers
-     * @param arg1 Object; 1st value to use for the formatting identifiers
-     * @param arg2 Object; 2nd value to use for the formatting identifiers
-     * @param arg3 Object; 3rd value to use for the formatting identifiers
-     * @param args Object...; potential 4th and further values to use for the formatting identifiers
+     * @param assignment functional interface to assign value
+     * @param message the message to use in the throwable, with formatting identifiers
+     * @param arg1 1st value to use for the formatting identifiers
+     * @param arg2 2nd value to use for the formatting identifiers
+     * @param arg3 3rd value to use for the formatting identifiers
+     * @param args potential 4th and further values to use for the formatting identifiers
      * @param <V> value type
-     * @return V; value to assign
+     * @return value to assign
      * @throws RuntimeException on failed Try
      */
     public static <V> V assign(final Assignment<V> assignment, final String message, final Object arg1, final Object arg2,
@@ -196,12 +196,12 @@ public final class Try
 
     /**
      * Tries to return a value to assign. Will throw a specified Throwable if the try fails.
-     * @param assignment Assignment&lt;V&gt;; functional interface to assign value
-     * @param throwableClass Class&lt;T&gt;; class of the throwable to throw
-     * @param message String; the message to use in the throwable
+     * @param assignment functional interface to assign value
+     * @param throwableClass class of the throwable to throw
+     * @param message the message to use in the throwable
      * @param <V> value type
      * @param <T> throwable type
-     * @return V; value to assign
+     * @return value to assign
      * @throws T throwable on failed Try
      */
     public static <V, T extends Throwable> V assign(final Assignment<V> assignment, final Class<T> throwableClass,
@@ -219,13 +219,13 @@ public final class Try
 
     /**
      * Tries to return a value to assign. Will throw a specified Throwable if the try fails.
-     * @param assignment Assignment&lt;V&gt;; functional interface to assign value
-     * @param throwableClass Class&lt;T&gt;; class of the throwable to throw
-     * @param message String; the message to use in the throwable, with formatting identifier
-     * @param arg Object; value to use for the formatting identifier
+     * @param assignment functional interface to assign value
+     * @param throwableClass class of the throwable to throw
+     * @param message the message to use in the throwable, with formatting identifier
+     * @param arg value to use for the formatting identifier
      * @param <V> value type
      * @param <T> throwable type
-     * @return V; value to assign
+     * @return value to assign
      * @throws T throwable on failed Try
      */
     public static <V, T extends Throwable> V assign(final Assignment<V> assignment, final Class<T> throwableClass,
@@ -245,14 +245,14 @@ public final class Try
 
     /**
      * Tries to return a value to assign. Will throw a specified Throwable if the try fails.
-     * @param assignment Assignment&lt;V&gt;; functional interface to assign value
-     * @param throwableClass Class&lt;T&gt;; class of the throwable to throw
-     * @param message String; the message to use in the throwable, with formatting identifiers
-     * @param arg1 Object; 1st value to use for the formatting identifiers
-     * @param arg2 Object; 2nd value to use for the formatting identifiers
+     * @param assignment functional interface to assign value
+     * @param throwableClass class of the throwable to throw
+     * @param message the message to use in the throwable, with formatting identifiers
+     * @param arg1 1st value to use for the formatting identifiers
+     * @param arg2 2nd value to use for the formatting identifiers
      * @param <V> value type
      * @param <T> throwable type
-     * @return V; value to assign
+     * @return value to assign
      * @throws T throwable on failed Try
      */
     public static <V, T extends Throwable> V assign(final Assignment<V> assignment, final Class<T> throwableClass,
@@ -273,15 +273,15 @@ public final class Try
 
     /**
      * Tries to return a value to assign. Will throw a specified Throwable if the try fails.
-     * @param assignment Assignment&lt;V&gt;; functional interface to assign value
-     * @param throwableClass Class&lt;T&gt;; class of the throwable to throw
-     * @param message String; the message to use in the throwable, with formatting identifiers
-     * @param arg1 Object; 1st value to use for the formatting identifiers
-     * @param arg2 Object; 2nd value to use for the formatting identifiers
-     * @param arg3 Object; 3rd value to use for the formatting identifiers
+     * @param assignment functional interface to assign value
+     * @param throwableClass class of the throwable to throw
+     * @param message the message to use in the throwable, with formatting identifiers
+     * @param arg1 1st value to use for the formatting identifiers
+     * @param arg2 2nd value to use for the formatting identifiers
+     * @param arg3 3rd value to use for the formatting identifiers
      * @param <V> value type
      * @param <T> throwable type
-     * @return V; value to assign
+     * @return value to assign
      * @throws T throwable on failed Try
      */
     public static <V, T extends Throwable> V assign(final Assignment<V> assignment, final Class<T> throwableClass,
@@ -303,16 +303,16 @@ public final class Try
 
     /**
      * Tries to return a value to assign. Will throw a specified Throwable if the try fails.
-     * @param assignment Assignment&lt;V&gt;; functional interface to assign value
-     * @param throwableClass Class&lt;T&gt;; class of the throwable to throw
-     * @param message String; the message to use in the throwable, with formatting identifiers
-     * @param arg1 Object; 1st value to use for the formatting identifiers
-     * @param arg2 Object; 2nd value to use for the formatting identifiers
-     * @param arg3 Object; 3rd value to use for the formatting identifiers
-     * @param args Object...; potential 4th and further values to use for the formatting identifiers
+     * @param assignment functional interface to assign value
+     * @param throwableClass class of the throwable to throw
+     * @param message the message to use in the throwable, with formatting identifiers
+     * @param arg1 1st value to use for the formatting identifiers
+     * @param arg2 2nd value to use for the formatting identifiers
+     * @param arg3 3rd value to use for the formatting identifiers
+     * @param args potential 4th and further values to use for the formatting identifiers
      * @param <V> value type
      * @param <T> throwable type
-     * @return V; value to assign
+     * @return value to assign
      * @throws T throwable on failed Try
      */
     public static <V, T extends Throwable> V assign(final Assignment<V> assignment, final Class<T> throwableClass,
@@ -337,8 +337,8 @@ public final class Try
 
     /**
      * Tries to execute. Will throw a RuntimeException if the try fails.
-     * @param execution Execution; functional interface to execute
-     * @param message String; the message to use in the throwable
+     * @param execution functional interface to execute
+     * @param message the message to use in the throwable
      * @throws RuntimeException on failed Try
      */
     public static void execute(final Execution execution, final String message) throws RuntimeException
@@ -355,9 +355,9 @@ public final class Try
 
     /**
      * Tries to execute. Will throw a RuntimeException if the try fails.
-     * @param execution Execution; functional interface to execute
-     * @param message String; the message to use in the throwable, with formatting identifier
-     * @param arg Object; value to use for the formatting identifier
+     * @param execution functional interface to execute
+     * @param message the message to use in the throwable, with formatting identifier
+     * @param arg value to use for the formatting identifier
      * @throws RuntimeException on failed Try
      */
     public static void execute(final Execution execution, final String message, final Object arg) throws RuntimeException
@@ -376,10 +376,10 @@ public final class Try
 
     /**
      * Tries to execute. Will throw a RuntimeException if the try fails.
-     * @param execution Execution; functional interface to execute
-     * @param message String; the message to use in the throwable, with formatting identifiers
-     * @param arg1 Object; 1st value to use for the formatting identifiers
-     * @param arg2 Object; 2nd value to use for the formatting identifiers
+     * @param execution functional interface to execute
+     * @param message the message to use in the throwable, with formatting identifiers
+     * @param arg1 1st value to use for the formatting identifiers
+     * @param arg2 2nd value to use for the formatting identifiers
      * @throws RuntimeException on failed Try
      */
     public static void execute(final Execution execution, final String message, final Object arg1, final Object arg2)
@@ -400,11 +400,11 @@ public final class Try
 
     /**
      * Tries to execute. Will throw a RuntimeException if the try fails.
-     * @param execution Execution; functional interface to execute
-     * @param message String; the message to use in the throwable, with formatting identifiers
-     * @param arg1 Object; 1st value to use for the formatting identifiers
-     * @param arg2 Object; 2nd value to use for the formatting identifiers
-     * @param arg3 Object; 3rd value to use for the formatting identifiers
+     * @param execution functional interface to execute
+     * @param message the message to use in the throwable, with formatting identifiers
+     * @param arg1 1st value to use for the formatting identifiers
+     * @param arg2 2nd value to use for the formatting identifiers
+     * @param arg3 3rd value to use for the formatting identifiers
      * @throws RuntimeException on failed Try
      */
     public static void execute(final Execution execution, final String message, final Object arg1, final Object arg2,
@@ -426,12 +426,12 @@ public final class Try
 
     /**
      * Tries to execute. Will throw a RuntimeException if the try fails.
-     * @param execution Execution; functional interface to execute
-     * @param message String; the message to use in the throwable, with formatting identifiers
-     * @param arg1 Object; 1st value to use for the formatting identifiers
-     * @param arg2 Object; 2nd value to use for the formatting identifiers
-     * @param arg3 Object; 3rd value to use for the formatting identifiers
-     * @param args Object...; potential 4th and further values to use for the formatting identifiers
+     * @param execution functional interface to execute
+     * @param message the message to use in the throwable, with formatting identifiers
+     * @param arg1 1st value to use for the formatting identifiers
+     * @param arg2 2nd value to use for the formatting identifiers
+     * @param arg3 3rd value to use for the formatting identifiers
+     * @param args potential 4th and further values to use for the formatting identifiers
      * @throws RuntimeException on failed Try
      */
     public static void execute(final Execution execution, final String message, final Object arg1, final Object arg2,
@@ -454,9 +454,9 @@ public final class Try
 
     /**
      * Tries to execute. Will throw a specified Throwable if the try fails.
-     * @param execution Execution; functional interface to execute
-     * @param throwableClass Class&lt;T&gt;; class of the throwable to throw
-     * @param message String; the message to use in the throwable
+     * @param execution functional interface to execute
+     * @param throwableClass class of the throwable to throw
+     * @param message the message to use in the throwable
      * @param <T> throwable type
      * @throws T throwable on failed Try
      */
@@ -475,10 +475,10 @@ public final class Try
 
     /**
      * Tries to execute. Will throw a specified Throwable if the try fails.
-     * @param execution Execution; functional interface to execute
-     * @param throwableClass Class&lt;T&gt;; class of the throwable to throw
-     * @param message String; the message to use in the throwable, with formatting identifier
-     * @param arg Object; value to use for the formatting identifier
+     * @param execution functional interface to execute
+     * @param throwableClass class of the throwable to throw
+     * @param message the message to use in the throwable, with formatting identifier
+     * @param arg value to use for the formatting identifier
      * @param <T> throwable type
      * @throws T throwable on failed Try
      */
@@ -499,11 +499,11 @@ public final class Try
 
     /**
      * Tries to execute. Will throw a specified Throwable if the try fails.
-     * @param execution Execution; functional interface to execute
-     * @param throwableClass Class&lt;T&gt;; class of the throwable to throw
-     * @param message String; the message to use in the throwable, with formatting identifiers
-     * @param arg1 Object; 1st value to use for the formatting identifiers
-     * @param arg2 Object; 2nd value to use for the formatting identifiers
+     * @param execution functional interface to execute
+     * @param throwableClass class of the throwable to throw
+     * @param message the message to use in the throwable, with formatting identifiers
+     * @param arg1 1st value to use for the formatting identifiers
+     * @param arg2 2nd value to use for the formatting identifiers
      * @param <T> throwable type
      * @throws T throwable on failed Try
      */
@@ -525,12 +525,12 @@ public final class Try
 
     /**
      * Tries to execute. Will throw a specified Throwable if the try fails.
-     * @param execution Execution; functional interface to execute
-     * @param throwableClass Class&lt;T&gt;; class of the throwable to throw
-     * @param message String; the message to use in the throwable, with formatting identifiers
-     * @param arg1 Object; 1st value to use for the formatting identifiers
-     * @param arg2 Object; 2nd value to use for the formatting identifiers
-     * @param arg3 Object; 3rd value to use for the formatting identifiers
+     * @param execution functional interface to execute
+     * @param throwableClass class of the throwable to throw
+     * @param message the message to use in the throwable, with formatting identifiers
+     * @param arg1 1st value to use for the formatting identifiers
+     * @param arg2 2nd value to use for the formatting identifiers
+     * @param arg3 3rd value to use for the formatting identifiers
      * @param <T> throwable type
      * @throws T throwable on failed Try
      */
@@ -553,13 +553,13 @@ public final class Try
 
     /**
      * Tries to execute. Will throw a specified Throwable if the try fails.
-     * @param execution Execution; functional interface to execute
-     * @param throwableClass Class&lt;T&gt;; class of the throwable to throw
-     * @param message String; the message to use in the throwable, with formatting identifiers
-     * @param arg1 Object; 1st value to use for the formatting identifiers
-     * @param arg2 Object; 2nd value to use for the formatting identifiers
-     * @param arg3 Object; 3rd value to use for the formatting identifiers
-     * @param args Object...; potential 4th and further values to use for the formatting identifiers
+     * @param execution functional interface to execute
+     * @param throwableClass class of the throwable to throw
+     * @param message the message to use in the throwable, with formatting identifiers
+     * @param arg1 1st value to use for the formatting identifiers
+     * @param arg2 2nd value to use for the formatting identifiers
+     * @param arg3 3rd value to use for the formatting identifiers
+     * @param args potential 4th and further values to use for the formatting identifiers
      * @param <T> throwable type
      * @throws T throwable on failed Try
      */
@@ -585,13 +585,13 @@ public final class Try
 
     /**
      * Core method to create the Throwable to throw.
-     * @param throwableClass Class&lt;T&gt;; the throwable class
-     * @param message String; the message to construct when an exception is thrown.
-     * @param argList List&lt;Object&gt;; List&lt;Object&gt; the arguments as implied by format escapes in
+     * @param throwableClass the throwable class
+     * @param message the message to construct when an exception is thrown.
+     * @param argList List&lt;Object&gt; the arguments as implied by format escapes in
      *            &lt;code&gt;message&lt;/code&gt;
-     * @param cause Throwable; underlying cause thrown inside the assign()/execute()
+     * @param cause underlying cause thrown inside the assign()/execute()
      * @param <T> throwable type
-     * @return T; throwable
+     * @return throwable
      */
     private static <T extends Throwable> T catchThrowable(final Class<T> throwableClass, final String message,
             final List<Object> argList, final Throwable cause)
@@ -672,9 +672,9 @@ public final class Try
      *   });
      * </code></pre>
      * 
-     * @param assignment Assignment&lt;V&gt;; functional interface to assign value
+     * @param assignment functional interface to assign value
      * @param <V> value type, which is the return type of the assignment
-     * @return V; assigned value
+     * @return assigned value
      * @throws AssertionError when the assignment fails to throw an exception
      */
     public static <V> V testFail(final Assignment<V> assignment)
@@ -706,10 +706,10 @@ public final class Try
      *   }, "call should have thrown an NPE");
      * </code></pre>
      * 
-     * @param assignment Assignment&lt;V&gt;; functional interface to assign value
+     * @param assignment functional interface to assign value
      * @param <V> value type, which is the return type of the assignment
-     * @param message String; message to use in the AssertionError when the assignment succeeds
-     * @return V; assigned value
+     * @param message message to use in the AssertionError when the assignment succeeds
+     * @return assigned value
      * @throws AssertionError when the assignment fails to throw an exception
      */
     public static <V> V testFail(final Assignment<V> assignment, final String message)
@@ -742,11 +742,11 @@ public final class Try
      *   }, NullPointerException.class);
      * </code></pre>
      * 
-     * @param assignment Assignment&lt;V&gt;; functional interface to assign value
-     * @param expectedThrowableClass Class&lt;T&gt;; the class of the exception we expect the assignment to throw
+     * @param assignment functional interface to assign value
+     * @param expectedThrowableClass the class of the exception we expect the assignment to throw
      * @param <V> value type, which is the return type of the assignment
      * @param <T> throwable type, which ensures that we provide a throwable class as the argument
-     * @return V; assigned value
+     * @return assigned value
      * @throws AssertionError when the assignment fails to throw an exception or the correct exception
      */
     public static <V, T extends Throwable> V testFail(final Assignment<V> assignment, final Class<T> expectedThrowableClass)
@@ -779,12 +779,12 @@ public final class Try
      *   }, "call should have thrown an NPE", NullPointerException.class);
      * </code></pre>
      * 
-     * @param assignment Assignment&lt;V&gt;; functional interface to assign value
-     * @param message String; message to use in the AssertionError when the test fails
-     * @param expectedThrowableClass Class&lt;T&gt;; the class of the exception we expect the assignment to throw
+     * @param assignment functional interface to assign value
+     * @param message message to use in the AssertionError when the test fails
+     * @param expectedThrowableClass the class of the exception we expect the assignment to throw
      * @param <V> value type, which is the return type of the assignment
      * @param <T> throwable type, which ensures that we provide a throwable class as the argument
-     * @return V; assigned value
+     * @return assigned value
      */
     public static <V, T extends Throwable> V testFail(final Assignment<V> assignment, final String message,
             final Class<T> expectedThrowableClass)
@@ -829,7 +829,7 @@ public final class Try
      *   });
      * </code></pre>
      * 
-     * @param execution Execution; functional interface to execute a method that does not need to return a value
+     * @param execution functional interface to execute a method that does not need to return a value
      */
     public static void testFail(final Execution execution)
     {
@@ -861,8 +861,8 @@ public final class Try
      *   }, "call should have thrown an NPE");
      * </code></pre>
      * 
-     * @param execution Execution; functional interface to execute a method that does not need to return a value
-     * @param message String; message to use in the AssertionError when the test fails
+     * @param execution functional interface to execute a method that does not need to return a value
+     * @param message message to use in the AssertionError when the test fails
      */
     public static void testFail(final Execution execution, final String message)
     {
@@ -894,8 +894,8 @@ public final class Try
      *   }, NullPointerException.class);
      * </code></pre>
      * 
-     * @param execution Execution; functional interface to execute a method that does not need to return a value
-     * @param expectedThrowableClass Class&lt;T&gt;; the class of the exception we expect the execution to throw
+     * @param execution functional interface to execute a method that does not need to return a value
+     * @param expectedThrowableClass the class of the exception we expect the execution to throw
      * @param <T> throwable type, which ensures that we provide a throwable class as the argument
      */
     public static <T extends Throwable> void testFail(final Execution execution, final Class<T> expectedThrowableClass)
@@ -928,9 +928,9 @@ public final class Try
      *   }, "call should have thrown an NPE", NullPointerException.class);
      * </code></pre>
      * 
-     * @param execution Execution; functional interface to execute a method that does not need to return a value
-     * @param message String; message to use in the AssertionError when the test fails
-     * @param expectedThrowableClass Class&lt;T&gt;; the class of the exception we expect the execution to throw
+     * @param execution functional interface to execute a method that does not need to return a value
+     * @param message message to use in the AssertionError when the test fails
+     * @param expectedThrowableClass the class of the exception we expect the execution to throw
      * @param <T> throwable type, which ensures that we provide a throwable class as the argument
      */
     public static <T extends Throwable> void testFail(final Execution execution, final String message,

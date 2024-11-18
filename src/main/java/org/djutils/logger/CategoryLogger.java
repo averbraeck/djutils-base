@@ -115,7 +115,7 @@ public final class CategoryLogger
      * Level.TRACE, which means that all messages are passed through on a generic level and it is up to the individual Writers
      * to decide when to log.
      * @see <a href="https://tinylog.org/configuration#format">https://tinylog.org/configuration</a>
-     * @param newMessageFormat String; the new formatting pattern to use for all registered writers
+     * @param newMessageFormat the new formatting pattern to use for all registered writers
      */
     public static void setAllLogMessageFormat(final String newMessageFormat)
     {
@@ -135,7 +135,7 @@ public final class CategoryLogger
      * Set a new logging level for all registered writers. Because all individual writers get a log level at which they log, the
      * overall log level in the Configurator is Level.TRACE, which means that all messages are passed through on a generic level
      * and it is up to the individual Writers to decide when to log.
-     * @param newLevel Level; the new log level for all registered writers
+     * @param newLevel the new log level for all registered writers
      */
     public static void setAllLogLevel(final Level newLevel)
     {
@@ -165,8 +165,8 @@ public final class CategoryLogger
      * - {method} Method name from where the logging request is issued<br>
      * - {package} Package where the logging request is issued<br>
      * @see <a href="https://tinylog.org/configuration#format">https://tinylog.org/configuration</a>
-     * @param writer Writer; the writer to change the message format for
-     * @param newMessageFormat String; the new formatting pattern to use for all registered writers
+     * @param writer the writer to change the message format for
+     * @param newMessageFormat the new formatting pattern to use for all registered writers
      */
     public static void setLogMessageFormat(final Writer writer, final String newMessageFormat)
     {
@@ -179,8 +179,8 @@ public final class CategoryLogger
 
     /**
      * Set a new logging level for one of the registered writers.
-     * @param writer Writer; the writer to change the log level for
-     * @param newLevel Level; the new log level for the writer
+     * @param writer the writer to change the log level for
+     * @param newLevel the new log level for the writer
      */
     public static void setLogLevel(final Writer writer, final Level newLevel)
     {
@@ -193,8 +193,8 @@ public final class CategoryLogger
 
     /**
      * Add a writer to the CategoryLogger, using the current default for the log level and for the message format.
-     * @param writer Writer; the writer to add
-     * @return boolean; true when the writer was added; false when the writer was already registered
+     * @param writer the writer to add
+     * @return true when the writer was added; false when the writer was already registered
      */
     public static boolean addWriter(final Writer writer)
     {
@@ -210,8 +210,8 @@ public final class CategoryLogger
 
     /**
      * Remove a writer from the CategoryLogger.
-     * @param writer Writer; the writer to remove
-     * @return boolean; true if the writer was removed; false if the writer was not registered (and thus could not be removed)
+     * @param writer the writer to remove
+     * @return true if the writer was removed; false if the writer was not registered (and thus could not be removed)
      */
     public static boolean removeWriter(final Writer writer)
     {
@@ -227,7 +227,7 @@ public final class CategoryLogger
 
     /**
      * Return the set of all registered writers.
-     * @return ImmutableSet&lt;Writer&gt;; the set of all registered writers
+     * @return the set of all registered writers
      */
     public static ImmutableSet<Writer> getWriters()
     {
@@ -236,7 +236,7 @@ public final class CategoryLogger
 
     /**
      * Add a category to be logged to the Writers.
-     * @param logCategory LogCategory; the LogCategory to add
+     * @param logCategory the LogCategory to add
      */
     public static void addLogCategory(final LogCategory logCategory)
     {
@@ -246,7 +246,7 @@ public final class CategoryLogger
 
     /**
      * Remove a category to be logged to the Writers.
-     * @param logCategory LogCategory; the LogCategory to remove
+     * @param logCategory the LogCategory to remove
      */
     public static void removeLogCategory(final LogCategory logCategory)
     {
@@ -256,7 +256,7 @@ public final class CategoryLogger
 
     /**
      * Set the categories to be logged to the Writers.
-     * @param newLogCategories LogCategory...; the LogCategories to set, replacing the previous ones
+     * @param newLogCategories the LogCategories to set, replacing the previous ones
      */
     public static void setLogCategories(final LogCategory... newLogCategories)
     {
@@ -267,7 +267,7 @@ public final class CategoryLogger
 
     /**
      * Return the set of all log categories (cached immutable copy).
-     * @return ImmutableSet&lt;Writer&gt;; the set of all registered writers
+     * @return the set of all registered writers
      */
     public static ImmutableSet<LogCategory> getLogCategories()
     {
@@ -288,7 +288,7 @@ public final class CategoryLogger
     /**
      * Check whether the provided category needs to be logged. Note that when LogCategory.ALL is contained in the categories,
      * filter will return true.
-     * @param logCategory LogCategory; the category to check for.
+     * @param logCategory the category to check for.
      * @return the logger that either tries to log (delegateLogger), or returns without logging (noLogger)
      */
     public static DelegateLogger filter(final LogCategory logCategory)
@@ -303,7 +303,7 @@ public final class CategoryLogger
     /**
      * Check whether the provided categories contain one or more categories that need to be logged. Note that when
      * LogCategory.ALL is contained in the categories, filter will return true.
-     * @param logCategories LogCategory...; elements or array with the categories to check for
+     * @param logCategories elements or array with the categories to check for
      * @return the logger that either tries to log (delegateLogger), or returns without logging (noLogger)
      */
     public static DelegateLogger filter(final LogCategory... logCategories)
@@ -321,7 +321,7 @@ public final class CategoryLogger
     /**
      * Check whether the provided categories contain one or more categories that need to be logged. Note that when
      * LogCategory.ALL is contained in the categories, filter will return true.
-     * @param logCategories Set&lt;LogCategory&gt;; the categories to check for
+     * @param logCategories the categories to check for
      * @return the logger that either tries to log (delegateLogger), or returns without logging (noLogger)
      */
     public static DelegateLogger filter(final Set<LogCategory> logCategories)
@@ -338,7 +338,7 @@ public final class CategoryLogger
 
     /**
      * The conditional filter that will result in the usage of a DelegateLogger.
-     * @param condition boolean; the condition that should be evaluated
+     * @param condition the condition that should be evaluated
      * @return the logger that further processes logging (DelegateLogger)
      */
     public static DelegateLogger when(final boolean condition)
@@ -350,7 +350,7 @@ public final class CategoryLogger
 
     /**
      * The conditional filter that will result in the usage of a DelegateLogger.
-     * @param supplier BooleanSupplier; the function evaluating the condition
+     * @param supplier the function evaluating the condition
      * @return the logger that further processes logging (DelegateLogger)
      */
     public static DelegateLogger when(final BooleanSupplier supplier)
@@ -377,7 +377,7 @@ public final class CategoryLogger
         private final boolean log;
 
         /**
-         * @param log boolean; indicate whether we should log or not.
+         * @param log indicate whether we should log or not.
          */
         public DelegateLogger(final boolean log)
         {
@@ -386,7 +386,7 @@ public final class CategoryLogger
 
         /**
          * The conditional filter that will result in the usage of a DelegateLogger.
-         * @param condition boolean; the condition that should be evaluated
+         * @param condition the condition that should be evaluated
          * @return the logger that further processes logging (DelegateLogger)
          */
         public DelegateLogger when(final boolean condition)
@@ -398,7 +398,7 @@ public final class CategoryLogger
 
         /**
          * The conditional filter that will result in the usage of a DelegateLogger.
-         * @param supplier BooleanSupplier; the function evaluating the condition
+         * @param supplier the function evaluating the condition
          * @return the logger that further processes logging (DelegateLogger)
          */
         public DelegateLogger when(final BooleanSupplier supplier)
@@ -412,7 +412,7 @@ public final class CategoryLogger
 
         /**
          * Create a trace log entry that will always be output, independent of LogCategory settings.
-         * @param object Object; the result of the <code>toString()</code> method of <code>object</code> will be logged
+         * @param object the result of the <code>toString()</code> method of <code>object</code> will be logged
          */
         public void trace(final Object object)
         {
@@ -422,7 +422,7 @@ public final class CategoryLogger
 
         /**
          * Create a trace log entry that will always be output, independent of LogCategory settings.
-         * @param message String; the message to log
+         * @param message the message to log
          */
         public void trace(final String message)
         {
@@ -432,8 +432,8 @@ public final class CategoryLogger
 
         /**
          * Create a trace log entry that will always be output, independent of LogCategory settings.
-         * @param message String; the message to be logged, where {} entries will be replaced by arguments
-         * @param arguments Object...; the arguments to substitute for the {} entries in the message string
+         * @param message the message to be logged, where {} entries will be replaced by arguments
+         * @param arguments the arguments to substitute for the {} entries in the message string
          */
         public void trace(final String message, final Object... arguments)
         {
@@ -443,7 +443,7 @@ public final class CategoryLogger
 
         /**
          * Create a trace log entry that will always be output, independent of LogCategory settings.
-         * @param exception Throwable; the exception to log
+         * @param exception the exception to log
          */
         public void trace(final Throwable exception)
         {
@@ -453,8 +453,8 @@ public final class CategoryLogger
 
         /**
          * Create a trace log entry that will always be output, independent of LogCategory settings.
-         * @param exception Throwable; the exception to log
-         * @param message String; the message to log
+         * @param exception the exception to log
+         * @param message the message to log
          */
         public void trace(final Throwable exception, final String message)
         {
@@ -464,9 +464,9 @@ public final class CategoryLogger
 
         /**
          * Create a trace log entry that will always be output, independent of LogCategory settings.
-         * @param exception Throwable; the exception to log
-         * @param message String; the message to log, where {} entries will be replaced by arguments
-         * @param arguments Object...; the arguments to substitute for the {} entries in the message string
+         * @param exception the exception to log
+         * @param message the message to log, where {} entries will be replaced by arguments
+         * @param arguments the arguments to substitute for the {} entries in the message string
          */
         public void trace(final Throwable exception, final String message, final Object... arguments)
         {
@@ -478,7 +478,7 @@ public final class CategoryLogger
 
         /**
          * Create a debug log entry that will always be output, independent of LogCategory settings.
-         * @param object Object; the result of the <code>toString()</code> method of <code>object</code> will be logged
+         * @param object the result of the <code>toString()</code> method of <code>object</code> will be logged
          */
         public void debug(final Object object)
         {
@@ -488,7 +488,7 @@ public final class CategoryLogger
 
         /**
          * Create a debug log entry that will always be output, independent of LogCategory settings.
-         * @param message String; the message to log
+         * @param message the message to log
          */
         public void debug(final String message)
         {
@@ -498,8 +498,8 @@ public final class CategoryLogger
 
         /**
          * Create a debug log entry that will always be output, independent of LogCategory settings.
-         * @param message String; the message to be logged, where {} entries will be replaced by arguments
-         * @param arguments Object...; the arguments to substitute for the {} entries in the message string
+         * @param message the message to be logged, where {} entries will be replaced by arguments
+         * @param arguments the arguments to substitute for the {} entries in the message string
          */
         public void debug(final String message, final Object... arguments)
         {
@@ -509,7 +509,7 @@ public final class CategoryLogger
 
         /**
          * Create a debug log entry that will always be output, independent of LogCategory settings.
-         * @param exception Throwable; the exception to log
+         * @param exception the exception to log
          */
         public void debug(final Throwable exception)
         {
@@ -519,8 +519,8 @@ public final class CategoryLogger
 
         /**
          * Create a debug log entry that will always be output, independent of LogCategory settings.
-         * @param exception Throwable; the exception to log
-         * @param message String; the message to log
+         * @param exception the exception to log
+         * @param message the message to log
          */
         public void debug(final Throwable exception, final String message)
         {
@@ -530,9 +530,9 @@ public final class CategoryLogger
 
         /**
          * Create a debug log entry that will always be output, independent of LogCategory settings.
-         * @param exception Throwable; the exception to log
-         * @param message String; the message to log, where {} entries will be replaced by arguments
-         * @param arguments Object...; the arguments to substitute for the {} entries in the message string
+         * @param exception the exception to log
+         * @param message the message to log, where {} entries will be replaced by arguments
+         * @param arguments the arguments to substitute for the {} entries in the message string
          */
         public void debug(final Throwable exception, final String message, final Object... arguments)
         {
@@ -544,7 +544,7 @@ public final class CategoryLogger
 
         /**
          * Create a info log entry that will always be output, independent of LogCategory settings.
-         * @param object Object; the result of the <code>toString()</code> method of <code>object</code> will be logged
+         * @param object the result of the <code>toString()</code> method of <code>object</code> will be logged
          */
         public void info(final Object object)
         {
@@ -554,7 +554,7 @@ public final class CategoryLogger
 
         /**
          * Create a info log entry that will always be output, independent of LogCategory settings.
-         * @param message String; the message to log
+         * @param message the message to log
          */
         public void info(final String message)
         {
@@ -564,8 +564,8 @@ public final class CategoryLogger
 
         /**
          * Create a info log entry that will always be output, independent of LogCategory settings.
-         * @param message String; the message to be logged, where {} entries will be replaced by arguments
-         * @param arguments Object...; the arguments to substitute for the {} entries in the message string
+         * @param message the message to be logged, where {} entries will be replaced by arguments
+         * @param arguments the arguments to substitute for the {} entries in the message string
          */
         public void info(final String message, final Object... arguments)
         {
@@ -575,7 +575,7 @@ public final class CategoryLogger
 
         /**
          * Create a info log entry that will always be output, independent of LogCategory settings.
-         * @param exception Throwable; the exception to log
+         * @param exception the exception to log
          */
         public void info(final Throwable exception)
         {
@@ -585,8 +585,8 @@ public final class CategoryLogger
 
         /**
          * Create a info log entry that will always be output, independent of LogCategory settings.
-         * @param exception Throwable; the exception to log
-         * @param message String; the message to log
+         * @param exception the exception to log
+         * @param message the message to log
          */
         public void info(final Throwable exception, final String message)
         {
@@ -596,9 +596,9 @@ public final class CategoryLogger
 
         /**
          * Create a info log entry that will always be output, independent of LogCategory settings.
-         * @param exception Throwable; the exception to log
-         * @param message String; the message to log, where {} entries will be replaced by arguments
-         * @param arguments Object...; the arguments to substitute for the {} entries in the message string
+         * @param exception the exception to log
+         * @param message the message to log, where {} entries will be replaced by arguments
+         * @param arguments the arguments to substitute for the {} entries in the message string
          */
         public void info(final Throwable exception, final String message, final Object... arguments)
         {
@@ -610,7 +610,7 @@ public final class CategoryLogger
 
         /**
          * Create a warn log entry that will always be output, // TODO: explain better independent of LogCategory settings.
-         * @param object Object; the result of the <code>toString()</code> method of <code>object</code> will be logged
+         * @param object the result of the <code>toString()</code> method of <code>object</code> will be logged
          */
         public void warn(final Object object)
         {
@@ -620,7 +620,7 @@ public final class CategoryLogger
 
         /**
          * Create a warn log entry that will always be output, independent of LogCategory settings.
-         * @param message String; the message to log
+         * @param message the message to log
          */
         public void warn(final String message)
         {
@@ -630,8 +630,8 @@ public final class CategoryLogger
 
         /**
          * Create a warn log entry that will always be output, independent of LogCategory settings.
-         * @param message String; the message to be logged, where {} entries will be replaced by arguments
-         * @param arguments Object...; the arguments to substitute for the {} entries in the message string
+         * @param message the message to be logged, where {} entries will be replaced by arguments
+         * @param arguments the arguments to substitute for the {} entries in the message string
          */
         public void warn(final String message, final Object... arguments)
         {
@@ -641,7 +641,7 @@ public final class CategoryLogger
 
         /**
          * Create a warn log entry that will always be output, independent of LogCategory settings.
-         * @param exception Throwable; the exception to log
+         * @param exception the exception to log
          */
         public void warn(final Throwable exception)
         {
@@ -651,8 +651,8 @@ public final class CategoryLogger
 
         /**
          * Create a warn log entry that will always be output, independent of LogCategory settings.
-         * @param exception Throwable; the exception to log
-         * @param message String; the message to log
+         * @param exception the exception to log
+         * @param message the message to log
          */
         public void warn(final Throwable exception, final String message)
         {
@@ -662,9 +662,9 @@ public final class CategoryLogger
 
         /**
          * Create a warn log entry that will always be output, independent of LogCategory settings.
-         * @param exception Throwable; the exception to log
-         * @param message String; the message to log, where {} entries will be replaced by arguments
-         * @param arguments Object...; the arguments to substitute for the {} entries in the message string
+         * @param exception the exception to log
+         * @param message the message to log, where {} entries will be replaced by arguments
+         * @param arguments the arguments to substitute for the {} entries in the message string
          */
         public void warn(final Throwable exception, final String message, final Object... arguments)
         {
@@ -676,7 +676,7 @@ public final class CategoryLogger
 
         /**
          * Create a error log entry that will always be output, independent of LogCategory settings.
-         * @param object Object; the result of the <code>toString()</code> method of <code>object</code> will be logged
+         * @param object the result of the <code>toString()</code> method of <code>object</code> will be logged
          */
         public void error(final Object object)
         {
@@ -686,7 +686,7 @@ public final class CategoryLogger
 
         /**
          * Create a error log entry that will always be output, independent of LogCategory settings.
-         * @param message String; the message to log
+         * @param message the message to log
          */
         public void error(final String message)
         {
@@ -696,8 +696,8 @@ public final class CategoryLogger
 
         /**
          * Create a error log entry that will always be output, independent of LogCategory settings.
-         * @param message String; the message to be logged, where {} entries will be replaced by arguments
-         * @param arguments Object...; the arguments to substitute for the {} entries in the message string
+         * @param message the message to be logged, where {} entries will be replaced by arguments
+         * @param arguments the arguments to substitute for the {} entries in the message string
          */
         public void error(final String message, final Object... arguments)
         {
@@ -707,7 +707,7 @@ public final class CategoryLogger
 
         /**
          * Create a error log entry that will always be output, independent of LogCategory settings.
-         * @param exception Throwable; the exception to log
+         * @param exception the exception to log
          */
         public void error(final Throwable exception)
         {
@@ -717,8 +717,8 @@ public final class CategoryLogger
 
         /**
          * Create a error log entry that will always be output, independent of LogCategory settings.
-         * @param exception Throwable; the exception to log
-         * @param message String; the message to log
+         * @param exception the exception to log
+         * @param message the message to log
          */
         public void error(final Throwable exception, final String message)
         {
@@ -728,9 +728,9 @@ public final class CategoryLogger
 
         /**
          * Create a error log entry that will always be output, independent of LogCategory settings.
-         * @param exception Throwable; the exception to log
-         * @param message String; the message to log, where {} entries will be replaced by arguments
-         * @param arguments Object...; the arguments to substitute for the {} entries in the message string
+         * @param exception the exception to log
+         * @param message the message to log, where {} entries will be replaced by arguments
+         * @param arguments the arguments to substitute for the {} entries in the message string
          */
         public void error(final Throwable exception, final String message, final Object... arguments)
         {

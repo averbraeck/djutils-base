@@ -42,8 +42,8 @@ public interface ImmutableSortedMap<K, V> extends ImmutableMap<K, V>
      * empty.)
      * <p>
      * The result of this method is a new, immutable sorted map.
-     * @param fromKey K; low endpoint (inclusive) of the returned immutable map
-     * @param toKey K; high endpoint (exclusive) of the returned immutable map
+     * @param fromKey low endpoint (inclusive) of the returned immutable map
+     * @param toKey high endpoint (exclusive) of the returned immutable map
      * @return a new, immutable sorted map of the portion of this immutable map whose keys range from <code>fromKey</code>,
      *         inclusive, to <code>toKey</code>, exclusive
      * @throws ClassCastException if <code>fromKey</code> and <code>toKey</code> cannot be compared to one another using this
@@ -65,7 +65,7 @@ public interface ImmutableSortedMap<K, V> extends ImmutableMap<K, V>
      * supports.
      * <p>
      * The result of this method is a new, immutable sorted map.
-     * @param toKey K; high endpoint (exclusive) of the returned immutable map
+     * @param toKey high endpoint (exclusive) of the returned immutable map
      * @return a view of the portion of this immutable map whose keys are strictly less than <code>toKey</code>
      * @throws ClassCastException if <code>toKey</code> is not compatible with this immutable map's comparator (or, if the
      *             immutable map has no comparator, if <code>toKey</code> does not implement {@link Comparable}).
@@ -84,7 +84,7 @@ public interface ImmutableSortedMap<K, V> extends ImmutableMap<K, V>
      * immutable map supports.
      * <p>
      * The result of this method is a new, immutable sorted map.
-     * @param fromKey K; low endpoint (inclusive) of the returned immutable map
+     * @param fromKey low endpoint (inclusive) of the returned immutable map
      * @return a view of the portion of this immutable map whose keys are greater than or equal to <code>fromKey</code>
      * @throws ClassCastException if <code>fromKey</code> is not compatible with this immutable map's comparator (or, if the
      *             immutable map has no comparator, if <code>fromKey</code> does not implement {@link Comparable}).
@@ -119,7 +119,7 @@ public interface ImmutableSortedMap<K, V> extends ImmutableMap<K, V>
 
     /**
      * Force to redefine equals for the implementations of immutable collection classes.
-     * @param obj Object; the object to compare this collection with
+     * @param obj the object to compare this collection with
      * @return whether the objects are equal
      */
     @Override
@@ -136,7 +136,7 @@ public interface ImmutableSortedMap<K, V> extends ImmutableMap<K, V>
      * Return an empty ImmutableSortedMap, backed by a TreeMap.
      * @param <K> the key type
      * @param <V> the value type
-     * @return ImmutableSortedMap&lt;K, V&gt;; an empty ImmutableSortedMap
+     * @return an empty ImmutableSortedMap
      */
     static <K, V> ImmutableSortedMap<K, V> of()
     {
@@ -147,9 +147,9 @@ public interface ImmutableSortedMap<K, V> extends ImmutableMap<K, V>
      * Return an ImmutableSortedMap with 1 entry, backed by a TreeMap.
      * @param <K> the key type
      * @param <V> the value type
-     * @param k1 K; key 1
-     * @param v1 V; value 1
-     * @return ImmutableSortedMap&lt;K, V&gt;; an ImmutableSortedMap with 1 entry, backed by a TreeMap
+     * @param k1 key 1
+     * @param v1 value 1
+     * @return an ImmutableSortedMap with 1 entry, backed by a TreeMap
      */
     static <K, V> ImmutableSortedMap<K, V> of(final K k1, final V v1)
     {
@@ -162,11 +162,11 @@ public interface ImmutableSortedMap<K, V> extends ImmutableMap<K, V>
      * Return an ImmutableSortedMap with 2 entries, backed by a TreeMap.
      * @param <K> the key type
      * @param <V> the value type
-     * @param k1 K; key 1
-     * @param v1 V; value 1
-     * @param k2 K; key 2
-     * @param v2 V; value 2
-     * @return ImmutableSortedMap&lt;K, V&gt;; an ImmutableSortedMap with 2 entries, backed by a TreeMap
+     * @param k1 key 1
+     * @param v1 value 1
+     * @param k2 key 2
+     * @param v2 value 2
+     * @return an ImmutableSortedMap with 2 entries, backed by a TreeMap
      */
     static <K, V> ImmutableSortedMap<K, V> of(final K k1, final V v1, final K k2, final V v2)
     {
@@ -180,13 +180,13 @@ public interface ImmutableSortedMap<K, V> extends ImmutableMap<K, V>
      * Return an ImmutableSortedMap with 3 entries, backed by a TreeMap.
      * @param <K> the key type
      * @param <V> the value type
-     * @param k1 K; key 1
-     * @param v1 V; value 1
-     * @param k2 K; key 2
-     * @param v2 V; value 2
-     * @param k3 K; key 3
-     * @param v3 V; value 3
-     * @return ImmutableSortedMap&lt;K, V&gt;; an ImmutableSortedMap with 3 entries, backed by a TreeMap
+     * @param k1 key 1
+     * @param v1 value 1
+     * @param k2 key 2
+     * @param v2 value 2
+     * @param k3 key 3
+     * @param v3 value 3
+     * @return an ImmutableSortedMap with 3 entries, backed by a TreeMap
      */
     static <K, V> ImmutableSortedMap<K, V> of(final K k1, final V v1, final K k2, final V v2, final K k3, final V v3)
     {
@@ -201,15 +201,15 @@ public interface ImmutableSortedMap<K, V> extends ImmutableMap<K, V>
      * Return an ImmutableSortedMap with 4 entries, backed by a TreeMap.
      * @param <K> the key type
      * @param <V> the value type
-     * @param k1 K; key 1
-     * @param v1 V; value 1
-     * @param k2 K; key 2
-     * @param v2 V; value 2
-     * @param k3 K; key 3
-     * @param v3 V; value 3
-     * @param k4 K; key 4
-     * @param v4 V; value 4
-     * @return ImmutableSortedMap&lt;K, V&gt;; an ImmutableSortedMap with 4 entries, backed by a TreeMap
+     * @param k1 key 1
+     * @param v1 value 1
+     * @param k2 key 2
+     * @param v2 value 2
+     * @param k3 key 3
+     * @param v3 value 3
+     * @param k4 key 4
+     * @param v4 value 4
+     * @return an ImmutableSortedMap with 4 entries, backed by a TreeMap
      */
     @SuppressWarnings("checkstyle:parameternumber")
     static <K, V> ImmutableSortedMap<K, V> of(final K k1, final V v1, final K k2, final V v2, final K k3, final V v3,
@@ -227,17 +227,17 @@ public interface ImmutableSortedMap<K, V> extends ImmutableMap<K, V>
      * Return an ImmutableSortedMap with 5 entries, backed by a TreeMap.
      * @param <K> the key type
      * @param <V> the value type
-     * @param k1 K; key 1
-     * @param v1 V; value 1
-     * @param k2 K; key 2
-     * @param v2 V; value 2
-     * @param k3 K; key 3
-     * @param v3 V; value 3
-     * @param k4 K; key 4
-     * @param v4 V; value 4
-     * @param k5 K; key 5
-     * @param v5 V; value 5
-     * @return ImmutableSortedMap&lt;K, V&gt;; an ImmutableSortedMap with 5 entries, backed by a TreeMap
+     * @param k1 key 1
+     * @param v1 value 1
+     * @param k2 key 2
+     * @param v2 value 2
+     * @param k3 key 3
+     * @param v3 value 3
+     * @param k4 key 4
+     * @param v4 value 4
+     * @param k5 key 5
+     * @param v5 value 5
+     * @return an ImmutableSortedMap with 5 entries, backed by a TreeMap
      */
     @SuppressWarnings("checkstyle:parameternumber")
     static <K, V> ImmutableSortedMap<K, V> of(final K k1, final V v1, final K k2, final V v2, final K k3, final V v3,
@@ -256,19 +256,19 @@ public interface ImmutableSortedMap<K, V> extends ImmutableMap<K, V>
      * Return an ImmutableSortedMap with 6 entries, backed by a TreeMap.
      * @param <K> the key type
      * @param <V> the value type
-     * @param k1 K; key 1
-     * @param v1 V; value 1
-     * @param k2 K; key 2
-     * @param v2 V; value 2
-     * @param k3 K; key 3
-     * @param v3 V; value 3
-     * @param k4 K; key 4
-     * @param v4 V; value 4
-     * @param k5 K; key 5
-     * @param v5 V; value 5
-     * @param k6 K; key 6
-     * @param v6 V; value 6
-     * @return ImmutableSortedMap&lt;K, V&gt;; an ImmutableSortedMap with 6 entries, backed by a TreeMap
+     * @param k1 key 1
+     * @param v1 value 1
+     * @param k2 key 2
+     * @param v2 value 2
+     * @param k3 key 3
+     * @param v3 value 3
+     * @param k4 key 4
+     * @param v4 value 4
+     * @param k5 key 5
+     * @param v5 value 5
+     * @param k6 key 6
+     * @param v6 value 6
+     * @return an ImmutableSortedMap with 6 entries, backed by a TreeMap
      */
     @SuppressWarnings("checkstyle:parameternumber")
     static <K, V> ImmutableSortedMap<K, V> of(final K k1, final V v1, final K k2, final V v2, final K k3, final V v3,
@@ -288,21 +288,21 @@ public interface ImmutableSortedMap<K, V> extends ImmutableMap<K, V>
      * Return an ImmutableSortedMap with 7 entries, backed by a TreeMap.
      * @param <K> the key type
      * @param <V> the value type
-     * @param k1 K; key 1
-     * @param v1 V; value 1
-     * @param k2 K; key 2
-     * @param v2 V; value 2
-     * @param k3 K; key 3
-     * @param v3 V; value 3
-     * @param k4 K; key 4
-     * @param v4 V; value 4
-     * @param k5 K; key 5
-     * @param v5 V; value 5
-     * @param k6 K; key 6
-     * @param v6 V; value 6
-     * @param k7 K; key 7
-     * @param v7 V; value 7
-     * @return ImmutableSortedMap&lt;K, V&gt;; an ImmutableSortedMap with 7 entries, backed by a TreeMap
+     * @param k1 key 1
+     * @param v1 value 1
+     * @param k2 key 2
+     * @param v2 value 2
+     * @param k3 key 3
+     * @param v3 value 3
+     * @param k4 key 4
+     * @param v4 value 4
+     * @param k5 key 5
+     * @param v5 value 5
+     * @param k6 key 6
+     * @param v6 value 6
+     * @param k7 key 7
+     * @param v7 value 7
+     * @return an ImmutableSortedMap with 7 entries, backed by a TreeMap
      */
     @SuppressWarnings("checkstyle:parameternumber")
     static <K, V> ImmutableSortedMap<K, V> of(final K k1, final V v1, final K k2, final V v2, final K k3, final V v3,
@@ -323,23 +323,23 @@ public interface ImmutableSortedMap<K, V> extends ImmutableMap<K, V>
      * Return an ImmutableSortedMap with 8 entries, backed by a TreeMap.
      * @param <K> the key type
      * @param <V> the value type
-     * @param k1 K; key 1
-     * @param v1 V; value 1
-     * @param k2 K; key 2
-     * @param v2 V; value 2
-     * @param k3 K; key 3
-     * @param v3 V; value 3
-     * @param k4 K; key 4
-     * @param v4 V; value 4
-     * @param k5 K; key 5
-     * @param v5 V; value 5
-     * @param k6 K; key 6
-     * @param v6 V; value 6
-     * @param k7 K; key 7
-     * @param v7 V; value 7
-     * @param k8 K; key 8
-     * @param v8 V; value 8
-     * @return ImmutableSortedMap&lt;K, V&gt;; an ImmutableSortedMap with 8 entries, backed by a TreeMap
+     * @param k1 key 1
+     * @param v1 value 1
+     * @param k2 key 2
+     * @param v2 value 2
+     * @param k3 key 3
+     * @param v3 value 3
+     * @param k4 key 4
+     * @param v4 value 4
+     * @param k5 key 5
+     * @param v5 value 5
+     * @param k6 key 6
+     * @param v6 value 6
+     * @param k7 key 7
+     * @param v7 value 7
+     * @param k8 key 8
+     * @param v8 value 8
+     * @return an ImmutableSortedMap with 8 entries, backed by a TreeMap
      */
     @SuppressWarnings("checkstyle:parameternumber")
     static <K, V> ImmutableSortedMap<K, V> of(final K k1, final V v1, final K k2, final V v2, final K k3, final V v3,

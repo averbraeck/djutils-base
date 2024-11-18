@@ -35,7 +35,7 @@ public class EventProducingListIterator<T> extends EventProducingIterator<T> imp
 
     /**
      * constructs a new EventProducingListIterator, embedding the parent ListIterator.
-     * @param wrappedIterator ListIterator&lt;T&gt;; embedded iterator.
+     * @param wrappedIterator embedded iterator.
      */
     public EventProducingListIterator(final ListIterator<T> wrappedIterator)
     {

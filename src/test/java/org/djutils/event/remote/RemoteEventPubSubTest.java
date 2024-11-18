@@ -792,7 +792,7 @@ public class RemoteEventPubSubTest
 
         /**
          * Construct a RemoteEventProducer.
-         * @param port int; the port to use for this test
+         * @param port the port to use for this test
          * @throws RemoteException on error
          * @throws AlreadyBoundException on error
          */
@@ -819,8 +819,8 @@ public class RemoteEventPubSubTest
         private Event receivedEvent;
 
         /**
-         * @param key String; the key under which the listener will be registered in RMI
-         * @param port int; the port to use in the test
+         * @param key the key under which the listener will be registered in RMI
+         * @param port the port to use in the test
          * @throws RemoteException on error
          * @throws AlreadyBoundException on error
          */
@@ -898,8 +898,8 @@ public class RemoteEventPubSubTest
         private TimedEvent<C> receivedEvent;
 
         /**
-         * @param key String; key used to bind to the RMI registry
-         * @param port int; the TCP/IP port
+         * @param key key used to bind to the RMI registry
+         * @param port the TCP/IP port
          * @throws RemoteException on error
          * @throws AlreadyBoundException on error
          * @throws MalformedURLException on URL error

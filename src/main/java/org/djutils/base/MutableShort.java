@@ -19,7 +19,7 @@ public class MutableShort
 
     /**
      * Initialize the mutable short with a value.
-     * @param value short; the initial value of the mutable short
+     * @param value the initial value of the mutable short
      */
     public MutableShort(final short value)
     {
@@ -28,7 +28,7 @@ public class MutableShort
 
     /**
      * set the mutable short to a new value.
-     * @param newValue short; the new value of the mutable short
+     * @param newValue the new value of the mutable short
      */
     public void set(final short newValue)
     {
@@ -36,7 +36,7 @@ public class MutableShort
     }
 
     /**
-     * @return short; the current value of the mutable short
+     * @return the current value of the mutable short
      */
     public short get()
     {
@@ -45,7 +45,7 @@ public class MutableShort
 
     /**
      * Increment the modifiable short with a value.
-     * @param increment short; the value to increment the modifiable short with
+     * @param increment the value to increment the modifiable short with
      */
     public void inc(final short increment)
     {
@@ -62,7 +62,7 @@ public class MutableShort
 
     /**
      * Decrement the modifiable short with a value.
-     * @param decrement short; the value to decrement the modifiable short with
+     * @param decrement the value to decrement the modifiable short with
      */
     public void dec(final short decrement)
     {
@@ -79,7 +79,7 @@ public class MutableShort
 
     /**
      * Increment the modifiable short with a value.
-     * @param multiplier short; the value to multiply the modifiable short with
+     * @param multiplier the value to multiply the modifiable short with
      */
     public void mul(final short multiplier)
     {
@@ -88,7 +88,7 @@ public class MutableShort
 
     /**
      * Divide the modifiable short by a value.
-     * @param divisor short; the value to divide the modifiable short by
+     * @param divisor the value to divide the modifiable short by
      */
     public void div(final short divisor)
     {

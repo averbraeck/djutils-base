@@ -34,7 +34,7 @@ public class TraceVerifier implements Closeable
 
     /**
      * Create a new TraceVerifier.
-     * @param fileName String; name of the file for the trace
+     * @param fileName name of the file for the trace
      * @throws IOException when reading or writing fails
      */
     public TraceVerifier(final String fileName) throws IOException
@@ -59,8 +59,8 @@ public class TraceVerifier implements Closeable
 
     /**
      * Add or compare one sample.
-     * @param description String; some kind of description of the sample (usually some kind of time stamp).
-     * @param state String; summary of the state of the process that is sampled.
+     * @param description some kind of description of the sample (usually some kind of time stamp).
+     * @param state summary of the state of the process that is sampled.
      * @throws IOException when reading or writing fails
      * @throws TraceVerifierException on detection of a sample discrepancy
      */

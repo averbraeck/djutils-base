@@ -19,7 +19,7 @@ public class MutableBoolean
 
     /**
      * Initialize the mutable boolean with a value.
-     * @param value boolean; the initial value of the mutable boolean
+     * @param value the initial value of the mutable boolean
      */
     public MutableBoolean(final boolean value)
     {
@@ -28,7 +28,7 @@ public class MutableBoolean
 
     /**
      * set the mutable boolean to a new value.
-     * @param newValue boolean; the new value of the mutable boolean
+     * @param newValue the new value of the mutable boolean
      */
     public void set(final boolean newValue)
     {
@@ -36,7 +36,7 @@ public class MutableBoolean
     }
 
     /**
-     * @return boolean; the current value of the mutable boolean
+     * @return the current value of the mutable boolean
      */
     public boolean get()
     {

@@ -41,8 +41,8 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>
      * immutable set is empty.)
      * <p>
      * The result of this method is a new, immutable sorted set.
-     * @param fromElement E; low endpoint (inclusive) of the returned immutable set
-     * @param toElement E; high endpoint (exclusive) of the returned immutable set
+     * @param fromElement low endpoint (inclusive) of the returned immutable set
+     * @param toElement high endpoint (exclusive) of the returned immutable set
      * @return a new, immutable sorted set of the portion of this immutable set whose elements range from
      *         <code>fromElement</code>, inclusive, to <code>toElement</code>, exclusive
      * @throws ClassCastException if <code>fromElement</code> and <code>toElement</code> cannot be compared to one another using
@@ -64,7 +64,7 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>
      * immutable set supports.
      * <p>
      * The result of this method is a new, immutable sorted set.
-     * @param toElement E; high endpoint (exclusive) of the returned immutable set
+     * @param toElement high endpoint (exclusive) of the returned immutable set
      * @return a view of the portion of this immutable set whose elements are strictly less than <code>toElement</code>
      * @throws ClassCastException if <code>toElement</code> is not compatible with this immutable set's comparator (or, if the
      *             immutable set has no comparator, if <code>toElement</code> does not implement {@link Comparable}).
@@ -83,7 +83,7 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>
      * immutable set supports.
      * <p>
      * The result of this method is a new, immutable sorted set.
-     * @param fromElement E; low endpoint (inclusive) of the returned immutable set
+     * @param fromElement low endpoint (inclusive) of the returned immutable set
      * @return a view of the portion of this immutable set whose elements are greater than or equal to <code>fromElement</code>
      * @throws ClassCastException if <code>fromElement</code> is not compatible with this immutable set's comparator (or, if the
      *             immutable set has no comparator, if <code>fromElement</code> does not implement {@link Comparable}).
@@ -111,7 +111,7 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>
 
     /**
      * Force to redefine equals for the implementations of immutable collection classes.
-     * @param obj Object; the object to compare this collection with
+     * @param obj the object to compare this collection with
      * @return whether the objects are equal
      */
     @Override
@@ -127,7 +127,7 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>
     /**
      * Return an empty ImmutableSortedSet, backed by a TreeSet.
      * @param <E> the value type
-     * @return ImmutableSortedSet&lt;K, V&gt;; an empty ImmutableSortedSet
+     * @return an empty ImmutableSortedSet
      */
     static <E> ImmutableSortedSet<E> of()
     {
@@ -137,8 +137,8 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>
     /**
      * Return an ImmutableSortedSet with 1 entry, backed by a TreeSet.
      * @param <E> the value type
-     * @param v1 E; value 1
-     * @return ImmutableSortedSet&lt;K, V&gt;; an ImmutableSortedSet with 1 entry, backed by a TreeSet
+     * @param v1 value 1
+     * @return an ImmutableSortedSet with 1 entry, backed by a TreeSet
      */
     static <E> ImmutableSortedSet<E> of(final E v1)
     {
@@ -150,9 +150,9 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>
     /**
      * Return an ImmutableSortedSet with 2 entries, backed by a TreeSet.
      * @param <E> the value type
-     * @param v1 E; value 1
-     * @param v2 E; value 2
-     * @return ImmutableSortedSet&lt;K, V&gt;; an ImmutableSortedSet with 2 entries, backed by a TreeSet
+     * @param v1 value 1
+     * @param v2 value 2
+     * @return an ImmutableSortedSet with 2 entries, backed by a TreeSet
      */
     static <E> ImmutableSortedSet<E> of(final E v1, final E v2)
     {
@@ -165,10 +165,10 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>
     /**
      * Return an ImmutableSortedSet with 3 entries, backed by a TreeSet.
      * @param <E> the value type
-     * @param v1 E; value 1
-     * @param v2 E; value 2
-     * @param v3 E; value 3
-     * @return ImmutableSortedSet&lt;K, V&gt;; an ImmutableSortedSet with 3 entries, backed by a TreeSet
+     * @param v1 value 1
+     * @param v2 value 2
+     * @param v3 value 3
+     * @return an ImmutableSortedSet with 3 entries, backed by a TreeSet
      */
     static <E> ImmutableSortedSet<E> of(final E v1, final E v2, final E v3)
     {
@@ -182,11 +182,11 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>
     /**
      * Return an ImmutableSortedSet with 4 entries, backed by a TreeSet.
      * @param <E> the value type
-     * @param v1 E; value 1
-     * @param v2 E; value 2
-     * @param v3 E; value 3
-     * @param v4 E; value 4
-     * @return ImmutableSortedSet&lt;K, V&gt;; an ImmutableSortedSet with 4 entries, backed by a TreeSet
+     * @param v1 value 1
+     * @param v2 value 2
+     * @param v3 value 3
+     * @param v4 value 4
+     * @return an ImmutableSortedSet with 4 entries, backed by a TreeSet
      */
     static <E> ImmutableSortedSet<E> of(final E v1, final E v2, final E v3, final E v4)
     {
@@ -201,13 +201,13 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>
     /**
      * Return an ImmutableSortedSet with 5 or more entries, backed by a TreeSet.
      * @param <E> the value type
-     * @param v1 E; value 1
-     * @param v2 E; value 2
-     * @param v3 E; value 3
-     * @param v4 E; value 4
-     * @param v5 E; value 5
-     * @param vn E...; values 6 and beyond
-     * @return ImmutableSortedSet&lt;K, V&gt;; an ImmutableSortedSet with 5 or more entries, backed by a TreeSet
+     * @param v1 value 1
+     * @param v2 value 2
+     * @param v3 value 3
+     * @param v4 value 4
+     * @param v5 value 5
+     * @param vn values 6 and beyond
+     * @return an ImmutableSortedSet with 5 or more entries, backed by a TreeSet
      */
     @SuppressWarnings("unchecked")
     static <E> ImmutableSortedSet<E> of(final E v1, final E v2, final E v3, final E v4, final E v5, final E... vn)

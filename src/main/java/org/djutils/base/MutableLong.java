@@ -19,7 +19,7 @@ public class MutableLong
 
     /**
      * Initialize the mutable long with a value.
-     * @param value long; the initial value of the mutable long
+     * @param value the initial value of the mutable long
      */
     public MutableLong(final long value)
     {
@@ -28,7 +28,7 @@ public class MutableLong
 
     /**
      * set the mutable long to a new value.
-     * @param newValue long; the new value of the mutable long
+     * @param newValue the new value of the mutable long
      */
     public void set(final long newValue)
     {
@@ -36,7 +36,7 @@ public class MutableLong
     }
 
     /**
-     * @return long; the current value of the mutable long
+     * @return the current value of the mutable long
      */
     public long get()
     {
@@ -45,7 +45,7 @@ public class MutableLong
 
     /**
      * Increment the modifiable long with a value.
-     * @param increment long; the value to increment the modifiable long with
+     * @param increment the value to increment the modifiable long with
      */
     public void inc(final long increment)
     {
@@ -62,7 +62,7 @@ public class MutableLong
 
     /**
      * Decrement the modifiable long with a value.
-     * @param decrement long; the value to decrement the modifiable long with
+     * @param decrement the value to decrement the modifiable long with
      */
     public void dec(final long decrement)
     {
@@ -79,7 +79,7 @@ public class MutableLong
 
     /**
      * Increment the modifiable long with a value.
-     * @param multiplier long; the value to multiply the modifiable long with
+     * @param multiplier the value to multiply the modifiable long with
      */
     public void mul(final long multiplier)
     {
@@ -88,7 +88,7 @@ public class MutableLong
 
     /**
      * Divide the modifiable long by a value.
-     * @param divisor long; the value to divide the modifiable long by
+     * @param divisor the value to divide the modifiable long by
      */
     public void div(final long divisor)
     {

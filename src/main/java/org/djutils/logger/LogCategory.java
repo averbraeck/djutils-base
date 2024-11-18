@@ -26,7 +26,7 @@ public class LogCategory
     public static final LogCategory ALL = new LogCategory("ALL");
 
     /**
-     * @param name the category name; can be blank
+     * @param name can be blank
      */
     public LogCategory(final String name)
     {

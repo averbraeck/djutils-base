@@ -33,7 +33,7 @@ public class ImmutableTreeMap<K, V> extends ImmutableAbstractMap<K, V> implement
     private ImmutableSortedSet<ImmutableEntry<K, V>> cachedEntrySet = null;
 
     /**
-     * @param sortedMap Map&lt;K,V&gt;; the map to use for the immutable map.
+     * @param sortedMap the map to use for the immutable map.
      */
     public ImmutableTreeMap(final Map<K, V> sortedMap)
     {
@@ -41,8 +41,8 @@ public class ImmutableTreeMap<K, V> extends ImmutableAbstractMap<K, V> implement
     }
 
     /**
-     * @param map NavigableMap&lt;K,V&gt;; the map to use for the immutable map.
-     * @param copyOrWrap COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original collection
+     * @param map the map to use for the immutable map.
+     * @param copyOrWrap WRAP stores a pointer to the original collection
      */
     public ImmutableTreeMap(final NavigableMap<K, V> map, final Immutable copyOrWrap)
     {
@@ -50,7 +50,7 @@ public class ImmutableTreeMap<K, V> extends ImmutableAbstractMap<K, V> implement
     }
 
     /**
-     * @param immutableMap ImmutableAbstractMap&lt;K,V&gt;; the map to use for the immutable map.
+     * @param immutableMap the map to use for the immutable map.
      */
     public ImmutableTreeMap(final ImmutableAbstractMap<K, V> immutableMap)
     {
@@ -58,8 +58,8 @@ public class ImmutableTreeMap<K, V> extends ImmutableAbstractMap<K, V> implement
     }
 
     /**
-     * @param immutableTreeMap ImmutableTreeMap&lt;K,V&gt;; the map to use for the immutable map.
-     * @param copyOrWrap COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original collection
+     * @param immutableTreeMap the map to use for the immutable map.
+     * @param copyOrWrap WRAP stores a pointer to the original collection
      */
     public ImmutableTreeMap(final ImmutableTreeMap<K, V> immutableTreeMap, final Immutable copyOrWrap)
     {

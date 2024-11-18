@@ -54,7 +54,7 @@ public class EventProducingSet<E> extends LocalEventProducer implements EventLis
 
     /**
      * Constructs a new EventProducingSet.
-     * @param wrappedSet Set&lt;E&gt;; the embedded set.
+     * @param wrappedSet the embedded set.
      */
     public EventProducingSet(final Set<E> wrappedSet)
     {

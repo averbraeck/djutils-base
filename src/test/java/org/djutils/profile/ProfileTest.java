@@ -39,7 +39,7 @@ public class ProfileTest
 
     /**
      * Perform a somewhat CPU time intensive function.
-     * @param angle double; the argument
+     * @param angle the argument
      */
     public void doSine(final double angle)
     {
@@ -50,7 +50,7 @@ public class ProfileTest
 
     /**
      * Perform a somewhat CPU time intensive function.
-     * @param angle double; the argument
+     * @param angle the argument
      */
     public void doCosine(final double angle)
     {
@@ -133,8 +133,8 @@ public class ProfileTest
      * Delay for specified number of nano seconds. <br>
      * Derived from
      * https://stackoverflow.com/questions/11498585/how-to-suspend-a-java-thread-for-a-small-period-of-time-like-100-nanoseconds
-     * @param nanoSeconds long; time to delay in nano seconds
-     * @return long; number of iterations in the busy waiting loop
+     * @param nanoSeconds time to delay in nano seconds
+     * @return number of iterations in the busy waiting loop
      * @throws InterruptedException If that happens; this test fails
      */
     public long delay(final long nanoSeconds) throws InterruptedException

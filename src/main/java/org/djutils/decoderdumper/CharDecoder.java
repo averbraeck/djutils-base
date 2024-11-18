@@ -23,8 +23,8 @@ public class CharDecoder implements Decoder
 
     /**
      * Construct a new CharDecoder.
-     * @param fieldsPerLine int; maximum number of fields on one output line
-     * @param extraSpaceAfterEvery int; insert an extra space after every N fields
+     * @param fieldsPerLine maximum number of fields on one output line
+     * @param extraSpaceAfterEvery insert an extra space after every N fields
      */
     public CharDecoder(final int fieldsPerLine, final int extraSpaceAfterEvery)
     {

@@ -13,7 +13,7 @@ public interface Envelope
     /**
      * Determine the bounding box. The result must be constant; it may not vary from one call to the next. Objects implementing
      * this interface should probably cache the result of this method.
-     * @return Rectangle; the bounding box
+     * @return the bounding box
      */
     Rectangle getBoundingRectangle();
 
