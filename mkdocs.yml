@@ -61,9 +61,11 @@ nav:
       - DJUTILS-DRAW documentation: https://djutils.org/docs/latest/djutils-draw/index.html
       - DJUTILS-DRAW API: https://djutils.org/docs/latest/djutils-draw/apidocs/index.html
     - DJUTILS-EVAL project:
+      - Introduction: djutils-eval/index.md
       - DJUTILS-EVAL documentation: https://djutils.org/docs/latest/djutils-eval/index.html
       - DJUTILS-EVAL API: https://djutils.org/docs/latest/djutils-eval/apidocs/index.html
     - DJUTILS-MATH project:
+      - Introduction: djutils-math/index.md
       - Complex numbers: djutils-math/complex-numbers.md
       - Complex math: djutils-math/complex-math.md
       - Means package: djutils-math/means.md
@@ -89,5 +91,6 @@ nav:
       - DJUTILS-STATS documentation: https://djutils.org/docs/latest/djutils-stats/index.html
       - DJUTILS-STATS API: https://djutils.org/docs/latest/djutils-stats/apidocs/index.html
     - DJUTILS-SWING project:
+      - Introduction: djutils-swing/index.md
       - DJUTILS-SWING documentation: https://djutils.org/docs/latest/djutils-swing/index.html
       - DJUTILS-SWING API: https://djutils.org/docs/latest/djutils-swing/apidocs/index.html
