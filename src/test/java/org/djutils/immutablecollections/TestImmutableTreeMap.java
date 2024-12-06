@@ -30,7 +30,7 @@ public class TestImmutableTreeMap
 {
 
     /**
-     * ...
+     * Test the ImmutableTreeMap.
      */
     @SuppressWarnings({"unlikely-arg-type"})
     @Test
@@ -114,10 +114,10 @@ public class TestImmutableTreeMap
     }
 
     /**
-     * ...
+     * test a map from int to int.
      * @param map map
      * @param imMap immutable map
-     * @param copyOrWrap 
+     * @param copyOrWrap copy data or wrap data
      */
     private void testIntMap(final NavigableMap<Integer, Integer> map, final ImmutableTreeMap<Integer, Integer> imMap,
             final Immutable copyOrWrap)

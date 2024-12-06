@@ -203,9 +203,9 @@ public class TestImmutableHashMap
 
     /**
      * Check that two collection contain the same objects.
-     * @param a 
-     * @param b 
-     * @return 
+     * @param a the first collection
+     * @param b the second collection
+     * @return true if collection contain the same objects
      */
     private boolean sameContent(final Collection<?> a, final Collection<?> b)
     {

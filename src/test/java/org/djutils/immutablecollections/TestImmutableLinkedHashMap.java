@@ -26,7 +26,7 @@ public class TestImmutableLinkedHashMap
 {
 
     /**
-     * ...
+     * Test the ImmutableLinkedHashMap.
      */
     @Test
     public final void testImmutableLinkedHashMap()
@@ -50,10 +50,10 @@ public class TestImmutableLinkedHashMap
     }
 
     /**
-     * ...
+     * Test a map from int to int.
      * @param map map
      * @param imMap immutable map
-     * @param copyOrWrap 
+     * @param copyOrWrap copy data or wrap data
      */
     private void testIntMap(final Map<Integer, Integer> map, final ImmutableMap<Integer, Integer> imMap,
             final Immutable copyOrWrap)

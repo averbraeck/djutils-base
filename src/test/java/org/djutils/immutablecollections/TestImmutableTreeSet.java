@@ -61,10 +61,10 @@ public class TestImmutableTreeSet
     }
 
     /**
-     * ...
+     * Test a set of Integer.
      * @param set set
      * @param imSet immutable set
-     * @param copyOrWrap 
+     * @param copyOrWrap copy data or wrap data
      */
     private void testIntSet(final NavigableSet<Integer> set, final ImmutableTreeSet<Integer> imSet, final Immutable copyOrWrap)
     {

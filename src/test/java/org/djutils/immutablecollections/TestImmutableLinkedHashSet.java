@@ -26,7 +26,7 @@ public class TestImmutableLinkedHashSet
 {
 
     /**
-     * ...
+     * Test the ImmutableLinkedHashSet.
      */
     @Test
     public final void testLinkedHashSet()
@@ -55,10 +55,10 @@ public class TestImmutableLinkedHashSet
     }
 
     /**
-     * ...
+     * Test a set of Integer.
      * @param set a set
      * @param imSet an immutable set
-     * @param copyOrWrap 
+     * @param copyOrWrap copy data or wrap data
      */
     private void testIntSet(final Set<Integer> set, final ImmutableSet<Integer> imSet, final Immutable copyOrWrap)
     {
