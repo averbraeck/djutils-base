@@ -274,6 +274,103 @@ public class ThrowTest
             assertTrue(rte.getMessage().contains(arg4), "description is descriptive");
         }
     }
+    
+    /**
+     * Test the Throw.whenAnyNull method.
+     */
+    @Test
+    public void testWhenAnyNull()
+    {
+        try
+        {
+            Throw.whenAnyNull(null, "argxx");
+            fail("Throw.whenAnyNull failed to trigger on null object");
+        }
+        catch (Exception e)
+        {
+            assertTrue(e instanceof NullPointerException);
+            assertTrue(e.getMessage().startsWith("argxx"));
+        }
+        
+        try
+        {
+            Throw.whenAnyNull(new Object(), "argxx");
+        }
+        catch (Exception e)
+        {
+            fail("Throw.whenAnyNull triggered on non-null object");
+        }
+
+        try
+        {
+            Throw.whenAnyNull(null, "argxx", new Object(), "argyy");
+            fail("Throw.whenAnyNull failed to trigger on null object");
+        }
+        catch (Exception e)
+        {
+            assertTrue(e instanceof NullPointerException);
+            assertTrue(e.getMessage().startsWith("argxx"));
+        }
+        
+        try
+        {
+            Throw.whenAnyNull(new Object(), "argxx", "abc", "argyy");
+        }
+        catch (Exception e)
+        {
+            fail("Throw.whenAnyNull triggered on non-null object");
+        }
+
+        try
+        {
+            Throw.whenAnyNull(new Object(), "argxx", null, "argyy");
+            fail("Throw.whenAnyNull failed to trigger on null object");
+        }
+        catch (Exception e)
+        {
+            assertTrue(e instanceof NullPointerException);
+            assertTrue(e.getMessage().startsWith("argyy"));
+        }
+
+        try
+        {
+            Throw.whenAnyNull(new Object(), "argxx", null, "argyy", "abc", "argzz");
+            fail("Throw.whenAnyNull failed to trigger on null object");
+        }
+        catch (Exception e)
+        {
+            assertTrue(e instanceof NullPointerException);
+            assertTrue(e.getMessage().startsWith("argyy"));
+        }
+
+        try
+        {
+            Throw.whenAnyNull(new Object(), "argxx", "def", "argyy", null, "argzz");
+            fail("Throw.whenAnyNull failed to trigger on null object");
+        }
+        catch (Exception e)
+        {
+            assertTrue(e instanceof NullPointerException);
+            assertTrue(e.getMessage().startsWith("argzz"));
+        }
+
+        try
+        {
+            Throw.whenAnyNull(new Object(), "argxx", "abc", "argyy", Integer.valueOf(14), "argzz");
+        }
+        catch (Exception e)
+        {
+            fail("Throw.whenAnyNull triggered on non-null object");
+        }
+
+        // Check internal errors
+        
+        Try.testFail(() -> Throw.whenAnyNull(null, null), IllegalArgumentException.class);
+        Try.testFail(() -> Throw.whenAnyNull("abc", null), IllegalArgumentException.class);
+        Try.testFail(() -> Throw.whenAnyNull(new Object(), "object", Double.valueOf("123.0")), IllegalArgumentException.class);
+        Try.testFail(() -> Throw.whenAnyNull("1", "object", "2", "nr2", "3"), IllegalArgumentException.class);
+        Try.testFail(() -> Throw.whenAnyNull("1", "object", "2", "nr2", "3", null), IllegalArgumentException.class);
+    }
 
     /**
      * Test the Throw.whenNaN methods.
