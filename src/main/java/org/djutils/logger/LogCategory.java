@@ -72,7 +72,7 @@ public class LogCategory
     @Override
     public String toString()
     {
-        return "LogCategory." + this.name;
+        return this.name;
     }
 
 }
