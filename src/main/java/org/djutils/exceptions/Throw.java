@@ -198,8 +198,8 @@ public final class Throw
      * Private method to handle the throwing an Exception, Throwable or Error.
      * @param throwableClass the Throwable type to throw
      * @param message the message to use in the exception, with potential formatting identifiers
-     * @param argList List with potential values to use for the formatting identifiers, or null when there
-     *            are no formatting identifiers
+     * @param argList List with potential values to use for the formatting identifiers, or null when there are no formatting
+     *            identifiers
      * @throws T the throwable to throw
      * @param <T> the Throwable type
      */
@@ -427,8 +427,7 @@ public final class Throw
      * </pre>
      * 
      * @param object an exception will be thrown if the object is <b>null</b>
-     * @param message the message to use in the exception, or the variable name that will be appended with " may not be
-     *            null"
+     * @param message the message to use in the exception, or the variable name that will be appended with " may not be null"
      * @param <O> the Object type to return
      * @return the object that was passed as the first parameter
      * @throws NullPointerException if object is null
@@ -567,6 +566,42 @@ public final class Throw
     }
 
     /**
+     * Throw a NullPointerException if any of the odd arguments is null, e.g. for pre- and postcondition checking. The message
+     * can consist of one identifier for the object, or a complete message. Use as follows: <br>
+     * 
+     * <pre>
+     * Throw.whenAnyNull(alpha, "alpha", beta, "beta", calc, "the variable calc should not be null");
+     * </pre>
+     * 
+     * @param object the first object to check
+     * @param message the message or id of the first object to check
+     * @param objects objects to check on the odd positions, and messages or ids for the objects on the even positions
+     * @throws IllegalArgumentException when the number of arguments is not even
+     * @throws IllegalArgumentException when any of the messages is null
+     * @throws NullPointerException if any of the objects to be tested is null
+     */
+    public static void whenAnyNull(final Object object, final String message, final Object... objects)
+    {
+        if ((objects.length & 1) == 1)
+        {
+            throw new IllegalArgumentException("Throw.whenAnyNull should have an even number of arguments");
+        }
+        if (message == null)
+        {
+            throw new IllegalArgumentException("Throw.whenAnyNull should not have any null message");
+        }
+        Throw.whenNull(object, message);
+        for (int i = 0; i < objects.length; i += 2)
+        {
+            if (objects[i + 1] == null)
+            {
+                throw new IllegalArgumentException("Throw.whenAnyNull should not have any null message");
+            }
+            Throw.whenNull(objects[i], objects[i + 1].toString());
+        }
+    }
+
+    /**
      * Throw an ArithmeticException if value is NaN, e.g. for pre- and postcondition checking. Use as follows: <br>
      * 
      * <pre>
@@ -581,8 +616,7 @@ public final class Throw
      * </pre>
      * 
      * @param value value to check; an exception will be thrown if the object is <b>NaN</b>
-     * @param message the message to use in the exception, or the variable name that will be appended with " may not be
-     *            NaN"
+     * @param message the message to use in the exception, or the variable name that will be appended with " may not be NaN"
      * @return the value that was passed as the first parameter
      * @throws ArithmeticException if value is NaN
      */
@@ -617,8 +651,7 @@ public final class Throw
      * </pre>
      * 
      * @param value value to check; an exception will be thrown if the object is <b>NaN</b>
-     * @param message the message to use in the exception, or the variable name that will be appended with " may not be
-     *            NaN"
+     * @param message the message to use in the exception, or the variable name that will be appended with " may not be NaN"
      * @return the value that was passed as the first parameter
      * @throws ArithmeticException if value is NaN
      */
@@ -653,8 +686,7 @@ public final class Throw
      * </pre>
      * 
      * @param value value to check; an exception will be thrown if the object is <b>NaN</b>
-     * @param message the message to use in the exception, or the variable name that will be appended with " may not be
-     *            NaN"
+     * @param message the message to use in the exception, or the variable name that will be appended with " may not be NaN"
      * @return the value that was passed as the first parameter
      * @throws ArithmeticException if value is NaN
      */
@@ -716,8 +748,7 @@ public final class Throw
      * </pre>
      * 
      * @param value value to check; an exception will be thrown if the object is <b>NaN</b>
-     * @param message the message to use in the exception, or the variable name that will be appended with " may not be
-     *            NaN"
+     * @param message the message to use in the exception, or the variable name that will be appended with " may not be NaN"
      * @return the value that was passed as the first parameter
      * @throws ArithmeticException if value is NaN
      */
@@ -780,8 +811,7 @@ public final class Throw
      * 
      * @param value value to check; an exception will be thrown if the object is <b>NaN</b>
      * @param throwableClass the Throwable type to throw
-     * @param message the message to use in the exception, or the variable name that will be appended with " may not be
-     *            NaN"
+     * @param message the message to use in the exception, or the variable name that will be appended with " may not be NaN"
      * @param <T> the Throwable class
      * @return the value that was passed as the first parameter
      * @throws T if value is NaN
@@ -819,8 +849,7 @@ public final class Throw
      * 
      * @param value value to check; an exception will be thrown if the object is <b>NaN</b>
      * @param throwableClass the Throwable type to throw
-     * @param message the message to use in the exception, or the variable name that will be appended with " may not be
-     *            NaN"
+     * @param message the message to use in the exception, or the variable name that will be appended with " may not be NaN"
      * @param <T> the Throwable class
      * @return the value that was passed as the first parameter
      * @throws T if value is NaN
@@ -858,8 +887,7 @@ public final class Throw
      * 
      * @param value value to check; an exception will be thrown if the object is <b>NaN</b>
      * @param throwableClass the Throwable type to throw
-     * @param message the message to use in the exception, or the variable name that will be appended with " may not be
-     *            NaN"
+     * @param message the message to use in the exception, or the variable name that will be appended with " may not be NaN"
      * @param <T> the Throwable class
      * @return the value that was passed as the first parameter
      * @throws T if value is NaN
@@ -927,8 +955,7 @@ public final class Throw
      * 
      * @param value value to check; an exception will be thrown if the object is <b>NaN</b>
      * @param throwableClass the Throwable type to throw
-     * @param message the message to use in the exception, or the variable name that will be appended with " may not be
-     *            NaN"
+     * @param message the message to use in the exception, or the variable name that will be appended with " may not be NaN"
      * @param <T> the Throwable class
      * @return the value that was passed as the first parameter
      * @throws T if value is NaN
@@ -1002,9 +1029,10 @@ public final class Throw
      * https://stackoverflow.com/questions/11942946/how-to-throw-an-exception-when-your-method-signature-doesnt-allow-to-throw-exce</a>.
      * @param e the exception of Throwable to throw in an unchecked manner
      */
+    @SuppressWarnings("checkstyle:genericwhitespace")
     public static void throwUnchecked(final Throwable e)
     {
-        Throw.<RuntimeException>throwAny(e);
+        Throw.<RuntimeException> throwAny(e);
     }
 
     /**
