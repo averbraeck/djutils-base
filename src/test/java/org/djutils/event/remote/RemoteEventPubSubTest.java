@@ -24,10 +24,10 @@ import org.djutils.event.reference.Reference;
 import org.djutils.event.reference.ReferenceType;
 import org.djutils.event.rmi.RmiEventListener;
 import org.djutils.event.rmi.RmiEventProducer;
-import org.djutils.exceptions.Try;
 import org.djutils.metadata.MetaData;
 import org.djutils.metadata.ObjectDescriptor;
 import org.djutils.rmi.RmiRegistry;
+import org.djutils.test.UnitTest;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -195,7 +195,7 @@ public class RemoteEventPubSubTest
             boolean addListenerOK = producer.addListener(listener, eventType);
             assertTrue(addListenerOK);
 
-            Try.testFail(new Try.Execution()
+            UnitTest.testFail(new UnitTest.Execution()
             {
                 @Override
                 public void execute() throws Throwable
@@ -205,7 +205,7 @@ public class RemoteEventPubSubTest
                 }
             }, "expected ClassCastException", ClassCastException.class);
 
-            Try.testFail(new Try.Execution()
+            UnitTest.testFail(new UnitTest.Execution()
             {
                 @Override
                 public void execute() throws Throwable
@@ -215,7 +215,7 @@ public class RemoteEventPubSubTest
                 }
             }, "expected ClassCastException", ClassCastException.class);
 
-            Try.testFail(new Try.Execution()
+            UnitTest.testFail(new UnitTest.Execution()
             {
                 @Override
                 public void execute() throws Throwable
@@ -225,7 +225,7 @@ public class RemoteEventPubSubTest
                 }
             }, "expected ClassCastException", ClassCastException.class);
 
-            Try.testFail(new Try.Execution()
+            UnitTest.testFail(new UnitTest.Execution()
             {
                 @Override
                 public void execute() throws Throwable
@@ -235,7 +235,7 @@ public class RemoteEventPubSubTest
                 }
             }, "expected ClassCastException", ClassCastException.class);
 
-            Try.testFail(new Try.Execution()
+            UnitTest.testFail(new UnitTest.Execution()
             {
                 @Override
                 public void execute() throws Throwable
@@ -245,7 +245,7 @@ public class RemoteEventPubSubTest
                 }
             }, "expected ClassCastException", ClassCastException.class);
 
-            Try.testFail(new Try.Execution()
+            UnitTest.testFail(new UnitTest.Execution()
             {
                 @Override
                 public void execute() throws Throwable
@@ -255,7 +255,7 @@ public class RemoteEventPubSubTest
                 }
             }, "expected ClassCastException", ClassCastException.class);
 
-            Try.testFail(new Try.Execution()
+            UnitTest.testFail(new UnitTest.Execution()
             {
                 @Override
                 public void execute() throws Throwable
@@ -265,7 +265,7 @@ public class RemoteEventPubSubTest
                 }
             }, "expected ClassCastException", ClassCastException.class);
 
-            Try.testFail(new Try.Execution()
+            UnitTest.testFail(new UnitTest.Execution()
             {
                 @Override
                 public void execute() throws Throwable
@@ -275,7 +275,7 @@ public class RemoteEventPubSubTest
                 }
             }, "expected ClassCastException", ClassCastException.class);
 
-            Try.testFail(new Try.Execution()
+            UnitTest.testFail(new UnitTest.Execution()
             {
                 @Override
                 public void execute() throws Throwable
@@ -285,7 +285,7 @@ public class RemoteEventPubSubTest
                 }
             }, "expected IndexOutOfBoundsException", IndexOutOfBoundsException.class);
 
-            Try.testFail(new Try.Execution()
+            UnitTest.testFail(new UnitTest.Execution()
             {
                 @Override
                 public void execute() throws Throwable
@@ -449,7 +449,7 @@ public class RemoteEventPubSubTest
             boolean addListenerOK = producer.addListener(timedListener, timedEventType);
             assertTrue(addListenerOK);
 
-            Try.testFail(new Try.Execution()
+            UnitTest.testFail(new UnitTest.Execution()
             {
                 @Override
                 public void execute() throws Throwable
@@ -459,7 +459,7 @@ public class RemoteEventPubSubTest
                 }
             }, "expected ClassCastException", ClassCastException.class);
 
-            Try.testFail(new Try.Execution()
+            UnitTest.testFail(new UnitTest.Execution()
             {
                 @Override
                 public void execute() throws Throwable
@@ -469,7 +469,7 @@ public class RemoteEventPubSubTest
                 }
             }, "expected ClassCastException", ClassCastException.class);
 
-            Try.testFail(new Try.Execution()
+            UnitTest.testFail(new UnitTest.Execution()
             {
                 @Override
                 public void execute() throws Throwable
@@ -479,7 +479,7 @@ public class RemoteEventPubSubTest
                 }
             }, "expected ClassCastException", ClassCastException.class);
 
-            Try.testFail(new Try.Execution()
+            UnitTest.testFail(new UnitTest.Execution()
             {
                 @Override
                 public void execute() throws Throwable
@@ -489,7 +489,7 @@ public class RemoteEventPubSubTest
                 }
             }, "expected ClassCastException", ClassCastException.class);
 
-            Try.testFail(new Try.Execution()
+            UnitTest.testFail(new UnitTest.Execution()
             {
                 @Override
                 public void execute() throws Throwable
@@ -499,7 +499,7 @@ public class RemoteEventPubSubTest
                 }
             }, "expected ClassCastException", ClassCastException.class);
 
-            Try.testFail(new Try.Execution()
+            UnitTest.testFail(new UnitTest.Execution()
             {
                 @Override
                 public void execute() throws Throwable
@@ -509,7 +509,7 @@ public class RemoteEventPubSubTest
                 }
             }, "expected ClassCastException", ClassCastException.class);
 
-            Try.testFail(new Try.Execution()
+            UnitTest.testFail(new UnitTest.Execution()
             {
                 @Override
                 public void execute() throws Throwable
@@ -519,7 +519,7 @@ public class RemoteEventPubSubTest
                 }
             }, "expected ClassCastException", ClassCastException.class);
 
-            Try.testFail(new Try.Execution()
+            UnitTest.testFail(new UnitTest.Execution()
             {
                 @Override
                 public void execute() throws Throwable
@@ -529,7 +529,7 @@ public class RemoteEventPubSubTest
                 }
             }, "expected ClassCastException", ClassCastException.class);
 
-            Try.testFail(new Try.Execution()
+            UnitTest.testFail(new UnitTest.Execution()
             {
                 @Override
                 public void execute() throws Throwable
@@ -539,7 +539,7 @@ public class RemoteEventPubSubTest
                 }
             }, "expected IndexOutOfBoundsException", IndexOutOfBoundsException.class);
 
-            Try.testFail(new Try.Execution()
+            UnitTest.testFail(new UnitTest.Execution()
             {
                 @Override
                 public void execute() throws Throwable
@@ -633,7 +633,7 @@ public class RemoteEventPubSubTest
             boolean addListenerOK =
                     producer.addListener(listener, TestRemoteEventProducer.REMOTE_EVENT_1, -10, ReferenceType.STRONG);
             assertFalse(addListenerOK);
-            Try.testFail(new Try.Execution()
+            UnitTest.testFail(new UnitTest.Execution()
             {
                 @Override
                 public void execute() throws Throwable
@@ -641,7 +641,7 @@ public class RemoteEventPubSubTest
                     producer.addListener(listener, null);
                 }
             }, "expected NullPointerException", NullPointerException.class);
-            Try.testFail(new Try.Execution()
+            UnitTest.testFail(new UnitTest.Execution()
             {
                 @Override
                 public void execute() throws Throwable
@@ -649,7 +649,7 @@ public class RemoteEventPubSubTest
                     producer.addListener(listener, TestRemoteEventProducer.REMOTE_EVENT_1, null);
                 }
             }, "expected NullPointerException", NullPointerException.class);
-            Try.testFail(new Try.Execution()
+            UnitTest.testFail(new UnitTest.Execution()
             {
                 @Override
                 public void execute() throws Throwable

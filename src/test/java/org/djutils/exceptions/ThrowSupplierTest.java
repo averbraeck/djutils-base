@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.djutils.test.UnitTest;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -53,11 +54,11 @@ public class ThrowSupplierTest
     @Test
     public void testThrowWhen()
     {
-        Try.testFail(() -> Throw.when(true, IllegalArgumentException.class, () -> reportStatus()), this.status,
+        UnitTest.testFail(() -> Throw.when(true, IllegalArgumentException.class, () -> reportStatus()), this.status,
                 IllegalArgumentException.class);
         assertTrue(isStatusReported());
 
-        Try.testFail(() -> Throw.when(new Object(), true, IllegalArgumentException.class, () -> reportStatus()), this.status,
+        UnitTest.testFail(() -> Throw.when(new Object(), true, IllegalArgumentException.class, () -> reportStatus()), this.status,
                 IllegalArgumentException.class);
         assertTrue(isStatusReported());
 
@@ -89,7 +90,7 @@ public class ThrowSupplierTest
     @Test
     public void testThrowWhenNull()
     {
-        Try.testFail(() -> Throw.whenNull(null, () -> reportStatus()), this.status, NullPointerException.class);
+        UnitTest.testFail(() -> Throw.whenNull(null, () -> reportStatus()), this.status, NullPointerException.class);
         assertTrue(isStatusReported());
 
         try
@@ -115,13 +116,13 @@ public class ThrowSupplierTest
         float f = Float.NaN;
         Float ff = Float.valueOf(f);
 
-        Try.testFail(() -> Throw.whenNaN(d, () -> reportStatus()), this.status, ArithmeticException.class);
+        UnitTest.testFail(() -> Throw.whenNaN(d, () -> reportStatus()), this.status, ArithmeticException.class);
         assertTrue(isStatusReported());
-        Try.testFail(() -> Throw.whenNaN(dd, () -> reportStatus()), this.status, ArithmeticException.class);
+        UnitTest.testFail(() -> Throw.whenNaN(dd, () -> reportStatus()), this.status, ArithmeticException.class);
         assertTrue(isStatusReported());
-        Try.testFail(() -> Throw.whenNaN(f, () -> reportStatus()), this.status, ArithmeticException.class);
+        UnitTest.testFail(() -> Throw.whenNaN(f, () -> reportStatus()), this.status, ArithmeticException.class);
         assertTrue(isStatusReported());
-        Try.testFail(() -> Throw.whenNaN(ff, () -> reportStatus()), this.status, ArithmeticException.class);
+        UnitTest.testFail(() -> Throw.whenNaN(ff, () -> reportStatus()), this.status, ArithmeticException.class);
         assertTrue(isStatusReported());
 
         try
@@ -180,16 +181,16 @@ public class ThrowSupplierTest
         float f = Float.NaN;
         Float ff = Float.valueOf(f);
 
-        Try.testFail(() -> Throw.whenNaN(d, IllegalArgumentException.class, () -> reportStatus()), this.status,
+        UnitTest.testFail(() -> Throw.whenNaN(d, IllegalArgumentException.class, () -> reportStatus()), this.status,
                 IllegalArgumentException.class);
         assertTrue(isStatusReported());
-        Try.testFail(() -> Throw.whenNaN(dd, IllegalArgumentException.class, () -> reportStatus()), this.status,
+        UnitTest.testFail(() -> Throw.whenNaN(dd, IllegalArgumentException.class, () -> reportStatus()), this.status,
                 IllegalArgumentException.class);
         assertTrue(isStatusReported());
-        Try.testFail(() -> Throw.whenNaN(f, IllegalArgumentException.class, () -> reportStatus()), this.status,
+        UnitTest.testFail(() -> Throw.whenNaN(f, IllegalArgumentException.class, () -> reportStatus()), this.status,
                 IllegalArgumentException.class);
         assertTrue(isStatusReported());
-        Try.testFail(() -> Throw.whenNaN(ff, IllegalArgumentException.class, () -> reportStatus()), this.status,
+        UnitTest.testFail(() -> Throw.whenNaN(ff, IllegalArgumentException.class, () -> reportStatus()), this.status,
                 IllegalArgumentException.class);
         assertTrue(isStatusReported());
 

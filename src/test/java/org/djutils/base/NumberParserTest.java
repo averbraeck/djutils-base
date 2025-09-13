@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-import org.djutils.exceptions.Try;
+import org.djutils.test.UnitTest;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -27,25 +27,25 @@ public class NumberParserTest
     @Test
     public void testNPE()
     {
-        Try.testFail(() -> new NumberParser(true, true, null), NullPointerException.class);
+        UnitTest.testFail(() -> new NumberParser(true, true, null), NullPointerException.class);
         NumberParser np = new NumberParser();
-        Try.testFail(() -> np.locale(null), NullPointerException.class);
+        UnitTest.testFail(() -> np.locale(null), NullPointerException.class);
 
-        Try.testFail(() -> np.parseDouble(null), NullPointerException.class);
-        Try.testFail(() -> np.parseDouble(""), NumberFormatException.class);
-        Try.testFail(() -> np.parseDouble("  "), NumberFormatException.class);
+        UnitTest.testFail(() -> np.parseDouble(null), NullPointerException.class);
+        UnitTest.testFail(() -> np.parseDouble(""), NumberFormatException.class);
+        UnitTest.testFail(() -> np.parseDouble("  "), NumberFormatException.class);
 
-        Try.testFail(() -> np.parseFloat(null), NullPointerException.class);
-        Try.testFail(() -> np.parseFloat(""), NumberFormatException.class);
-        Try.testFail(() -> np.parseFloat("  "), NumberFormatException.class);
+        UnitTest.testFail(() -> np.parseFloat(null), NullPointerException.class);
+        UnitTest.testFail(() -> np.parseFloat(""), NumberFormatException.class);
+        UnitTest.testFail(() -> np.parseFloat("  "), NumberFormatException.class);
 
-        Try.testFail(() -> np.parseInt(null), NullPointerException.class);
-        Try.testFail(() -> np.parseInt(""), NumberFormatException.class);
-        Try.testFail(() -> np.parseInt("  "), NumberFormatException.class);
+        UnitTest.testFail(() -> np.parseInt(null), NullPointerException.class);
+        UnitTest.testFail(() -> np.parseInt(""), NumberFormatException.class);
+        UnitTest.testFail(() -> np.parseInt("  "), NumberFormatException.class);
 
-        Try.testFail(() -> np.parseLong(null), NullPointerException.class);
-        Try.testFail(() -> np.parseLong(""), NumberFormatException.class);
-        Try.testFail(() -> np.parseLong("  "), NumberFormatException.class);
+        UnitTest.testFail(() -> np.parseLong(null), NullPointerException.class);
+        UnitTest.testFail(() -> np.parseLong(""), NumberFormatException.class);
+        UnitTest.testFail(() -> np.parseLong("  "), NumberFormatException.class);
     }
 
     /**
@@ -57,14 +57,14 @@ public class NumberParserTest
         NumberParser np1 = new NumberParser(true);
         assertEquals(10.0, np1.parseDouble("10.0 m/s"), 1E-6);
         NumberParser np2 = new NumberParser(false);
-        Try.testFail(() -> np2.parseDouble("10.0 m/s"));
+        UnitTest.testFail(() -> np2.parseDouble("10.0 m/s"));
 
         NumberParser np3 = new NumberParser(true, true);
         assertEquals(10.0, np3.parseDouble("10.0 m/s"), 1E-6);
         NumberParser np4 = new NumberParser(true, false);
         assertEquals(10.0, np4.parseDouble("10.0 m/s"), 1E-6);
         NumberParser np5 = new NumberParser(true, false);
-        Try.testFail(() -> np5.parseDouble("+10.0 m/s"));
+        UnitTest.testFail(() -> np5.parseDouble("+10.0 m/s"));
 
         NumberParser np6 = new NumberParser(true, true, Locale.US);
         assertEquals(10000.0, np6.parseDouble("10,000.0 m/s"), 1E-6);
@@ -73,20 +73,20 @@ public class NumberParserTest
 
         NumberParser np8 = new NumberParser(false, false, Locale.US);
         assertEquals(1.0E5, np8.parseDouble("10.0E4"), 1E-6);
-        Try.testFail(() -> np8.parseDouble("10.0e4"));
-        Try.testFail(() -> np8.parseDouble("10..0"));
-        Try.testFail(() -> np8.parseDouble("10.,0"));
+        UnitTest.testFail(() -> np8.parseDouble("10.0e4"));
+        UnitTest.testFail(() -> np8.parseDouble("10..0"));
+        UnitTest.testFail(() -> np8.parseDouble("10.,0"));
         assertEquals(1000.0, np8.parseDouble("1,,0,0,0.0"), 1E-6);
 
         assertEquals(100, np8.parseInt("100"));
         assertEquals(-100, np8.parseInt("-100"));
-        Try.testFail(() -> np8.parseInt("100."));
-        Try.testFail(() -> np8.parseInt("+100"));
+        UnitTest.testFail(() -> np8.parseInt("100."));
+        UnitTest.testFail(() -> np8.parseInt("+100"));
 
         assertEquals(100L, np8.parseLong("100"));
         assertEquals(-100L, np8.parseLong("-100"));
-        Try.testFail(() -> np8.parseLong("100."));
-        Try.testFail(() -> np8.parseLong("+100"));
+        UnitTest.testFail(() -> np8.parseLong("100."));
+        UnitTest.testFail(() -> np8.parseLong("+100"));
     }
 
     /**
@@ -1048,7 +1048,7 @@ public class NumberParserTest
     public void testDoubleFail(final String text, final boolean strict, final boolean trailing, final Locale locale)
     {
         String error = String.format("parsing [%s], strict=%b, trailing=%b, locale=%s", text, strict, trailing, locale);
-        Try.testFail(() -> makeNumberParserChaining(!strict, trailing, locale).parseDouble(text), error,
+        UnitTest.testFail(() -> makeNumberParserChaining(!strict, trailing, locale).parseDouble(text), error,
                 NumberFormatException.class);
     }
 
@@ -1062,7 +1062,7 @@ public class NumberParserTest
     public void testFloatFail(final String text, final boolean strict, final boolean trailing, final Locale locale)
     {
         String error = String.format("parsing [%s], strict=%b, trailing=%b, locale=%s", text, strict, trailing, locale);
-        Try.testFail(() -> makeNumberParserChaining(!strict, trailing, locale).parseFloat(text), error,
+        UnitTest.testFail(() -> makeNumberParserChaining(!strict, trailing, locale).parseFloat(text), error,
                 NumberFormatException.class);
     }
 

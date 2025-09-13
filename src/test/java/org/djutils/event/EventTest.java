@@ -7,9 +7,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.Serializable;
 
-import org.djutils.exceptions.Try;
 import org.djutils.metadata.MetaData;
 import org.djutils.metadata.ObjectDescriptor;
+import org.djutils.test.UnitTest;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -69,7 +69,7 @@ public class EventTest
         assertEquals(eventType.getMetaData().getDescription(), "event with integer payload");
         assertEquals(eventType.toString(), "INT_EVENT");
         assertEquals(1, eventType.getMetaData().getObjectDescriptors().length);
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -80,7 +80,7 @@ public class EventTest
 
         new Event(eventType, 5);
         new Event(eventType, null);
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -104,7 +104,7 @@ public class EventTest
         assertEquals(1, eventType.getMetaData().getObjectDescriptors().length);
 
         new Event(eventType2, null);
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -130,7 +130,7 @@ public class EventTest
         assertEquals(eventType.getName(), "TEST_TYPE");
         assertEquals(eventType.toString(), "TEST_TYPE");
 
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -138,7 +138,7 @@ public class EventTest
                 new EventType("", null);
             }
         });
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -190,7 +190,7 @@ public class EventTest
 
         assertTrue(event.toString().contains("TEST_TYPE"));
 
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -251,7 +251,7 @@ public class EventTest
         MetaData metaData =
                 new MetaData("INT_EVENT", "event with integer payload", new ObjectDescriptor("int", "integer", Integer.class));
         EventType intEventType = new EventType(metaData);
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -261,7 +261,7 @@ public class EventTest
         }, "Constructing Integer TimedEvent with double content should have failed");
         new TimedEvent<Double>(intEventType, 1.2, 3.4, false); // but without checking it should succeed
 
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -269,7 +269,7 @@ public class EventTest
                 new TimedEvent<Long>(null, content, time);
             }
         }, NullPointerException.class);
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable

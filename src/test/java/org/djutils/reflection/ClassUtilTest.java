@@ -24,8 +24,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.djutils.exceptions.Try;
 import org.djutils.reflection.TestClass.InnerPublic;
+import org.djutils.test.UnitTest;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -290,7 +290,7 @@ public class ClassUtilTest
         assertFalse(ClassUtil.isMoreSpecific(c1, c2a));
         assertFalse(ClassUtil.isMoreSpecific(c1, c2b));
 
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -299,7 +299,7 @@ public class ClassUtilTest
                 fail("illegal retrieval of constructor " + cx.toString());
             }
         });
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -352,7 +352,7 @@ public class ClassUtilTest
         testField(sup, "publicSuperInt", Modifier.PUBLIC);
         testField(sup, "publicSubInt", Modifier.PUBLIC);
 
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -360,7 +360,7 @@ public class ClassUtilTest
                 testField(sup, "xyz", Modifier.PUBLIC);
             }
         });
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -370,7 +370,7 @@ public class ClassUtilTest
         });
         Field f1 = ClassUtil.resolveField(Sub.class, this.getClass(), "publicInt");
         assertNotNull(f1);
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -391,7 +391,7 @@ public class ClassUtilTest
         testField(supInn, "publicSuperInt", Modifier.PUBLIC);
         testField(supInn, "publicSubInt", Modifier.PUBLIC);
 
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -400,7 +400,7 @@ public class ClassUtilTest
                 fail("should not be able to resolve field from null object" + f3);
             }
         });
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -409,7 +409,7 @@ public class ClassUtilTest
                 fail("should not be able to resolve field from null object" + f3);
             }
         });
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -418,7 +418,7 @@ public class ClassUtilTest
                 fail("should not be able to resolve field from null object" + f3);
             }
         });
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -502,7 +502,7 @@ public class ClassUtilTest
         testMethod(sup, "privateInt", new Object[] {}, Modifier.PRIVATE);
         testMethod(sup, "privateArgs", new Object[] {"mno", 15.0d}, Modifier.PRIVATE);
 
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -510,7 +510,7 @@ public class ClassUtilTest
                 testMethod(sup, "xyz", new Class<?>[] {}, Modifier.PUBLIC);
             }
         });
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -518,7 +518,7 @@ public class ClassUtilTest
                 testMethod(sup, "publicArgs", new Class<?>[] {float.class}, Modifier.PUBLIC);
             }
         });
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -526,7 +526,7 @@ public class ClassUtilTest
                 testMethod(sup, "xyz", new Object[] {}, Modifier.PUBLIC);
             }
         });
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -534,7 +534,7 @@ public class ClassUtilTest
                 testMethod(sup, "publicArgs", new Object[] {12L}, Modifier.PUBLIC);
             }
         });
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -542,7 +542,7 @@ public class ClassUtilTest
                 testMethod(Sub.class, "xyz", new Class<?>[] {}, Modifier.PUBLIC);
             }
         });
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -553,7 +553,7 @@ public class ClassUtilTest
 
         Method m1 = ClassUtil.resolveMethod(Sub.class, this.getClass(), "publicArgs", new Class<?>[] {String.class});
         assertNotNull(m1);
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -594,7 +594,7 @@ public class ClassUtilTest
         testMethod(supInn, "privateInt", new Object[] {}, Modifier.PRIVATE);
         testMethod(supInn, "privateArgs", new Object[] {"mno", 15.0d}, Modifier.PRIVATE);
 
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -603,7 +603,7 @@ public class ClassUtilTest
                 fail("should not be able to resolve field from null object" + m3);
             }
         });
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -612,7 +612,7 @@ public class ClassUtilTest
                 fail("should not be able to resolve field from null object" + m3);
             }
         });
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -621,7 +621,7 @@ public class ClassUtilTest
                 fail("should not be able to resolve field from null object" + m3);
             }
         });
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -630,7 +630,7 @@ public class ClassUtilTest
                 fail("should not be able to resolve field from null object" + m3);
             }
         });
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -639,7 +639,7 @@ public class ClassUtilTest
                 fail("should not be able to resolve field from null object" + m3);
             }
         });
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -661,7 +661,7 @@ public class ClassUtilTest
 
         Annotation a1 = ClassUtil.resolveAnnotation(Sub.class, AnnTag.class);
         assertNotNull(a1);
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -670,7 +670,7 @@ public class ClassUtilTest
                 fail("should not be able to resolve non-existing annotation " + a3);
             }
         });
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -679,7 +679,7 @@ public class ClassUtilTest
                 fail("should not be able to resolve non-existing annotation " + a3);
             }
         });
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -756,8 +756,7 @@ public class ClassUtilTest
         Set<Integer> mSet = new HashSet<>();
         for (int m : modifiers)
         {
-            assertTrue(
-                    (field.getModifiers() & m) != 0,
+            assertTrue((field.getModifiers() & m) != 0,
                     "failed modifier for field " + object.getClass().getSimpleName() + "." + fieldName + " for modifier " + m);
             mSet.add(m);
         }
@@ -835,9 +834,8 @@ public class ClassUtilTest
         Set<Integer> mSet = new HashSet<>();
         for (int m : modifiers)
         {
-            assertTrue(
-                    (method.getModifiers() & m) != 0,
-                    "failed modifier for method " + object.getClass().getSimpleName() + "." + methodName + " for modifier " + m);
+            assertTrue((method.getModifiers() & m) != 0, "failed modifier for method " + object.getClass().getSimpleName() + "."
+                    + methodName + " for modifier " + m);
             mSet.add(m);
         }
         for (int p = 0; p < 12; p++)
@@ -845,8 +843,7 @@ public class ClassUtilTest
             int m = 1 << p;
             if (!mSet.contains(m))
             {
-                assertTrue(
-                        (method.getModifiers() & m) == 0,
+                assertTrue((method.getModifiers() & m) == 0,
                         "failed modifier for method " + object.getClass().getSimpleName() + "." + methodName + " for bit " + p);
             }
         }
@@ -868,9 +865,8 @@ public class ClassUtilTest
         Set<Integer> mSet = new HashSet<>();
         for (int m : modifiers)
         {
-            assertTrue(
-                    (method.getModifiers() & m) != 0,
-                    "failed modifier for method " + object.getClass().getSimpleName() + "." + methodName + " for modifier " + m);
+            assertTrue((method.getModifiers() & m) != 0, "failed modifier for method " + object.getClass().getSimpleName() + "."
+                    + methodName + " for modifier " + m);
             mSet.add(m);
         }
         for (int p = 0; p < 12; p++)
@@ -878,8 +874,7 @@ public class ClassUtilTest
             int m = 1 << p;
             if (!mSet.contains(m))
             {
-                assertTrue(
-                        (method.getModifiers() & m) == 0,
+                assertTrue((method.getModifiers() & m) == 0,
                         "failed modifier for method " + object.getClass().getSimpleName() + "." + methodName + " for bit " + p);
             }
         }

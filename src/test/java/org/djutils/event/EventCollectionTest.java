@@ -28,7 +28,7 @@ import org.djutils.event.collection.EventProducingList;
 import org.djutils.event.collection.EventProducingListIterator;
 import org.djutils.event.collection.EventProducingMap;
 import org.djutils.event.collection.EventProducingSet;
-import org.djutils.exceptions.Try;
+import org.djutils.test.UnitTest;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -424,7 +424,7 @@ public class EventCollectionTest
         assertFalse(leit.hasPrevious());
         assertEquals(-1, leit.previousIndex());
         assertEquals(0, leit.nextIndex());
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -461,7 +461,7 @@ public class EventCollectionTest
         assertEquals("dd", leit.next());
         assertEquals("d", leit.next());
         assertEquals("e", leit.next());
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable

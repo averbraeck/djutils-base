@@ -18,8 +18,8 @@ import java.rmi.registry.Registry;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import org.djutils.exceptions.Try;
 import org.djutils.logger.CategoryLogger;
+import org.djutils.test.UnitTest;
 import org.junit.jupiter.api.Test;
 
 import ch.qos.logback.classic.Level;
@@ -46,7 +46,7 @@ public class RMITest
     {
         CategoryLogger.setLogLevelAll(Level.OFF);
         // test making the registry
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -56,7 +56,7 @@ public class RMITest
         }, "should have thrown NullPointerException", NullPointerException.class);
         for (int port : new int[] {-1, 0, 100000, -10, 65536})
         {
-            Try.testFail(new Try.Execution()
+            UnitTest.testFail(new UnitTest.Execution()
             {
                 @Override
                 public void execute() throws Throwable
@@ -66,7 +66,7 @@ public class RMITest
             }, "should have thrown IllegalArgumentException", IllegalArgumentException.class);
         }
         // the following Try might wait some time for a timeout
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -83,7 +83,7 @@ public class RMITest
         // test the bind method
         String key = "testKey";
         RemoteObject remoteObject = new RemoteObject(key);
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -91,7 +91,7 @@ public class RMITest
                 RmiRegistry.bind(null, key, remoteObject);
             }
         }, "should have thrown NullPointerException", NullPointerException.class);
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -99,7 +99,7 @@ public class RMITest
                 RmiRegistry.bind(registry, null, remoteObject);
             }
         }, "should have thrown NullPointerException", NullPointerException.class);
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -107,7 +107,7 @@ public class RMITest
                 RmiRegistry.bind(registry, key, null);
             }
         }, "should have thrown NullPointerException", NullPointerException.class);
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -119,7 +119,7 @@ public class RMITest
         // valid bind
         RmiRegistry.bind(registry, key, remoteObject);
         assertEquals(1, registry.list().length);
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -137,7 +137,7 @@ public class RMITest
         assertEquals(1, reg2.list().length); // see if the two registries are indeed 100% the same
 
         // test the lookup method
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -145,7 +145,7 @@ public class RMITest
                 RmiRegistry.lookup(null, key);
             }
         }, "should have thrown NullPointerException", NullPointerException.class);
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -153,7 +153,7 @@ public class RMITest
                 RmiRegistry.lookup(registry, null);
             }
         }, "should have thrown NullPointerException", NullPointerException.class);
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -169,7 +169,7 @@ public class RMITest
         assertEquals(key, ro.getName());
 
         // test the rebind method
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -177,7 +177,7 @@ public class RMITest
                 RmiRegistry.rebind(null, key, remoteObject);
             }
         }, "should have thrown NullPointerException", NullPointerException.class);
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -185,7 +185,7 @@ public class RMITest
                 RmiRegistry.rebind(registry, null, remoteObject);
             }
         }, "should have thrown NullPointerException", NullPointerException.class);
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -193,7 +193,7 @@ public class RMITest
                 RmiRegistry.rebind(registry, key, null);
             }
         }, "should have thrown NullPointerException", NullPointerException.class);
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -214,7 +214,7 @@ public class RMITest
         assertNotEquals(key, ro2.getName());
 
         // test unbind method
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -222,7 +222,7 @@ public class RMITest
                 RmiRegistry.unbind(null, key);
             }
         }, "should have thrown NullPointerException", NullPointerException.class);
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -230,7 +230,7 @@ public class RMITest
                 RmiRegistry.unbind(registry, null);
             }
         }, "should have thrown NullPointerException", NullPointerException.class);
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -238,7 +238,7 @@ public class RMITest
                 RmiRegistry.unbind(registry, "");
             }
         }, "should have thrown IllegalArgumentPointerException", IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -255,7 +255,7 @@ public class RMITest
 
         // test closeRegistry
         RmiRegistry.closeRegistry(registry);
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -263,7 +263,7 @@ public class RMITest
                 RmiRegistry.lookup(registry, key);
             }
         }, "should have thrown an Exception");
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -274,7 +274,7 @@ public class RMITest
 
         // test that registry is empty after closeRegistry
         // bind and rebind still work -- closeRegistry takes care it does not accept outside calls anymore
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -282,7 +282,7 @@ public class RMITest
                 RmiRegistry.lookup(registry, key);
             }
         }, "did not get expected exception for lookup()");
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -290,7 +290,7 @@ public class RMITest
                 RmiRegistry.unbind(registry, key);
             }
         }, "did not get expected exception for unbind()");
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -332,7 +332,7 @@ public class RMITest
                 assertEquals(0, registry.list().length);
                 RmiRegistry.closeRegistry(registry);
                 final Registry testRegistry = registry;
-                Try.testFail(new Try.Execution()
+                UnitTest.testFail(new UnitTest.Execution()
                 {
                     @Override
                     public void execute() throws Throwable
@@ -417,7 +417,7 @@ public class RMITest
         RmiRegistry.closeRegistry(registry);
 
         // check errors in creating RMIObject
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -425,7 +425,7 @@ public class RMITest
                 new Producer(null, "producer");
             }
         }, "did not get expected exception", NullPointerException.class);
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -433,7 +433,7 @@ public class RMITest
                 new Producer(new URL("http://localhost:2002"), null);
             }
         }, "did not get expected exception", NullPointerException.class);
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -441,7 +441,7 @@ public class RMITest
                 new Producer(null, 2002, "producer");
             }
         }, "did not get expected exception", NullPointerException.class);
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable
@@ -449,7 +449,7 @@ public class RMITest
                 new Producer("localhost", -2, "producer");
             }
         }, "did not get expected exception", IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
+        UnitTest.testFail(new UnitTest.Execution()
         {
             @Override
             public void execute() throws Throwable

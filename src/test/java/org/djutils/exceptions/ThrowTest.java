@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.djutils.test.UnitTest;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -365,11 +366,11 @@ public class ThrowTest
 
         // Check internal errors
         
-        Try.testFail(() -> Throw.whenAnyNull(null, null), IllegalArgumentException.class);
-        Try.testFail(() -> Throw.whenAnyNull("abc", null), IllegalArgumentException.class);
-        Try.testFail(() -> Throw.whenAnyNull(new Object(), "object", Double.valueOf("123.0")), IllegalArgumentException.class);
-        Try.testFail(() -> Throw.whenAnyNull("1", "object", "2", "nr2", "3"), IllegalArgumentException.class);
-        Try.testFail(() -> Throw.whenAnyNull("1", "object", "2", "nr2", "3", null), IllegalArgumentException.class);
+        UnitTest.testFail(() -> Throw.whenAnyNull(null, null), IllegalArgumentException.class);
+        UnitTest.testFail(() -> Throw.whenAnyNull("abc", null), IllegalArgumentException.class);
+        UnitTest.testFail(() -> Throw.whenAnyNull(new Object(), "object", Double.valueOf("123.0")), IllegalArgumentException.class);
+        UnitTest.testFail(() -> Throw.whenAnyNull("1", "object", "2", "nr2", "3"), IllegalArgumentException.class);
+        UnitTest.testFail(() -> Throw.whenAnyNull("1", "object", "2", "nr2", "3", null), IllegalArgumentException.class);
     }
 
     /**

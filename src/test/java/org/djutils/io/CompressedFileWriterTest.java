@@ -13,7 +13,7 @@ import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import org.djutils.exceptions.Try;
+import org.djutils.test.UnitTest;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -169,15 +169,15 @@ public class CompressedFileWriterTest
     {
         String tempDir = System.getProperty("java.io.tmpdir");
         final String tempFilePath = tempDir + File.separator + "//>>::.:/><:";
-        Try.testFail(() -> new CompressedFileWriter(tempFilePath), IOException.class);
-        Try.testFail(() -> CompressedFileWriter.create(tempFilePath, true), IOException.class);
+        UnitTest.testFail(() -> new CompressedFileWriter(tempFilePath), IOException.class);
+        UnitTest.testFail(() -> CompressedFileWriter.create(tempFilePath, true), IOException.class);
         String tempFilePath2 = tempDir + File.separator + UUID.randomUUID().toString() + ".zip";
         CompressedFileWriter compressedFileWriter = new CompressedFileWriter(tempFilePath2);
         BufferedWriter bufferedWriter = compressedFileWriter.next("data_2023.csv");
         bufferedWriter.write("a,b,c\n1,2,3\n4,5,6\n");
         bufferedWriter.close();
-        Try.testFail(() -> compressedFileWriter.next("data_2024.csv"), IOException.class);
-        Try.testFail(() -> compressedFileWriter.close());
+        UnitTest.testFail(() -> compressedFileWriter.next("data_2024.csv"), IOException.class);
+        UnitTest.testFail(() -> compressedFileWriter.close());
         new File(tempFilePath).delete();
     }
 
