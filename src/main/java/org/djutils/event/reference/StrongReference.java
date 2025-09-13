@@ -5,7 +5,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 
-import org.pmw.tinylog.Logger;
+import org.djutils.logger.CategoryLogger;
 
 /**
  * A StrongReference class represents a normal pointer relation to a reference. This class is created to complete the
@@ -74,7 +74,7 @@ public class StrongReference<T extends Serializable> extends Reference<T>
         }
         catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException exception)
         {
-            Logger.error(exception, "Error using ReadObject on StrongReference");
+            CategoryLogger.always().error(exception, "Error using ReadObject on StrongReference");
         }
     }
 }

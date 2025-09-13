@@ -5,7 +5,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 
-import org.pmw.tinylog.Logger;
+import org.djutils.logger.CategoryLogger;
 
 /**
  * A WeakReference. The WeakReference extends the <code>java.lang.ref.WeakReference</code> and besides implementing the
@@ -73,7 +73,7 @@ public class WeakReference<T extends Serializable> extends Reference<T>
         }
         catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException exception)
         {
-            Logger.error(exception, "Error using ReadObject on StrongReference");
+            CategoryLogger.always().error(exception, "Error using ReadObject on StrongReference");
         }
     }
 }
