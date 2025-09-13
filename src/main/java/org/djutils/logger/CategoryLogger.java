@@ -63,7 +63,7 @@ public final class CategoryLogger
     /** The current default logging level for new category loggers. */
     private static Level defaultLevel = Level.INFO;
 
-    /** The levels and log message format used per LogCategory. */
+    /** The levels and pattern used per LogCategory. */
     private static final Map<LogCategory, CategoryConfig> CATEGORY_CFG = new LinkedHashMap<>();
 
     /** The logger and appenders used per LogCategory. */
@@ -130,7 +130,7 @@ public final class CategoryLogger
         // Create per-category instances for every registered factory
         for (CategoryAppenderFactory f : APPENDER_FACTORIES.values())
         {
-            Appender<ILoggingEvent> app = f.create(f.id(), category, cfg.messageFormat, CTX);
+            Appender<ILoggingEvent> app = f.create(f.id(), category, cfg.pattern, CTX);
             app.start();
             logger.addAppender(app);
             st.appendersByFactoryId.put(f.id(), app);
@@ -141,7 +141,7 @@ public final class CategoryLogger
         {
             CategoryAppenderFactory fallback = new ConsoleAppenderFactory("CONSOLE");
             APPENDER_FACTORIES.putIfAbsent("CONSOLE", fallback);
-            Appender<ILoggingEvent> app = fallback.create("CONSOLE", category, cfg.messageFormat, CTX);
+            Appender<ILoggingEvent> app = fallback.create("CONSOLE", category, cfg.pattern, CTX);
             app.start();
             logger.addAppender(app);
             st.appendersByFactoryId.put("CONSOLE", app);
@@ -164,10 +164,10 @@ public final class CategoryLogger
         { st.logger.detachAppender(app); safeStop(app); });
         st.appendersByFactoryId.clear();
 
-        // build with new log message format
+        // build with new pattern
         for (CategoryAppenderFactory f : APPENDER_FACTORIES.values())
         {
-            Appender<ILoggingEvent> app = f.create(f.id(), category, cfg.messageFormat, CTX);
+            Appender<ILoggingEvent> app = f.create(f.id(), category, cfg.pattern, CTX);
             app.start();
             st.logger.addAppender(app);
             st.appendersByFactoryId.put(f.id(), app);
@@ -331,7 +331,7 @@ public final class CategoryLogger
     }
 
     /**
-     * Set the log message format for a single log category.
+     * Set the pattern for a single log category.
      * 
      * <pre>
      * %date{HH:mm:ss.SSS}   Timestamp (default format shown; many options like ISO8601)
@@ -359,19 +359,19 @@ public final class CategoryLogger
      * </pre>
      * 
      * @param category the log category
-     * @param messageFormat the new log message format
+     * @param pattern the new pattern
      */
-    public static synchronized void setLogMessageFormat(final LogCategory category, final String messageFormat)
+    public static synchronized void setPattern(final LogCategory category, final String pattern)
     {
         ensureInit();
         addLogCategory(category); // create if missing
-        CATEGORY_CFG.get(category).messageFormat = Objects.requireNonNull(messageFormat);
-        // Rebuild this category's appenders with the new log message format
+        CATEGORY_CFG.get(category).pattern = Objects.requireNonNull(pattern);
+        // Rebuild this category's appenders with the new pattern
         rebuildCategoryAppenders(category);
     }
 
     /**
-     * Set the log message format for a all log categories.
+     * Set the pattern for a all log categories.
      * 
      * <pre>
      * %date{HH:mm:ss.SSS}   Timestamp (default format shown; many options like ISO8601)
@@ -398,14 +398,14 @@ public final class CategoryLogger
      *   → 12:34:56 INFO  http   HttpHandler.handle:42 - GET /users -> 200
      * </pre>
      * 
-     * @param messageFormat the new log message format
+     * @param pattern the new pattern
      */
-    public static synchronized void setLogMessageFormatAll(final String messageFormat)
+    public static synchronized void setPatternAll(final String pattern)
     {
         ensureInit();
-        defaultPattern = Objects.requireNonNull(messageFormat);
+        defaultPattern = Objects.requireNonNull(pattern);
         CATEGORY_CFG.replaceAll((c, cfg) ->
-        { cfg.messageFormat = messageFormat; return cfg; });
+        { cfg.pattern = pattern; return cfg; });
         CATEGORY_CFG.keySet().forEach(CategoryLogger::rebuildCategoryAppenders);
     }
 
@@ -426,7 +426,7 @@ public final class CategoryLogger
             LogCategory cat = e.getKey();
             CategoryConfig cfg = e.getValue();
             CategoryState st = CATEGORY_STATE.get(cat);
-            Appender<ILoggingEvent> app = factory.create(id, cat, cfg.messageFormat, CTX);
+            Appender<ILoggingEvent> app = factory.create(id, cat, cfg.pattern, CTX);
             app.start();
             st.logger.addAppender(app);
             st.appendersByFactoryId.put(id, app);
@@ -458,25 +458,25 @@ public final class CategoryLogger
     /* ---------------------------------------------------------------------------------------------------------------- */
 
     /**
-     * Class to store the logging level and log message format for a log category.
+     * Class to store the logging level and pattern for a log category.
      */
     private static final class CategoryConfig
     {
         /** the logging level for a category. */
         private Level level;
 
-        /** the String log message format to use for a category. */
-        private String messageFormat;
+        /** the String pattern to use for a category. */
+        private String pattern;
 
         /**
-         * Create a record for storing the logging level and log message format for a log category.
+         * Create a record for storing the logging level and pattern for a log category.
          * @param level the logging level for a category
-         * @param messageFormat the log message format for a category
+         * @param pattern the pattern for a category
          */
-        private CategoryConfig(final Level level, final String messageFormat)
+        private CategoryConfig(final Level level, final String pattern)
         {
             this.level = Objects.requireNonNull(level);
-            this.messageFormat = Objects.requireNonNull(messageFormat);
+            this.pattern = Objects.requireNonNull(pattern);
         }
     }
 
@@ -520,14 +520,14 @@ public final class CategoryLogger
          * Create an appender instance for a category.
          * @param id the id to be used for later removal
          * @param category the logging category
-         * @param messageFormat the log message format to use for printing the log message
+         * @param messageFormat the pattern to use for printing the log message
          * @param ctx the context to use
          * @return an appender with the above features
          */
         Appender<ILoggingEvent> create(String id, LogCategory category, String messageFormat, LoggerContext ctx);
     }
 
-    /** Console appender factory (uses the category's log message format). */
+    /** Console appender factory (uses the category's pattern). */
     public static final class ConsoleAppenderFactory implements CategoryAppenderFactory
     {
         /** the id to be used for later removal. */
@@ -566,7 +566,7 @@ public final class CategoryLogger
         }
     }
 
-    /** Rolling file appender factory (per-category file log message format). */
+    /** Rolling file appender factory (per-category file pattern). */
     public static final class RollingFileAppenderFactory implements CategoryAppenderFactory
     {
         /** the id to be used for later removal. */
@@ -593,6 +593,7 @@ public final class CategoryLogger
         }
 
         @Override
+        @SuppressWarnings("checkstyle:hiddenfield")
         public Appender<ILoggingEvent> create(final String id, final LogCategory category, final String messageFormat,
                 final LoggerContext ctx)
         {

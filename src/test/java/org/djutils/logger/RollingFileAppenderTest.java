@@ -67,7 +67,7 @@ public class RollingFileAppenderTest
             CategoryLogger.removeLogCategory(httpCat);
             CategoryLogger.addAppender("CONSOLE", new CategoryLogger.ConsoleAppenderFactory("CONSOLE"));
             CategoryLogger.setLogLevelAll(Level.INFO);
-            CategoryLogger.setLogMessageFormatAll(CategoryLogger.DEFAULT_PATTERN);
+            CategoryLogger.setPatternAll(CategoryLogger.DEFAULT_PATTERN);
         }
     }
 

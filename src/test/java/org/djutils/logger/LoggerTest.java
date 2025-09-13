@@ -230,7 +230,7 @@ public class LoggerTest
             CategoryLogger.removeAppender("string");
             CategoryLogger.addAppender("CONSOLE", new CategoryLogger.ConsoleAppenderFactory("CONSOLE"));
             CategoryLogger.setLogLevelAll(Level.INFO);
-            CategoryLogger.setLogMessageFormatAll(CategoryLogger.DEFAULT_PATTERN);
+            CategoryLogger.setPatternAll(CategoryLogger.DEFAULT_PATTERN);
         }
     }
 
@@ -364,7 +364,7 @@ public class LoggerTest
             CategoryLogger.removeAppender("string");
             CategoryLogger.addAppender("CONSOLE", new CategoryLogger.ConsoleAppenderFactory("CONSOLE"));
             CategoryLogger.setLogLevelAll(Level.INFO);
-            CategoryLogger.setLogMessageFormatAll(CategoryLogger.DEFAULT_PATTERN);
+            CategoryLogger.setPatternAll(CategoryLogger.DEFAULT_PATTERN);
         }
     }
 
@@ -379,7 +379,7 @@ public class LoggerTest
 
         try
         {
-            CategoryLogger.setLogMessageFormatAll("");
+            CategoryLogger.setPatternAll("");
             CategoryLogger.always().info("Test message");
             assertEquals("", lastLoggedResult.trim());
             lastLoggedResult = null;
@@ -387,7 +387,7 @@ public class LoggerTest
             assertEquals("", lastLoggedResult.trim());
             lastLoggedResult = null;
 
-            CategoryLogger.setLogMessageFormatAll("Logger message:");
+            CategoryLogger.setPatternAll("Logger message:");
             CategoryLogger.always().info("Test message");
             assertEquals("Logger message:", lastLoggedResult.trim());
             lastLoggedResult = null;
@@ -395,7 +395,7 @@ public class LoggerTest
             assertTrue(lastLoggedResult.trim().contains("Logger message:"));
             lastLoggedResult = null;
 
-            CategoryLogger.setLogMessageFormatAll("Logger message: %level");
+            CategoryLogger.setPatternAll("Logger message: %level");
             CategoryLogger.always().info("Test message");
             assertEquals("Logger message: INFO", lastLoggedResult.trim());
             lastLoggedResult = null;
@@ -403,7 +403,7 @@ public class LoggerTest
             assertTrue(lastLoggedResult.trim().contains("Logger message: ERROR"));
             lastLoggedResult = null;
 
-            CategoryLogger.setLogMessageFormatAll("Logger message: %message");
+            CategoryLogger.setPatternAll("Logger message: %message");
             CategoryLogger.always().info("Test message");
             assertEquals("Logger message: Test message", lastLoggedResult.trim());
             lastLoggedResult = null;
@@ -412,14 +412,14 @@ public class LoggerTest
             assertTrue(lastLoggedResult.contains("NullPointerException"));
             lastLoggedResult = null;
 
-            CategoryLogger.setLogMessageFormatAll(CategoryLogger.DEFAULT_PATTERN);
+            CategoryLogger.setPatternAll(CategoryLogger.DEFAULT_PATTERN);
         }
         finally
         {
             CategoryLogger.removeAppender("string");
             CategoryLogger.addAppender("CONSOLE", new CategoryLogger.ConsoleAppenderFactory("CONSOLE"));
             CategoryLogger.setLogLevelAll(Level.INFO);
-            CategoryLogger.setLogMessageFormatAll(CategoryLogger.DEFAULT_PATTERN);
+            CategoryLogger.setPatternAll(CategoryLogger.DEFAULT_PATTERN);
         }
     }
 
@@ -435,8 +435,8 @@ public class LoggerTest
 
         try
         {
-            CategoryLogger.setLogMessageFormatAll("");
-            CategoryLogger.setLogMessageFormat(CategoryLogger.CAT_ALWAYS, "");
+            CategoryLogger.setPatternAll("");
+            CategoryLogger.setPattern(CategoryLogger.CAT_ALWAYS, "");
             CategoryLogger.always().info("Test message");
             assertEquals("", lastLoggedResult.trim());
             lastLoggedResult = null;
@@ -444,8 +444,8 @@ public class LoggerTest
             assertEquals("", lastLoggedResult.trim());
             lastLoggedResult = null;
 
-            CategoryLogger.setLogMessageFormatAll("xyz");
-            CategoryLogger.setLogMessageFormat(CategoryLogger.CAT_ALWAYS, "Logger message:");
+            CategoryLogger.setPatternAll("xyz");
+            CategoryLogger.setPattern(CategoryLogger.CAT_ALWAYS, "Logger message:");
             CategoryLogger.always().info("Test message");
             assertEquals("Logger message:", lastLoggedResult.trim());
             lastLoggedResult = null;
@@ -453,8 +453,8 @@ public class LoggerTest
             assertTrue(lastLoggedResult.trim().contains("Logger message:"));
             lastLoggedResult = null;
 
-            CategoryLogger.setLogMessageFormatAll(CategoryLogger.DEFAULT_PATTERN);
-            CategoryLogger.setLogMessageFormat(CategoryLogger.CAT_ALWAYS, "Logger message: %level");
+            CategoryLogger.setPatternAll(CategoryLogger.DEFAULT_PATTERN);
+            CategoryLogger.setPattern(CategoryLogger.CAT_ALWAYS, "Logger message: %level");
             CategoryLogger.always().info("Test message");
             assertEquals("Logger message: INFO", lastLoggedResult.trim());
             lastLoggedResult = null;
@@ -462,8 +462,8 @@ public class LoggerTest
             assertTrue(lastLoggedResult.trim().contains("Logger message: ERROR"));
             lastLoggedResult = null;
 
-            CategoryLogger.setLogMessageFormatAll("");
-            CategoryLogger.setLogMessageFormat(CategoryLogger.CAT_ALWAYS, "Logger message: %message");
+            CategoryLogger.setPatternAll("");
+            CategoryLogger.setPattern(CategoryLogger.CAT_ALWAYS, "Logger message: %message");
             CategoryLogger.always().info("Test message");
             assertEquals("Logger message: Test message", lastLoggedResult.trim());
             lastLoggedResult = null;
@@ -472,14 +472,14 @@ public class LoggerTest
             assertTrue(lastLoggedResult.contains("NullPointerException"));
             lastLoggedResult = null;
 
-            CategoryLogger.setLogMessageFormatAll(CategoryLogger.DEFAULT_PATTERN);
+            CategoryLogger.setPatternAll(CategoryLogger.DEFAULT_PATTERN);
         }
         finally
         {
             CategoryLogger.removeAppender("string");
             CategoryLogger.addAppender("CONSOLE", new CategoryLogger.ConsoleAppenderFactory("CONSOLE"));
             CategoryLogger.setLogLevelAll(Level.INFO);
-            CategoryLogger.setLogMessageFormatAll(CategoryLogger.DEFAULT_PATTERN);
+            CategoryLogger.setPatternAll(CategoryLogger.DEFAULT_PATTERN);
         }
     }
 
