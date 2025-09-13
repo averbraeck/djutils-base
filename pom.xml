@@ -82,7 +82,7 @@
     <dependency>
       <groupId>org.djutils</groupId>
       <artifactId>djutils-test</artifactId>
-      <version>${version}</version>
+      <version>${djutils.version}</version>
       <scope>test</scope>
     </dependency>    
 
