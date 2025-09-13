@@ -1,22 +1,26 @@
 package org.djutils.logger;
 
-import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.Map;
-import java.util.Set;
+import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BooleanSupplier;
 
-import org.djutils.exceptions.Throw;
-import org.djutils.immutablecollections.Immutable;
-import org.djutils.immutablecollections.ImmutableLinkedHashSet;
-import org.djutils.immutablecollections.ImmutableSet;
-import org.pmw.tinylog.Configurator;
-import org.pmw.tinylog.Level;
-import org.pmw.tinylog.LogEntryForwarder;
-import org.pmw.tinylog.Logger;
-import org.pmw.tinylog.writers.ConsoleWriter;
-import org.pmw.tinylog.writers.Writer;
+import org.slf4j.LoggerFactory;
+import org.slf4j.spi.CallerBoundaryAware;
+import org.slf4j.spi.LoggingEventBuilder;
+
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.Appender;
+import ch.qos.logback.core.rolling.RollingFileAppender;
+import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
 
 /**
  * The CategoryLogger can log for specific Categories. The way to call the logger for messages that always need to be logged,
@@ -44,35 +48,41 @@ import org.pmw.tinylog.writers.Writer;
 @SuppressWarnings("checkstyle:needbraces")
 public final class CategoryLogger
 {
+    /** Has the CategoryLogger been initialized? */
+    private static volatile boolean initialized = false;
+
+    /** The LoggerContext to store settings, appenders, etc. */
+    private static final LoggerContext CTX = (LoggerContext) LoggerFactory.getILoggerFactory();
+
     /** The default message format. */
-    public static final String DEFAULT_MESSAGE_FORMAT = "{class_name}.{method}:{line} {message|indent=4}";
+    public static final String DEFAULT_PATTERN = "%date{HH:mm:ss} %-5level %-6logger{0} %class.%method:%line - %msg%n";
 
     /** The current message format. */
-    private static String defaultMessageFormat = DEFAULT_MESSAGE_FORMAT;
+    private static String defaultPattern = DEFAULT_PATTERN;
 
-    /** The current logging level. */
+    /** The current default logging level for new category loggers. */
     private static Level defaultLevel = Level.INFO;
 
-    /** The writers registered with this CategoryLogger. */
-    private static final Set<Writer> WRITERS = new LinkedHashSet<>();
+    /** The levels and log message format used per LogCategory. */
+    private static final Map<LogCategory, CategoryConfig> CATEGORY_CFG = new LinkedHashMap<>();
 
-    /** The log level per Writer. */
-    private static final Map<Writer, Level> WRITER_LEVELS = new LinkedHashMap<>();
+    /** The logger and appenders used per LogCategory. */
+    private static final Map<LogCategory, CategoryState> CATEGORY_STATE = new LinkedHashMap<>();
 
-    /** The message format per Writer. */
-    private static final Map<Writer, String> WRITER_FORMATS = new LinkedHashMap<>();
+    /** The factory for appenders, with an id for later removal. */
+    private static final Map<String, CategoryAppenderFactory> APPENDER_FACTORIES = new LinkedHashMap<>();
 
-    /** The categories to log. */
-    private static final Set<LogCategory> LOG_CATEGORIES = new LinkedHashSet<>(256);
+    /** The delegate loggers per category. */
+    private static final Map<LogCategory, DelegateLogger> DELEGATES = new ConcurrentHashMap<>();
 
-    /** A cached immutable copy of the log categories to return to `extending` classes. */
-    private static ImmutableSet<LogCategory> immutableLogCategories;
+    /** The log category for the always() method. */
+    public static final LogCategory CAT_ALWAYS = new LogCategory("ALWAYS");
 
-    /** The delegate logger instance that does the actual logging work, after a positive filter outcome. */
-    public static final DelegateLogger DELEGATE_LOGGER = new DelegateLogger(true);
+    /** The base DelegateLogger for the always() method. */
+    private static final DelegateLogger BASE_DELEGATE = new DelegateLogger(LoggerFactory.getLogger(CAT_ALWAYS.toString()));
 
-    /** The delegate logger that returns immediately after a negative filter outcome. */
-    public static final DelegateLogger NO_LOGGER = new DelegateLogger(false);
+    /** The NO_LOGGER is the DelegateLogger that does not output anything after when() or filter(). */
+    private static final DelegateLogger NO_LOGGER = new DelegateLogger(null, CategoryLogger.DelegateLogger.class, false);
 
     /** */
     private CategoryLogger()
@@ -80,287 +90,540 @@ public final class CategoryLogger
         // Utility class.
     }
 
-    static
-    {
-        create();
-    }
+    /* ---------------------------------------------------------------------------------------------------------------- */
+    /* -------------------------------------------- INTERNAL HELPER METHODS ------------------------------------------- */
+    /* ---------------------------------------------------------------------------------------------------------------- */
 
     /**
-     * Create a new logger for the system console. Note that this REPLACES current writers. Note that the initial LogCategory is
-     * LogCategory.ALL, so all categories will be logged. This category has to be explicitly removed (or new categories have to
-     * be set) to log a limited set of categories.
+     * Check if the CategoryLogger has been initialized, and initialize the class when not.
      */
-    protected static void create()
+    private static void ensureInit()
     {
-        Logger.getConfiguration().removeAllWriters().activate();
-        addWriter(new ConsoleWriter());
-        LOG_CATEGORIES.add(LogCategory.ALL);
-        immutableLogCategories = new ImmutableLinkedHashSet<>(LOG_CATEGORIES, Immutable.COPY);
-    }
-
-    /**
-     * Set a new logging format for the message lines of all writers. The default message format is:<br>
-     * {class_name}.{method}:{line} {message|indent=4}<br>
-     * <br>
-     * A few popular placeholders that can be used:<br>
-     * - {class} Fully-qualified class name where the logging request is issued<br>
-     * - {class_name} Class name (without package) where the logging request is issued<br>
-     * - {date} Date and time of the logging request, e.g. {date:yyyy-MM-dd HH:mm:ss} [SimpleDateFormat]<br>
-     * - {level} Logging level of the created log entry<br>
-     * - {line} Line number from where the logging request is issued<br>
-     * - {message} Associated message of the created log entry<br>
-     * - {method} Method name from where the logging request is issued<br>
-     * - {package} Package where the logging request is issued<br>
-     * Because all individual writers get a log level at which they log, the overall log level in the Configurator is
-     * Level.TRACE, which means that all messages are passed through on a generic level and it is up to the individual Writers
-     * to decide when to log.
-     * @see <a href="https://tinylog.org/configuration#format">https://tinylog.org/configuration</a>
-     * @param newMessageFormat the new formatting pattern to use for all registered writers
-     */
-    public static void setAllLogMessageFormat(final String newMessageFormat)
-    {
-        Configurator configurator = Logger.getConfiguration();
-        defaultMessageFormat = newMessageFormat;
-        configurator.formatPattern(defaultMessageFormat).level(Level.TRACE);
-        for (Writer writer : WRITERS)
+        if (initialized)
+            return;
+        synchronized (CategoryLogger.class)
         {
-            configurator.removeWriter(writer).activate();
-            WRITER_FORMATS.put(writer, newMessageFormat);
-            configurator.addWriter(writer, WRITER_LEVELS.get(writer), defaultMessageFormat);
+            if (initialized)
+                return;
+            // Bootstrap default category so .always() works immediately
+            initialized = true;
+            addLogCategory(CAT_ALWAYS);
+            setLogLevel(CAT_ALWAYS, Level.TRACE);
+            addLogCategory(LogCategory.ALL);
+            setLogLevel(LogCategory.ALL, defaultLevel);
         }
-        configurator.activate();
     }
 
     /**
-     * Set a new logging level for all registered writers. Because all individual writers get a log level at which they log, the
-     * overall log level in the Configurator is Level.TRACE, which means that all messages are passed through on a generic level
-     * and it is up to the individual Writers to decide when to log.
-     * @param newLevel the new log level for all registered writers
+     * Prepare a Logger for the provided log category, and give it at least a console appender.
+     * @param category the log category
+     * @param cfg the record with the configuration for this category
      */
-    public static void setAllLogLevel(final Level newLevel)
+    private static void wireCategoryLogger(final LogCategory category, final CategoryConfig cfg)
     {
-        Configurator configurator = Logger.getConfiguration();
-        defaultLevel = newLevel;
-        configurator.formatPattern(defaultMessageFormat).level(Level.TRACE);
-        for (Writer writer : WRITERS)
+        Logger logger = getOrCreateLogger(category);
+        logger.setAdditive(false);
+        logger.setLevel(cfg.level);
+        CategoryState st = new CategoryState(logger);
+        CATEGORY_STATE.put(category, st);
+
+        // Create per-category instances for every registered factory
+        for (CategoryAppenderFactory f : APPENDER_FACTORIES.values())
         {
-            configurator.removeWriter(writer).activate();
-            WRITER_LEVELS.put(writer, newLevel);
-            configurator.addWriter(writer, newLevel, WRITER_FORMATS.get(writer));
+            Appender<ILoggingEvent> app = f.create(f.id(), category, cfg.messageFormat, CTX);
+            app.start();
+            logger.addAppender(app);
+            st.appendersByFactoryId.put(f.id(), app);
         }
-        configurator.activate();
+
+        // If no factories yet, at least wire a default console appender for visibility
+        if (APPENDER_FACTORIES.isEmpty())
+        {
+            CategoryAppenderFactory fallback = new ConsoleAppenderFactory("CONSOLE");
+            APPENDER_FACTORIES.putIfAbsent("CONSOLE", fallback);
+            Appender<ILoggingEvent> app = fallback.create("CONSOLE", category, cfg.messageFormat, CTX);
+            app.start();
+            logger.addAppender(app);
+            st.appendersByFactoryId.put("CONSOLE", app);
+        }
     }
 
     /**
-     * Set a new logging format for the message lines of a writer. The default message format is:<br>
-     * {class_name}.{method}:{line} {message|indent=4}<br>
-     * <br>
-     * A few popular placeholders that can be used:<br>
-     * - {class} Fully-qualified class name where the logging request is issued<br>
-     * - {class_name} Class name (without package) where the logging request is issued<br>
-     * - {date} Date and time of the logging request, e.g. {date:yyyy-MM-dd HH:mm:ss} [SimpleDateFormat]<br>
-     * - {level} Logging level of the created log entry<br>
-     * - {line} Line number from where the logging request is issued<br>
-     * - {message} Associated message of the created log entry<br>
-     * - {method} Method name from where the logging request is issued<br>
-     * - {package} Package where the logging request is issued<br>
-     * @see <a href="https://tinylog.org/configuration#format">https://tinylog.org/configuration</a>
-     * @param writer the writer to change the message format for
-     * @param newMessageFormat the new formatting pattern to use for all registered writers
+     * Give a logger for a log category its appenders.
+     * @param category the log category
      */
-    public static void setLogMessageFormat(final Writer writer, final String newMessageFormat)
+    private static void rebuildCategoryAppenders(final LogCategory category)
     {
-        Configurator configurator = Logger.getConfiguration();
-        configurator.removeWriter(writer);
-        WRITER_FORMATS.put(writer, newMessageFormat);
-        configurator.addWriter(writer, WRITER_LEVELS.get(writer), newMessageFormat);
-        configurator.activate();
+        CategoryState st = CATEGORY_STATE.get(category);
+        CategoryConfig cfg = CATEGORY_CFG.get(category);
+        if (st == null || cfg == null)
+            return;
+
+        // detach & stop existing
+        st.appendersByFactoryId.forEach((id, app) ->
+        { st.logger.detachAppender(app); safeStop(app); });
+        st.appendersByFactoryId.clear();
+
+        // build with new log message format
+        for (CategoryAppenderFactory f : APPENDER_FACTORIES.values())
+        {
+            Appender<ILoggingEvent> app = f.create(f.id(), category, cfg.messageFormat, CTX);
+            app.start();
+            st.logger.addAppender(app);
+            st.appendersByFactoryId.put(f.id(), app);
+        }
     }
 
     /**
-     * Set a new logging level for one of the registered writers.
-     * @param writer the writer to change the log level for
-     * @param newLevel the new log level for the writer
+     * Get an existing logger based on its name, or create it when it does not exist yet.
+     * @param category the category with the name under which the logger is registered
+     * @return an existing logger based on its name, or create it when it does not exist yet
      */
-    public static void setLogLevel(final Writer writer, final Level newLevel)
+    private static Logger getOrCreateLogger(final LogCategory category)
     {
-        Configurator configurator = Logger.getConfiguration();
-        configurator.removeWriter(writer);
-        WRITER_LEVELS.put(writer, newLevel);
-        configurator.addWriter(writer, newLevel, WRITER_FORMATS.get(writer));
-        configurator.activate();
+        Logger logger = CTX.getLogger(category.toString());
+        return logger;
     }
 
     /**
-     * Add a writer to the CategoryLogger, using the current default for the log level and for the message format.
-     * @param writer the writer to add
-     * @return true when the writer was added; false when the writer was already registered
+     * Stop an appender for when we change the configuration.
+     * @param appender the appender to stop
      */
-    public static boolean addWriter(final Writer writer)
+    private static void safeStop(final Appender<ILoggingEvent> appender)
     {
-        Throw.whenNull(writer, "writer may not be null");
-        Configurator configurator = Logger.getConfiguration();
-        boolean result = WRITERS.add(writer);
-        WRITER_LEVELS.put(writer, defaultLevel);
-        WRITER_FORMATS.put(writer, defaultMessageFormat);
-        configurator.addWriter(writer, defaultLevel, defaultMessageFormat);
-        configurator.activate();
-        return result;
+        try
+        {
+            appender.stop();
+        }
+        catch (RuntimeException ignore)
+        {
+        }
     }
 
-    /**
-     * Remove a writer from the CategoryLogger.
-     * @param writer the writer to remove
-     * @return true if the writer was removed; false if the writer was not registered (and thus could not be removed)
-     */
-    public static boolean removeWriter(final Writer writer)
-    {
-        Throw.whenNull(writer, "writer may not be null");
-        Configurator configurator = Logger.getConfiguration();
-        boolean result = WRITERS.remove(writer);
-        WRITER_LEVELS.remove(writer);
-        WRITER_FORMATS.remove(writer);
-        configurator.removeWriter(writer);
-        configurator.activate();
-        return result;
-    }
+    /* ---------------------------------------------------------------------------------------------------------------- */
+    /* ------------------------------------------ CATEGORYLOGGER API METHODS ------------------------------------------ */
+    /* ---------------------------------------------------------------------------------------------------------------- */
 
     /**
-     * Return the set of all registered writers.
-     * @return the set of all registered writers
-     */
-    public static ImmutableSet<Writer> getWriters()
-    {
-        return new ImmutableLinkedHashSet<>(WRITERS, Immutable.WRAP);
-    }
-
-    /**
-     * Add a category to be logged to the Writers.
-     * @param logCategory the LogCategory to add
-     */
-    public static void addLogCategory(final LogCategory logCategory)
-    {
-        LOG_CATEGORIES.add(logCategory);
-        immutableLogCategories = new ImmutableLinkedHashSet<>(LOG_CATEGORIES, Immutable.COPY);
-    }
-
-    /**
-     * Remove a category to be logged to the Writers.
-     * @param logCategory the LogCategory to remove
-     */
-    public static void removeLogCategory(final LogCategory logCategory)
-    {
-        LOG_CATEGORIES.remove(logCategory);
-        immutableLogCategories = new ImmutableLinkedHashSet<>(LOG_CATEGORIES, Immutable.COPY);
-    }
-
-    /**
-     * Set the categories to be logged to the Writers.
-     * @param newLogCategories the LogCategories to set, replacing the previous ones
-     */
-    public static void setLogCategories(final LogCategory... newLogCategories)
-    {
-        LOG_CATEGORIES.clear();
-        LOG_CATEGORIES.addAll(Arrays.asList(newLogCategories));
-        immutableLogCategories = new ImmutableLinkedHashSet<>(LOG_CATEGORIES, Immutable.COPY);
-    }
-
-    /**
-     * Return the set of all log categories (cached immutable copy).
-     * @return the set of all registered writers
-     */
-    public static ImmutableSet<LogCategory> getLogCategories()
-    {
-        return immutableLogCategories;
-    }
-
-    /* ****************************************** FILTER ******************************************/
-
-    /**
-     * The "pass" filter that will result in always trying to log.
-     * @return the logger that tries to execute logging (delegateLogger)
+     * Always log to the registered appenders, still observing the default log level.
+     * @return the DelegateLogger for method chaining, e.g., CategoryLogger.always().info("message");
      */
     public static DelegateLogger always()
     {
-        return DELEGATE_LOGGER;
+        ensureInit();
+        return BASE_DELEGATE;
     }
 
     /**
-     * Check whether the provided category needs to be logged. Note that when LogCategory.ALL is contained in the categories,
-     * filter will return true.
-     * @param logCategory the category to check for.
-     * @return the logger that either tries to log (delegateLogger), or returns without logging (noLogger)
-     */
-    public static DelegateLogger filter(final LogCategory logCategory)
-    {
-        if (LOG_CATEGORIES.contains(LogCategory.ALL))
-            return DELEGATE_LOGGER;
-        if (LOG_CATEGORIES.contains(logCategory))
-            return DELEGATE_LOGGER;
-        return NO_LOGGER;
-    }
-
-    /**
-     * Check whether the provided categories contain one or more categories that need to be logged. Note that when
-     * LogCategory.ALL is contained in the categories, filter will return true.
-     * @param logCategories elements or array with the categories to check for
-     * @return the logger that either tries to log (delegateLogger), or returns without logging (noLogger)
-     */
-    public static DelegateLogger filter(final LogCategory... logCategories)
-    {
-        if (LOG_CATEGORIES.contains(LogCategory.ALL))
-            return DELEGATE_LOGGER;
-        for (LogCategory logCategory : logCategories)
-        {
-            if (LOG_CATEGORIES.contains(logCategory))
-                return DELEGATE_LOGGER;
-        }
-        return NO_LOGGER;
-    }
-
-    /**
-     * Check whether the provided categories contain one or more categories that need to be logged. Note that when
-     * LogCategory.ALL is contained in the categories, filter will return true.
-     * @param logCategories the categories to check for
-     * @return the logger that either tries to log (delegateLogger), or returns without logging (noLogger)
-     */
-    public static DelegateLogger filter(final Set<LogCategory> logCategories)
-    {
-        if (LOG_CATEGORIES.contains(LogCategory.ALL))
-            return DELEGATE_LOGGER;
-        for (LogCategory logCategory : logCategories)
-        {
-            if (LOG_CATEGORIES.contains(logCategory))
-                return DELEGATE_LOGGER;
-        }
-        return NO_LOGGER;
-    }
-
-    /**
-     * The conditional filter that will result in the usage of a DelegateLogger.
-     * @param condition the condition that should be evaluated
-     * @return the logger that further processes logging (DelegateLogger)
+     * Only log when the condition is true.
+     * @param condition the condition to check
+     * @return the DelegateLogger for method chaining, e.g., CategoryLogger.when(condition).info("message");
      */
     public static DelegateLogger when(final boolean condition)
     {
-        if (condition)
-            return DELEGATE_LOGGER;
-        return NO_LOGGER;
+        ensureInit();
+        return condition ? BASE_DELEGATE : NO_LOGGER;
     }
 
     /**
-     * The conditional filter that will result in the usage of a DelegateLogger.
-     * @param supplier the function evaluating the condition
-     * @return the logger that further processes logging (DelegateLogger)
+     * Only log when the boolean supplier provides a true value.
+     * @param booleanSupplier the supplier that provides true or false
+     * @return the DelegateLogger for method chaining, e.g., CategoryLogger.when(() -> condition()).info("message");
      */
-    public static DelegateLogger when(final BooleanSupplier supplier)
+    public static DelegateLogger when(final BooleanSupplier booleanSupplier)
     {
-        if (supplier.getAsBoolean())
-            return DELEGATE_LOGGER;
-        return NO_LOGGER;
+        return when(booleanSupplier.getAsBoolean());
     }
 
-    /* ************************************ DELEGATE LOGGER ***************************************/
+    /**
+     * Only log when the category has been registered in the CategoryLogger.
+     * @param category the category to check
+     * @return the DelegateLogger for method chaining, e.g., CategoryLogger.filter(Cat.BASE).info("message");
+     */
+    public static DelegateLogger filter(final LogCategory category)
+    {
+        ensureInit();
+        return DELEGATES.getOrDefault(category, NO_LOGGER);
+    }
+
+    /**
+     * Register a log category that can log with the CategoryLogger. Note that unregistered loggers for which you use filter()
+     * do not log.
+     * @param category the log category to register.
+     */
+    public static synchronized void addLogCategory(final LogCategory category)
+    {
+        ensureInit();
+        if (CATEGORY_CFG.containsKey(category))
+            return;
+        CategoryConfig cfg = new CategoryConfig(defaultLevel, defaultPattern);
+        CATEGORY_CFG.put(category, cfg);
+        org.slf4j.Logger slf = LoggerFactory.getLogger(category.toString());
+        var delegate = new DelegateLogger(slf);
+        DELEGATES.put(category, delegate);
+        wireCategoryLogger(category, cfg);
+    }
+
+    /**
+     * Remove a log category from logging with the CategoryLogger. Note that unregistered loggers for which you use filter() do
+     * not log.
+     * @param category the log category to unregister.
+     */
+    public static synchronized void removeLogCategory(final LogCategory category)
+    {
+        ensureInit();
+        CategoryState st = CATEGORY_STATE.remove(category);
+        CATEGORY_CFG.remove(category);
+        if (st != null)
+        {
+            // detach & stop this category's appenders
+            Logger logger = st.logger;
+            st.appendersByFactoryId.values().forEach(app ->
+            { logger.detachAppender(app); safeStop(app); });
+            // silence the logger
+            logger.setLevel(Level.OFF);
+            logger.setAdditive(false);
+        }
+        DELEGATES.remove(category);
+    }
+
+    /**
+     * Return the registered appenders for the LogCategory.
+     * @param category the category to look up
+     * @return the appenders for the LogCategory
+     */
+    public static Collection<Appender<ILoggingEvent>> getAppenders(final LogCategory category)
+    {
+        ensureInit();
+        var st = CATEGORY_STATE.get(category);
+        return st == null ? new HashSet<>() : st.appendersByFactoryId.values();
+    }
+
+    /**
+     * Set the log category for a single log category.
+     * @param category the log category
+     * @param level the new log level
+     */
+    public static synchronized void setLogLevel(final LogCategory category, final Level level)
+    {
+        ensureInit();
+        addLogCategory(category); // create if missing
+        CATEGORY_CFG.get(category).level = level;
+        Logger logger = CATEGORY_STATE.get(category).logger;
+        logger.setLevel(level);
+    }
+
+    /**
+     * Set the log category for all log categories, except ALWAYS.
+     * @param level the new log level for all log categories, except ALWAYS
+     */
+    public static synchronized void setLogLevelAll(final Level level)
+    {
+        ensureInit();
+        defaultLevel = level;
+        for (var cat : CATEGORY_CFG.keySet())
+        {
+            if (cat.equals(CAT_ALWAYS))
+                continue;
+            CATEGORY_CFG.get(cat).level = level;
+            CATEGORY_STATE.get(cat).logger.setLevel(level);
+        }
+    }
+
+    /**
+     * Set the log message format for a single log category.
+     * 
+     * <pre>
+     * %date{HH:mm:ss.SSS}   Timestamp (default format shown; many options like ISO8601)
+     * %level / %-5level     Log level (pad to fixed width with %-5level)
+     * %logger / %logger{0}  Logger name (full or last component only; {n} = # of segments)
+     * %thread               Thread name
+     * %msg / %message       The actual log message
+     * %n                    Platform-specific newline
+     * %class / %class{1}    Calling class (full or just last segment with {1})
+     * %method               Calling method
+     * %line                 Source line number
+     * %file                 Source file name
+     * %caller               Shortcut for class, method, file, and line in one
+     * %marker               SLF4J marker (if present)
+     * %X{key}               MDC value for given key
+     * %replace(p){r,e}      Apply regex replacement to pattern part p
+     * %highlight(%msg)      ANSI colored message (useful on console)
+     * </pre>
+     *
+     * Example:
+     * 
+     * <pre>
+     * "%date{HH:mm:ss} %-5level %-6logger{0} %class{1}.%method:%line - %msg%n"
+     *   → 12:34:56 INFO  http   HttpHandler.handle:42 - GET /users -> 200
+     * </pre>
+     * 
+     * @param category the log category
+     * @param messageFormat the new log message format
+     */
+    public static synchronized void setLogMessageFormat(final LogCategory category, final String messageFormat)
+    {
+        ensureInit();
+        addLogCategory(category); // create if missing
+        CATEGORY_CFG.get(category).messageFormat = Objects.requireNonNull(messageFormat);
+        // Rebuild this category's appenders with the new log message format
+        rebuildCategoryAppenders(category);
+    }
+
+    /**
+     * Set the log message format for a all log categories.
+     * 
+     * <pre>
+     * %date{HH:mm:ss.SSS}   Timestamp (default format shown; many options like ISO8601)
+     * %level / %-5level     Log level (pad to fixed width with %-5level)
+     * %logger / %logger{0}  Logger name (full or last component only; {n} = # of segments)
+     * %thread               Thread name
+     * %msg / %message       The actual log message
+     * %n                    Platform-specific newline
+     * %class / %class{1}    Calling class (full or just last segment with {1})
+     * %method               Calling method
+     * %line                 Source line number
+     * %file                 Source file name
+     * %caller               Shortcut for class, method, file, and line in one
+     * %marker               SLF4J marker (if present)
+     * %X{key}               MDC value for given key
+     * %replace(p){r,e}      Apply regex replacement to pattern part p
+     * %highlight(%msg)      ANSI colored message (useful on console)
+     * </pre>
+     *
+     * Example:
+     * 
+     * <pre>
+     * "%date{HH:mm:ss} %-5level %-6logger{0} %class{1}.%method:%line - %msg%n"
+     *   → 12:34:56 INFO  http   HttpHandler.handle:42 - GET /users -> 200
+     * </pre>
+     * 
+     * @param messageFormat the new log message format
+     */
+    public static synchronized void setLogMessageFormatAll(final String messageFormat)
+    {
+        ensureInit();
+        defaultPattern = Objects.requireNonNull(messageFormat);
+        CATEGORY_CFG.replaceAll((c, cfg) ->
+        { cfg.messageFormat = messageFormat; return cfg; });
+        CATEGORY_CFG.keySet().forEach(CategoryLogger::rebuildCategoryAppenders);
+    }
+
+    /**
+     * Register a global appender factory. A separate Appender instance will be created for each registered category.
+     * @param id the id to register the appender on, so it can be removed later
+     * @param factory the factory that creates the appender with a create(..) method
+     */
+    public static synchronized void addAppender(final String id, final CategoryAppenderFactory factory)
+    {
+        ensureInit();
+        if (APPENDER_FACTORIES.containsKey(id))
+            throw new IllegalArgumentException("factory id exists: " + id);
+        APPENDER_FACTORIES.put(id, factory);
+        // Create & attach instances for all existing categories
+        for (var e : CATEGORY_CFG.entrySet())
+        {
+            LogCategory cat = e.getKey();
+            CategoryConfig cfg = e.getValue();
+            CategoryState st = CATEGORY_STATE.get(cat);
+            Appender<ILoggingEvent> app = factory.create(id, cat, cfg.messageFormat, CTX);
+            app.start();
+            st.logger.addAppender(app);
+            st.appendersByFactoryId.put(id, app);
+        }
+    }
+
+    /**
+     * Remove a global appender factory; detaches and stops per-category instances.
+     * @param id the id the appender was registered with
+     */
+    public static synchronized void removeAppender(final String id)
+    {
+        ensureInit();
+        if (APPENDER_FACTORIES.remove(id) == null)
+            return;
+        for (CategoryState st : CATEGORY_STATE.values())
+        {
+            Appender<ILoggingEvent> app = st.appendersByFactoryId.remove(id);
+            if (app != null)
+            {
+                st.logger.detachAppender(app);
+                safeStop(app);
+            }
+        }
+    }
+
+    /* ---------------------------------------------------------------------------------------------------------------- */
+    /* ------------------------------------------- HELPER CLASSES AND RECORDS ----------------------------------------- */
+    /* ---------------------------------------------------------------------------------------------------------------- */
+
+    /**
+     * Class to store the logging level and log message format for a log category.
+     */
+    private static final class CategoryConfig
+    {
+        /** the logging level for a category. */
+        private Level level;
+
+        /** the String log message format to use for a category. */
+        private String messageFormat;
+
+        /**
+         * Create a record for storing the logging level and log message format for a log category.
+         * @param level the logging level for a category
+         * @param messageFormat the log message format for a category
+         */
+        private CategoryConfig(final Level level, final String messageFormat)
+        {
+            this.level = Objects.requireNonNull(level);
+            this.messageFormat = Objects.requireNonNull(messageFormat);
+        }
+    }
+
+    /**
+     * Class to store the logger and the appenders for a log category.
+     */
+    private static final class CategoryState
+    {
+        /** The logger to use. */
+        private final Logger logger;
+
+        /** The appenders for this log category. */
+        private final Map<String, Appender<ILoggingEvent>> appendersByFactoryId = new HashMap<>();
+
+        /**
+         * Instantiate a category state.
+         * @param logger the logger to use for the category that is connected to this state
+         */
+        CategoryState(final Logger logger)
+        {
+            this.logger = logger;
+        }
+    }
+
+    /* ---------------------------------------------------------------------------------------------------------------- */
+    /* ----------------------------------------------- APPENDER FACTORIES --------------------------------------------- */
+    /* ---------------------------------------------------------------------------------------------------------------- */
+
+    /**
+     * The interface for the appender instance per category. The id is used for later removal.
+     */
+    public interface CategoryAppenderFactory
+    {
+        /**
+         * Return the id to be used for later removal.
+         * @return the id to be used for later removal
+         */
+        String id();
+
+        /**
+         * Create an appender instance for a category.
+         * @param id the id to be used for later removal
+         * @param category the logging category
+         * @param messageFormat the log message format to use for printing the log message
+         * @param ctx the context to use
+         * @return an appender with the above features
+         */
+        Appender<ILoggingEvent> create(String id, LogCategory category, String messageFormat, LoggerContext ctx);
+    }
+
+    /** Console appender factory (uses the category's log message format). */
+    public static final class ConsoleAppenderFactory implements CategoryAppenderFactory
+    {
+        /** the id to be used for later removal. */
+        private final String id;
+
+        /**
+         * Instantiate the factory for the console appender.
+         * @param id the id to be used for later removal
+         */
+        public ConsoleAppenderFactory(final String id)
+        {
+            this.id = id;
+        }
+
+        @Override
+        public String id()
+        {
+            return this.id;
+        }
+
+        @Override
+        @SuppressWarnings("checkstyle:hiddenfield")
+        public Appender<ILoggingEvent> create(final String id, final LogCategory category, final String messageFormat,
+                final LoggerContext ctx)
+        {
+            PatternLayoutEncoder enc = new PatternLayoutEncoder();
+            enc.setContext(ctx);
+            enc.setPattern(messageFormat);
+            enc.start();
+
+            ch.qos.logback.core.ConsoleAppender<ILoggingEvent> app = new ch.qos.logback.core.ConsoleAppender<>();
+            app.setName(id + "@" + category.toString());
+            app.setContext(ctx);
+            app.setEncoder(enc);
+            return app;
+        }
+    }
+
+    /** Rolling file appender factory (per-category file log message format). */
+    public static final class RollingFileAppenderFactory implements CategoryAppenderFactory
+    {
+        /** the id to be used for later removal. */
+        private final String id;
+
+        /** The filename pattern, e.g. "logs/%s-%d{yyyy-MM-dd}.log.gz" (use %s for category). */
+        private final String fileNamePattern;
+
+        /**
+         * Instantiate the factory for the rolling file appender.
+         * @param id the id to be used for later removal
+         * @param fileNamePattern the filename pattern, e.g. "logs/%s-%d{yyyy-MM-dd}.log.gz" (use %s for category)
+         */
+        public RollingFileAppenderFactory(final String id, final String fileNamePattern)
+        {
+            this.id = id;
+            this.fileNamePattern = fileNamePattern;
+        }
+
+        @Override
+        public String id()
+        {
+            return this.id;
+        }
+
+        @Override
+        public Appender<ILoggingEvent> create(final String id, final LogCategory category, final String messageFormat,
+                final LoggerContext ctx)
+        {
+            PatternLayoutEncoder enc = new PatternLayoutEncoder();
+            enc.setContext(ctx);
+            enc.setPattern(messageFormat);
+            enc.start();
+
+            RollingFileAppender<ILoggingEvent> file = new RollingFileAppender<>();
+            file.setName(id + "@" + category.toString());
+            file.setContext(ctx);
+            file.setEncoder(enc);
+
+            final TimeBasedRollingPolicy<ILoggingEvent> policy = new TimeBasedRollingPolicy<>();
+            policy.setContext(ctx);
+            policy.setParent(file);
+
+            // IMPORTANT: replace only the category placeholder; keep %d{...} intact for Logback
+            final String effectivePattern = this.fileNamePattern.replace("%s", category.toString());
+            policy.setFileNamePattern(effectivePattern);
+
+            policy.start();
+            file.setRollingPolicy(policy);
+
+            return file; // caller will start() it
+        }
+    }
+
+    /* ---------------------------------------------------------------------------------------------------------------- */
+    /* ------------------------------------------------ DELEGATE LOGGER ----------------------------------------------- */
+    /* ---------------------------------------------------------------------------------------------------------------- */
 
     /**
      * DelegateLogger class that takes care of actually logging the message and/or exception. <br>
@@ -371,17 +634,37 @@ public final class CategoryLogger
      * </p>
      * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
      */
-    public static class DelegateLogger
+    public static final class DelegateLogger
     {
-        /** Should we try to log or not? */
+        /** The logger facade from slf4j. */
+        private final org.slf4j.Logger logger;
+
+        /** The fully-qualified class name that defines the class to hide in the call stack. */
+        private final String boundaryFqcn;
+
+        /** Whether we should log or not (the NO_LOGGER does not log). */
         private final boolean log;
 
         /**
-         * @param log indicate whether we should log or not.
+         * Create a DelegateLogger with a class that indicates what to hide in the call stack.
+         * @param slf4jLogger the logger facade from slf4j, can be null in case no logging is done
+         * @param callerBoundary class that defines what to hide in the call stack
+         * @param log whether we should log or not (the NO_LOGGER does not log)
          */
-        public DelegateLogger(final boolean log)
+        private DelegateLogger(final org.slf4j.Logger slf4jLogger, final Class<?> callerBoundary, final boolean log)
         {
+            this.logger = slf4jLogger;
+            this.boundaryFqcn = Objects.requireNonNull(callerBoundary).getName();
             this.log = log;
+        }
+
+        /**
+         * Create a DelegateLogger with DelegateLogger as the only class to hide from the call stack.
+         * @param slf4jLogger the logger facade from slf4j, can be null in case no logging is done
+         */
+        private DelegateLogger(final org.slf4j.Logger slf4jLogger)
+        {
+            this(slf4jLogger, CategoryLogger.DelegateLogger.class, true);
         }
 
         /**
@@ -391,7 +674,7 @@ public final class CategoryLogger
          */
         public DelegateLogger when(final boolean condition)
         {
-            if (this.log && condition)
+            if (condition)
                 return this;
             return CategoryLogger.NO_LOGGER;
         }
@@ -403,339 +686,402 @@ public final class CategoryLogger
          */
         public DelegateLogger when(final BooleanSupplier supplier)
         {
-            if (this.log && supplier.getAsBoolean())
+            if (supplier.getAsBoolean())
                 return this;
             return CategoryLogger.NO_LOGGER;
         }
 
-        /* ****************************************** TRACE ******************************************/
+        /**
+         * helper method to return the LoggingEventBuilder WITH a boundary to leave out part of the call stack.
+         * @param leb The original LoggingEventBuilder
+         * @return the boundary-based LoggerEventBuilder
+         */
+        private LoggingEventBuilder withBoundary(final LoggingEventBuilder leb)
+        {
+            if (leb instanceof CallerBoundaryAware cba)
+                cba.setCallerBoundary(this.boundaryFqcn);
+            return leb;
+        }
+
+        /* ---------------------------------------------------------------------------------------------------------------- */
+        /* ----------------------------------------------------- TRACE ---------------------------------------------------- */
+        /* ---------------------------------------------------------------------------------------------------------------- */
 
         /**
-         * Create a trace log entry that will always be output, independent of LogCategory settings.
+         * Create a debug log entry that will be output if TRACE is enabled for this DelegateLogger.
          * @param object the result of the <code>toString()</code> method of <code>object</code> will be logged
          */
         public void trace(final Object object)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.TRACE, object);
+            if (!this.log || !this.logger.isTraceEnabled())
+                return;
+            withBoundary(this.logger.atTrace()).log(object.toString());
         }
 
         /**
-         * Create a trace log entry that will always be output, independent of LogCategory settings.
+         * Create a trace log entry that will be output if TRACE is enabled for this DelegateLogger.
          * @param message the message to log
          */
         public void trace(final String message)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.TRACE, message);
+            if (!this.log || !this.logger.isTraceEnabled())
+                return;
+            withBoundary(this.logger.atTrace()).log(message);
         }
 
         /**
-         * Create a trace log entry that will always be output, independent of LogCategory settings.
+         * Create a trace log entry that will be output if TRACE is enabled for this DelegateLogger.
          * @param message the message to be logged, where {} entries will be replaced by arguments
          * @param arguments the arguments to substitute for the {} entries in the message string
          */
         public void trace(final String message, final Object... arguments)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.TRACE, message, arguments);
+            if (!this.log || !this.logger.isTraceEnabled())
+                return;
+            withBoundary(this.logger.atTrace()).log(message, arguments);
         }
 
         /**
-         * Create a trace log entry that will always be output, independent of LogCategory settings.
-         * @param exception the exception to log
+         * Create a trace log entry that will be output if TRACE is enabled for this DelegateLogger.
+         * @param throwable the throwable to log
          */
-        public void trace(final Throwable exception)
+        public void trace(final Throwable throwable)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.TRACE, exception);
+            if (!this.log || !this.logger.isTraceEnabled())
+                return;
+            withBoundary(this.logger.atTrace()).setCause(throwable)
+                .log((() -> throwable.getClass().getSimpleName() + "(" + Objects.requireNonNullElse(throwable.getMessage(), "")
+                        + ")"));
         }
 
         /**
-         * Create a trace log entry that will always be output, independent of LogCategory settings.
-         * @param exception the exception to log
+         * Create a trace log entry that will be output if TRACE is enabled for this DelegateLogger.
+         * @param throwable the throwable to log
          * @param message the message to log
          */
-        public void trace(final Throwable exception, final String message)
+        public void trace(final Throwable throwable, final String message)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.TRACE, exception, message);
+            if (!this.log || !this.logger.isTraceEnabled())
+                return;
+            withBoundary(this.logger.atTrace()).setCause(throwable).log(message);
         }
 
         /**
-         * Create a trace log entry that will always be output, independent of LogCategory settings.
-         * @param exception the exception to log
+         * Create a trace log entry that will be output if TRACE is enabled for this DelegateLogger.
+         * @param throwable the exception to log
          * @param message the message to log, where {} entries will be replaced by arguments
          * @param arguments the arguments to substitute for the {} entries in the message string
          */
-        public void trace(final Throwable exception, final String message, final Object... arguments)
+        public void trace(final Throwable throwable, final String message, final Object... arguments)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.TRACE, exception, message, arguments);
+            if (!this.log || !this.logger.isTraceEnabled())
+                return;
+            withBoundary(this.logger.atTrace()).setCause(throwable).log(message, arguments);
         }
 
-        /* ****************************************** DEBUG ******************************************/
+        /* ---------------------------------------------------------------------------------------------------------------- */
+        /* ----------------------------------------------------- DEBUG ---------------------------------------------------- */
+        /* ---------------------------------------------------------------------------------------------------------------- */
 
         /**
-         * Create a debug log entry that will always be output, independent of LogCategory settings.
+         * Create a debug log entry that will be output if DEBUG is enabled for this DelegateLogger.
          * @param object the result of the <code>toString()</code> method of <code>object</code> will be logged
          */
         public void debug(final Object object)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.DEBUG, object);
+            if (!this.log || !this.logger.isDebugEnabled())
+                return;
+            withBoundary(this.logger.atDebug()).log(object.toString());
         }
 
         /**
-         * Create a debug log entry that will always be output, independent of LogCategory settings.
+         * Create a debug log entry that will be output if DEBUG is enabled for this DelegateLogger.
          * @param message the message to log
          */
         public void debug(final String message)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.DEBUG, message);
+            if (!this.log || !this.logger.isDebugEnabled())
+                return;
+            withBoundary(this.logger.atDebug()).log(message);
         }
 
         /**
-         * Create a debug log entry that will always be output, independent of LogCategory settings.
+         * Create a debug log entry that will be output if DEBUG is enabled for this DelegateLogger.
          * @param message the message to be logged, where {} entries will be replaced by arguments
          * @param arguments the arguments to substitute for the {} entries in the message string
          */
         public void debug(final String message, final Object... arguments)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.DEBUG, message, arguments);
+            if (!this.log || !this.logger.isDebugEnabled())
+                return;
+            withBoundary(this.logger.atDebug()).log(message, arguments);
         }
 
         /**
-         * Create a debug log entry that will always be output, independent of LogCategory settings.
-         * @param exception the exception to log
+         * Create a debug log entry that will be output if DEBUG is enabled for this DelegateLogger.
+         * @param throwable the throwable to log
          */
-        public void debug(final Throwable exception)
+        public void debug(final Throwable throwable)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.DEBUG, exception);
+            if (!this.log || !this.logger.isDebugEnabled())
+                return;
+            withBoundary(this.logger.atDebug()).setCause(throwable)
+                .log((() -> throwable.getClass().getSimpleName() + "(" + Objects.requireNonNullElse(throwable.getMessage(), "")
+                        + ")"));
         }
 
         /**
-         * Create a debug log entry that will always be output, independent of LogCategory settings.
-         * @param exception the exception to log
+         * Create a debug log entry that will be output if DEBUG is enabled for this DelegateLogger.
+         * @param throwable the throwable to log
          * @param message the message to log
          */
-        public void debug(final Throwable exception, final String message)
+        public void debug(final Throwable throwable, final String message)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.DEBUG, exception, message);
+            if (!this.log || !this.logger.isDebugEnabled())
+                return;
+            withBoundary(this.logger.atDebug()).setCause(throwable).log(message);
         }
 
         /**
-         * Create a debug log entry that will always be output, independent of LogCategory settings.
-         * @param exception the exception to log
+         * Create a debug log entry that will be output if DEBUG is enabled for this DelegateLogger.
+         * @param throwable the exception to log
          * @param message the message to log, where {} entries will be replaced by arguments
          * @param arguments the arguments to substitute for the {} entries in the message string
          */
-        public void debug(final Throwable exception, final String message, final Object... arguments)
+        public void debug(final Throwable throwable, final String message, final Object... arguments)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.DEBUG, exception, message, arguments);
+            if (!this.log || !this.logger.isDebugEnabled())
+                return;
+            withBoundary(this.logger.atDebug()).setCause(throwable).log(message, arguments);
         }
 
-        /* ****************************************** INFO ******************************************/
+        /* ---------------------------------------------------------------------------------------------------------------- */
+        /* ----------------------------------------------------- INFO ----------------------------------------------------- */
+        /* ---------------------------------------------------------------------------------------------------------------- */
 
         /**
-         * Create a info log entry that will always be output, independent of LogCategory settings.
+         * Create a info log entry that will be output if INFO is enabled for this DelegateLogger.
          * @param object the result of the <code>toString()</code> method of <code>object</code> will be logged
          */
         public void info(final Object object)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.INFO, object);
+            if (!this.log || !this.logger.isInfoEnabled())
+                return;
+            withBoundary(this.logger.atInfo()).log(object.toString());
         }
 
         /**
-         * Create a info log entry that will always be output, independent of LogCategory settings.
+         * Create a info log entry that will be output if INFO is enabled for this DelegateLogger.
          * @param message the message to log
          */
         public void info(final String message)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.INFO, message);
+            if (!this.log || !this.logger.isInfoEnabled())
+                return;
+            withBoundary(this.logger.atInfo()).log(message);
         }
 
         /**
-         * Create a info log entry that will always be output, independent of LogCategory settings.
+         * Create a info log entry that will be output if INFO is enabled for this DelegateLogger.
          * @param message the message to be logged, where {} entries will be replaced by arguments
          * @param arguments the arguments to substitute for the {} entries in the message string
          */
         public void info(final String message, final Object... arguments)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.INFO, message, arguments);
+            if (!this.log || !this.logger.isInfoEnabled())
+                return;
+            withBoundary(this.logger.atInfo()).log(message, arguments);
         }
 
         /**
-         * Create a info log entry that will always be output, independent of LogCategory settings.
-         * @param exception the exception to log
+         * Create a info log entry that will be output if INFO is enabled for this DelegateLogger.
+         * @param throwable the throwable to log
          */
-        public void info(final Throwable exception)
+        public void info(final Throwable throwable)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.INFO, exception);
+            if (!this.log || !this.logger.isInfoEnabled())
+                return;
+            withBoundary(this.logger.atInfo()).setCause(throwable)
+                .log((() -> throwable.getClass().getSimpleName() + "(" + Objects.requireNonNullElse(throwable.getMessage(), "")
+                        + ")"));
         }
 
         /**
-         * Create a info log entry that will always be output, independent of LogCategory settings.
-         * @param exception the exception to log
+         * Create a info log entry that will be output if INFO is enabled for this DelegateLogger.
+         * @param throwable the throwable to log
          * @param message the message to log
          */
-        public void info(final Throwable exception, final String message)
+        public void info(final Throwable throwable, final String message)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.INFO, exception, message);
+            if (!this.log || !this.logger.isInfoEnabled())
+                return;
+            withBoundary(this.logger.atInfo()).setCause(throwable).log(message);
         }
 
         /**
-         * Create a info log entry that will always be output, independent of LogCategory settings.
-         * @param exception the exception to log
+         * Create a info log entry that will be output if INFO is enabled for this DelegateLogger.
+         * @param throwable the exception to log
          * @param message the message to log, where {} entries will be replaced by arguments
          * @param arguments the arguments to substitute for the {} entries in the message string
          */
-        public void info(final Throwable exception, final String message, final Object... arguments)
+        public void info(final Throwable throwable, final String message, final Object... arguments)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.INFO, exception, message, arguments);
+            if (!this.log || !this.logger.isInfoEnabled())
+                return;
+            withBoundary(this.logger.atInfo()).setCause(throwable).log(message, arguments);
         }
 
-        /* ****************************************** WARN ******************************************/
+        /* ---------------------------------------------------------------------------------------------------------------- */
+        /* ----------------------------------------------------- WARN ----------------------------------------------------- */
+        /* ---------------------------------------------------------------------------------------------------------------- */
 
         /**
-         * Create a warn log entry that will always be output, // TODO: explain better independent of LogCategory settings.
+         * Create a warn log entry that will be output if WARN is enabled for this DelegateLogger.
          * @param object the result of the <code>toString()</code> method of <code>object</code> will be logged
          */
         public void warn(final Object object)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.WARNING, object);
+            if (!this.log || !this.logger.isWarnEnabled())
+                return;
+            withBoundary(this.logger.atWarn()).log(object.toString());
         }
 
         /**
-         * Create a warn log entry that will always be output, independent of LogCategory settings.
+         * Create a warn log entry that will be output if WARN is enabled for this DelegateLogger.
          * @param message the message to log
          */
         public void warn(final String message)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.WARNING, message);
+            if (!this.log || !this.logger.isWarnEnabled())
+                return;
+            withBoundary(this.logger.atWarn()).log(message);
         }
 
         /**
-         * Create a warn log entry that will always be output, independent of LogCategory settings.
+         * Create a warn log entry that will be output if WARN is enabled for this DelegateLogger.
          * @param message the message to be logged, where {} entries will be replaced by arguments
          * @param arguments the arguments to substitute for the {} entries in the message string
          */
         public void warn(final String message, final Object... arguments)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.WARNING, message, arguments);
+            if (!this.log || !this.logger.isWarnEnabled())
+                return;
+            withBoundary(this.logger.atWarn()).log(message, arguments);
         }
 
         /**
-         * Create a warn log entry that will always be output, independent of LogCategory settings.
-         * @param exception the exception to log
+         * Create a warn log entry that will be output if WARN is enabled for this DelegateLogger.
+         * @param throwable the throwable to log
          */
-        public void warn(final Throwable exception)
+        public void warn(final Throwable throwable)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.WARNING, exception);
+            if (!this.log || !this.logger.isWarnEnabled())
+                return;
+            withBoundary(this.logger.atWarn()).setCause(throwable)
+                .log((() -> throwable.getClass().getSimpleName() + "(" + Objects.requireNonNullElse(throwable.getMessage(), "")
+                        + ")"));
         }
 
         /**
-         * Create a warn log entry that will always be output, independent of LogCategory settings.
-         * @param exception the exception to log
+         * Create a warn log entry that will be output if WARN is enabled for this DelegateLogger.
+         * @param throwable the throwable to log
          * @param message the message to log
          */
-        public void warn(final Throwable exception, final String message)
+        public void warn(final Throwable throwable, final String message)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.WARNING, exception, message);
+            if (!this.log || !this.logger.isWarnEnabled())
+                return;
+            withBoundary(this.logger.atWarn()).setCause(throwable).log(message);
         }
 
         /**
-         * Create a warn log entry that will always be output, independent of LogCategory settings.
-         * @param exception the exception to log
+         * Create a warn log entry that will be output if WARN is enabled for this DelegateLogger.
+         * @param throwable the exception to log
          * @param message the message to log, where {} entries will be replaced by arguments
          * @param arguments the arguments to substitute for the {} entries in the message string
          */
-        public void warn(final Throwable exception, final String message, final Object... arguments)
+        public void warn(final Throwable throwable, final String message, final Object... arguments)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.WARNING, exception, message, arguments);
+            if (!this.log || !this.logger.isWarnEnabled())
+                return;
+            withBoundary(this.logger.atWarn()).setCause(throwable).log(message, arguments);
         }
 
-        /* ****************************************** ERROR ******************************************/
+        /* ---------------------------------------------------------------------------------------------------------------- */
+        /* ----------------------------------------------------- ERROR ---------------------------------------------------- */
+        /* ---------------------------------------------------------------------------------------------------------------- */
 
         /**
-         * Create a error log entry that will always be output, independent of LogCategory settings.
+         * Create a error log entry that will be output if ERROR is enabled for this DelegateLogger.
          * @param object the result of the <code>toString()</code> method of <code>object</code> will be logged
          */
         public void error(final Object object)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.ERROR, object);
+            if (!this.log || !this.logger.isErrorEnabled())
+                return;
+            withBoundary(this.logger.atError()).log(object.toString());
         }
 
         /**
-         * Create a error log entry that will always be output, independent of LogCategory settings.
+         * Create a error log entry that will be output if ERROR is enabled for this DelegateLogger.
          * @param message the message to log
          */
         public void error(final String message)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.ERROR, message);
+            if (!this.log || !this.logger.isErrorEnabled())
+                return;
+            withBoundary(this.logger.atError()).log(message);
         }
 
         /**
-         * Create a error log entry that will always be output, independent of LogCategory settings.
+         * Create a error log entry that will be output if ERROR is enabled for this DelegateLogger.
          * @param message the message to be logged, where {} entries will be replaced by arguments
          * @param arguments the arguments to substitute for the {} entries in the message string
          */
         public void error(final String message, final Object... arguments)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.ERROR, message, arguments);
+            if (!this.log || !this.logger.isErrorEnabled())
+                return;
+            withBoundary(this.logger.atError()).log(message, arguments);
         }
 
         /**
-         * Create a error log entry that will always be output, independent of LogCategory settings.
-         * @param exception the exception to log
+         * Create a error log entry that will be output if ERROR is enabled for this DelegateLogger.
+         * @param throwable the throwable to log
          */
-        public void error(final Throwable exception)
+        public void error(final Throwable throwable)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.ERROR, exception);
+            if (!this.log || !this.logger.isErrorEnabled())
+                return;
+            withBoundary(this.logger.atError()).setCause(throwable)
+                .log((() -> throwable.getClass().getSimpleName() + "(" + Objects.requireNonNullElse(throwable.getMessage(), "")
+                        + ")"));
         }
 
         /**
-         * Create a error log entry that will always be output, independent of LogCategory settings.
-         * @param exception the exception to log
+         * Create a error log entry that will be output if ERROR is enabled for this DelegateLogger.
+         * @param throwable the throwable to log
          * @param message the message to log
          */
-        public void error(final Throwable exception, final String message)
+        public void error(final Throwable throwable, final String message)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.ERROR, exception, message);
+            if (!this.log || !this.logger.isErrorEnabled())
+                return;
+            withBoundary(this.logger.atError()).setCause(throwable).log(message);
         }
 
         /**
-         * Create a error log entry that will always be output, independent of LogCategory settings.
-         * @param exception the exception to log
+         * Create a error log entry that will be output if ERROR is enabled for this DelegateLogger.
+         * @param throwable the exception to log
          * @param message the message to log, where {} entries will be replaced by arguments
          * @param arguments the arguments to substitute for the {} entries in the message string
          */
-        public void error(final Throwable exception, final String message, final Object... arguments)
+        public void error(final Throwable throwable, final String message, final Object... arguments)
         {
-            if (this.log)
-                LogEntryForwarder.forward(1, Level.ERROR, exception, message, arguments);
+            if (!this.log || !this.logger.isErrorEnabled())
+                return;
+            withBoundary(this.logger.atError()).setCause(throwable).log(message, arguments);
         }
     }
+
 }
