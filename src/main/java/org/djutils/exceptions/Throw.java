@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.IllegalFormatException;
 import java.util.List;
+import java.util.function.Supplier;
 
 import org.djutils.reflection.ClassUtil;
 
@@ -72,6 +73,29 @@ public final class Throw
         if (condition)
         {
             throwMessage(throwableClass, message, null);
+        }
+    }
+
+    /**
+     * Throw a Throwable (such as an Exception or Error) if a condition is met, e.g. for pre- and postcondition checking. Use as
+     * follows: <br>
+     * 
+     * <pre>
+     * Throw.when(Double.isNan(object.getValue()), IllegalArgumentException.class, () -> object.reportStatus());
+     * </pre>
+     * 
+     * @param condition the condition to check; an exception will be thrown if this is <b>true</b>
+     * @param throwableClass the Throwable type to throw
+     * @param stringSupplier the supplier that provides the message to use in the exception
+     * @throws T the throwable to throw on true condition
+     * @param <T> the Throwable type
+     */
+    public static <T extends Throwable> void when(final boolean condition, final Class<T> throwableClass,
+            final Supplier<String> stringSupplier) throws T
+    {
+        if (condition)
+        {
+            throwMessage(throwableClass, stringSupplier.get(), null);
         }
     }
 
@@ -278,6 +302,33 @@ public final class Throw
      * version of the method returns its first parameter, so it can be used inside a constructor. Use e.g., as follows:
      * 
      * <pre>
+     * super(Throw.when(object, object.isIncomplete(), IllegalArgumentException.class, () -> object.reportStatus()));
+     * </pre>
+     * 
+     * @param object the object to return by this static method
+     * @param condition the condition to check; an exception will be thrown if this is <b>true</b>
+     * @param throwableClass the Throwable type to throw
+     * @param stringSupplier the supplier that provides the message to use in the exception
+     * @throws T the throwable to throw on true condition
+     * @param <T> the Throwable type
+     * @param <O> the Object type to return
+     * @return the object that was passed as the first parameter
+     */
+    public static <T extends Throwable, O extends Object> O when(final O object, final boolean condition,
+            final Class<T> throwableClass, final Supplier<String> stringSupplier) throws T
+    {
+        if (condition)
+        {
+            throwMessage(throwableClass, stringSupplier.get(), null);
+        }
+        return object;
+    }
+
+    /**
+     * Throw a Throwable (such as an Exception or Error) if a condition is met, e.g. for pre- and postcondition checking. This
+     * version of the method returns its first parameter, so it can be used inside a constructor. Use e.g., as follows:
+     * 
+     * <pre>
      * super(Throw.when(object, Double.isNan(object.getValue()), IllegalArgumentException.class,
      *         &quot;Value may not be NaN for object %s.&quot;, object));
      * </pre>
@@ -444,6 +495,29 @@ public final class Throw
             {
                 throwMessage(NullPointerException.class, message, null);
             }
+        }
+        return object;
+    }
+
+    /**
+     * Throw a NullPointerException if object is null, e.g. for pre- and postcondition checking. Use as follows: <br>
+     * 
+     * <pre>
+     * Throw.whenNull(value, () -> getLocalizedNullMessage());
+     * </pre>
+     *
+     * @param object an exception will be thrown if the object is <b>null</b>
+     * @param stringSupplier the supplier that provides the message to use in the exception
+     * @param <O> the Object type to return
+     * @return the object that was passed as the first parameter
+     * @throws NullPointerException if object is null
+     */
+    public static <O extends Object> O whenNull(final O object, final Supplier<String> stringSupplier)
+            throws NullPointerException
+    {
+        if (object == null)
+        {
+            throwMessage(NullPointerException.class, stringSupplier.get(), null);
         }
         return object;
     }
@@ -637,6 +711,27 @@ public final class Throw
     }
 
     /**
+     * Throw an ArithmeticException if value is NaN, e.g. for pre- and postcondition checking. Use e.g. as follows: <br>
+     * 
+     * <pre>
+     * Throw.whenNaN(value, () -> getLocalizedNaNMessage());
+     * </pre>
+     *
+     * @param value value to check; an exception will be thrown if the object is <b>NaN</b>
+     * @param stringSupplier the supplier that provides the message to use in the exception
+     * @return the value that was passed as the first parameter
+     * @throws ArithmeticException if value is NaN
+     */
+    public static double whenNaN(final double value, final Supplier<String> stringSupplier) throws ArithmeticException
+    {
+        if (Double.isNaN(value))
+        {
+            throwMessage(ArithmeticException.class, stringSupplier.get(), null);
+        }
+        return value;
+    }
+
+    /**
      * Throw an ArithmeticException if value is NaN, e.g. for pre- and postcondition checking. Use as follows: <br>
      * 
      * <pre>
@@ -667,6 +762,27 @@ public final class Throw
             {
                 throwMessage(ArithmeticException.class, message, null);
             }
+        }
+        return value;
+    }
+
+    /**
+     * Throw an ArithmeticException if value is NaN, e.g. for pre- and postcondition checking. Use e.g. as follows: <br>
+     * 
+     * <pre>
+     * Throw.whenNaN(value, () -> getLocalizedNaNMessage());
+     * </pre>
+     *
+     * @param value value to check; an exception will be thrown if the object is <b>NaN</b>
+     * @param stringSupplier the supplier that provides the message to use in the exception
+     * @return the value that was passed as the first parameter
+     * @throws ArithmeticException if value is NaN
+     */
+    public static float whenNaN(final float value, final Supplier<String> stringSupplier) throws ArithmeticException
+    {
+        if (Float.isNaN(value))
+        {
+            throwMessage(ArithmeticException.class, stringSupplier.get(), null);
         }
         return value;
     }
@@ -707,28 +823,22 @@ public final class Throw
     }
 
     /**
-     * Throw an ArithmeticException if value is NaN, e.g. for pre- and postcondition checking. Use as follows: <br>
+     * Throw an ArithmeticException if value is NaN, e.g. for pre- and postcondition checking. Use e.g. as follows: <br>
      * 
      * <pre>
-     * Throw.whenNaN(value, &quot;Value may not be NaN for object %s with name %s, id %s.&quot;, object, name, id);
+     * Throw.whenNaN(value, () -> getLocalizedNaNMessage());
      * </pre>
-     * 
-     * @param value the value to check; an exception will be thrown if this is <b>NaN</b>
-     * @param message the message to use in the exception, with formatting identifiers
-     * @param arg1 1st value to use for the formatting identifiers
-     * @param args potential 2nd and further values to use for the formatting identifiers
+     *
+     * @param value value to check; an exception will be thrown if the object is <b>NaN</b>
+     * @param stringSupplier the supplier that provides the message to use in the exception
      * @return the value that was passed as the first parameter
      * @throws ArithmeticException if value is NaN
      */
-    public static Double whenNaN(final Double value, final String message, final Object arg1, final Object... args)
-            throws ArithmeticException
+    public static Double whenNaN(final Double value, final Supplier<String> stringSupplier) throws ArithmeticException
     {
         if (value != null && Double.isNaN(value))
         {
-            List<Object> argList = new ArrayList<>();
-            argList.add(arg1);
-            argList.addAll(Arrays.asList(args));
-            throwMessage(ArithmeticException.class, message, argList);
+            throwMessage(ArithmeticException.class, stringSupplier.get(), null);
         }
         return value;
     }
@@ -764,6 +874,54 @@ public final class Throw
             {
                 throwMessage(ArithmeticException.class, message, null);
             }
+        }
+        return value;
+    }
+
+    /**
+     * Throw an ArithmeticException if value is NaN, e.g. for pre- and postcondition checking. Use e.g. as follows: <br>
+     * 
+     * <pre>
+     * Throw.whenNaN(value, () -> getLocalizedNaNMessage());
+     * </pre>
+     *
+     * @param value value to check; an exception will be thrown if the object is <b>NaN</b>
+     * @param stringSupplier the supplier that provides the message to use in the exception
+     * @return the value that was passed as the first parameter
+     * @throws ArithmeticException if value is NaN
+     */
+    public static Float whenNaN(final Float value, final Supplier<String> stringSupplier) throws ArithmeticException
+    {
+        if (value != null && Float.isNaN(value))
+        {
+            throwMessage(ArithmeticException.class, stringSupplier.get(), null);
+        }
+        return value;
+    }
+
+    /**
+     * Throw an ArithmeticException if value is NaN, e.g. for pre- and postcondition checking. Use as follows: <br>
+     * 
+     * <pre>
+     * Throw.whenNaN(value, &quot;Value may not be NaN for object %s with name %s, id %s.&quot;, object, name, id);
+     * </pre>
+     * 
+     * @param value the value to check; an exception will be thrown if this is <b>NaN</b>
+     * @param message the message to use in the exception, with formatting identifiers
+     * @param arg1 1st value to use for the formatting identifiers
+     * @param args potential 2nd and further values to use for the formatting identifiers
+     * @return the value that was passed as the first parameter
+     * @throws ArithmeticException if value is NaN
+     */
+    public static Double whenNaN(final Double value, final String message, final Object arg1, final Object... args)
+            throws ArithmeticException
+    {
+        if (value != null && Double.isNaN(value))
+        {
+            List<Object> argList = new ArrayList<>();
+            argList.add(arg1);
+            argList.addAll(Arrays.asList(args));
+            throwMessage(ArithmeticException.class, message, argList);
         }
         return value;
     }
@@ -875,6 +1033,30 @@ public final class Throw
      * Throw a specified exception if value is NaN, e.g. for pre- and postcondition checking. Use as follows: <br>
      * 
      * <pre>
+     * Throw.whenNaN(value, IllegalArgumentException.class, () -> getLocalizedNaNMessage());
+     * </pre>
+     *
+     * @param value value to check; an exception will be thrown if the object is <b>NaN</b>
+     * @param throwableClass the Throwable type to throw
+     * @param stringSupplier the supplier that provides the message to use in the exception
+     * @param <T> the Throwable class
+     * @return the value that was passed as the first parameter
+     * @throws T if value is NaN
+     */
+    public static <T extends Throwable> float whenNaN(final float value, final Class<T> throwableClass,
+            final Supplier<String> stringSupplier) throws T
+    {
+        if (Float.isNaN(value))
+        {
+            throwMessage(throwableClass, stringSupplier.get(), null);
+        }
+        return value;
+    }
+
+    /**
+     * Throw a specified exception if value is NaN, e.g. for pre- and postcondition checking. Use as follows: <br>
+     * 
+     * <pre>
      * Throw.whenNaN(value, IllegalArgumentException.class, &quot;value may not be NaN.&quot;);
      * </pre>
      *
@@ -905,6 +1087,54 @@ public final class Throw
             {
                 throwMessage(throwableClass, message, null);
             }
+        }
+        return value;
+    }
+
+    /**
+     * Throw a specified exception if value is NaN, e.g. for pre- and postcondition checking. Use as follows: <br>
+     * 
+     * <pre>
+     * Throw.whenNaN(value, IllegalArgumentException.class, () -> getLocalizedNaNMessage());
+     * </pre>
+     *
+     * @param value value to check; an exception will be thrown if the object is <b>NaN</b>
+     * @param throwableClass the Throwable type to throw
+     * @param stringSupplier the supplier that provides the message to use in the exception
+     * @param <T> the Throwable class
+     * @return the value that was passed as the first parameter
+     * @throws T if value is NaN
+     */
+    public static <T extends Throwable> double whenNaN(final double value, final Class<T> throwableClass,
+            final Supplier<String> stringSupplier) throws T
+    {
+        if (Double.isNaN(value))
+        {
+            throwMessage(throwableClass, stringSupplier.get(), null);
+        }
+        return value;
+    }
+
+    /**
+     * Throw a specified exception if value is NaN, e.g. for pre- and postcondition checking. Use as follows: <br>
+     * 
+     * <pre>
+     * Throw.whenNaN(value, IllegalArgumentException.class, () -> getLocalizedNaNMessage());
+     * </pre>
+     *
+     * @param value value to check; an exception will be thrown if the object is <b>NaN</b>
+     * @param throwableClass the Throwable type to throw
+     * @param stringSupplier the supplier that provides the message to use in the exception
+     * @param <T> the Throwable class
+     * @return the value that was passed as the first parameter
+     * @throws T if value is NaN
+     */
+    public static <T extends Throwable> Double whenNaN(final Double value, final Class<T> throwableClass,
+            final Supplier<String> stringSupplier) throws T
+    {
+        if (value != null && Double.isNaN(value))
+        {
+            throwMessage(throwableClass, stringSupplier.get(), null);
         }
         return value;
     }
@@ -973,6 +1203,30 @@ public final class Throw
             {
                 throwMessage(throwableClass, message, null);
             }
+        }
+        return value;
+    }
+
+    /**
+     * Throw a specified exception if value is NaN, e.g. for pre- and postcondition checking. Use as follows: <br>
+     * 
+     * <pre>
+     * Throw.whenNaN(value, IllegalArgumentException.class, () -> getLocalizedNaNMessage());
+     * </pre>
+     *
+     * @param value value to check; an exception will be thrown if the object is <b>NaN</b>
+     * @param throwableClass the Throwable type to throw
+     * @param stringSupplier the supplier that provides the message to use in the exception
+     * @param <T> the Throwable class
+     * @return the value that was passed as the first parameter
+     * @throws T if value is NaN
+     */
+    public static <T extends Throwable> Float whenNaN(final Float value, final Class<T> throwableClass,
+            final Supplier<String> stringSupplier) throws T
+    {
+        if (value != null && Float.isNaN(value))
+        {
+            throwMessage(throwableClass, stringSupplier.get(), null);
         }
         return value;
     }
