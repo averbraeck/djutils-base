@@ -221,7 +221,6 @@
         <version>${maven.javadoc.version}</version>
         <configuration>
           <offlineLinks>
-            <offlineLink><url>https://tinylog.org/v1/javadoc/</url></offlineLink>
             <offlineLink><url>https://junit.org/junit5/docs/current/api/</url></offlineLink>
             <offlineLink><url>https://javadoc.io/doc/jakarta.annotation/jakarta.annotation-api/latest/jakarta.annotation/</url></offlineLink>
             <offlineLink><url>https://picocli.info/apidocs/</url></offlineLink>
@@ -460,7 +459,6 @@
         <version>${maven.javadoc.version}</version>
         <configuration>
           <offlineLinks>
-            <offlineLink><url>https://tinylog.org/v1/javadoc/</url></offlineLink>
             <offlineLink><url>https://junit.org/junit5/docs/current/api/</url></offlineLink>
             <offlineLink><url>https://javadoc.io/doc/jakarta.annotation/jakarta.annotation-api/latest/jakarta.annotation/</url></offlineLink>
             <offlineLink><url>https://picocli.info/apidocs/</url></offlineLink>
