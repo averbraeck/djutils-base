@@ -340,6 +340,19 @@ public final class CategoryLogger
             CATEGORY_STATE.get(cat).logger.setLevel(level);
         }
     }
+    
+    /**
+     * Return the log level for a log category.
+     * @param category the log category
+     * @return the log level for the given category
+     */
+    public static Level getLogLevel(final LogCategory category)
+    {
+        ensureInit();
+        if (CATEGORY_CFG.containsKey(category))
+            return CATEGORY_CFG.get(category).level;
+        return DEFAULT_LEVEL;
+    }
 
     /**
      * Set the pattern for a single log category.
@@ -421,6 +434,19 @@ public final class CategoryLogger
             return cfg;
         });
         CATEGORY_CFG.keySet().forEach(CategoryLogger::rebuildCategoryAppenders);
+    }
+
+    /**
+     * Return the pattern for a log category.
+     * @param category the log category
+     * @return the pattern for the given category
+     */
+    public static String getPattern(final LogCategory category)
+    {
+        ensureInit();
+        if (CATEGORY_CFG.containsKey(category))
+            return CATEGORY_CFG.get(category).pattern;
+        return DEFAULT_PATTERN;
     }
 
     /**
