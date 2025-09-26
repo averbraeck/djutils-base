@@ -8,8 +8,10 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BooleanSupplier;
+import java.util.function.Supplier;
 
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.slf4j.spi.CallerBoundaryAware;
 import org.slf4j.spi.LoggingEventBuilder;
 
@@ -60,8 +62,11 @@ public final class CategoryLogger
     /** The current message format. */
     private static String defaultPattern = DEFAULT_PATTERN;
 
+    /** The default logging level. */
+    private static final Level DEFAULT_LEVEL = Level.INFO;
+
     /** The current default logging level for new category loggers. */
-    private static Level defaultLevel = Level.INFO;
+    private static Level defaultLevel = DEFAULT_LEVEL;
 
     /** The levels and pattern used per LogCategory. */
     private static final Map<LogCategory, CategoryConfig> CATEGORY_CFG = new LinkedHashMap<>();
@@ -161,7 +166,10 @@ public final class CategoryLogger
 
         // detach & stop existing
         st.appendersByFactoryId.forEach((id, app) ->
-        { st.logger.detachAppender(app); safeStop(app); });
+        {
+            st.logger.detachAppender(app);
+            safeStop(app);
+        });
         st.appendersByFactoryId.clear();
 
         // build with new pattern
@@ -279,7 +287,10 @@ public final class CategoryLogger
             // detach & stop this category's appenders
             Logger logger = st.logger;
             st.appendersByFactoryId.values().forEach(app ->
-            { logger.detachAppender(app); safeStop(app); });
+            {
+                logger.detachAppender(app);
+                safeStop(app);
+            });
             // silence the logger
             logger.setLevel(Level.OFF);
             logger.setAdditive(false);
@@ -405,7 +416,10 @@ public final class CategoryLogger
         ensureInit();
         defaultPattern = Objects.requireNonNull(pattern);
         CATEGORY_CFG.replaceAll((c, cfg) ->
-        { cfg.pattern = pattern; return cfg; });
+        {
+            cfg.pattern = pattern;
+            return cfg;
+        });
         CATEGORY_CFG.keySet().forEach(CategoryLogger::rebuildCategoryAppenders);
     }
 
@@ -451,6 +465,41 @@ public final class CategoryLogger
                 safeStop(app);
             }
         }
+    }
+
+    /**
+     * Add a find-replace formatter on the delegate logger for this category.
+     * @param category the category to use
+     * @param find the string to find in the pattern
+     * @param replaceSupplier the supplier for the replacement string
+     */
+    public static synchronized void addFormatter(final LogCategory category, final String find,
+            final Supplier<String> replaceSupplier)
+    {
+        ensureInit();
+        DELEGATES.get(category).addFormatter(find, replaceSupplier);
+    }
+
+    /**
+     * Remove a find-replace formatter on the delegate logger for this category.
+     * @param category the category to use
+     * @param find the string to find in the pattern
+     */
+    public static synchronized void removeFormatter(final LogCategory category, final String find)
+    {
+        ensureInit();
+        DELEGATES.get(category).removeFormatter(find);
+    }
+
+    /**
+     * Add a callback method for the delegate logger for this category.
+     * @param category the category to use
+     * @param callback the runnable that is called just before logging
+     */
+    public static synchronized void setCallback(final LogCategory category, final Runnable callback)
+    {
+        ensureInit();
+        DELEGATES.get(category).setCallback(callback);
     }
 
     /* ---------------------------------------------------------------------------------------------------------------- */
@@ -646,6 +695,12 @@ public final class CategoryLogger
         /** Whether we should log or not (the NO_LOGGER does not log). */
         private final boolean log;
 
+        /** the formatters with find-replace strings. */
+        private final Map<String, Supplier<String>> formatters = new HashMap<>();
+
+        /** a callback method that is called just before logging for e.g., MDC. */
+        private Runnable callback = null;
+
         /**
          * Create a DelegateLogger with a class that indicates what to hide in the call stack.
          * @param slf4jLogger the logger facade from slf4j, can be null in case no logging is done
@@ -704,6 +759,56 @@ public final class CategoryLogger
             return leb;
         }
 
+        /**
+         * Add a find-replace formatter on the delegate logger for this delegate logger.
+         * @param find the string to find in the pattern
+         * @param replaceSupplier the supplier for the replacement string
+         */
+        public void addFormatter(final String find, final Supplier<String> replaceSupplier)
+        {
+            this.formatters.put(find, replaceSupplier);
+        }
+
+        /**
+         * Remove a find-replace formatter on the delegate logger for this delegate logger.
+         * @param find the string to find in the pattern
+         */
+        public void removeFormatter(final String find)
+        {
+            this.formatters.remove(find);
+        }
+
+        /**
+         * Apply the formatter suppliers to the mdc context.
+         */
+        protected void mdc()
+        {
+            for (var find : this.formatters.keySet())
+            {
+                MDC.put(find, this.formatters.get(find).get());
+            }
+        }
+
+        /**
+         * Set the callback.
+         * @param callback the callback runnable
+         */
+        public void setCallback(final Runnable callback)
+        {
+            this.callback = callback;
+        }
+
+        /**
+         * Carry out the callback.
+         */
+        protected void doCallback()
+        {
+            if (this.callback != null)
+            {
+                this.callback.run();
+            }
+        }
+
         /* ---------------------------------------------------------------------------------------------------------------- */
         /* ----------------------------------------------------- TRACE ---------------------------------------------------- */
         /* ---------------------------------------------------------------------------------------------------------------- */
@@ -716,6 +821,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isTraceEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atTrace()).log(object.toString());
         }
 
@@ -727,6 +834,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isTraceEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atTrace()).log(message);
         }
 
@@ -739,6 +848,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isTraceEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atTrace()).log(message, arguments);
         }
 
@@ -750,6 +861,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isTraceEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atTrace()).setCause(throwable)
                 .log((() -> throwable.getClass().getSimpleName() + "(" + Objects.requireNonNullElse(throwable.getMessage(), "")
                         + ")"));
@@ -764,6 +877,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isTraceEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atTrace()).setCause(throwable).log(message);
         }
 
@@ -777,6 +892,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isTraceEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atTrace()).setCause(throwable).log(message, arguments);
         }
 
@@ -792,6 +909,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isDebugEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atDebug()).log(object.toString());
         }
 
@@ -803,6 +922,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isDebugEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atDebug()).log(message);
         }
 
@@ -815,6 +936,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isDebugEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atDebug()).log(message, arguments);
         }
 
@@ -826,6 +949,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isDebugEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atDebug()).setCause(throwable)
                 .log((() -> throwable.getClass().getSimpleName() + "(" + Objects.requireNonNullElse(throwable.getMessage(), "")
                         + ")"));
@@ -840,6 +965,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isDebugEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atDebug()).setCause(throwable).log(message);
         }
 
@@ -853,6 +980,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isDebugEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atDebug()).setCause(throwable).log(message, arguments);
         }
 
@@ -868,6 +997,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isInfoEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atInfo()).log(object.toString());
         }
 
@@ -879,6 +1010,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isInfoEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atInfo()).log(message);
         }
 
@@ -891,6 +1024,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isInfoEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atInfo()).log(message, arguments);
         }
 
@@ -902,6 +1037,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isInfoEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atInfo()).setCause(throwable)
                 .log((() -> throwable.getClass().getSimpleName() + "(" + Objects.requireNonNullElse(throwable.getMessage(), "")
                         + ")"));
@@ -916,6 +1053,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isInfoEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atInfo()).setCause(throwable).log(message);
         }
 
@@ -929,6 +1068,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isInfoEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atInfo()).setCause(throwable).log(message, arguments);
         }
 
@@ -944,6 +1085,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isWarnEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atWarn()).log(object.toString());
         }
 
@@ -955,6 +1098,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isWarnEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atWarn()).log(message);
         }
 
@@ -967,6 +1112,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isWarnEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atWarn()).log(message, arguments);
         }
 
@@ -978,6 +1125,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isWarnEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atWarn()).setCause(throwable)
                 .log((() -> throwable.getClass().getSimpleName() + "(" + Objects.requireNonNullElse(throwable.getMessage(), "")
                         + ")"));
@@ -992,6 +1141,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isWarnEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atWarn()).setCause(throwable).log(message);
         }
 
@@ -1005,6 +1156,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isWarnEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atWarn()).setCause(throwable).log(message, arguments);
         }
 
@@ -1020,6 +1173,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isErrorEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atError()).log(object.toString());
         }
 
@@ -1031,6 +1186,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isErrorEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atError()).log(message);
         }
 
@@ -1043,6 +1200,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isErrorEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atError()).log(message, arguments);
         }
 
@@ -1054,6 +1213,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isErrorEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atError()).setCause(throwable)
                 .log((() -> throwable.getClass().getSimpleName() + "(" + Objects.requireNonNullElse(throwable.getMessage(), "")
                         + ")"));
@@ -1068,6 +1229,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isErrorEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atError()).setCause(throwable).log(message);
         }
 
@@ -1081,6 +1244,8 @@ public final class CategoryLogger
         {
             if (!this.log || !this.logger.isErrorEnabled())
                 return;
+            mdc();
+            doCallback();
             withBoundary(this.logger.atError()).setCause(throwable).log(message, arguments);
         }
     }
