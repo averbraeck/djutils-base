@@ -2,11 +2,11 @@
 
 ## Introduction
 
-The 'tinylog' package (see [https://tinylog.org](https://tinylog.org), is a very fast and small set of logger classes. Tinylog is extended with several helper classes to make logging more fine-grained and easier to control. The most important extension provided in the DJUTILS package is the so-called CategoryLogger. This is a logger that has categories that can be treated in different ways. An example of the use of a logger with a category, where we have categories `Cat.BASE` and `Cat.ADVANCED`:
+The 'SLF4J' facade, see [https://www.slf4j.org/manual.html](https://www.slf4j.org/manual.html) with the Logback implementation, see [https://logback.qos.ch/manual](https://logback.qos.ch/manual), is a well known and standard set of logger classes. The `CategoryLogger` extends the logger classes from Logback with several helper methods to make logging more fine-grained and easier to control. The `CategoryLogger` is a logger that has categories that can log and format mesages in different ways per category. An example of the use of a logger with a category, where we have categories `Cat.BASE` and `Cat.ADVANCED`:
 
 ```java
-CategoryLogger.filter(Cat.BASE).debug("Parameter {} initialized correctly", param1.toString());
-CategoryLogger.filter(Cat.ADVANCED).error(exception, "Illegal argument: {}", arg);
+CategoryLogger.with(Cat.BASE).debug("Parameter {} initialized correctly", param1.toString());
+CategoryLogger.with(Cat.ADVANCED).error(exception, "Illegal argument: {}", arg);
 ```
 
 In case a message should always be displayed, independent of the category or a category's settings, we can use the always() clause instead of the filter(category) clause:
@@ -19,7 +19,7 @@ CategoryLogger.always().error(exception, "Program failed to initialize. Command 
 
 ## LogCategory
 
-Categories should be of the type `LogCategory`. An example of the definition of LogCategories for the DSOL project is given below. The comments have been left out.
+Categories should be of the type `LogCategory`. An example of the definition of LogCategories is given below. The comments have been left out.
 
 ```java
 public final class Cat
@@ -42,38 +42,45 @@ CategoryLogger.addLogCategory(logCategory);
 CategoryLogger.removeLogCategory(logCategory);
 ```
 
-The log level for all category loggers can be set with the `CategoryLogger.setAllLogLevel(level)` method. The following log levels exist:
+The log level for all category loggers can be set with the `CategoryLogger.setAllLogLevel(level)` method, and for one category with the `CategoryLogger.setLogLevel(category, level)` method. The following log levels exist:
 
 * TRACE: Output all log entries. The trace(...) method outputs on the TRACE level.
 * DEBUG: Output all log entries but trace log entries. The debug(...) method outputs on the DEBUG level.
 * INFO: Output all log entries but trace and debug log entries (default). The info(...) method outputs on the INFO level.
-* WARNING: Output error and warning log entries. The warn(...) method outputs on the WARNING level.
+* WARN: Output error and warning log entries. The warn(...) method outputs on the WARN level.
 * ERROR: Output only error log entries. The error(...) method outputs on the ERROR level.
 * OFF: Disable logging (no log entries will be output)
 
-The formatting of the log message for all category loggers can be set with the `CategoryLogger.setLogMessageFormat(formatString)` method. An example of a formatString is:
+The formatting of the log message for all category loggers can be set with the `CategoryLogger.setPatternAll(pattern)` method. It can also be set per category. An example of setting a pattern for one category is:
 
 ```java
-CategoryLogger.setLogMessageFormat("{class_name}.{method}:{line} {message|indent=4}");
+CategoryLogger.setPattern(Cat.XYZ, "%date{HH:mm:ss} %-5level %-6logger{0} %class{1}.%method:%line - %msg%n");
 ```
 
-which means that the class name, method and line number are logged, followed by the message, with an indentation of four spaces in case it runs over more than one line. The most important formatting components are:
+which means that the date, level, category, class name, method and line number are logged, followed by the message and a newline. The most important formatting components are:
 
-* {class} Fully-qualified class name where the logging request is issued
-* {class_name} Class name (without package) where the logging request is issued
-* {date} Date and time of the logging request, e.g. {date:yyyy-MM-dd HH:mm:ss} [SimpleDateFormat]
-* {level} Logging level of the created log entry
-* {line} Line number in the Java source code from where the logging request is issued
-* {message} Associated message of the created log entry
-* {method} Method name from where the logging request is issued
-* {package} Package where the logging request is issued
+ * `%date{HH:mm:ss.SSS}   `Timestamp (default format shown; many options like ISO8601)
+ * `%level / %-5level     `Log level (pad to fixed width with %-5level)
+ * `%logger / %logger{0}  `Logger name (full or last component only; {n} = # of segments)
+ * `%thread               `Thread name
+ * `%msg / %message       `The actual log message
+ * `%n                    `Platform-specific newline
+ * `%class / %class{1}    `Calling class (full or just last segment with {1})
+ * `%method               `Calling method
+ * `%line                 `Source line number
+ * `%file                 `Source file name
+ * `%caller               `Shortcut for class, method, file, and line in one
+ * `%marker               `SLF4J marker (if present)
+ * `%X{key}               `MDC value for given key
+ * `%replace(p){r,e}      `Apply regex replacement to pattern part p
+ * `%highlight(%msg)      `ANSI colored message (useful on console)
 
-For a more complete list, see also [https://tinylog.org/configuration](https://tinylog.org/configuration).
+For a more complete list, see also [https://logback.qos.ch/manual/layouts.html](https://logback.qos.ch/manual/layouts.html).
 
 
 ## Logging
 
-Each of the log methods trace(...), debug(...), info(...), warn(...), and error(...) has several configurations that can be used. Below, the definitions for info(...) are given, but these are the same for each of the other methods. The same holds for the always() clause, which can of course be replaced by filter(logCategory) clause.
+Each of the log methods `trace(...)`, `debug(...)`, `info(...)`, `warn(...)`, and `error(...)` has several configurations that can be used. Below, the definitions for `info(...)` are given, but these are the same for each of the other methods. The same holds for the `always()` clause, which can of course be replaced by `with(logCategory)` clause.
 
 | Method call | Explanation |
 | ---------- | ---------- |
