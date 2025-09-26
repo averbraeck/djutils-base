@@ -1,5 +1,6 @@
 package org.djutils.logger;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.charset.StandardCharsets;
@@ -45,7 +46,9 @@ public class RollingFileAppenderTest
             // install RollingFileAppenderFactory using the CategoryLogger API
             // File pattern must include %d{...}, and %s will be replaced with category
             String filePattern = this.tempDir.resolve("%s-%d{yyyy-MM-dd}.log").toString();
-            CategoryLogger.addAppender("FILE", new CategoryLogger.RollingFileAppenderFactory("FILE", filePattern));
+            var fileAppender = new CategoryLogger.RollingFileAppenderFactory("FILE", filePattern);
+            CategoryLogger.addAppender("FILE", fileAppender);
+            assertEquals("FILE", fileAppender.id());
 
             // --- act ---
             CategoryLogger.filter(httpCat).info("GET {} -> {}", "/users", 200);
