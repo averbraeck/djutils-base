@@ -14,6 +14,7 @@ DJUTILS is a highly diverse software collection. All of this software has in com
 * [djutils-stats](https://djutils.org/manual/djutils-stats): utilities that ingest a series of values, e.g., measurements from a sensor, or results from a simulation, and compute statistical properties (mean, standard deviation, skewness, kurtosis, estimated cumulative probabilities).
 * [djutils-swing](https://djutils.org/manual/djutils-swing): utilities that provide Swing components such as a slider with multiple knobs.
 * The djutils-parent project contains the master pom file for the DJUTILS project and the documentation and general settings.
+* [djutils-test](https://djutils.org/manual/djutils-test): utilities to support unit tests; typically taken into the test scope of a Maven project.
 
 
 ## Origin
