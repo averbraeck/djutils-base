@@ -124,22 +124,22 @@ public class LoggerTest
 
             LogCategory testCat = new LogCategory("TEST");
             CategoryLogger.removeLogCategory(LogCategory.ALL);
-            CategoryLogger.filter(testCat).info(testMessage);
+            CategoryLogger.with(testCat).info(testMessage);
             verifyLogMessage(testCat, null);
             verifyLogMessage(null);
             CategoryLogger.addLogCategory(testCat);
-            CategoryLogger.filter(testCat).info(testMessage);
+            CategoryLogger.with(testCat).info(testMessage);
             verifyLogMessage(testCat, testMessage);
             verifyLogMessage(testMessage);
             CategoryLogger.removeLogCategory(testCat);
-            CategoryLogger.filter(testCat).info(testMessage);
+            CategoryLogger.with(testCat).info(testMessage);
             verifyLogMessage(testCat, null);
             verifyLogMessage(null);
-            CategoryLogger.filter(LogCategory.ALL).info(testMessage);
+            CategoryLogger.with(LogCategory.ALL).info(testMessage);
             verifyLogMessage(testCat, null);
             verifyLogMessage(null);
             CategoryLogger.addLogCategory(LogCategory.ALL);
-            CategoryLogger.filter(LogCategory.ALL).info(testMessage);
+            CategoryLogger.with(LogCategory.ALL).info(testMessage);
             verifyLogMessage(LogCategory.ALL, testMessage);
             verifyLogMessage(testMessage);
             CategoryLogger.always().info(testMessage);
@@ -147,35 +147,35 @@ public class LoggerTest
             verifyLogMessage(testMessage);
 
             CategoryLogger.removeLogCategory(LogCategory.ALL);
-            CategoryLogger.filter(testCat).when(false).info(testMessage);
+            CategoryLogger.with(testCat).when(false).info(testMessage);
             verifyLogMessage(null);
             CategoryLogger.addLogCategory(testCat);
-            CategoryLogger.filter(testCat).when(false).info(testMessage);
+            CategoryLogger.with(testCat).when(false).info(testMessage);
             verifyLogMessage(null);
             CategoryLogger.removeLogCategory(testCat);
-            CategoryLogger.filter(testCat).when(false).info(testMessage);
+            CategoryLogger.with(testCat).when(false).info(testMessage);
             verifyLogMessage(null);
-            CategoryLogger.filter(LogCategory.ALL).when(false).info(testMessage);
+            CategoryLogger.with(LogCategory.ALL).when(false).info(testMessage);
             verifyLogMessage(null);
             CategoryLogger.addLogCategory(LogCategory.ALL);
-            CategoryLogger.filter(LogCategory.ALL).when(false).info(testMessage);
+            CategoryLogger.with(LogCategory.ALL).when(false).info(testMessage);
             verifyLogMessage(null);
             CategoryLogger.always().when(false).info(testMessage);
             verifyLogMessage(null);
 
             CategoryLogger.removeLogCategory(LogCategory.ALL);
-            CategoryLogger.filter(testCat).when(true).info(testMessage);
+            CategoryLogger.with(testCat).when(true).info(testMessage);
             verifyLogMessage(null);
             CategoryLogger.addLogCategory(testCat);
-            CategoryLogger.filter(testCat).when(true).info(testMessage);
+            CategoryLogger.with(testCat).when(true).info(testMessage);
             verifyLogMessage(testMessage);
             CategoryLogger.removeLogCategory(testCat);
-            CategoryLogger.filter(testCat).when(true).info(testMessage);
+            CategoryLogger.with(testCat).when(true).info(testMessage);
             verifyLogMessage(null);
-            CategoryLogger.filter(LogCategory.ALL).when(true).info(testMessage);
+            CategoryLogger.with(LogCategory.ALL).when(true).info(testMessage);
             verifyLogMessage(null);
             CategoryLogger.addLogCategory(LogCategory.ALL);
-            CategoryLogger.filter(LogCategory.ALL).when(true).info(testMessage);
+            CategoryLogger.with(LogCategory.ALL).when(true).info(testMessage);
             verifyLogMessage(testMessage);
             CategoryLogger.always().when(true).info(testMessage);
             verifyLogMessage(testMessage);
@@ -263,7 +263,7 @@ public class LoggerTest
                     String message = "ALL LEVELS TEST";
                     String methodName = methodNames[methodIndex];
                     Method method = CategoryLogger.DelegateLogger.class.getDeclaredMethod(methodName, String.class);
-                    method.invoke(CategoryLogger.filter(LogCategory.ALL), message);
+                    method.invoke(CategoryLogger.with(LogCategory.ALL), message);
                     if (methodIndex < levelIndex)
                     {
                         verifyLogMessage(null);
@@ -277,7 +277,7 @@ public class LoggerTest
 
                     // Object (no arguments - of course)
                     method = CategoryLogger.DelegateLogger.class.getDeclaredMethod(methodName, Object.class);
-                    method.invoke(CategoryLogger.filter(LogCategory.ALL), message);
+                    method.invoke(CategoryLogger.with(LogCategory.ALL), message);
                     if (methodIndex < levelIndex)
                     {
                         verifyLogMessage(null);
@@ -293,7 +293,7 @@ public class LoggerTest
                     String exceptionMessage = "ExceptionMessage";
                     Exception exception = new Exception(exceptionMessage);
                     method = CategoryLogger.DelegateLogger.class.getDeclaredMethod(methodName, Throwable.class);
-                    method.invoke(CategoryLogger.filter(LogCategory.ALL), exception);
+                    method.invoke(CategoryLogger.with(LogCategory.ALL), exception);
                     if (methodIndex < levelIndex)
                     {
                         verifyLogMessage(null);
@@ -308,7 +308,7 @@ public class LoggerTest
                     // Throwable with message
                     String extraMessage = "Extra Message";
                     method = CategoryLogger.DelegateLogger.class.getDeclaredMethod(methodName, Throwable.class, String.class);
-                    method.invoke(CategoryLogger.filter(LogCategory.ALL), exception, extraMessage);
+                    method.invoke(CategoryLogger.with(LogCategory.ALL), exception, extraMessage);
                     if (methodIndex < levelIndex)
                     {
                         verifyLogMessage(null);
@@ -327,7 +327,7 @@ public class LoggerTest
                     String arg2 = "2";
                     String expectedMessage = message.replaceFirst("\\{\\}", String.valueOf(arg1)).replaceFirst("\\{\\}", arg2);
                     method = CategoryLogger.DelegateLogger.class.getDeclaredMethod(methodName, String.class, Object[].class);
-                    method.invoke(CategoryLogger.filter(LogCategory.ALL), message, new Object[] {arg1, arg2});
+                    method.invoke(CategoryLogger.with(LogCategory.ALL), message, new Object[] {arg1, arg2});
                     if (methodIndex < levelIndex)
                     {
                         verifyLogMessage(null);
@@ -342,7 +342,7 @@ public class LoggerTest
                     // Throwable with message and arguments
                     method = CategoryLogger.DelegateLogger.class.getDeclaredMethod(methodName, Throwable.class, String.class,
                             Object[].class);
-                    method.invoke(CategoryLogger.filter(LogCategory.ALL), exception, message, new Object[] {arg1, arg2});
+                    method.invoke(CategoryLogger.with(LogCategory.ALL), exception, message, new Object[] {arg1, arg2});
                     if (methodIndex < levelIndex)
                     {
                         verifyLogMessage(null);

@@ -108,8 +108,6 @@ public final class CategoryLogger
             return;
         synchronized (CategoryLogger.class)
         {
-            if (initialized)
-                return;
             // Bootstrap default category so .always() works immediately
             initialized = true;
             addLogCategory(CAT_ALWAYS);
@@ -244,11 +242,11 @@ public final class CategoryLogger
     }
 
     /**
-     * Only log when the category has been registered in the CategoryLogger.
+     * Only log when the category has been registered in the CategoryLogger, and with the settings of that logger.
      * @param category the category to check
      * @return the DelegateLogger for method chaining, e.g., CategoryLogger.filter(Cat.BASE).info("message");
      */
-    public static DelegateLogger filter(final LogCategory category)
+    public static DelegateLogger with(final LogCategory category)
     {
         ensureInit();
         return DELEGATES.getOrDefault(category, NO_LOGGER);

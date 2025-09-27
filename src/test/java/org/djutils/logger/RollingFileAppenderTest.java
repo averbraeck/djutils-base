@@ -51,8 +51,8 @@ public class RollingFileAppenderTest
             assertEquals("FILE", fileAppender.id());
 
             // --- act ---
-            CategoryLogger.filter(httpCat).info("GET {} -> {}", "/users", 200);
-            CategoryLogger.filter(httpCat).warn("Latency {} ms", 123);
+            CategoryLogger.with(httpCat).info("GET {} -> {}", "/users", 200);
+            CategoryLogger.with(httpCat).warn("Latency {} ms", 123);
 
             // stop appenders so data is flushed
             CategoryLogger.removeAppender("FILE");
