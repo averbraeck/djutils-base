@@ -9,7 +9,7 @@ CategoryLogger.with(Cat.BASE).debug("Parameter {} initialized correctly", param1
 CategoryLogger.with(Cat.ADVANCED).error(exception, "Illegal argument: {}", arg);
 ```
 
-In case a message should always be displayed, independent of the category or a category's settings, we can use the always() clause instead of the filter(category) clause:
+In case a message should always be displayed, independent of the category or a category's settings, we can use the `always()` clause instead of the `with(category)` clause:
 
 ```java
 CategoryLogger.always().info("Program started");
@@ -19,7 +19,7 @@ CategoryLogger.always().error(exception, "Program failed to initialize. Command 
 
 ## LogCategory
 
-Categories should be of the type `LogCategory`. An example of the definition of LogCategories is given below. The comments have been left out.
+Categories should be of the type `LogCategory`. An example of the definition of LogCategories is given below.
 
 ```java
 public final class Cat
