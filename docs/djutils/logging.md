@@ -59,21 +59,23 @@ CategoryLogger.setPattern(Cat.XYZ, "%date{HH:mm:ss} %-5level %-6logger{0} %class
 
 which means that the date, level, category, class name, method and line number are logged, followed by the message and a newline. The most important formatting components are:
 
-* `%date{HH:mm:ss.SSS}   ` Timestamp (default format shown; many options like ISO8601)
-* `%level / %-5level     ` Log level (pad to fixed width with %-5level)
-* `%logger / %logger{0}  ` Logger name (full or last component only; {n} = # of segments)
-* `%thread               ` Thread name
-* `%msg / %message       ` The actual log message
-* `%n                    ` Platform-specific newline
-* `%class / %class{1}    ` Calling class (full or just last segment with {1})
-* `%method               ` Calling method
-* `%line                 ` Source line number
-* `%file                 ` Source file name
-* `%caller               ` Shortcut for class, method, file, and line in one
-* `%marker               ` SLF4J marker (if present)
-* `%X{key}               ` MDC value for given key
-* `%replace(p){r,e}      ` Apply regex replacement to pattern part p
-* `%highlight(%msg)      ` ANSI colored message (useful on console)
+```
+%date{HH:mm:ss.SSS}   Timestamp (default format shown; many options like ISO8601)
+%level / %-5level     Log level (pad to fixed width with %-5level)
+%logger / %logger{0}  Logger name (full or last component only; {n} = # of segments)
+%thread               Thread name
+%msg / %message       The actual log message
+%n                    Platform-specific newline
+%class / %class{1}    Calling class (full or just last segment with {1})
+%method               Calling method
+%line                 Source line number
+%file                 Source file name
+%caller               Shortcut for class, method, file, and line in one
+%marker               SLF4J marker (if present)
+%X{key}               MDC value for given key
+%replace(p){r,e}      Apply regex replacement to pattern part p
+%highlight(%msg)      ANSI colored message (useful on console)
+```
 
 For a more complete list, see also [https://logback.qos.ch/manual/layouts.html](https://logback.qos.ch/manual/layouts.html).
 
