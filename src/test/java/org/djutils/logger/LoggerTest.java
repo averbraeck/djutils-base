@@ -494,12 +494,12 @@ public class LoggerTest
         var cat1 = new LogCategory("CAT1");
         var cat2 = new LogCategory("CAT2");
         var cat3 = new LogCategory("CAT3");
-        
+
         try
         {
             CategoryLogger.addLogCategory(cat1);
             CategoryLogger.addLogCategory(cat2);
-            
+
             CategoryLogger.setLogLevel(cat1, Level.INFO);
             CategoryLogger.setLogLevel(cat2, Level.WARN);
             assertEquals(Level.INFO, CategoryLogger.getLogLevel(cat1));
@@ -509,7 +509,7 @@ public class LoggerTest
             assertEquals(Level.DEBUG, CategoryLogger.getLogLevel(cat1));
             assertEquals(Level.DEBUG, CategoryLogger.getLogLevel(cat2));
             CategoryLogger.setLogLevelAll(Level.INFO);
-            
+
             CategoryLogger.setPattern(cat1, "%msg%n");
             CategoryLogger.setPattern(cat2, CategoryLogger.DEFAULT_PATTERN);
             assertEquals("%msg%n", CategoryLogger.getPattern(cat1));
@@ -546,7 +546,7 @@ public class LoggerTest
 
             CategoryLogger.addLogCategory(cat1);
             CategoryLogger.addLogCategory(cat2);
-            
+
             CategoryLogger.addFormatter(cat2, "simTime", () -> "123.456");
             CategoryLogger.setPattern(cat2, "[%X{simTime}] %msg%n");
             CategoryLogger.setLogLevelAll(Level.INFO);
@@ -560,13 +560,13 @@ public class LoggerTest
             lastLoggedResult = null;
             CategoryLogger.with(cat3).info("xyz");
             assertNull(lastLoggedResult);
-            
+
             CategoryLogger.removeFormatter(cat2, "simTime");
             CategoryLogger.with(cat2).info("xyz");
             assertFalse(lastLoggedResult.trim().startsWith("[123.456]"));
             assertTrue(lastLoggedResult.trim().contains("xyz"));
             lastLoggedResult = null;
-            
+
             final AtomicInteger ai = new AtomicInteger(0);
             CategoryLogger.addFormatter(cat2, "ai", () -> String.valueOf(ai.get()));
             CategoryLogger.setPattern(cat2, "[%X{ai}] %msg%n");
@@ -582,7 +582,7 @@ public class LoggerTest
             assertTrue(lastLoggedResult.trim().startsWith("[2]"));
             assertTrue(lastLoggedResult.trim().contains("abc"));
             lastLoggedResult = null;
-            
+
             CategoryLogger.removeCallback(cat2);
             CategoryLogger.with(cat2).info("def");
             assertTrue(lastLoggedResult.trim().startsWith("[2]"));
@@ -603,6 +603,70 @@ public class LoggerTest
             CategoryLogger.removeLogCategory(cat2);
             CategoryLogger.setLogLevelAll(Level.INFO);
             CategoryLogger.setPatternAll(CategoryLogger.DEFAULT_PATTERN);
+        }
+    }
+
+    /**
+     * Test FQCN barrier.
+     */
+    @Test
+    public void testFqcnBarrier()
+    {
+        var cat1 = new LogCategory("CAT1");
+        try
+        {
+            CategoryLogger.addAppender("string", this.stringAppenderFactory);
+            CategoryLogger.removeAppender("CONSOLE");
+
+            CategoryLogger.addLogCategory(cat1);
+            CategoryLogger.setLogLevel(cat1, Level.INFO);
+            CategoryLogger.setPattern(cat1, "%class{0}.%method:%line - %msg%n");
+            
+            lastLoggedResult = null;
+            CategoryLogger.with(cat1).info("abc");
+            assertTrue(lastLoggedResult.contains("testFqcnBarrier"));
+            assertTrue(lastLoggedResult.contains("- abc"));
+            lastLoggedResult = null;
+            
+            ExtraLogger.info("def");
+            assertTrue(lastLoggedResult.contains("testFqcnBarrier"));
+            assertTrue(lastLoggedResult.contains("- def"));
+            lastLoggedResult = null;
+            
+            CategoryLogger.addLogCategory(ExtraLogger.EXTRACAT, ExtraLogger.class);
+        }
+        finally
+        {
+            CategoryLogger.removeLogCategory(ExtraLogger.EXTRACAT);
+            CategoryLogger.removeAppender("string");
+            CategoryLogger.addAppender("CONSOLE", new CategoryLogger.ConsoleAppenderFactory("CONSOLE"));
+            CategoryLogger.removeLogCategory(cat1);
+            CategoryLogger.setLogLevelAll(Level.INFO);
+            CategoryLogger.setPatternAll(CategoryLogger.DEFAULT_PATTERN);
+        }
+    }
+
+    /**
+     * An extra logger call depth for the FQCN barrier test.
+     */
+    protected static class ExtraLogger
+    {
+        /** extra category. */
+        public static final LogCategory EXTRACAT = new LogCategory("EXTRA");
+
+        static 
+        {
+            CategoryLogger.addLogCategory(EXTRACAT, ExtraLogger.class);
+            CategoryLogger.setPattern(EXTRACAT, "%class{0}.%method:%line - %msg%n");
+        }
+        
+        /**
+         * Info message one level deeper.
+         * @param msg the message
+         */
+        public static void info(final String msg)
+        {
+            CategoryLogger.with(EXTRACAT).info(msg);
         }
     }
 
