@@ -1,12 +1,14 @@
 package org.djutils.logger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BooleanSupplier;
 
 import org.djutils.logger.CategoryLogger.CategoryAppenderFactory;
@@ -492,6 +494,7 @@ public class LoggerTest
         var cat1 = new LogCategory("CAT1");
         var cat2 = new LogCategory("CAT2");
         var cat3 = new LogCategory("CAT3");
+        
         try
         {
             CategoryLogger.addLogCategory(cat1);
@@ -520,6 +523,82 @@ public class LoggerTest
         }
         finally
         {
+            CategoryLogger.removeLogCategory(cat1);
+            CategoryLogger.removeLogCategory(cat2);
+            CategoryLogger.setLogLevelAll(Level.INFO);
+            CategoryLogger.setPatternAll(CategoryLogger.DEFAULT_PATTERN);
+        }
+    }
+
+    /**
+     * Test formatter and callback.
+     */
+    @Test
+    public void testFormatterCallback()
+    {
+        var cat1 = new LogCategory("CAT1");
+        var cat2 = new LogCategory("CAT2");
+        var cat3 = new LogCategory("CAT3");
+        try
+        {
+            CategoryLogger.addAppender("string", this.stringAppenderFactory);
+            CategoryLogger.removeAppender("CONSOLE");
+
+            CategoryLogger.addLogCategory(cat1);
+            CategoryLogger.addLogCategory(cat2);
+            
+            CategoryLogger.addFormatter(cat2, "simTime", () -> "123.456");
+            CategoryLogger.setPattern(cat2, "[%X{simTime}] %msg%n");
+            CategoryLogger.setLogLevelAll(Level.INFO);
+            CategoryLogger.with(cat2).info("xyz");
+            assertTrue(lastLoggedResult.trim().startsWith("[123.456]"));
+            assertTrue(lastLoggedResult.trim().contains("xyz"));
+            lastLoggedResult = null;
+            CategoryLogger.with(cat1).info("xyz");
+            assertFalse(lastLoggedResult.trim().startsWith("[123.456]"));
+            assertTrue(lastLoggedResult.trim().contains("xyz"));
+            lastLoggedResult = null;
+            CategoryLogger.with(cat3).info("xyz");
+            assertNull(lastLoggedResult);
+            
+            CategoryLogger.removeFormatter(cat2, "simTime");
+            CategoryLogger.with(cat2).info("xyz");
+            assertFalse(lastLoggedResult.trim().startsWith("[123.456]"));
+            assertTrue(lastLoggedResult.trim().contains("xyz"));
+            lastLoggedResult = null;
+            
+            final AtomicInteger ai = new AtomicInteger(0);
+            CategoryLogger.addFormatter(cat2, "ai", () -> String.valueOf(ai.get()));
+            CategoryLogger.setPattern(cat2, "[%X{ai}] %msg%n");
+            CategoryLogger.setCallback(cat2, () -> ai.incrementAndGet());
+            lastLoggedResult = null;
+            CategoryLogger.with(cat2).info("xyz");
+            assertTrue(lastLoggedResult.trim().startsWith("[1]"));
+            assertTrue(lastLoggedResult.trim().contains("xyz"));
+            lastLoggedResult = null;
+            CategoryLogger.with(cat1).info("xyz");
+            assertEquals(1, ai.get());
+            CategoryLogger.with(cat2).info("abc");
+            assertTrue(lastLoggedResult.trim().startsWith("[2]"));
+            assertTrue(lastLoggedResult.trim().contains("abc"));
+            lastLoggedResult = null;
+            
+            CategoryLogger.removeCallback(cat2);
+            CategoryLogger.with(cat2).info("def");
+            assertTrue(lastLoggedResult.trim().startsWith("[2]"));
+            assertTrue(lastLoggedResult.trim().contains("def"));
+            lastLoggedResult = null;
+            CategoryLogger.removeFormatter(cat2, "ai");
+            CategoryLogger.with(cat2).info("ghi");
+            assertFalse(lastLoggedResult.trim().startsWith("[2]"));
+            assertTrue(lastLoggedResult.trim().contains("ghi"));
+            lastLoggedResult = null;
+            assertEquals(2, ai.get());
+        }
+        finally
+        {
+            CategoryLogger.removeAppender("string");
+            CategoryLogger.addAppender("CONSOLE", new CategoryLogger.ConsoleAppenderFactory("CONSOLE"));
             CategoryLogger.removeLogCategory(cat1);
             CategoryLogger.removeLogCategory(cat2);
             CategoryLogger.setLogLevelAll(Level.INFO);
