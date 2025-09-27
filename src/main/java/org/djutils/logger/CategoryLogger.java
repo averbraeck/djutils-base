@@ -271,6 +271,25 @@ public final class CategoryLogger
     }
 
     /**
+     * Register a log category that can log with the CategoryLogger, with a 'boundary' class that indicates what to hide in the
+     * call stack. Note that unregistered loggers for which you use with() do not log.
+     * @param category the log category to register.
+     * @param callerBoundary class that defines what to hide in the call stack
+     */
+    public static synchronized void addLogCategory(final LogCategory category, final Class<?> callerBoundary)
+    {
+        ensureInit();
+        if (CATEGORY_CFG.containsKey(category))
+            return;
+        CategoryConfig cfg = new CategoryConfig(defaultLevel, defaultPattern);
+        CATEGORY_CFG.put(category, cfg);
+        org.slf4j.Logger slf = LoggerFactory.getLogger(category.toString());
+        var delegate = new DelegateLogger(slf, callerBoundary, true);
+        DELEGATES.put(category, delegate);
+        wireCategoryLogger(category, cfg);
+    }
+
+    /**
      * Remove a log category from logging with the CategoryLogger. Note that unregistered loggers for which you use with() do
      * not log.
      * @param category the log category to unregister.
@@ -741,7 +760,7 @@ public final class CategoryLogger
          * @param callerBoundary class that defines what to hide in the call stack
          * @param log whether we should log or not (the NO_LOGGER does not log)
          */
-        private DelegateLogger(final org.slf4j.Logger slf4jLogger, final Class<?> callerBoundary, final boolean log)
+        protected DelegateLogger(final org.slf4j.Logger slf4jLogger, final Class<?> callerBoundary, final boolean log)
         {
             this.logger = slf4jLogger;
             this.boundaryFqcn = Objects.requireNonNull(callerBoundary).getName();
@@ -752,7 +771,7 @@ public final class CategoryLogger
          * Create a DelegateLogger with DelegateLogger as the only class to hide from the call stack.
          * @param slf4jLogger the logger facade from slf4j, can be null in case no logging is done
          */
-        private DelegateLogger(final org.slf4j.Logger slf4jLogger)
+        protected DelegateLogger(final org.slf4j.Logger slf4jLogger)
         {
             this(slf4jLogger, CategoryLogger.DelegateLogger.class, true);
         }
