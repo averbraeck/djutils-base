@@ -63,7 +63,7 @@ public final class CategoryLogger
     private static String defaultPattern = DEFAULT_PATTERN;
 
     /** The default logging level. */
-    private static final Level DEFAULT_LEVEL = Level.INFO;
+    public static final Level DEFAULT_LEVEL = Level.INFO;
 
     /** The current default logging level for new category loggers. */
     private static Level defaultLevel = DEFAULT_LEVEL;

@@ -484,16 +484,60 @@ public class LoggerTest
     }
 
     /**
+     * Test setters and getters for log level and pattern.
+     */
+    @Test
+    public void testGetSetPerCategory()
+    {
+        var cat1 = new LogCategory("CAT1");
+        var cat2 = new LogCategory("CAT2");
+        var cat3 = new LogCategory("CAT3");
+        try
+        {
+            CategoryLogger.addLogCategory(cat1);
+            CategoryLogger.addLogCategory(cat2);
+            
+            CategoryLogger.setLogLevel(cat1, Level.INFO);
+            CategoryLogger.setLogLevel(cat2, Level.WARN);
+            assertEquals(Level.INFO, CategoryLogger.getLogLevel(cat1));
+            assertEquals(Level.WARN, CategoryLogger.getLogLevel(cat2));
+            assertEquals(CategoryLogger.DEFAULT_LEVEL, CategoryLogger.getLogLevel(cat3));
+            CategoryLogger.setLogLevelAll(Level.DEBUG);
+            assertEquals(Level.DEBUG, CategoryLogger.getLogLevel(cat1));
+            assertEquals(Level.DEBUG, CategoryLogger.getLogLevel(cat2));
+            CategoryLogger.setLogLevelAll(Level.INFO);
+            
+            CategoryLogger.setPattern(cat1, "%msg%n");
+            CategoryLogger.setPattern(cat2, CategoryLogger.DEFAULT_PATTERN);
+            assertEquals("%msg%n", CategoryLogger.getPattern(cat1));
+            assertEquals(CategoryLogger.DEFAULT_PATTERN, CategoryLogger.getPattern(cat2));
+            assertEquals(CategoryLogger.DEFAULT_PATTERN, CategoryLogger.getPattern(cat3));
+            String m = "%msg at %class.%method:%line %n";
+            CategoryLogger.setPatternAll(m);
+            assertEquals(m, CategoryLogger.getPattern(cat1));
+            assertEquals(m, CategoryLogger.getPattern(cat2));
+            CategoryLogger.setPatternAll(CategoryLogger.DEFAULT_PATTERN);
+        }
+        finally
+        {
+            CategoryLogger.removeLogCategory(cat1);
+            CategoryLogger.removeLogCategory(cat2);
+            CategoryLogger.setLogLevelAll(Level.INFO);
+            CategoryLogger.setPatternAll(CategoryLogger.DEFAULT_PATTERN);
+        }
+    }
+
+    /**
      * The in-memory StringAppender class for testing whether the correct information has been logged.
      */
     protected static class StringAppender extends AppenderBase<ILoggingEvent>
     {
         /** Last output. */
         private String result = null;
-        
+
         /** the last used pattern. */
         private final String pattern;
-        
+
         /** The logger context. */
         private final LoggerContext ctx;
 
