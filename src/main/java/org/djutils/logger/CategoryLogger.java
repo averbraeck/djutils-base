@@ -37,7 +37,7 @@ import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
  * LogCategory.ALL:
  * 
  * <pre>
- * CategoryLogger.filter(Cat.BASE).debug("Parameter {} initialized correctly", param1.toString());
+ * CategoryLogger.with(Cat.BASE).debug("Parameter {} initialized correctly", param1.toString());
  * </pre>
  * <p>
  * Copyright (c) 2018-2025 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
@@ -86,7 +86,7 @@ public final class CategoryLogger
     /** The base DelegateLogger for the always() method. */
     private static final DelegateLogger BASE_DELEGATE = new DelegateLogger(LoggerFactory.getLogger(CAT_ALWAYS.toString()));
 
-    /** The NO_LOGGER is the DelegateLogger that does not output anything after when() or filter(). */
+    /** The NO_LOGGER is the DelegateLogger that does not output anything after when() or with(). */
     private static final DelegateLogger NO_LOGGER = new DelegateLogger(null, CategoryLogger.DelegateLogger.class, false);
 
     /** */
@@ -244,7 +244,7 @@ public final class CategoryLogger
     /**
      * Only log when the category has been registered in the CategoryLogger, and with the settings of that logger.
      * @param category the category to check
-     * @return the DelegateLogger for method chaining, e.g., CategoryLogger.filter(Cat.BASE).info("message");
+     * @return the DelegateLogger for method chaining, e.g., CategoryLogger.with(Cat.BASE).info("message");
      */
     public static DelegateLogger with(final LogCategory category)
     {
@@ -253,8 +253,8 @@ public final class CategoryLogger
     }
 
     /**
-     * Register a log category that can log with the CategoryLogger. Note that unregistered loggers for which you use filter()
-     * do not log.
+     * Register a log category that can log with the CategoryLogger. Note that unregistered loggers for which you use with() do
+     * not log.
      * @param category the log category to register.
      */
     public static synchronized void addLogCategory(final LogCategory category)
@@ -271,7 +271,7 @@ public final class CategoryLogger
     }
 
     /**
-     * Remove a log category from logging with the CategoryLogger. Note that unregistered loggers for which you use filter() do
+     * Remove a log category from logging with the CategoryLogger. Note that unregistered loggers for which you use with() do
      * not log.
      * @param category the log category to unregister.
      */
@@ -338,7 +338,7 @@ public final class CategoryLogger
             CATEGORY_STATE.get(cat).logger.setLevel(level);
         }
     }
-    
+
     /**
      * Return the log level for a log category.
      * @param category the log category
