@@ -1,6 +1,5 @@
 package org.djutils.event.collection;
 
-import java.io.Serializable;
 import java.util.Iterator;
 
 import org.djutils.event.EventType;
@@ -24,11 +23,8 @@ import org.djutils.metadata.MetaData;
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @param <T> the type of elements to iterate on
  */
-public class EventProducingIterator<T> extends LocalEventProducer implements Iterator<T>, Serializable
+public class EventProducingIterator<T> extends LocalEventProducer implements Iterator<T>
 {
-    /** The default serial version UID for serializable classes. */
-    private static final long serialVersionUID = 20191230L;
-
     /** OBJECT_REMOVED_EVENT is fired on removal of entries. */
     public static final EventType OBJECT_REMOVED_EVENT = new EventType("OBJECT_REMOVED_EVENT", MetaData.NO_META_DATA);
 

@@ -1,6 +1,5 @@
 package org.djutils.event.collection;
 
-import java.rmi.RemoteException;
 import java.util.Collection;
 
 import org.djutils.event.Event;
@@ -30,9 +29,6 @@ import org.djutils.metadata.ObjectDescriptor;
  */
 public class EventProducingCollection<T> extends LocalEventProducer implements EventListener, Collection<T>
 {
-    /** The default serial version UID for serializable classes. */
-    private static final long serialVersionUID = 20191230L;
-
     /** OBJECT_ADDED_EVENT is fired on new entries. */
     public static final EventType OBJECT_ADDED_EVENT =
             new EventType("OBJECT_ADDED_EVENT", new MetaData("Size of the collection after add", "Size of the collection",
@@ -139,7 +135,7 @@ public class EventProducingCollection<T> extends LocalEventProducer implements E
     }
 
     @Override
-    public void notify(final Event event) throws RemoteException
+    public void notify(final Event event)
     {
         // pass through the OBJECT_REMOVED_EVENT from the iterator
         if (event.getType().equals(EventProducingIterator.OBJECT_REMOVED_EVENT))

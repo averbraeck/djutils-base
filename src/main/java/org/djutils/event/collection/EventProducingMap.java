@@ -1,6 +1,5 @@
 package org.djutils.event.collection;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -28,11 +27,8 @@ import org.djutils.metadata.ObjectDescriptor;
  * @param <K> the key type
  * @param <V> the value type
  */
-public class EventProducingMap<K, V> extends LocalEventProducer implements Map<K, V>, Serializable
+public class EventProducingMap<K, V> extends LocalEventProducer implements Map<K, V>
 {
-    /** The default serial version UID for serializable classes. */
-    private static final long serialVersionUID = 20191230L;
-
     /** OBJECT_ADDED_EVENT is fired on new entries. */
     public static final EventType OBJECT_ADDED_EVENT =
             new EventType("OBJECT_ADDED_EVENT", new MetaData("Size of the map after add", "Size of the map",

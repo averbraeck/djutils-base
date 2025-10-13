@@ -1,6 +1,5 @@
 package org.djutils.event.collection;
 
-import java.io.Serializable;
 import java.util.ListIterator;
 
 import org.djutils.event.EventType;
@@ -22,11 +21,8 @@ import org.djutils.metadata.MetaData;
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @param <T> the type of elements to iterate on
  */
-public class EventProducingListIterator<T> extends EventProducingIterator<T> implements ListIterator<T>, Serializable
+public class EventProducingListIterator<T> extends EventProducingIterator<T> implements ListIterator<T>
 {
-    /** */
-    private static final long serialVersionUID = 20191230L;
-
     /** OBJECT_ADDED_EVENT is fired on adding of entries. */
     public static final EventType OBJECT_ADDED_EVENT = new EventType("OBJECT_ADDED_EVENT", MetaData.EMPTY);
 
