@@ -18,9 +18,6 @@ import java.util.Set;
  */
 public class ImmutableHashSet<E> extends ImmutableAbstractSet<E>
 {
-    /** */
-    private static final long serialVersionUID = 20160507L;
-
     /**
      * Construct a new ImmutableHashSet containing a copy of the provided collection.
      * @param collection the collection to use for the immutable set.

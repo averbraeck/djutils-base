@@ -1,6 +1,5 @@
 package org.djutils.immutablecollections;
 
-import java.io.Serializable;
 import java.util.Comparator;
 import java.util.ConcurrentModificationException;
 import java.util.LinkedHashMap;
@@ -23,7 +22,7 @@ import java.util.function.BiConsumer;
  * @param <K> the key type of content of this Map
  * @param <V> the value type of content of this Map
  */
-public interface ImmutableMap<K, V> extends Serializable
+public interface ImmutableMap<K, V>
 {
     /**
      * Returns the number of elements in this immutable collection. If this immutable collection contains more than
@@ -487,73 +486,61 @@ public interface ImmutableMap<K, V> extends Serializable
         /**
          * Returns a comparator that compares {@link ImmutableMap.ImmutableEntry} in natural order on key.
          * <p>
-         * The returned comparator is serializable and throws {@link NullPointerException} when comparing an entry with a null
-         * key.
+         * The returned comparator throws {@link NullPointerException} when comparing an entry with a null key.
          * @param <K> the {@link Comparable} type of then map keys
          * @param <V> the type of the map values
          * @return a comparator that compares {@link ImmutableMap.ImmutableEntry} in natural order on key.
          * @see Comparable
          * @since 1.8
          */
-        @SuppressWarnings("unchecked")
         public static <K extends Comparable<? super K>, V> Comparator<ImmutableMap.ImmutableEntry<K, V>> comparingByKey()
         {
-            return (Comparator<ImmutableMap.ImmutableEntry<K, V>> & Serializable) (c1, c2) -> c1.getKey()
-                    .compareTo(c2.getKey());
+            return (Comparator<ImmutableMap.ImmutableEntry<K, V>>) (c1, c2) -> c1.getKey().compareTo(c2.getKey());
         }
 
         /**
          * Returns a comparator that compares {@link ImmutableMap.ImmutableEntry} in natural order on value.
          * <p>
-         * The returned comparator is serializable and throws {@link NullPointerException} when comparing an entry with null
-         * values.
+         * The returned comparator throws {@link NullPointerException} when comparing an entry with null values.
          * @param <K> the type of the map keys
          * @param <V> the {@link Comparable} type of the map values
          * @return a comparator that compares {@link ImmutableMap.ImmutableEntry} in natural order on value.
          * @see Comparable
          * @since 1.8
          */
-        @SuppressWarnings("unchecked")
         public static <K, V extends Comparable<? super V>> Comparator<ImmutableMap.ImmutableEntry<K, V>> comparingByValue()
         {
-            return (Comparator<ImmutableMap.ImmutableEntry<K, V>> & Serializable) (c1, c2) -> c1.getValue()
-                    .compareTo(c2.getValue());
+            return (Comparator<ImmutableMap.ImmutableEntry<K, V>>) (c1, c2) -> c1.getValue().compareTo(c2.getValue());
         }
 
         /**
          * Returns a comparator that compares {@link ImmutableMap.ImmutableEntry} by key using the given {@link Comparator}.
          * <p>
-         * The returned comparator is serializable if the specified comparator is also serializable.
          * @param <K> the type of the map keys
          * @param <V> the type of the map values
          * @param cmp the key {@link Comparator}
          * @return a comparator that compares {@link ImmutableMap.ImmutableEntry} by the key.
          * @since 1.8
          */
-        @SuppressWarnings("unchecked")
         public static <K, V> Comparator<ImmutableMap.ImmutableEntry<K, V>> comparingByKey(final Comparator<? super K> cmp)
         {
             Objects.requireNonNull(cmp);
-            return (Comparator<ImmutableMap.ImmutableEntry<K, V>> & Serializable) (c1, c2) -> cmp.compare(c1.getKey(),
-                    c2.getKey());
+            return (Comparator<ImmutableMap.ImmutableEntry<K, V>>) (c1, c2) -> cmp.compare(c1.getKey(), c2.getKey());
         }
 
         /**
          * Returns a comparator that compares {@link ImmutableMap.ImmutableEntry} by value using the given {@link Comparator}.
          * <p>
-         * The returned comparator is serializable if the specified comparator is also serializable.
          * @param <K> the type of the map keys
          * @param <V> the type of the map values
          * @param cmp the value {@link Comparator}
          * @return a comparator that compares {@link ImmutableMap.ImmutableEntry} by the value.
          * @since 1.8
          */
-        @SuppressWarnings("unchecked")
         public static <K, V> Comparator<ImmutableMap.ImmutableEntry<K, V>> comparingByValue(final Comparator<? super V> cmp)
         {
             Objects.requireNonNull(cmp);
-            return (Comparator<ImmutableMap.ImmutableEntry<K, V>> & Serializable) (c1, c2) -> cmp.compare(c1.getValue(),
-                    c2.getValue());
+            return (Comparator<ImmutableMap.ImmutableEntry<K, V>>) (c1, c2) -> cmp.compare(c1.getValue(), c2.getValue());
         }
 
         @Override

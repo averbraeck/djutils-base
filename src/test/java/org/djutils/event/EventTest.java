@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.io.Serializable;
-
 import org.djutils.metadata.MetaData;
 import org.djutils.metadata.ObjectDescriptor;
 import org.djutils.test.UnitTest;
@@ -60,7 +58,7 @@ public class EventTest
                 new MetaData("INT_EVENT", "event with integer payload", new ObjectDescriptor("int", "integer", Integer.class));
         EventType eventType = new EventType(metaData);
         assertEquals(eventType, eventType);
-        Object content = new SerializableObject();
+        Object content = new Object();
         assertNotEquals(eventType, content);
         assertNotEquals(eventType, null);
         assertEquals(eventType, new EventType(metaData));
@@ -93,7 +91,7 @@ public class EventTest
         EventType eventType2 = new EventType(MetaData.EMPTY);
         assertEquals(eventType2, eventType2);
         assertNotEquals(eventType, eventType2);
-        Object content2 = new SerializableObject();
+        Object content2 = new Object();
         assertNotEquals(eventType2, content2);
         assertNotEquals(eventType2, null);
         assertEquals(eventType2, new EventType(MetaData.EMPTY));
@@ -123,7 +121,7 @@ public class EventTest
     {
         EventType eventType = new EventType("TEST_TYPE", MetaData.NO_META_DATA);
         assertEquals(eventType, eventType);
-        Object content = new SerializableObject();
+        Object content = new Object();
         assertNotEquals(eventType, content);
         assertNotEquals(eventType, null);
         assertNotEquals(eventType, new EventType("TEST_TYPE2", MetaData.NO_META_DATA));
@@ -162,8 +160,8 @@ public class EventTest
     {
         EventType eventType = new EventType("TEST_TYPE", MetaData.NO_META_DATA);
         EventType eventType2 = new EventType("TEST_TYPE2", MetaData.NO_META_DATA);
-        Serializable content = new SerializableObject();
-        Serializable content2 = new SerializableObject();
+        Object content = new Object();
+        Object content2 = new Object();
         Event event = new Event(eventType, content);
         assertEquals(event.getContent(), content);
         assertEquals(event.getType(), eventType);
@@ -208,8 +206,8 @@ public class EventTest
     {
         EventType eventType = new EventType("TEST_TYPE", MetaData.NO_META_DATA);
         EventType eventType2 = new EventType("TEST_TYPE2", MetaData.NO_META_DATA);
-        Serializable content = new SerializableObject();
-        Serializable content2 = new SerializableObject();
+        Object content = new Object();
+        Object content2 = new Object();
         long time = 123L;
         long time2 = 456L;
         TimedEvent<Long> timedEvent = new TimedEvent<>(eventType, content, time);
@@ -278,12 +276,5 @@ public class EventTest
             }
         }, NullPointerException.class);
 
-    }
-
-    /** Serializable object class. */
-    class SerializableObject extends Object implements Serializable
-    {
-        /** */
-        private static final long serialVersionUID = 1L;
     }
 }

@@ -6,9 +6,17 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
+import org.djutils.event.Event;
+import org.djutils.event.EventListener;
 import org.djutils.event.EventListenerMap;
 import org.djutils.event.EventProducer;
+import org.djutils.event.EventType;
+import org.djutils.event.reference.Reference;
+import org.djutils.exceptions.Throw;
 import org.djutils.rmi.RmiObject;
 
 /**
@@ -26,12 +34,9 @@ import org.djutils.rmi.RmiObject;
  */
 public class RmiEventProducer implements EventProducer, Remote
 {
-    /** The default serial version UID for serializable classes. */
-    private static final long serialVersionUID = 20140830L;
-
     /** The embedded RmiObject class for the remote firing of events. */
     private final RmiObject rmiObject;
-    
+
     /** the subscriber list. */
     private final EventListenerMap eventListenerMap;
 
@@ -73,6 +78,89 @@ public class RmiEventProducer implements EventProducer, Remote
         this.eventListenerMap = new EventListenerMap();
     }
 
+    @Override
+    public void fireEvent(final Event event)
+    {
+        Throw.whenNull(event, "event may not be null");
+        EventListenerMap elm = getEventListenerMap();
+        if (elm.containsKey(event.getType()))
+        {
+            // make a safe copy because of possible removeListener() in notify() method during fireEvent
+            List<Reference<EventListener>> listenerList = new ArrayList<>(elm.get(event.getType()));
+            for (Reference<EventListener> reference : listenerList)
+            {
+                EventListener listener = reference.get();
+                try
+                {
+                    if (listener != null)
+                    {
+                        // The garbage collection has not cleaned the referent
+                        fireEvent(listener, event);
+                    }
+                    else
+                    {
+                        // The garbage collection cleaned the referent;
+                        // there is no need to keep the subscription
+                        removeListener(reference, event.getType());
+                    }
+                }
+                catch (RemoteException remoteException)
+                {
+                    // A network failure prevented the delivery,
+                    // subscription is removed.
+                    try
+                    {
+                        removeListener(reference, event.getType());
+                    }
+                    catch (RemoteException re)
+                    {
+                        throw new RuntimeException("removeListener failed", re);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Transmit an event to a listener. This method is a hook method. The default implementation simply invokes the notify on
+     * the listener. In specific cases (filtering, storing, queueing, this method can be overwritten.
+     * @param listener the listener for this event
+     * @param event the event to fire
+     * @throws RemoteException on network error
+     */
+    private void fireEvent(final EventListener listener, final Event event) throws RemoteException
+    {
+        listener.notify(event);
+    }
+
+    /**
+     * Remove one reference from the subscription list.
+     * @param reference the (strong or weak) reference to remove
+     * @param eventType the eventType for which reference must be removed
+     * @return true if the reference was removed; otherwise false
+     * @throws RemoteException on network error
+     */
+    private boolean removeListener(final Reference<EventListener> reference, final EventType eventType) throws RemoteException
+    {
+        Throw.whenNull(reference, "reference may not be null");
+        Throw.whenNull(eventType, "eventType may not be null");
+        EventListenerMap elm = getEventListenerMap();
+        boolean success = false;
+        for (Iterator<Reference<EventListener>> i = elm.get(eventType).iterator(); i.hasNext();)
+        {
+            if (i.next().equals(reference))
+            {
+                i.remove();
+                success = true;
+            }
+        }
+        if (elm.get(eventType).size() == 0)
+        {
+            elm.remove(eventType);
+        }
+        return success;
+    }
+
     /**
      * Returns the registry in which this object has been bound, e.g., to look up other objects in the registry.
      * @return the registry in which this object has been bound
@@ -84,7 +172,7 @@ public class RmiEventProducer implements EventProducer, Remote
     }
 
     @Override
-    public EventListenerMap getEventListenerMap() throws RemoteException
+    public EventListenerMap getEventListenerMap()
     {
         return this.eventListenerMap;
     }

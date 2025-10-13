@@ -19,9 +19,6 @@ import java.util.TreeSet;
  */
 public class ImmutableTreeSet<E> extends ImmutableAbstractSet<E> implements ImmutableNavigableSet<E>
 {
-    /** */
-    private static final long serialVersionUID = 20160507L;
-
     /**
      * @param sortedSet the collection to use for the immutable set.
      */

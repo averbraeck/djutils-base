@@ -1,15 +1,12 @@
 package org.djutils.event;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 import org.djutils.exceptions.Throw;
 import org.djutils.metadata.MetaData;
 
 /**
- * The Event class forms the reference implementation for the Event. Because events are often sent over the network, the
- * interface demands that its content are serializable. It is the responsibility of the programmer, though, that the
- * <b>fields</b> of the content are serializable as well.
+ * The Event class forms the reference implementation for the Event.
  * <p>
  * Copyright (c) 2002-2025 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://djutils.org" target="_blank"> https://djutils.org</a>. The DJUTILS project is
@@ -21,23 +18,20 @@ import org.djutils.metadata.MetaData;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class Event implements Serializable
+public class Event
 {
-    /** The default serial version UID for serializable classes. */
-    private static final long serialVersionUID = 20140826L;
-
     /** The type of the event. */
     private final EventType type;
 
     /** The content of the event. */
-    private final Serializable content;
+    private final Object content;
 
     /**
      * Construct a new Event, where compliance with the metadata is verified.
      * @param type the name of the Event.
      * @param content the content of the event
      */
-    public Event(final EventType type, final Serializable content)
+    public Event(final EventType type, final Object content)
     {
         this(type, content, true);
     }
@@ -48,7 +42,7 @@ public class Event implements Serializable
      * @param content the content of the event
      * @param verifyMetaData whether to verify the compliance with metadata or not
      */
-    public Event(final EventType type, final Serializable content, final boolean verifyMetaData)
+    public Event(final EventType type, final Object content, final boolean verifyMetaData)
     {
         Throw.whenNull(type, "type cannot be null");
         this.type = type;
@@ -74,7 +68,7 @@ public class Event implements Serializable
      * Return the content (payload) of this event.
      * @return the content (payload) of this event
      */
-    public final Serializable getContent()
+    public final Object getContent()
     {
         return this.content;
     }

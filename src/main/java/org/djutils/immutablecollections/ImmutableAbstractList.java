@@ -23,9 +23,6 @@ import org.djutils.exceptions.Throw;
  */
 public abstract class ImmutableAbstractList<E> extends ImmutableAbstractCollection<E> implements ImmutableList<E>, RandomAccess
 {
-    /** */
-    private static final long serialVersionUID = 20160507L;
-
     /** the list that is wrapped, without giving access to methods that can change it. */
     private final List<E> list;
 

@@ -1,7 +1,5 @@
 package org.djutils.quadtree;
 
-import java.io.Serializable;
-
 import org.djutils.exceptions.Throw;
 
 /**
@@ -18,11 +16,8 @@ import org.djutils.exceptions.Throw;
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @author <a href="https://www.tudelft.nl/pknoppers">Peter Knoppers</a>
  */
-public class Rectangle implements Serializable
+public class Rectangle
 {
-    /** ... */
-    private static final long serialVersionUID = 20200904L;
-
     /** Left boundary (inclusive). */
     private final double left;
 
@@ -150,8 +145,8 @@ public class Rectangle implements Serializable
     /**
      * Determine if this Rectangle contains all points of another Rectangle.
      * @param other the other rectangle
-     * @return true if this Rectangle contains all points of the other Rectangle; false if this Rectangle does not
-     *         contain all points of the other Rectangle
+     * @return true if this Rectangle contains all points of the other Rectangle; false if this Rectangle does not contain all
+     *         points of the other Rectangle
      */
     public boolean contains(final Rectangle other)
     {

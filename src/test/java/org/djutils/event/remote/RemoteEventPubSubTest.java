@@ -779,9 +779,6 @@ public class RemoteEventPubSubTest
     protected static class TestRemoteEventProducer extends RmiEventProducer
     {
         /** */
-        private static final long serialVersionUID = 20191230L;
-
-        /** */
         public static final EventType REMOTE_EVENT_1 = new EventType("REMOTE_EVENT_1", MetaData.NO_META_DATA);
 
         /** */
@@ -854,7 +851,7 @@ public class RemoteEventPubSubTest
         }
 
         @Override
-        public void notify(final Event event) throws RemoteException
+        public void notify(final Event event)
         {
             if (!this.expectingNotification)
             {
@@ -936,7 +933,7 @@ public class RemoteEventPubSubTest
 
         @SuppressWarnings("unchecked")
         @Override
-        public void notify(final Event event) throws RemoteException
+        public void notify(final Event event)
         {
             if (!this.expectingNotification)
             {

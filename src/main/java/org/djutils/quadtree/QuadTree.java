@@ -1,6 +1,5 @@
 package org.djutils.quadtree;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -18,11 +17,8 @@ import org.djutils.exceptions.Throw;
  * @author <a href="http://www.tudelft.nl/pknoppers">Peter Knoppers</a>
  * @param <T> Type of object stored in this quad tree
  */
-public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
+public class QuadTree<T extends Envelope> implements Collection<T>
 {
-    /** ... */
-    private static final long serialVersionUID = 20200904L;
-
     /** Maximum number of payload objects in one cell. */
     private final int maximumLoad;
 
@@ -249,11 +245,8 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
      * @param <T> Type of object stored in this quad tree
      */
     @SuppressWarnings("hiding")
-    class SubTree<T extends Envelope> implements Serializable
+    class SubTree<T extends Envelope>
     {
-        /** ... */
-        private static final long serialVersionUID = 20200904L;
-
         /** Root of the quad tree. */
         private final QuadTree<T> root;
 
@@ -598,11 +591,8 @@ public class QuadTree<T extends Envelope> implements Collection<T>, Serializable
  * Container for a Rectangle and a payload.
  * @param <T> Object; the payload
  */
-class RectangleAndPayload<T extends Object> implements Serializable
+class RectangleAndPayload<T extends Object>
 {
-    /** ... */
-    private static final long serialVersionUID = 20200904L;
-
     /** The bounding rectangle. */
     private final Rectangle rectangle;
 

@@ -1,13 +1,12 @@
 package org.djutils.event;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 import org.djutils.exceptions.Throw;
 import org.djutils.metadata.MetaData;
 
 /**
- * Reference implementation of the EventType. The AbstractEventType is the description of a topic used for the subscription to
+ * Reference implementation of the EventType. The EventType is the description of a topic used for the subscription to
  * asynchronous events. Event types are used by EventProducers to show which events they potentially fire. EventTypes are
  * typically defined as static final fields. In order to prevent name clashes for the EventType, the full name of the class from
  * which the EventType was defined (usually in the &lt;clinit&gt;) is added to the equals() and hashCode() methods of the
@@ -29,11 +28,8 @@ import org.djutils.metadata.MetaData;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class EventType implements Serializable
+public class EventType
 {
-    /** The default serial version UID for serializable classes. */
-    private static final long serialVersionUID = 20140830L;
-
     /** The name of the eventType. */
     private final String name;
 

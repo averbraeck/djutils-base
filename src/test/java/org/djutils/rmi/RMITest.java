@@ -45,6 +45,7 @@ public class RMITest
     public void testRMIRegistry() throws RemoteException, AlreadyBoundException, NotBoundException
     {
         CategoryLogger.setLogLevelAll(Level.OFF);
+        CategoryLogger.setLogLevel(CategoryLogger.CAT_ALWAYS, Level.OFF);
         // test making the registry
         UnitTest.testFail(new UnitTest.Execution()
         {
@@ -300,6 +301,7 @@ public class RMITest
         }, "did not get expected exception for closeRegistry()");
 
         CategoryLogger.setLogLevelAll(Level.INFO);
+        CategoryLogger.setLogLevel(CategoryLogger.CAT_ALWAYS, Level.INFO);
     }
 
     /**
@@ -311,6 +313,7 @@ public class RMITest
     public void testRMIRegistryLocalHost() throws UnknownHostException
     {
         CategoryLogger.setLogLevelAll(Level.OFF);
+        CategoryLogger.setLogLevel(CategoryLogger.CAT_ALWAYS, Level.OFF);
 
         for (String localHostName : new String[] {"localhost", "127.0.0.1", InetAddress.getLocalHost().getHostName(),
                 InetAddress.getLocalHost().getHostAddress()})
@@ -349,6 +352,7 @@ public class RMITest
         }
 
         CategoryLogger.setLogLevelAll(Level.INFO);
+        CategoryLogger.setLogLevel(CategoryLogger.CAT_ALWAYS, Level.INFO);
     }
 
     /**
@@ -362,6 +366,7 @@ public class RMITest
     public void testRMIObject() throws RemoteException, AlreadyBoundException, NotBoundException, MalformedURLException
     {
         CategoryLogger.setLogLevelAll(Level.OFF);
+        CategoryLogger.setLogLevel(CategoryLogger.CAT_ALWAYS, Level.OFF);
 
         // make the producer
         Producer producer = new Producer();
@@ -476,6 +481,7 @@ public class RMITest
         sleep(200);
 
         CategoryLogger.setLogLevelAll(Level.INFO);
+        CategoryLogger.setLogLevel(CategoryLogger.CAT_ALWAYS, Level.INFO);
     }
 
     /**

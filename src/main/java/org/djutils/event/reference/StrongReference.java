@@ -1,17 +1,9 @@
 package org.djutils.event.reference;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.lang.reflect.Field;
-
-import org.djutils.logger.CategoryLogger;
-
 /**
  * A StrongReference class represents a normal pointer relation to a reference. This class is created to complete the
  * java.lang.ref package. This class ensures that references can be used without casting to either an object or a reference.
- * Strong references are not created to be cleaned by the garbage collector. Since they represent normal pointer relations, they
- * are the only ones which might be serialized. This class therefore implements <code>java.io.Serializable</code>
+ * Strong references are not created to be cleaned by the garbage collector.
  * <p>
  * Copyright (c) 2002-2025 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://djutils.org" target="_blank"> https://djutils.org</a>. The DJUTILS project is
@@ -24,11 +16,8 @@ import org.djutils.logger.CategoryLogger;
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @param <T> the type of the reference
  */
-public class StrongReference<T extends Serializable> extends Reference<T>
+public class StrongReference<T> extends Reference<T>
 {
-    /** The default serial version UID for serializable classes. */
-    private static final long serialVersionUID = 20191230L;
-
     /** the referent. */
     private final transient T referent;
 
@@ -45,36 +34,5 @@ public class StrongReference<T extends Serializable> extends Reference<T>
     public final T get()
     {
         return this.referent;
-    }
-
-    /**
-     * writes a serializable referent to stream.
-     * @param out the output stream
-     * @throws IOException on IOException
-     */
-    private synchronized void writeObject(final ObjectOutputStream out) throws IOException
-    {
-        out.writeObject(this.get());
-    }
-
-    /**
-     * reads a serializable method from stream.
-     * @param in java.io.ObjectInputStream; the input stream
-     * @throws IOException on IOException
-     * @throws ClassNotFoundException on ClassNotFoundException
-     */
-    private void readObject(final java.io.ObjectInputStream in) throws IOException, ClassNotFoundException
-    {
-        try
-        {
-            Field field = getClass().getDeclaredField("referent");
-            field.setAccessible(true);
-            field.set(this, in.readObject());
-            field.setAccessible(false);
-        }
-        catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException exception)
-        {
-            CategoryLogger.always().error(exception, "Error using ReadObject on StrongReference");
-        }
     }
 }

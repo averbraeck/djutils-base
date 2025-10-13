@@ -1,7 +1,5 @@
 package org.djutils.metadata;
 
-import java.io.Serializable;
-
 import org.djutils.exceptions.Throw;
 
 /**
@@ -14,11 +12,8 @@ import org.djutils.exceptions.Throw;
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @author <a href="https://www.tudelft.nl/pknoppers">Peter Knoppers</a>
  */
-public class ObjectDescriptor implements Serializable
+public class ObjectDescriptor
 {
-    /** ... */
-    private static final long serialVersionUID = 20200417L;
-
     /** Name. */
     private final String name;
 

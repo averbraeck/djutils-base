@@ -23,9 +23,6 @@ import java.util.TreeSet;
  */
 public class ImmutableTreeMap<K, V> extends ImmutableAbstractMap<K, V> implements ImmutableNavigableMap<K, V>
 {
-    /** */
-    private static final long serialVersionUID = 20160507L;
-
     /** the cached keySet. */
     private ImmutableSortedSet<K> cachedKeySet = null;
 

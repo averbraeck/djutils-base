@@ -19,9 +19,6 @@ import java.util.Set;
  */
 public class ImmutableLinkedHashSet<E> extends ImmutableAbstractSet<E>
 {
-    /** */
-    private static final long serialVersionUID = 20160507L;
-
     /**
      * @param collection the collection to use for the immutable set.
      */

@@ -18,9 +18,6 @@ import org.djutils.exceptions.Throw;
  */
 public abstract class ImmutableAbstractCollection<E> implements ImmutableCollection<E>
 {
-    /** */
-    private static final long serialVersionUID = 20180908L;
-
     /** COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original collection. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected final Immutable copyOrWrap;

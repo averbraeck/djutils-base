@@ -21,9 +21,6 @@ import org.djutils.exceptions.Throw;
  */
 public abstract class ImmutableAbstractMap<K, V> implements ImmutableMap<K, V>
 {
-    /** */
-    private static final long serialVersionUID = 20160507L;
-
     /** the map that is wrapped, without giving access to methods that can change it. */
     private final Map<K, V> map;
 

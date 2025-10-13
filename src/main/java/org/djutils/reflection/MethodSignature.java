@@ -1,6 +1,5 @@
 package org.djutils.reflection;
 
-import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -19,11 +18,8 @@ import java.util.List;
  * </p>
  * @author Peter Jacobs, Niels Lang, Alexander Verbraeck
  */
-public class MethodSignature implements Serializable
+public class MethodSignature
 {
-    /** The default serial version UID for serializable classes. */
-    private static final long serialVersionUID = 20191230L;
-
     /** the value of the methodDescriptor. */
     private String value = null;
 

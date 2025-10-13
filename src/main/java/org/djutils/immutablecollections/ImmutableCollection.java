@@ -1,6 +1,5 @@
 package org.djutils.immutablecollections;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Spliterator;
 import java.util.Spliterators;
@@ -19,7 +18,7 @@ import java.util.stream.StreamSupport;
  * @author <a href="https://www.tudelft.nl/staff/p.knoppers/">Peter Knoppers</a>
  * @param <E> the type of content of this Collection
  */
-public interface ImmutableCollection<E> extends Iterable<E>, Serializable
+public interface ImmutableCollection<E> extends Iterable<E>
 {
     /**
      * Returns the number of elements in this immutable collection. If this immutable collection contains more than

@@ -1,6 +1,5 @@
 package org.djutils.reflection;
 
-import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -19,12 +18,9 @@ import org.djutils.primitives.Primitive;
  * </p>
  * @author Peter Jacobs, Niels Lang, Alexander Verbraeck
  */
-public class FieldSignature implements Serializable
+public class FieldSignature
 {
-    /** The default serial version UID for serializable classes. */
-    private static final long serialVersionUID = 20191230L;
-
-    /** the CAHCHe. */
+    /** the cache. */
     private static final Map<String, Class<?>> CACHE = new LinkedHashMap<String, Class<?>>();
 
     /** the value of the field descriptor. */

@@ -21,9 +21,6 @@ import java.util.Set;
  */
 public class ImmutableLinkedHashMap<K, V> extends ImmutableAbstractMap<K, V>
 {
-    /** */
-    private static final long serialVersionUID = 20160507L;
-
     /** the cached keySet. */
     private ImmutableSet<K> cachedKeySet = null;
 

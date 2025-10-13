@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -574,9 +573,6 @@ public class EventCollectionTest
     /** */
     protected static class TestEventListener implements EventListener
     {
-        /** */
-        private static final long serialVersionUID = 20191230L;
-
         /** expect notification or not. */
         private boolean expectingNotification = true;
 
@@ -600,7 +596,7 @@ public class EventCollectionTest
         }
 
         @Override
-        public void notify(final Event event) throws RemoteException
+        public void notify(final Event event)
         {
             if (!this.expectingNotification)
             {

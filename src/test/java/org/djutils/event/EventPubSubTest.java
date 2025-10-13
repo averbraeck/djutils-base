@@ -6,9 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.rmi.RemoteException;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -690,9 +688,6 @@ public class EventPubSubTest
     protected static class TestEventProducer extends LocalEventProducer
     {
         /** */
-        private static final long serialVersionUID = 20191230L;
-
-        /** */
         public static final EventType PRODUCER_EVENT_1 = new EventType("PRODUCER_EVENT_1", MetaData.NO_META_DATA);
 
         /** */
@@ -711,9 +706,6 @@ public class EventPubSubTest
     protected static class TestIllegalEventProducer extends LocalEventProducer
     {
         /** */
-        private static final long serialVersionUID = 20191230L;
-
-        /** */
         public static final EventType PRODUCER_EVENT_1 = new EventType("PRODUCER_EVENT_1", MetaData.NO_META_DATA);
 
         /** duplicate static non-private EventType should give error on class construction. */
@@ -723,9 +715,6 @@ public class EventPubSubTest
     /** */
     protected static class TestEventListener implements EventListener
     {
-        /** */
-        private static final long serialVersionUID = 20191230L;
-
         /** expect notification or not. */
         private boolean expectingNotification = true;
 
@@ -760,7 +749,7 @@ public class EventPubSubTest
         }
 
         @Override
-        public void notify(final Event event) throws RemoteException
+        public void notify(final Event event)
         {
             if (!this.expectingNotification)
             {
@@ -790,11 +779,8 @@ public class EventPubSubTest
      * TimedEventListener.
      * @param <C> the comparable time type
      */
-    protected static class TestTimedEventListener<C extends Comparable<C> & Serializable> implements EventListener
+    protected static class TestTimedEventListener<C extends Comparable<C>> implements EventListener
     {
-        /** */
-        private static final long serialVersionUID = 20191230L;
-
         /** expect notification or not. */
         private boolean expectingNotification = true;
 
@@ -830,7 +816,7 @@ public class EventPubSubTest
 
         @SuppressWarnings("unchecked")
         @Override
-        public void notify(final Event event) throws RemoteException
+        public void notify(final Event event)
         {
             if (!this.expectingNotification)
             {

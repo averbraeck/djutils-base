@@ -22,9 +22,6 @@ import org.djutils.exceptions.Throw;
  */
 public abstract class ImmutableAbstractSet<E> extends ImmutableAbstractCollection<E> implements ImmutableSet<E>
 {
-    /** */
-    private static final long serialVersionUID = 20160507L;
-
     /** the set that is wrapped, without giving access to methods that can change it. */
     private final Set<E> set;
 

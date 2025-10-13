@@ -1,8 +1,5 @@
 package org.djutils.event;
 
-import java.io.Serializable;
-import java.rmi.Remote;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -27,7 +24,7 @@ import org.djutils.exceptions.Throw;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public interface EventProducer extends Serializable, Remote
+public interface EventProducer
 {
     /** The FIRST_POSITION in the queue. */
     int FIRST_POSITION = 0;
@@ -43,11 +40,9 @@ public interface EventProducer extends Serializable, Remote
      * @param referenceType whether the listener is added as a strong or as a weak reference
      * @return the success of adding the listener. If a listener was already added or an illegal position is provided false is
      *         returned
-     * @throws RemoteException on network error
-     * @see org.djutils.event.reference.WeakReference
      */
     default boolean addListener(final EventListener listener, final EventType eventType, final int position,
-            final ReferenceType referenceType) throws RemoteException
+            final ReferenceType referenceType)
     {
         Throw.whenNull(listener, "listener cannot be null");
         Throw.whenNull(eventType, "eventType cannot be null");
@@ -99,9 +94,8 @@ public interface EventProducer extends Serializable, Remote
      * @param listener the listener which is interested at events of eventType
      * @param eventType the events of interest
      * @return the success of adding the listener. If a listener was already added false is returned
-     * @throws RemoteException on network error
      */
-    default boolean addListener(final EventListener listener, final EventType eventType) throws RemoteException
+    default boolean addListener(final EventListener listener, final EventType eventType)
     {
         return addListener(listener, eventType, FIRST_POSITION);
     }
@@ -112,11 +106,10 @@ public interface EventProducer extends Serializable, Remote
      * @param eventType the events of interest
      * @param referenceType whether the listener is added as a strong or as a weak reference
      * @return the success of adding the listener. If a listener was already added false is returned
-     * @throws RemoteException on network error
      * @see org.djutils.event.reference.WeakReference
      */
     default boolean addListener(final EventListener listener, final EventType eventType, final ReferenceType referenceType)
-            throws RemoteException
+
     {
         return addListener(listener, eventType, FIRST_POSITION, referenceType);
     }
@@ -128,10 +121,9 @@ public interface EventProducer extends Serializable, Remote
      * @param position the position of the listener in the queue
      * @return the success of adding the listener. If a listener was already added, or an illegal position is provided false is
      *         returned
-     * @throws RemoteException on network error
      */
     default boolean addListener(final EventListener listener, final EventType eventType, final int position)
-            throws RemoteException
+
     {
         return addListener(listener, eventType, position, ReferenceType.STRONG);
     }
@@ -139,16 +131,14 @@ public interface EventProducer extends Serializable, Remote
     /**
      * Return the map with the EventListener entries and the reference types.
      * @return the map with the EventListener entries and the reference types
-     * @throws RemoteException on network error
      */
-    EventListenerMap getEventListenerMap() throws RemoteException;
+    EventListenerMap getEventListenerMap();
 
     /**
      * Remove all the listeners from this event producer.
      * @return the number of removed event types for which listeners existed
-     * @throws RemoteException on network error
      */
-    default int removeAllListeners() throws RemoteException
+    default int removeAllListeners()
     {
         int result = getEventListenerMap().size();
         getEventListenerMap().clear();
@@ -159,9 +149,8 @@ public interface EventProducer extends Serializable, Remote
      * Removes all the listeners of a class from this event producer.
      * @param ofClass the class or superclass
      * @return the number of removed listeners
-     * @throws RemoteException on network error
      */
-    default int removeAllListeners(final Class<?> ofClass) throws RemoteException
+    default int removeAllListeners(final Class<?> ofClass)
     {
         Throw.whenNull(ofClass, "ofClass may not be null");
         int result = 0;
@@ -190,9 +179,8 @@ public interface EventProducer extends Serializable, Remote
      * @param listener which is no longer interested
      * @param eventType the event which is of no interest any more
      * @return the success of removing the listener. If a listener was not subscribed false is returned
-     * @throws RemoteException on network error
      */
-    default boolean removeListener(final EventListener listener, final EventType eventType) throws RemoteException
+    default boolean removeListener(final EventListener listener, final EventType eventType)
     {
         Throw.whenNull(listener, "listener may not be null");
         Throw.whenNull(eventType, "eventType may not be null");
@@ -229,9 +217,8 @@ public interface EventProducer extends Serializable, Remote
     /**
      * Return whether the EventProducer has listeners.
      * @return whether the EventProducer has listeners or not
-     * @throws RemoteException on network error
      */
-    default boolean hasListeners() throws RemoteException
+    default boolean hasListeners()
     {
         return !getEventListenerMap().isEmpty();
     }
@@ -240,9 +227,8 @@ public interface EventProducer extends Serializable, Remote
      * Return the number of listeners for the provided EventType.
      * @param eventType the event type to return the number of listeners for
      * @return whether the EventProducer has listeners or not
-     * @throws RemoteException on network error
      */
-    default int numberOfListeners(final EventType eventType) throws RemoteException
+    default int numberOfListeners(final EventType eventType)
     {
         if (getEventListenerMap().containsKey(eventType))
         {
@@ -256,11 +242,10 @@ public interface EventProducer extends Serializable, Remote
      * an empty list when nothing is registered for this event type. The method never returns a null pointer, so it is safe to
      * use the result directly in an iterator. The references to the listeners are the original references, so not safe copies.
      * @param eventType the event type to look up the listeners for
-     * @return the list of references to the listeners for this event type,
-     *         or an empty list when the event type is not registered
-     * @throws RemoteException on network error
+     * @return the list of references to the listeners for this event type, or an empty list when the event type is not
+     *         registered
      */
-    default List<Reference<EventListener>> getListenerReferences(final EventType eventType) throws RemoteException
+    default List<Reference<EventListener>> getListenerReferences(final EventType eventType)
     {
         List<Reference<EventListener>> result = new ArrayList<>();
         if (getEventListenerMap().get(eventType) != null)
@@ -273,9 +258,8 @@ public interface EventProducer extends Serializable, Remote
     /**
      * Return the EventTypes for which the EventProducer has listeners.
      * @return the EventTypes for which the EventProducer has registered listeners
-     * @throws RemoteException on netowrk error
      */
-    default Set<EventType> getEventTypesWithListeners() throws RemoteException
+    default Set<EventType> getEventTypesWithListeners()
     {
         return getEventListenerMap().keySet(); // is already a safe copy
     }
@@ -285,9 +269,8 @@ public interface EventProducer extends Serializable, Remote
      * @param reference the (strong or weak) reference to remove
      * @param eventType the eventType for which reference must be removed
      * @return true if the reference was removed; otherwise false
-     * @throws RemoteException on network error
      */
-    private boolean removeListener(final Reference<EventListener> reference, final EventType eventType) throws RemoteException
+    private boolean removeListener(final Reference<EventListener> reference, final EventType eventType)
     {
         Throw.whenNull(reference, "reference may not be null");
         Throw.whenNull(eventType, "eventType may not be null");
@@ -311,9 +294,8 @@ public interface EventProducer extends Serializable, Remote
     /**
      * Transmit an event to all subscribed listeners.
      * @param event the event
-     * @throws RemoteException on network error
      */
-    default void fireEvent(final Event event) throws RemoteException
+    default void fireEvent(final Event event)
     {
         Throw.whenNull(event, "event may not be null");
         EventListenerMap eventListenerMap = getEventListenerMap();
@@ -324,24 +306,15 @@ public interface EventProducer extends Serializable, Remote
             for (Reference<EventListener> reference : listenerList)
             {
                 EventListener listener = reference.get();
-                try
+                if (listener != null)
                 {
-                    if (listener != null)
-                    {
-                        // The garbage collection has not cleaned the referent
-                        fireEvent(listener, event);
-                    }
-                    else
-                    {
-                        // The garbage collection cleaned the referent;
-                        // there is no need to keep the subscription
-                        removeListener(reference, event.getType());
-                    }
+                    // The garbage collection has not cleaned the referent
+                    fireEvent(listener, event);
                 }
-                catch (RemoteException remoteException)
+                else
                 {
-                    // A network failure prevented the delivery,
-                    // subscription is removed.
+                    // The garbage collection cleaned the referent;
+                    // there is no need to keep the subscription
                     removeListener(reference, event.getType());
                 }
             }
@@ -353,9 +326,8 @@ public interface EventProducer extends Serializable, Remote
      * the listener. In specific cases (filtering, storing, queueing, this method can be overwritten.
      * @param listener the listener for this event
      * @param event the event to fire
-     * @throws RemoteException on network failure
      */
-    private void fireEvent(final EventListener listener, final Event event) throws RemoteException
+    private void fireEvent(final EventListener listener, final Event event)
     {
         listener.notify(event);
     }
@@ -364,9 +336,8 @@ public interface EventProducer extends Serializable, Remote
      * Transmit a time-stamped event to all interested listeners.
      * @param event the event
      * @param <C> the comparable type to indicate the time when the event is fired
-     * @throws RemoteException on network failure
      */
-    default <C extends Comparable<C> & Serializable> void fireTimedEvent(final TimedEvent<C> event) throws RemoteException
+    default <C extends Comparable<C>> void fireTimedEvent(final TimedEvent<C> event)
     {
         fireEvent(event);
     }
@@ -374,9 +345,8 @@ public interface EventProducer extends Serializable, Remote
     /**
      * Transmit an event with no payload object to all interested listeners.
      * @param eventType the eventType of the event
-     * @throws RemoteException on network failure
      */
-    default void fireEvent(final EventType eventType) throws RemoteException
+    default void fireEvent(final EventType eventType)
     {
         fireEvent(new Event(eventType, null, true));
     }
@@ -386,36 +356,32 @@ public interface EventProducer extends Serializable, Remote
      * @param eventType the eventType of the event.
      * @param time a time stamp for the event
      * @param <C> the comparable type to indicate the time when the event is fired
-     * @throws RemoteException on network failure
      */
-    default <C extends Comparable<C> & Serializable> void fireTimedEvent(final EventType eventType, final C time)
-            throws RemoteException
+    default <C extends Comparable<C>> void fireTimedEvent(final EventType eventType, final C time)
 
     {
         fireEvent(new TimedEvent<C>(eventType, null, time, true));
     }
 
     /**
-     * Transmit an event with a serializable object as payload to all interested listeners.
+     * Transmit an event with an object as payload to all interested listeners.
      * @param eventType the eventType of the event
      * @param value the object sent with the event
-     * @throws RemoteException on network failure
      */
-    default void fireEvent(final EventType eventType, final Serializable value) throws RemoteException
+    default void fireEvent(final EventType eventType, final Object value)
     {
         fireEvent(new Event(eventType, value, true));
     }
 
     /**
-     * Transmit a time-stamped event with a Serializable object (payload) to all interested listeners.
+     * Transmit a time-stamped event with an object (payload) to all interested listeners.
      * @param eventType the eventType of the event.
      * @param value the payload sent with the event
      * @param time a time stamp for the event
      * @param <C> the comparable type to indicate the time when the event is fired
-     * @throws RemoteException on network failure
      */
-    default <C extends Comparable<C> & Serializable> void fireTimedEvent(final EventType eventType, final Serializable value,
-            final C time) throws RemoteException
+    default <C extends Comparable<C>> void fireTimedEvent(final EventType eventType, final Object value, final C time)
+
     {
         fireEvent(new TimedEvent<C>(eventType, value, time, true));
     }
@@ -423,47 +389,43 @@ public interface EventProducer extends Serializable, Remote
     /**
      * Transmit an event with no payload object to all interested listeners.
      * @param eventType the eventType of the event
-     * @throws RemoteException on network failure
      */
-    default void fireUnverifiedEvent(final EventType eventType) throws RemoteException
+    default void fireUnverifiedEvent(final EventType eventType)
     {
         fireEvent(new Event(eventType, null, false));
     }
 
     /**
-     * Transmit a time-stamped event with a no payload object to all interested listeners.
+     * Transmit a time-stamped event without a payload object to all interested listeners.
      * @param eventType the eventType of the event.
      * @param time a time stamp for the event
      * @param <C> the comparable type to indicate the time when the event is fired
-     * @throws RemoteException on network failure
      */
-    default <C extends Comparable<C> & Serializable> void fireUnverifiedTimedEvent(final EventType eventType, final C time)
-            throws RemoteException
+    default <C extends Comparable<C>> void fireUnverifiedTimedEvent(final EventType eventType, final C time)
+
     {
         fireEvent(new TimedEvent<C>(eventType, null, time, false));
     }
 
     /**
-     * Transmit an event with a serializable object as payload to all interested listeners.
+     * Transmit an event with an object as payload to all interested listeners.
      * @param eventType the eventType of the event
      * @param value the object sent with the event
-     * @throws RemoteException on network failure
      */
-    default void fireUnverifiedEvent(final EventType eventType, final Serializable value) throws RemoteException
+    default void fireUnverifiedEvent(final EventType eventType, final Object value)
     {
         fireEvent(new Event(eventType, value, false));
     }
 
     /**
-     * Transmit a time-stamped event with a Serializable object (payload) to all interested listeners.
+     * Transmit a time-stamped event with an object (payload) to all interested listeners.
      * @param eventType the eventType of the event.
      * @param value the payload sent with the event
      * @param time a time stamp for the event
      * @param <C> the comparable type to indicate the time when the event is fired
-     * @throws RemoteException on network failure
      */
-    default <C extends Comparable<C> & Serializable> void fireUnverifiedTimedEvent(final EventType eventType,
-            final Serializable value, final C time) throws RemoteException
+    default <C extends Comparable<C>> void fireUnverifiedTimedEvent(final EventType eventType, final Object value, final C time)
+
     {
         fireEvent(new TimedEvent<C>(eventType, value, time, false));
     }

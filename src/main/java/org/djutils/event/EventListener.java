@@ -1,9 +1,5 @@
 package org.djutils.event;
 
-import java.io.Serializable;
-import java.rmi.Remote;
-import java.rmi.RemoteException;
-
 /**
  * The EventListener interface creates a callback method for publishers to inform their clients. The EventListener and
  * EventProducer together form a combination of the Publish-Subscribe design pattern and the Observer design pattern using the
@@ -23,14 +19,13 @@ import java.rmi.RemoteException;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public interface EventListener extends java.util.EventListener, Serializable, Remote
+public interface EventListener extends java.util.EventListener
 {
     /**
      * Notifies the event listener of an event. This operation forms the callback method of the asynchronous communication
      * protocol expressed in the event package.
      * @param event the event which is sent to the listener
-     * @throws RemoteException If a network connection failure occurs.
      */
-    void notify(Event event) throws RemoteException;
+    void notify(Event event);
 
 }

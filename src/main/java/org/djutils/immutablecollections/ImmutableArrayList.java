@@ -19,9 +19,6 @@ import java.util.List;
  */
 public class ImmutableArrayList<E> extends ImmutableAbstractList<E>
 {
-    /** */
-    private static final long serialVersionUID = 20160507L;
-
     /**
      * @param collection the collection to use for the immutable list.
      */

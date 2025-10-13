@@ -1,10 +1,8 @@
 package org.djutils.event.reference;
 
-import java.io.Serializable;
-
 /**
- * The Reference abstract class defines an indirect pointer to an object that can be serialized, in contrast with the Java
- * Reference class, which is not serializable. References can be weak or strong.
+ * The Reference abstract class defines an indirect pointer to an object. References can be weak or strong. Java does not have
+ * an object type for a strong reference.
  * <p>
  * Copyright (c) 2002-2025 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://djutils.org" target="_blank"> https://djutils.org</a>. The DJUTILS project is
@@ -17,11 +15,8 @@ import java.io.Serializable;
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @param <T> the type of the reference
  */
-public abstract class Reference<T extends Serializable> implements Serializable
+public abstract class Reference<T>
 {
-    /** The default serial version UID for serializable classes. */
-    private static final long serialVersionUID = 20140830L;
-
     /**
      * Returns this reference object's referent. If this reference object has been cleared, either by the program or by the
      * garbage collector, then this method returns <code>null</code>.

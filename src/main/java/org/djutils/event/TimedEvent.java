@@ -1,13 +1,9 @@
 package org.djutils.event;
 
-import java.io.Serializable;
-
 import org.djutils.exceptions.Throw;
 
 /**
- * The TimedEvent is the reference implementation for a timed event. Because events are often sent over the network, the
- * interface demands that the event, content and timestamp are serializable. It is the repsonsibility of the programmer, though,
- * that the <b>fields</b> of the content and timestamp are serializable as well.
+ * The TimedEvent is the reference implementation for a timed event.
  * <p>
  * Copyright (c) 2002-2025 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://djutils.org" target="_blank"> https://djutils.org</a>. The DJUTILS project is
@@ -20,11 +16,8 @@ import org.djutils.exceptions.Throw;
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @param <T> the Comparable type that represents time
  */
-public class TimedEvent<T extends Comparable<T> & Serializable> extends Event implements Comparable<TimedEvent<T>>
+public class TimedEvent<T extends Comparable<T>> extends Event implements Comparable<TimedEvent<T>>
 {
-    /** The default serial version UID for serializable classes. */
-    private static final long serialVersionUID = 20140826L;
-
     /** Time stamp of this TimedEvent. */
     private final T timeStamp;
 
@@ -34,7 +27,7 @@ public class TimedEvent<T extends Comparable<T> & Serializable> extends Event im
      * @param content the content of the event.
      * @param timeStamp the timeStamp.
      */
-    public TimedEvent(final EventType type, final Serializable content, final T timeStamp)
+    public TimedEvent(final EventType type, final Object content, final T timeStamp)
     {
         this(type, content, timeStamp, true);
     }
@@ -46,7 +39,7 @@ public class TimedEvent<T extends Comparable<T> & Serializable> extends Event im
      * @param timeStamp the timeStamp.
      * @param verifyMetaData whether to verify the compliance with metadata or not
      */
-    public TimedEvent(final EventType type, final Serializable content, final T timeStamp, final boolean verifyMetaData)
+    public TimedEvent(final EventType type, final Object content, final T timeStamp, final boolean verifyMetaData)
     {
         super(type, content, verifyMetaData);
         Throw.whenNull(timeStamp, "timeStamp cannot be null");

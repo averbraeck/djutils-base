@@ -6,17 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +20,6 @@ import org.djutils.event.reference.StrongReference;
 import org.djutils.event.reference.WeakReference;
 import org.djutils.event.rmi.RmiEventListener;
 import org.djutils.metadata.MetaData;
-import org.djutils.rmi.RmiRegistry;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -42,11 +34,8 @@ import org.junit.jupiter.api.Test;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class EventListenerMapTest implements Serializable
+public class EventListenerMapTest
 {
-    /** */
-    private static final long serialVersionUID = 20191230L;
-
     /**
      * Test the EventListenerMap.
      */
@@ -132,77 +121,6 @@ public class EventListenerMapTest implements Serializable
         assertTrue((v1.size() == 1 && v2.size() == 2) || (v1.size() == 2 && v2.size() == 1));
         list1.add(sref1);
 
-        // test readObject() and writeObject()
-        try
-        {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream(baos);
-            oos.writeObject(elm);
-            ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
-            ObjectInputStream ois = new ObjectInputStream(bais);
-            EventListenerMap elm3 = (EventListenerMap) ois.readObject();
-            assertEquals(elm.size(), elm3.size());
-            Set<String> names0 = new HashSet<>();
-            elm.keySet().forEach((e) -> names0.add(e.getName()));
-            Set<String> names3 = new HashSet<>();
-            elm3.keySet().forEach((e) -> names3.add(e.getName()));
-            assertEquals(names0, names3);
-            Collection<List<Reference<EventListener>>> values3 = elm3.values();
-            assertEquals(2, values3.size());
-            Iterator<List<Reference<EventListener>>> vit3 = values3.iterator();
-            List<Reference<EventListener>> v31 = vit3.next();
-            List<Reference<EventListener>> v32 = vit3.next();
-            assertTrue((v31.size() == 1 && v32.size() == 2) || (v31.size() == 2 && v32.size() == 1));
-            baos.close();
-            oos.close();
-            bais.close();
-            ois.close();
-        }
-        catch (IOException | ClassNotFoundException exception)
-        {
-            fail(exception.getMessage());
-        }
-
-        // test readObject() and writeObject() with one RemoteEventListener (that should not be copied)
-        try
-        {
-            EventType remoteEventType = new EventType("REMOTE_EVENT_TYPE", MetaData.NO_META_DATA);
-            List<Reference<EventListener>> remoteList = new ArrayList<>();
-            TestRemoteEventListener remoteEventListener = new TestRemoteEventListener();
-            remoteList.add(new WeakReference<EventListener>(remoteEventListener));
-            elm.put(remoteEventType, remoteList);
-            assertEquals(3, elm.size());
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream(baos);
-            oos.writeObject(elm);
-            ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
-            ObjectInputStream ois = new ObjectInputStream(bais);
-            EventListenerMap elm3 = (EventListenerMap) ois.readObject();
-            assertEquals(2, elm3.size());
-            assertEquals(3, elm.size());
-            elm.remove(remoteEventType);
-            Set<String> names0 = new HashSet<>();
-            elm.keySet().forEach((e) -> names0.add(e.getName()));
-            Set<String> names3 = new HashSet<>();
-            elm3.keySet().forEach((e) -> names3.add(e.getName()));
-            assertEquals(names0, names3);
-            Collection<List<Reference<EventListener>>> values3 = elm3.values();
-            assertEquals(2, values3.size());
-            Iterator<List<Reference<EventListener>>> vit3 = values3.iterator();
-            List<Reference<EventListener>> v31 = vit3.next();
-            List<Reference<EventListener>> v32 = vit3.next();
-            assertTrue((v31.size() == 1 && v32.size() == 2) || (v31.size() == 2 && v32.size() == 1));
-            baos.close();
-            oos.close();
-            bais.close();
-            ois.close();
-            RmiRegistry.closeRegistry(remoteEventListener.getRegistry());
-        }
-        catch (IOException | ClassNotFoundException | AlreadyBoundException exception)
-        {
-            fail(exception.getMessage());
-        }
-
         // test get()
         List<Reference<EventListener>> getList = elm.get(eventType2);
         assertEquals(2, elm.size());
@@ -243,9 +161,6 @@ public class EventListenerMapTest implements Serializable
     /** */
     protected static class TestEventListener implements EventListener
     {
-        /** */
-        private static final long serialVersionUID = 20191230L;
-
         /** expect notification or not. */
         private boolean expectingNotification = true;
 
@@ -280,7 +195,7 @@ public class EventListenerMapTest implements Serializable
         }
 
         @Override
-        public void notify(final Event event) throws RemoteException
+        public void notify(final Event event)
         {
             if (!this.expectingNotification)
             {
@@ -308,7 +223,7 @@ public class EventListenerMapTest implements Serializable
         }
 
         @Override
-        public void notify(final Event event) throws RemoteException
+        public void notify(final Event event)
         {
             // tagging method
         }
