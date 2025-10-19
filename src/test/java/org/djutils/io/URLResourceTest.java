@@ -34,31 +34,12 @@ import org.junit.jupiter.api.Test;
  */
 public class URLResourceTest
 {
-
-    /**
-     * Test whether URLResource retrieves files.
-     * @throws IOException on I/O error
-     */
-    // TODO @Test -- this test does not run on ubuntu
-    public final void fileTest() throws IOException
-    {
-        // create a temporary file.
-        File tempFile = File.createTempFile("filetest-", ".temp");
-        String tempFilePath = tempFile.getAbsolutePath();
-        URL url1 = URLResource.getResource(tempFilePath);
-        assertNotNull(url1);
-        assertEquals(new File(url1.getPath()).getAbsolutePath().replaceAll("\\\\", "/"), tempFilePath.replaceAll("\\\\", "/"));
-
-        URL url2 = URLResource.getResource("/" + tempFilePath);
-        assertNotNull(url2);
-        assertEquals(new File(url2.getPath()).getAbsolutePath().replaceAll("\\\\", "/"), tempFilePath.replaceAll("\\\\", "/"));
-    }
-
     /**
      * Test whether URLResource retrieves files.
      * @throws IOException on I/O error
      * @throws URISyntaxException on URL error
      */
+    @SuppressWarnings("deprecation")
     @Test
     public final void resourceTest() throws IOException, URISyntaxException
     {
@@ -98,6 +79,7 @@ public class URLResourceTest
      * @throws IOException on I/O error
      * @throws URISyntaxException on URL error
      */
+    @SuppressWarnings("deprecation")
     @Test
     public final void resourceAsStreamTest() throws IOException, URISyntaxException
     {
@@ -117,6 +99,7 @@ public class URLResourceTest
      * @throws IOException on I/O error
      * @throws URISyntaxException on error
      */
+    @SuppressWarnings("deprecation")
     @Test
     public final void jarTest() throws IOException, URISyntaxException
     {
