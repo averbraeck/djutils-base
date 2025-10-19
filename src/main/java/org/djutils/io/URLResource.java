@@ -20,6 +20,7 @@ import java.net.URL;
  * @author Peter Jacobs
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
+@Deprecated
 public final class URLResource
 {
     /**
@@ -35,6 +36,7 @@ public final class URLResource
      * @param name the name to search for
      * @return the resolved URL
      */
+    @Deprecated
     public static URL getResource(final String name)
     {
         try
@@ -101,6 +103,7 @@ public final class URLResource
      * @param base the base for relative paths
      * @return the resolved URL
      */
+    @Deprecated
     public static URL getResource(final String name, final String base)
     {
         URL url = null;
@@ -218,6 +221,7 @@ public final class URLResource
      * @param name the name of the resource
      * @return the inputStream
      */
+    @Deprecated
     public static InputStream getResourceAsStream(final String name)
     {
         try
