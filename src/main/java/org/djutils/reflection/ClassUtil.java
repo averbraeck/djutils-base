@@ -27,7 +27,7 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 
-import org.djutils.io.URLResource;
+import org.djutils.io.ResourceResolver;
 import org.djutils.primitives.Primitive;
 
 /**
@@ -1035,7 +1035,7 @@ public final class ClassUtil
      */
     public static ClassFileDescriptor classFileDescriptor(final Class<?> clazz)
     {
-        URL clazzUrl = URLResource.getResource("/" + clazz.getName().replaceAll("\\.", "/") + ".class");
+        URL clazzUrl = ResourceResolver.resolve("/" + clazz.getName().replaceAll("\\.", "/") + ".class").asUrl();
         return classFileDescriptor(clazzUrl);
     }
 
