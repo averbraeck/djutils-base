@@ -1,5 +1,6 @@
 package org.djutils.io;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
@@ -283,26 +284,44 @@ public final class ResourceResolver
         // Normalize any "!\" to "!/"
         String s = raw.replace("!\\", "!/");
         int bang = s.indexOf("!/");
-        String left = s.substring(0, bang);
+        String leftRaw = s.substring(0, bang).trim();
         String entry = s.substring(bang + 2);
 
-        // If 'left' is already an absolute URI, use it (supports "file:/..." or even "http:/...").
-        URI leftAbs = tryParseAbsoluteUri(left);
+        // If 'left' is already an absolute URI (file:, http:, https:, etc.) use it directly
+        URI leftAbs = tryParseAbsoluteUri(leftRaw);
         if (leftAbs != null)
         {
-            // Most common: left is already file:/C:/.../app.jar
-            if (!"file".equalsIgnoreCase(leftAbs.getScheme()))
-            {
-                // It's unusual but legal to have non-file left; we still form a jar: URI.
-                return URI.create("jar:" + leftAbs + "!/" + entry);
-            }
             return URI.create("jar:" + leftAbs + "!/" + entry);
         }
 
-        // Otherwise, treat 'left' as a local path (absolute or relative); resolve against baseDir.
-        Path jarPath = baseDir.resolve(left).normalize();
-        URI fileUri = jarPath.toUri(); // Properly escapes spaces, etc.
+        // --- Windows safety: fix "/C:/..." forms BEFORE Path.of(...)
+        leftRaw = normalizeWindowsDrive(leftRaw);
+
+        Path jarPath = Path.of(leftRaw);
+        if (!jarPath.isAbsolute())
+        {
+            jarPath = baseDir.resolve(jarPath);
+        }
+        jarPath = jarPath.normalize();
+
+        URI fileUri = jarPath.toUri(); // properly escaped
         return URI.create("jar:" + fileUri + "!/" + entry);
+    }
+
+    /**
+     * On Windows, path can get mangled when moving between URI/URL and Path. This method turns "/C:/foo" or "\C:\foo" into
+     * "C:/foo" (or "C:\foo")
+     * @param s the path string to check
+     * @return a normalized string for Windows
+     */
+    private static String normalizeWindowsDrive(final String s)
+    {
+        if (File.separatorChar == '\\' && s.length() >= 4 && (s.charAt(0) == '/' || s.charAt(0) == '\\')
+                && Character.isLetter(s.charAt(1)) && s.charAt(2) == ':' && (s.charAt(3) == '/' || s.charAt(3) == '\\'))
+        {
+            return s.substring(1);
+        }
+        return s;
     }
 
     /**
@@ -623,7 +642,7 @@ public final class ResourceResolver
             {
                 throw new IllegalArgumentException("Not a JAR URI: " + jarUri);
             }
-            URI jarFileUri = URI.create(ssp.substring(0, bang)); // file:/…/lib.jar
+            URI jarFileUri = URI.create(ssp.substring(0, bang)); // file:/.../lib.jar
             String entry = ssp.substring(bang + 2); // path/in/jar
 
             FileSystem fs = FS_CACHE.computeIfAbsent(jarFileUri, k ->
