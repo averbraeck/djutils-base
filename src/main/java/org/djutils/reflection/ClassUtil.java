@@ -12,6 +12,7 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
@@ -816,8 +817,8 @@ public final class ClassUtil
     /**
      * Determines & returns the most specific constructor as defined in the Java Language Specification par 15.12. The current
      * algorithm is simple and reliable, but probably slow.
-     * @param methods are the constructors to be searched. They are assumed to have the same name and
-     *            number of parameters, as determined by the constructor matchSignature.
+     * @param methods are the constructors to be searched. They are assumed to have the same name and number of parameters, as
+     *            determined by the constructor matchSignature.
      * @return Constructor which is the most specific constructor.
      * @throws NoSuchMethodException when no constructor is found that's more specific than the others.
      */
@@ -862,8 +863,8 @@ public final class ClassUtil
     /**
      * Determines & returns the most specific method as defined in the Java Language Specification par 15.12. The current
      * algorithm is simple and reliable, but probably slow.
-     * @param methods which are the methods to be searched. They are assumed to have the same name and
-     *            number of parameters, as determined by the method matchSignature.
+     * @param methods which are the methods to be searched. They are assumed to have the same name and number of parameters, as
+     *            determined by the method matchSignature.
      * @return The most specific method.
      * @throws NoSuchMethodException when no method is found that's more specific than the others.
      */
@@ -1023,9 +1024,9 @@ public final class ClassUtil
      * @param object the object for which the class information should be retrieved
      * @return a ClassFileDescriptor with some information of the .class file
      */
-    public static ClassFileDescriptor classFileDescriptor(final Object object)
+    public static ClassFileDescriptor classFileDescriptorForObject(final Object object)
     {
-        return classFileDescriptor(object.getClass());
+        return classFileDescriptorForClass(object.getClass());
     }
 
     /**
@@ -1033,55 +1034,64 @@ public final class ClassUtil
      * @param clazz the class for which a file descriptor should be retrieved
      * @return a ClassFileDescriptor with some information of the .class file
      */
-    public static ClassFileDescriptor classFileDescriptor(final Class<?> clazz)
+    public static ClassFileDescriptor classFileDescriptorForClass(final Class<?> clazz)
     {
-        URL clazzUrl = ResourceResolver.resolve("/" + clazz.getName().replaceAll("\\.", "/") + ".class").asUrl();
-        return classFileDescriptor(clazzUrl);
+        Path classPath = ResourceResolver.resolve("/" + clazz.getName().replaceAll("\\.", "/") + ".class").asPath();
+        return classFileDescriptorForPath(classPath);
     }
 
     /**
      * Retrieve a file pointer of a class, e.g. to request the last compilation date.
-     * @param clazzUrl the URL to a class for which a file descriptor should be retrieved
+     * @param classPath the Path to a class for which a file descriptor should be retrieved
      * @return a ClassFileDescriptor with some information of the .class file
      */
-    public static ClassFileDescriptor classFileDescriptor(final URL clazzUrl)
+    public static ClassFileDescriptor classFileDescriptorForPath(final Path classPath)
     {
-        if (clazzUrl.toString().startsWith("jar:file:") && clazzUrl.toString().contains("!"))
-        {
-            String[] parts = clazzUrl.toString().split("\\!");
-            String jarFileName = parts[0].replace("jar:file:", "");
-            try
-            {
-                URL jarURL = new URL("file:" + jarFileName);
-                File jarUrlFile = new File(jarURL.toURI());
-                try (JarFile jarFile = new JarFile(jarUrlFile))
-                {
-                    if (parts[1].startsWith("/"))
-                    {
-                        parts[1] = parts[1].substring(1);
-                    }
-                    JarEntry jarEntry = jarFile.getJarEntry(parts[1]);
-                    return new ClassFileDescriptor(jarEntry, jarFileName + "!" + parts[1]);
-                }
-                catch (Exception exception)
-                {
-                    URL jarURL2 = new URL("file:" + jarFileName);
-                    return new ClassFileDescriptor(new File(jarURL2.toURI()));
-                }
-            }
-            catch (URISyntaxException | MalformedURLException exception)
-            {
-                return new ClassFileDescriptor(new File(jarFileName));
-            }
-        }
         try
         {
-            return new ClassFileDescriptor(new File(clazzUrl.toURI()));
+            URL clazzUrl = classPath.toUri().toURL();
+            if (clazzUrl.toString().startsWith("jar:file:") && clazzUrl.toString().contains("!"))
+            {
+                String[] parts = clazzUrl.toString().split("\\!");
+                String jarFileName = parts[0].replace("jar:file:", "");
+                try
+                {
+                    URL jarURL = new URL("file:" + jarFileName);
+                    File jarUrlFile = new File(jarURL.toURI());
+                    try (JarFile jarFile = new JarFile(jarUrlFile))
+                    {
+                        if (parts[1].startsWith("/"))
+                        {
+                            parts[1] = parts[1].substring(1);
+                        }
+                        JarEntry jarEntry = jarFile.getJarEntry(parts[1]);
+                        return new ClassFileDescriptor(jarEntry, jarFileName + "!" + parts[1]);
+                    }
+                    catch (Exception exception)
+                    {
+                        URL jarURL2 = new URL("file:" + jarFileName);
+                        return new ClassFileDescriptor(new File(jarURL2.toURI()));
+                    }
+                }
+                catch (URISyntaxException | MalformedURLException exception)
+                {
+                    return new ClassFileDescriptor(new File(jarFileName));
+                }
+            }
+            try
+            {
+                return new ClassFileDescriptor(new File(clazzUrl.toURI()));
+            }
+            catch (URISyntaxException exception)
+            {
+                return new ClassFileDescriptor(new File(clazzUrl.getPath()));
+            }
         }
-        catch (URISyntaxException exception)
+        catch (MalformedURLException exception)
         {
-            return new ClassFileDescriptor(new File(clazzUrl.getPath()));
+            return new ClassFileDescriptor(new File(classPath.toString()));
         }
+
     }
 
     /**
