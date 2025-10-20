@@ -1,7 +1,9 @@
 package org.djutils.io;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -45,7 +47,24 @@ public class ResourceResolverTest
         var res1 = ResourceResolver.resolve(tempFile.toAbsolutePath().toString());
         assertNotNull(res1);
         assertEquals(tempFile, res1.asPath());
+        assertFalse(res1.isClassPath());
+
+        Path folder = tempFile.getParent();
+        Path filename = tempFile.getFileName();
+        var res2 = ResourceResolver.resolve(filename.toString(), folder);
+        assertEquals(res1.asUri(), res2.asUri());
+        var res3 = ResourceResolver.resolve(filename.toString(), folder.toAbsolutePath().toString());
+        assertEquals(res1.asUri(), res3.asUri());
+        var res4 = ResourceResolver.resolve(filename.toString(), ResourceResolver.class.getClassLoader(), folder);
+        assertEquals(res1.asUri(), res4.asUri());
+        var res5 = ResourceResolver.resolve(filename.toString(), ResourceResolver.class.getClassLoader(),
+                folder.toAbsolutePath().toString());
+        assertEquals(res1.asUri(), res5.asUri());
         
+        String uri = res1.asUri().toString();
+        var res7 = ResourceResolver.resolve(uri);
+        assertEquals(res1.asUri(), res7.asUri());
+
         // non-existent file
         UnitTest.testFail(() -> ResourceResolver.resolve(tempFile.toAbsolutePath().toString() + ".xyz"));
     }
@@ -59,9 +78,11 @@ public class ResourceResolverTest
     public final void resourceTest() throws IOException, URISyntaxException
     {
         String path1 = "/org/djutils-test-resources/test.txt";
-        List<String> lines = Files.readAllLines(ResourceResolver.resolve(path1).asPath());
+        var res1 = ResourceResolver.resolve(path1);
+        List<String> lines = Files.readAllLines(res1.asPath());
         assertEquals(3, lines.size());
         assertEquals("abc", lines.get(0));
+        assertTrue(res1.isClassPath());
 
         String path2 = "org/djutils-test-resources/test.txt";
         lines = Files.readAllLines(ResourceResolver.resolve(path2).asPath());
@@ -77,7 +98,7 @@ public class ResourceResolverTest
         lines = Files.readAllLines(ResourceResolver.resolveAsResource(path4).asPath());
         assertEquals(3, lines.size());
         assertEquals("def", lines.get(1));
-        
+
         UnitTest.testFail(() -> ResourceResolver.resolveAsResource("/org/abc.xyz").asPath());
         UnitTest.testFail(() -> ResourceResolver.resolveAsResource("org/abc.xyz").asPath());
     }
@@ -128,10 +149,41 @@ public class ResourceResolverTest
         String jarFilePath = jarFile.getAbsolutePath();
         URL jarURL = ResourceResolver.resolve(jarFilePath).asUrl();
         assertNotNull(jarURL);
-        System.out.println(jarFile.getAbsolutePath() + "!/" + file1.getName());
         URL jar1 = ResourceResolver.resolve(jarFile.getAbsolutePath() + "!/" + file1.getName()).asUrl();
-        System.out.println(jar1.toURI());
         assertNotNull(jar1);
+    }
+
+    /**
+     * Test whether ResourceResolver retrieves entries from http-files.
+     * @throws IOException on I/O error
+     */
+    @Test
+    public final void httpTest() throws IOException
+    {
+        String url = "https://djutils.org/manual/index.html";
+        var res = ResourceResolver.resolve(url);
+        assertNotNull(res);
+        try (var stream = res.openStream())
+        {
+            byte[] data = stream.readNBytes(100);
+            String lines = new String(data).strip();
+            assertTrue(lines.toLowerCase().startsWith("<!doctype html>"));
+        }
+    }
+
+    /**
+     * Test whether ResourceResolver can store an ftp handle.
+     * @throws IOException on I/O error
+     */
+    @Test
+    public final void ftpTest() throws IOException
+    {
+        String url = "ftp://djutils.org/manual/index.html";
+        var res = ResourceResolver.resolve(url);
+        assertNotNull(res);
+        
+        final String xurl = "xxftp://djutils.org/manual/index.html";
+        UnitTest.testFail(() -> ResourceResolver.resolve(xurl));
     }
 
     /**
