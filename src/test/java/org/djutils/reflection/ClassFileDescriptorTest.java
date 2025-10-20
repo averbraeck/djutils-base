@@ -4,18 +4,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.djutils.io.URLResource;
+import org.djutils.io.ResourceResolver;
 import org.djutils.reflection.ClassUtil.ClassFileDescriptor;
+import org.junit.jupiter.api.Test;
 
 /**
- * ClassFileDescriptorTest.java. <br>
+ * ClassFileDescriptorTest tests class file descriptors. <br>
  * <br>
  * Copyright (c) 2003-2025 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
@@ -27,95 +30,127 @@ public class ClassFileDescriptorTest
     /**
      * Test the classFileDescriptor method in ClassUtil.
      * @throws ParseException on error
-     * @throws MalformedURLException on error
+     * @throws IOException on error
      */
-    // TODO: @Test test fails under Ubuntu
-    public void classFileDescriptorTest() throws ParseException, MalformedURLException
+    @Test
+    public void classFileDescriptorTest() throws ParseException, IOException
     {
-        URL cfdClassURL = URLResource.getResource("/org/djutils-test-resources/test/Test.class");
+        var original = ResourceResolver.resolve("/org/djutils-test-resources/test/Test.class");
+        InputStream originalClassStream = original.openStream();
+        File cfdFile = copyToTempFile(originalClassStream, "Test", ".class");
+        var cfd = ResourceResolver.resolve(cfdFile.getAbsolutePath());
+
         // change the last accessed date
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        File fileClass = new File(cfdClassURL.getPath());
-        fileClass.setLastModified(formatter.parse("2000-01-01 01:02:03").getTime());
+        cfdFile.setLastModified(formatter.parse("2000-01-01 02:03:04").getTime());
 
-        ClassFileDescriptor cfdClass = ClassUtil.classFileDescriptor(cfdClassURL);
-        assertEquals("Test.class", cfdClass.getName());
+        ClassFileDescriptor cfdClass = ClassUtil.classFileDescriptorForPath(cfd.asPath());
+        assertTrue(cfdClass.getName().startsWith("Test"));
+        assertTrue(cfdClass.getName().endsWith(".class"));
         Date cfdClassDate = new Date(cfdClass.getLastChangedDate());
-        assertEquals("2000-01-01 01:02:03", formatter.format(cfdClassDate));
-
-        assertTrue(
-                cfdClass.getPath().toString().replaceAll("\\\\", "/").endsWith("/org/djutils-test-resources/test/Test.class"));
+        assertEquals("2000-01-01 02:03:04", formatter.format(cfdClassDate));
         assertTrue(cfdClass.toString().startsWith("ClassFileDescriptor ["));
 
-        URL cfdJarURL = URLResource.getResource("/org/djutils-test-resources/test/Test.jar");
-        // change the last accessed date of the jar -- not of the file in the jar
-        File fileJar = new File(cfdJarURL.getPath());
-        fileJar.setLastModified(formatter.parse("2010-11-12 01:02:03").getTime());
+        var originalJar = ResourceResolver.resolve("/org/djutils-test-resources/test/Test.jar");
+        InputStream jarStream = originalJar.openStream();
+        File jarFile = copyToTempFile(jarStream, "Test", ".jar");
+        var jar = ResourceResolver.resolve(jarFile.getAbsolutePath());
 
-        ClassFileDescriptor cfdJar = ClassUtil.classFileDescriptor(cfdJarURL);
-        assertEquals("Test.jar", cfdJar.getName());
+        // change the last accessed date of the jar -- not of the file in the jar
+        jarFile.setLastModified(formatter.parse("2010-11-12 01:02:03").getTime());
+
+        ClassFileDescriptor cfdJar = ClassUtil.classFileDescriptorForPath(jar.asPath());
         Date cfdJarDate = new Date(cfdJar.getLastChangedDate());
+        assertTrue(cfdJar.getName().startsWith("Test"));
+        assertTrue(cfdJar.getName().endsWith(".jar"));
         assertEquals("2010-11-12 01:02:03", formatter.format(cfdJarDate));
 
         // find the file in the jar
-        URL cfdJarFileURL = new URL("jar:file:" + cfdJarURL.getPath() + "!/Test.class");
-        ClassFileDescriptor cfdJarFile = ClassUtil.classFileDescriptor(cfdJarFileURL);
+        Path cfdJarFilePath = ResourceResolver.resolve(jar.asPath().toString() + "!/Test.class").asPath();
+        ClassFileDescriptor cfdJarFile = ClassUtil.classFileDescriptorForPath(cfdJarFilePath);
         assertEquals("Test.class", cfdJarFile.getName());
         Date cfdJarFileDate = new Date(cfdJarFile.getLastChangedDate());
         assertEquals("2000-01-01 01:02:03", formatter.format(cfdJarFileDate));
 
         // if the file in the jar cannot be found, we should get the file descriptor of the jar itself
-        URL cfdJarFileURL2 = new URL("jar:file:" + cfdJarURL.getPath() + "!/TestXYZ.class");
-        ClassFileDescriptor cfdJarFile2 = ClassUtil.classFileDescriptor(cfdJarFileURL2);
-        assertEquals("Test.jar", cfdJarFile2.getName());
+        Path cfdJarFilePath2 = ResourceResolver.resolve(jar.asPath().toString() + "!/TestXYZ.class").asPath();
+        ClassFileDescriptor cfdJarFile2 = ClassUtil.classFileDescriptorForPath(cfdJarFilePath2);
+        assertTrue(cfdJarFile2.getName().startsWith("Test"));
+        assertTrue(cfdJarFile2.getName().endsWith(".jar"));
         Date cfdJarFileDate2 = new Date(cfdJarFile2.getLastChangedDate());
         assertEquals("2010-11-12 01:02:03", formatter.format(cfdJarFileDate2));
     }
 
     /**
-     * Test the classFileDescriptor method in ClassUtil.
+     * Test the classFileDescriptor method in ClassUtil with a path that contains a space.
      * @throws ParseException on error
-     * @throws MalformedURLException on error
-     * @throws URISyntaxException on error
+     * @throws IOException on error
      */
-    // TODO: @Test test fails under Ubuntu
-    public void classFileDescriptorTestWithSpaces() throws ParseException, MalformedURLException, URISyntaxException
+    @Test
+    public void classFileDescriptorTestWithSpaces() throws ParseException, IOException
     {
-        URL cfdClassURL = URLResource.getResource("/org/djutils-test-resources/test folder/Test.class");
+        var original = ResourceResolver.resolve("/org/djutils-test-resources/test folder/Test.class");
+        InputStream originalClassStream = original.openStream();
+        File cfdFile = copyToTempFile(originalClassStream, "Test", ".class");
+        var cfd = ResourceResolver.resolve(cfdFile.getAbsolutePath());
+
         // change the last accessed date
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        File fileClass = new File(cfdClassURL.toURI());
-        assertTrue(fileClass.exists());
-        fileClass.setLastModified(formatter.parse("2000-01-01 01:02:03").getTime());
+        cfdFile.setLastModified(formatter.parse("2000-01-01 02:03:04").getTime());
 
-        ClassFileDescriptor cfdClass = ClassUtil.classFileDescriptor(cfdClassURL);
-        assertEquals("Test.class", cfdClass.getName());
+        ClassFileDescriptor cfdClass = ClassUtil.classFileDescriptorForPath(cfd.asPath());
+        assertTrue(cfdClass.getName().startsWith("Test"));
+        assertTrue(cfdClass.getName().endsWith(".class"));
         Date cfdClassDate = new Date(cfdClass.getLastChangedDate());
-        assertEquals("2000-01-01 01:02:03", formatter.format(cfdClassDate));
+        assertEquals("2000-01-01 02:03:04", formatter.format(cfdClassDate));
+        assertTrue(cfdClass.toString().startsWith("ClassFileDescriptor ["));
 
-        URL cfdJarURL = URLResource.getResource("/org/djutils-test-resources/test folder/Test.jar");
+        var originalJar = ResourceResolver.resolve("/org/djutils-test-resources/test folder/Test.jar");
+        InputStream jarStream = originalJar.openStream();
+        File jarFile = copyToTempFile(jarStream, "Test", ".jar");
+        var jar = ResourceResolver.resolve(jarFile.getAbsolutePath());
+
         // change the last accessed date of the jar -- not of the file in the jar
-        File fileJar = new File(cfdJarURL.toURI());
-        fileJar.setLastModified(formatter.parse("2010-11-12 01:02:03").getTime());
+        jarFile.setLastModified(formatter.parse("2010-11-12 01:02:03").getTime());
 
-        ClassFileDescriptor cfdJar = ClassUtil.classFileDescriptor(cfdJarURL);
-        assertEquals("Test.jar", cfdJar.getName());
+        ClassFileDescriptor cfdJar = ClassUtil.classFileDescriptorForPath(jar.asPath());
         Date cfdJarDate = new Date(cfdJar.getLastChangedDate());
+        assertTrue(cfdJar.getName().startsWith("Test"));
+        assertTrue(cfdJar.getName().endsWith(".jar"));
         assertEquals("2010-11-12 01:02:03", formatter.format(cfdJarDate));
 
         // find the file in the jar
-        URL cfdJarFileURL = new URL("jar:file:" + cfdJarURL.getPath() + "!/Test.class");
-        ClassFileDescriptor cfdJarFile = ClassUtil.classFileDescriptor(cfdJarFileURL);
+        Path cfdJarFilePath = ResourceResolver.resolve(jar.asPath().toString() + "!/Test.class").asPath();
+        ClassFileDescriptor cfdJarFile = ClassUtil.classFileDescriptorForPath(cfdJarFilePath);
         assertEquals("Test.class", cfdJarFile.getName());
         Date cfdJarFileDate = new Date(cfdJarFile.getLastChangedDate());
         assertEquals("2000-01-01 01:02:03", formatter.format(cfdJarFileDate));
 
         // if the file in the jar cannot be found, we should get the file descriptor of the jar itself
-        URL cfdJarFileURL2 = new URL("jar:file:" + cfdJarURL.getPath() + "!/TestXYZ.class");
-        ClassFileDescriptor cfdJarFile2 = ClassUtil.classFileDescriptor(cfdJarFileURL2);
-        assertEquals("Test.jar", cfdJarFile2.getName());
+        Path cfdJarFilePath2 = ResourceResolver.resolve(jar.asPath().toString() + "!/TestXYZ.class").asPath();
+        ClassFileDescriptor cfdJarFile2 = ClassUtil.classFileDescriptorForPath(cfdJarFilePath2);
+        assertTrue(cfdJarFile2.getName().startsWith("Test"));
+        assertTrue(cfdJarFile2.getName().endsWith(".jar"));
         Date cfdJarFileDate2 = new Date(cfdJarFile2.getLastChangedDate());
         assertEquals("2010-11-12 01:02:03", formatter.format(cfdJarFileDate2));
     }
 
+    /**
+     * Copy a (class) file to a temporary file.
+     * @param in the input stream of the file to copy
+     * @param prefix the prefix of the file (will be appended to make it unique)
+     * @param suffix the suffix of the file, including the 'dot'
+     * @return the file handle of the copied file
+     * @throws IOException on error
+     */
+    private static File copyToTempFile(final InputStream in, final String prefix, final String suffix) throws IOException
+    {
+        Path tempFile = Files.createTempFile(prefix, suffix);
+        tempFile.toFile().deleteOnExit();
+        try (OutputStream out = Files.newOutputStream(tempFile))
+        {
+            in.transferTo(out);
+        }
+        return tempFile.toFile();
+    }
 }
