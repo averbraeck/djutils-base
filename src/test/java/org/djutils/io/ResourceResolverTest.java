@@ -41,6 +41,7 @@ public class ResourceResolverTest
     @Test
     public final void fileTest() throws IOException
     {
+        // List<String> s = Files.readAllLines(ResourceResolver.resolve("test.txt").asPath());
         // create a temporary file.
         Path tempFile = Files.createTempFile("filetest-", ".temp");
         tempFile.toFile().deleteOnExit();
