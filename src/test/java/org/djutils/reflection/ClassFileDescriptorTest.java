@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 import org.djutils.io.ResourceResolver;
 import org.djutils.reflection.ClassUtil.ClassFileDescriptor;
@@ -35,50 +36,63 @@ public class ClassFileDescriptorTest
     @Test
     public void classFileDescriptorTest() throws ParseException, IOException
     {
-        var original = ResourceResolver.resolve("/org/djutils-test-resources/test/Test.class");
-        InputStream originalClassStream = original.openStream();
-        File cfdFile = copyToTempFile(originalClassStream, "Test", ".class");
-        var cfd = ResourceResolver.resolve(cfdFile.getAbsolutePath());
+        // Use a fixed zone for the whole test
+        TimeZone originalTz = TimeZone.getDefault();
+        try
+        {
+            TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 
-        // change the last accessed date
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        cfdFile.setLastModified(formatter.parse("2000-01-01 02:03:04").getTime());
+            var original = ResourceResolver.resolve("/org/djutils-test-resources/test/Test.class");
+            InputStream originalClassStream = original.openStream();
+            File cfdFile = copyToTempFile(originalClassStream, "Test", ".class");
+            var cfd = ResourceResolver.resolve(cfdFile.getAbsolutePath());
 
-        ClassFileDescriptor cfdClass = ClassUtil.classFileDescriptorForPath(cfd.asPath());
-        assertTrue(cfdClass.getName().startsWith("Test"));
-        assertTrue(cfdClass.getName().endsWith(".class"));
-        Date cfdClassDate = new Date(cfdClass.getLastChangedDate());
-        assertEquals("2000-01-01 02:03:04", formatter.format(cfdClassDate));
-        assertTrue(cfdClass.toString().startsWith("ClassFileDescriptor ["));
+            // change the last accessed date
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+            cfdFile.setLastModified(formatter.parse("2000-01-01 02:03:04").getTime());
 
-        var originalJar = ResourceResolver.resolve("/org/djutils-test-resources/test/Test.jar");
-        InputStream jarStream = originalJar.openStream();
-        File jarFile = copyToTempFile(jarStream, "Test", ".jar");
-        var jar = ResourceResolver.resolve(jarFile.getAbsolutePath());
+            ClassFileDescriptor cfdClass = ClassUtil.classFileDescriptorForPath(cfd.asPath());
+            assertTrue(cfdClass.getName().startsWith("Test"));
+            assertTrue(cfdClass.getName().endsWith(".class"));
+            Date cfdClassDate = new Date(cfdClass.getLastChangedDate());
+            assertEquals("2000-01-01 02:03:04", formatter.format(cfdClassDate));
+            assertTrue(cfdClass.toString().startsWith("ClassFileDescriptor ["));
 
-        // change the last accessed date of the jar -- not of the file in the jar
-        jarFile.setLastModified(formatter.parse("2010-11-12 01:02:03").getTime());
+            var originalJar = ResourceResolver.resolve("/org/djutils-test-resources/test/Test.jar");
+            InputStream jarStream = originalJar.openStream();
+            File jarFile = copyToTempFile(jarStream, "Test", ".jar");
+            var jar = ResourceResolver.resolve(jarFile.getAbsolutePath());
 
-        ClassFileDescriptor cfdJar = ClassUtil.classFileDescriptorForPath(jar.asPath());
-        Date cfdJarDate = new Date(cfdJar.getLastChangedDate());
-        assertTrue(cfdJar.getName().startsWith("Test"));
-        assertTrue(cfdJar.getName().endsWith(".jar"));
-        assertEquals("2010-11-12 01:02:03", formatter.format(cfdJarDate));
+            // change the last accessed date of the jar -- not of the file in the jar
+            jarFile.setLastModified(formatter.parse("2010-11-12 01:02:03").getTime());
 
-        // find the file in the jar
-        Path cfdJarFilePath = ResourceResolver.resolve(jar.asPath().toString() + "!/Test.class").asPath();
-        ClassFileDescriptor cfdJarFile = ClassUtil.classFileDescriptorForPath(cfdJarFilePath);
-        assertEquals("Test.class", cfdJarFile.getName());
-        Date cfdJarFileDate = new Date(cfdJarFile.getLastChangedDate());
-        assertEquals("2000-01-01 01:02:03", formatter.format(cfdJarFileDate));
+            ClassFileDescriptor cfdJar = ClassUtil.classFileDescriptorForPath(jar.asPath());
+            Date cfdJarDate = new Date(cfdJar.getLastChangedDate());
+            assertTrue(cfdJar.getName().startsWith("Test"));
+            assertTrue(cfdJar.getName().endsWith(".jar"));
+            assertEquals("2010-11-12 01:02:03", formatter.format(cfdJarDate));
 
-        // if the file in the jar cannot be found, we should get the file descriptor of the jar itself
-        Path cfdJarFilePath2 = ResourceResolver.resolve(jar.asPath().toString() + "!/TestXYZ.class").asPath();
-        ClassFileDescriptor cfdJarFile2 = ClassUtil.classFileDescriptorForPath(cfdJarFilePath2);
-        assertTrue(cfdJarFile2.getName().startsWith("Test"));
-        assertTrue(cfdJarFile2.getName().endsWith(".jar"));
-        Date cfdJarFileDate2 = new Date(cfdJarFile2.getLastChangedDate());
-        assertEquals("2010-11-12 01:02:03", formatter.format(cfdJarFileDate2));
+            // find the file in the jar
+            Path cfdJarFilePath = ResourceResolver.resolve(jar.asPath().toString() + "!/Test.class").asPath();
+            ClassFileDescriptor cfdJarFile = ClassUtil.classFileDescriptorForPath(cfdJarFilePath);
+            assertEquals("Test.class", cfdJarFile.getName());
+            Date cfdJarFileDate = new Date(cfdJarFile.getLastChangedDate());
+            assertTrue(formatter.format(cfdJarFileDate).startsWith("2000-01-01"));
+            // Note: time cannot be checked -- file was made in CET, test runs in UTC
+
+            // if the file in the jar cannot be found, we should get the file descriptor of the jar itself
+            Path cfdJarFilePath2 = ResourceResolver.resolve(jar.asPath().toString() + "!/TestXYZ.class").asPath();
+            ClassFileDescriptor cfdJarFile2 = ClassUtil.classFileDescriptorForPath(cfdJarFilePath2);
+            assertTrue(cfdJarFile2.getName().startsWith("Test"));
+            assertTrue(cfdJarFile2.getName().endsWith(".jar"));
+            Date cfdJarFileDate2 = new Date(cfdJarFile2.getLastChangedDate());
+            assertEquals("2010-11-12 01:02:03", formatter.format(cfdJarFileDate2));
+        }
+        finally
+        {
+            TimeZone.setDefault(originalTz);
+        }
     }
 
     /**
@@ -89,50 +103,63 @@ public class ClassFileDescriptorTest
     @Test
     public void classFileDescriptorTestWithSpaces() throws ParseException, IOException
     {
-        var original = ResourceResolver.resolve("/org/djutils-test-resources/test folder/Test.class");
-        InputStream originalClassStream = original.openStream();
-        File cfdFile = copyToTempFile(originalClassStream, "Test", ".class");
-        var cfd = ResourceResolver.resolve(cfdFile.getAbsolutePath());
+        // Use a fixed zone for the whole test
+        TimeZone originalTz = TimeZone.getDefault();
+        try
+        {
+            TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 
-        // change the last accessed date
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        cfdFile.setLastModified(formatter.parse("2000-01-01 02:03:04").getTime());
+            var original = ResourceResolver.resolve("/org/djutils-test-resources/test folder/Test.class");
+            InputStream originalClassStream = original.openStream();
+            File cfdFile = copyToTempFile(originalClassStream, "Test", ".class");
+            var cfd = ResourceResolver.resolve(cfdFile.getAbsolutePath());
 
-        ClassFileDescriptor cfdClass = ClassUtil.classFileDescriptorForPath(cfd.asPath());
-        assertTrue(cfdClass.getName().startsWith("Test"));
-        assertTrue(cfdClass.getName().endsWith(".class"));
-        Date cfdClassDate = new Date(cfdClass.getLastChangedDate());
-        assertEquals("2000-01-01 02:03:04", formatter.format(cfdClassDate));
-        assertTrue(cfdClass.toString().startsWith("ClassFileDescriptor ["));
+            // change the last accessed date
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+            cfdFile.setLastModified(formatter.parse("2000-01-01 02:03:04").getTime());
 
-        var originalJar = ResourceResolver.resolve("/org/djutils-test-resources/test folder/Test.jar");
-        InputStream jarStream = originalJar.openStream();
-        File jarFile = copyToTempFile(jarStream, "Test", ".jar");
-        var jar = ResourceResolver.resolve(jarFile.getAbsolutePath());
+            ClassFileDescriptor cfdClass = ClassUtil.classFileDescriptorForPath(cfd.asPath());
+            assertTrue(cfdClass.getName().startsWith("Test"));
+            assertTrue(cfdClass.getName().endsWith(".class"));
+            Date cfdClassDate = new Date(cfdClass.getLastChangedDate());
+            assertEquals("2000-01-01 02:03:04", formatter.format(cfdClassDate));
+            assertTrue(cfdClass.toString().startsWith("ClassFileDescriptor ["));
 
-        // change the last accessed date of the jar -- not of the file in the jar
-        jarFile.setLastModified(formatter.parse("2010-11-12 01:02:03").getTime());
+            var originalJar = ResourceResolver.resolve("/org/djutils-test-resources/test folder/Test.jar");
+            InputStream jarStream = originalJar.openStream();
+            File jarFile = copyToTempFile(jarStream, "Test", ".jar");
+            var jar = ResourceResolver.resolve(jarFile.getAbsolutePath());
 
-        ClassFileDescriptor cfdJar = ClassUtil.classFileDescriptorForPath(jar.asPath());
-        Date cfdJarDate = new Date(cfdJar.getLastChangedDate());
-        assertTrue(cfdJar.getName().startsWith("Test"));
-        assertTrue(cfdJar.getName().endsWith(".jar"));
-        assertEquals("2010-11-12 01:02:03", formatter.format(cfdJarDate));
+            // change the last accessed date of the jar -- not of the file in the jar
+            jarFile.setLastModified(formatter.parse("2010-11-12 01:02:03").getTime());
 
-        // find the file in the jar
-        Path cfdJarFilePath = ResourceResolver.resolve(jar.asPath().toString() + "!/Test.class").asPath();
-        ClassFileDescriptor cfdJarFile = ClassUtil.classFileDescriptorForPath(cfdJarFilePath);
-        assertEquals("Test.class", cfdJarFile.getName());
-        Date cfdJarFileDate = new Date(cfdJarFile.getLastChangedDate());
-        assertEquals("2000-01-01 01:02:03", formatter.format(cfdJarFileDate));
+            ClassFileDescriptor cfdJar = ClassUtil.classFileDescriptorForPath(jar.asPath());
+            Date cfdJarDate = new Date(cfdJar.getLastChangedDate());
+            assertTrue(cfdJar.getName().startsWith("Test"));
+            assertTrue(cfdJar.getName().endsWith(".jar"));
+            assertEquals("2010-11-12 01:02:03", formatter.format(cfdJarDate));
 
-        // if the file in the jar cannot be found, we should get the file descriptor of the jar itself
-        Path cfdJarFilePath2 = ResourceResolver.resolve(jar.asPath().toString() + "!/TestXYZ.class").asPath();
-        ClassFileDescriptor cfdJarFile2 = ClassUtil.classFileDescriptorForPath(cfdJarFilePath2);
-        assertTrue(cfdJarFile2.getName().startsWith("Test"));
-        assertTrue(cfdJarFile2.getName().endsWith(".jar"));
-        Date cfdJarFileDate2 = new Date(cfdJarFile2.getLastChangedDate());
-        assertEquals("2010-11-12 01:02:03", formatter.format(cfdJarFileDate2));
+            // find the file in the jar
+            Path cfdJarFilePath = ResourceResolver.resolve(jar.asPath().toString() + "!/Test.class").asPath();
+            ClassFileDescriptor cfdJarFile = ClassUtil.classFileDescriptorForPath(cfdJarFilePath);
+            assertEquals("Test.class", cfdJarFile.getName());
+            Date cfdJarFileDate = new Date(cfdJarFile.getLastChangedDate());
+            assertTrue(formatter.format(cfdJarFileDate).startsWith("2000-01-01"));
+            // Note: time cannot be checked -- file was made in CET, test runs in UTC
+
+            // if the file in the jar cannot be found, we should get the file descriptor of the jar itself
+            Path cfdJarFilePath2 = ResourceResolver.resolve(jar.asPath().toString() + "!/TestXYZ.class").asPath();
+            ClassFileDescriptor cfdJarFile2 = ClassUtil.classFileDescriptorForPath(cfdJarFilePath2);
+            assertTrue(cfdJarFile2.getName().startsWith("Test"));
+            assertTrue(cfdJarFile2.getName().endsWith(".jar"));
+            Date cfdJarFileDate2 = new Date(cfdJarFile2.getLastChangedDate());
+            assertEquals("2010-11-12 01:02:03", formatter.format(cfdJarFileDate2));
+        }
+        finally
+        {
+            TimeZone.setDefault(originalTz);
+        }
     }
 
     /**
