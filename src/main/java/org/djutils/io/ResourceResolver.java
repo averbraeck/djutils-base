@@ -82,12 +82,13 @@ public final class ResourceResolver
      * @param resource the specification of the resource to load
      * @param classLoader the class loader to specifically use (can be null)
      * @param baseDirPath the potential base directory to which the resource is relative (can be null)
-     * @param asResource read only relative to the classpath
+     * @param asResource read relative to the classpath (if it's a file)
+     * @param asFile read relative to the baseDir (if it's a file)
      * @return a resource handle to the resource
      * @throws NoSuchElementException when the resource could not be found
      */
     private static ResourceHandle resolve(final String resource, final ClassLoader classLoader, final Path baseDirPath,
-            final boolean asResource)
+            final boolean asResource, final boolean asFile)
     {
         Throw.whenNull(resource, "resource");
         ClassLoader cl = classLoader == null ? Thread.currentThread().getContextClassLoader() : classLoader;
@@ -102,7 +103,7 @@ public final class ResourceResolver
             return ResourceHandle.forJarUri(jarUri);
         }
 
-        if (!asResource)
+        if (asFile)
         {
             // 2) If it parses as an absolute URI, handle by scheme
             URI candidateUri = tryParseUri(normalized);
@@ -143,35 +144,38 @@ public final class ResourceResolver
         }
 
         // 4) Try classpath
-        String cpName = resource.startsWith("/") ? resource.substring(1) : resource;
-        URL url = cl.getResource(cpName);
-        if (url == null)
+        if (asResource)
         {
-            url = cl.getResource("resources/" + cpName);
-        }
-        if (url != null)
-        {
-            // Could be "jar:file:...!/entry" or plain "file:"
-            if ("jar".equalsIgnoreCase(url.getProtocol()) || url.toString().contains("!/"))
+            String cpName = resource.startsWith("/") ? resource.substring(1) : resource;
+            URL url = cl.getResource(cpName);
+            if (url == null)
             {
-                URI jarUri = ensureJarUri(url);
-                return ResourceHandle.forJarUri(jarUri).markClassPath();
+                url = cl.getResource("resources/" + cpName);
             }
-            else if ("file".equalsIgnoreCase(url.getProtocol()))
+            if (url != null)
             {
-                try
+                // Could be "jar:file:...!/entry" or plain "file:"
+                if ("jar".equalsIgnoreCase(url.getProtocol()) || url.toString().contains("!/"))
                 {
-                    return ResourceHandle.forFile(Path.of(url.toURI())).markClassPath();
+                    URI jarUri = ensureJarUri(url);
+                    return ResourceHandle.forJarUri(jarUri).markClassPath();
                 }
-                catch (URISyntaxException e)
+                else if ("file".equalsIgnoreCase(url.getProtocol()))
                 {
-                    // fallback to generic
+                    try
+                    {
+                        return ResourceHandle.forFile(Path.of(url.toURI())).markClassPath();
+                    }
+                    catch (URISyntaxException e)
+                    {
+                        // fallback to generic
+                        return ResourceHandle.forGenericUrl(url).markClassPath();
+                    }
+                }
+                else
+                {
                     return ResourceHandle.forGenericUrl(url).markClassPath();
                 }
-            }
-            else
-            {
-                return ResourceHandle.forGenericUrl(url).markClassPath();
             }
         }
         throw new NoSuchElementException("Resource not found: " + resource);
@@ -187,7 +191,7 @@ public final class ResourceResolver
      */
     public static ResourceHandle resolve(final String resource, final ClassLoader classLoader, final Path baseDirPath)
     {
-        return resolve(resource, classLoader, baseDirPath, false);
+        return resolve(resource, classLoader, baseDirPath, true, true);
     }
 
     /**
@@ -202,7 +206,7 @@ public final class ResourceResolver
     public static ResourceHandle resolve(final String resource, final ClassLoader classLoader, final String baseDir)
     {
         Path baseDirPath = Path.of(baseDir);
-        return resolve(resource, classLoader, baseDirPath, false);
+        return resolve(resource, classLoader, baseDirPath, true, true);
     }
 
     /**
@@ -214,7 +218,7 @@ public final class ResourceResolver
      */
     public static ResourceHandle resolve(final String resource, final Path baseDirPath)
     {
-        return resolve(resource, null, baseDirPath, false);
+        return resolve(resource, null, baseDirPath, true, true);
     }
 
     /**
@@ -228,7 +232,7 @@ public final class ResourceResolver
     public static ResourceHandle resolve(final String resource, final String baseDir)
     {
         Path baseDirPath = Path.of(baseDir);
-        return resolve(resource, null, baseDirPath, false);
+        return resolve(resource, null, baseDirPath, true, true);
     }
 
     /**
@@ -239,7 +243,7 @@ public final class ResourceResolver
      */
     public static ResourceHandle resolve(final String resource)
     {
-        return resolve(resource, null, null, false);
+        return resolve(resource, null, null, true, true);
     }
 
     /**
@@ -250,7 +254,18 @@ public final class ResourceResolver
      */
     public static ResourceHandle resolveAsResource(final String resource)
     {
-        return resolve(resource, null, null, true);
+        return resolve(resource, null, null, true, false);
+    }
+
+    /**
+     * Resolve the resource relative to the base path, but NOT relative to the classloader path.
+     * @param resource the specification of the resource to resolve
+     * @return a resource handle to the resource
+     * @throws NoSuchElementException when the resource could not be found
+     */
+    public static ResourceHandle resolveAsFile(final String resource)
+    {
+        return resolve(resource, null, null, false, true);
     }
 
     // --- helpers ---
@@ -530,6 +545,42 @@ public final class ResourceResolver
         public boolean isClassPath()
         {
             return this.fromClasspath;
+        }
+
+        /**
+         * Return whether the resource is of type FILE.
+         * @return whether the resource is of type FILE or not
+         */
+        public boolean isFile()
+        {
+            return this.kind.equals(Kind.FILE);
+        }
+
+        /**
+         * Return whether the resource is of type HTTP.
+         * @return whether the resource is of type HTTP or not
+         */
+        public boolean isHttp()
+        {
+            return this.kind.equals(Kind.HTTP);
+        }
+
+        /**
+         * Return whether the resource is of type GENERIC_URL.
+         * @return whether the resource is of type GENERIC_URL or not
+         */
+        public boolean isGenericUrl()
+        {
+            return this.kind.equals(Kind.GENERIC_URL);
+        }
+
+        /**
+         * Return whether the resource is of type JAR_ENTRY.
+         * @return whether the resource is of type JAR_ENTRY or not
+         */
+        public boolean isJarEntry()
+        {
+            return this.kind.equals(Kind.JAR_ENTRY);
         }
 
         /**
