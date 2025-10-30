@@ -17,7 +17,6 @@
   <body>
 
     <menu name="MODULES">
-      <item name="djutils-parent" href="../index.html" />
       <item name="djutils-base" href="../djutils-base/index.html" />
       <item name="djutils-cli" href="../djutils-cli/index.html" />
       <item name="djutils-data" href="../djutils-data/index.html" />
