@@ -28,19 +28,19 @@ extra_javascript:
 nav:
   - Home: index.md
   - DJUTILS-BASE project: 
-    - Introduction: djutils/index.md
-    - Mutable Primitives: djutils/mutable-primitives.md
-    - Immutable Collections: djutils/immutable-collections.md
-    - Number Parser: djutils/number-parser.md
-    - Event package: djutils/event.md
-    - Logging helper classes: djutils/logging.md
-    - Exception helper classes: djutils/exceptions.md
-    - URLResource class: djutils/urlresource.md
-    - Reflection helper classes: djutils/reflection.md
-    - Metadata: djutils/metadata.md 
-    - DecoderDumper: djutils/decoder-dumper.md
-    - DJUTILS documentation: https://djutils.org/docs/latest/djutils/index.html
-    - DJUTILS API: https://djutils.org/docs/latest/djutils/apidocs/index.html
+    - Introduction: djutils-base/index.md
+    - Mutable Primitives: djutils-base/mutable-primitives.md
+    - Immutable Collections: djutilsv/immutable-collections.md
+    - Number Parser: djutils-base/number-parser.md
+    - Event package: djutils-base/event.md
+    - Logging helper classes: djutils-base/logging.md
+    - Exception helper classes: djutils-base/exceptions.md
+    - URLResource class: djutils-base/urlresource.md
+    - Reflection helper classes: djutils-base/reflection.md
+    - Metadata: djutils-base/metadata.md 
+    - DecoderDumper: djutils-base/decoder-dumper.md
+    - DJUTILS documentation: https://djutils.org/docs/latest/djutils-base/index.html
+    - DJUTILS API: https://djutils.org/docs/latest/djutils/apidocs-base/index.html
   - DJUTILS-CLI project:
     - Introduction: djutils-cli/index.md
     - DJUTILS-CLI usage: djutils-cli/usage.md
