@@ -78,11 +78,12 @@ nav:
     - 'String types (#9 - #10)': djutils-serialization/string-types.md
     - 'Array types (#11 - #17)': djutils-serialization/array-types.md
     - 'Matrix types (#18 - #24)': djutils-serialization/matrix-types.md
-    - Coding of units: djutils-serialization/coding-units.md
-    - Display types for units: djutils-serialization/display-types.md
+    - Coding quantities: djutils-serialization/coding-quantities.md
+    - Coding unit types: djutils-serialization/unit-types.md
     - 'Scalar types with unit (#25 - #26)': djutils-serialization/scalar-units.md 
     - 'Vector types with unit (#27 - #28)': djutils-serialization/vector-units.md 
     - 'Matrix types with unit (#29 - #32)': djutils-serialization/matrix-units.md 
+    - 'Absolute unit types(#37 - #42)': djutils-serialization/absolute-units.md 
     - SERIALIZATION documentation: https://djutils.org/docs/latest/djutils-serialization/index.html
     - SERIALIZATION API: https://djutils.org/docs/latest/djutils-serialization/apidocs/index.html
   - DJUTILS-STATS project:
