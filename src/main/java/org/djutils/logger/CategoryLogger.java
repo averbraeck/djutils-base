@@ -40,7 +40,7 @@ import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
  * CategoryLogger.with(Cat.BASE).debug("Parameter {} initialized correctly", param1.toString());
  * </pre>
  * <p>
- * Copyright (c) 2018-2025 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2018-2026 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://djutils.org" target="_blank"> https://djutils.org</a>. The DJUTILS project is
  * distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://djutils.org/docs/license.html" target="_blank"> https://djutils.org/docs/license.html</a>.
@@ -731,7 +731,7 @@ public final class CategoryLogger
     /**
      * DelegateLogger class that takes care of actually logging the message and/or exception. <br>
      * <p>
-     * Copyright (c) 2003-2025 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+     * Copyright (c) 2003-2026 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
      * reserved.<br>
      * BSD-style license. See <a href="https://djutils.org/docs/current/djutils/licenses.html">DJUTILS License</a>.
      * </p>
