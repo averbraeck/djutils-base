@@ -38,13 +38,13 @@ import org.djutils.exceptions.Throw;
  * Information on how Java handles Locales from version 11 onward can be found at
  * <a href= "https://www.oracle.com/java/technologies/javase/jdk11-suported-locales.html">
  * https://www.oracle.com/java/technologies/javase/jdk11-suported-locales.html</a>.
- * </p>
+ * <p>
  * <p>
  * Copyright (c) 2023-2026 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://djutils.org" target="_blank"> https://djutils.org</a>. The DJUTILS project is
  * distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://djutils.org/docs/license.html" target="_blank"> https://djutils.org/docs/license.html</a>.
- * </p>
+ * <p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
 public class NumberParser

@@ -13,7 +13,7 @@ package org.djutils.event;
  * The EventProducer forms the reference implementation of the publish side of the pub/sub design pattern. The storage of the
  * listeners is done in a Map with the EventType as the key, and a List of References (weak or strong) to the Listeners. Note
  * that the term 'Local' used in the class name is opposed to remote event producers such as the RmiEventProducer.
- * </p>
+ * <p>
  * <p>
  * Copyright (c) 2002-2026 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://djutils.org" target="_blank"> https://djutils.org</a>. The DJUTILS project is
@@ -21,7 +21,7 @@ package org.djutils.event;
  * <a href="https://djutils.org/docs/license.html" target="_blank"> https://djutils.org/docs/license.html</a>. This class was
  * originally part of the DSOL project, see <a href="https://simulation.tudelft.nl/dsol/manual" target="_blank">
  * https://simulation.tudelft.nl/dsol/manual</a>.
- * </p>
+ * <p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
