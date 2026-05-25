@@ -18,7 +18,7 @@ import java.net.URL;
  * <a href="https://djutils.org/docs/license.html" target="_blank"> https://djutils.org/docs/license.html</a>.
  * <p>
  * @author Peter Jacobs
- * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
+ * @author Alexander Verbraeck
  */
 @Deprecated
 public final class URLResource

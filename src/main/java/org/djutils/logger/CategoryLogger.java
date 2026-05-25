@@ -45,7 +45,7 @@ import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
  * distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://djutils.org/docs/license.html" target="_blank"> https://djutils.org/docs/license.html</a>.
  * <p>
- * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank"> Alexander Verbraeck</a>
+ * @author Alexander Verbraeck
  */
 @SuppressWarnings("checkstyle:needbraces")
 public final class CategoryLogger
@@ -726,7 +726,7 @@ public final class CategoryLogger
      * reserved.<br>
      * BSD-style license. See <a href="https://djutils.org/docs/current/djutils/licenses.html">DJUTILS License</a>.
      * <p>
-     * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
+     * @author Alexander Verbraeck
      */
     public static final class DelegateLogger
     {

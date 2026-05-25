@@ -36,8 +36,8 @@ import org.junit.jupiter.api.Test;
  * distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://djutils.org/docs/license.html" target="_blank"> https://djutils.org/docs/license.html</a>.
  * <p>
- * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @author <a href="https://www.tudelft.nl/staff/p.knoppers/">Peter Knoppers</a>
+ * @author Peter Jacobs
+ * @author Peter Knoppers
  */
 public class ClassUtilTest
 {

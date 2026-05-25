@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test the methods in the Try class.
- * @author <a href="https://www.tudelft.nl/staff/p.knoppers/">Peter Knoppers</a>
+ * @author Peter Knoppers
  */
 public class TryTest
 {

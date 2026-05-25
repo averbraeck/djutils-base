@@ -13,8 +13,8 @@ import java.util.Set;
  * <a href="https://djutils.org/docs/license.html" target="_blank"> https://djutils.org/docs/license.html</a>.
  * <p>
  * $, initial version May 7, 2016 <br>
- * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
- * @author <a href="https://www.tudelft.nl/staff/p.knoppers/">Peter Knoppers</a>
+ * @author Alexander Verbraeck
+ * @author Peter Knoppers
  * @param <E> the type of content of this Set
  */
 public class ImmutableLinkedHashSet<E> extends ImmutableAbstractSet<E>

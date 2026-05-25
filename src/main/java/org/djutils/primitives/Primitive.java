@@ -9,7 +9,7 @@ package org.djutils.primitives;
  * distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://djutils.org/docs/license.html" target="_blank"> https://djutils.org/docs/license.html</a>.
  * <p>
- * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
+ * @author Peter Jacobs
  */
 public final class Primitive
 {

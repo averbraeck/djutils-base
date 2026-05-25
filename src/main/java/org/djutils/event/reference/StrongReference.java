@@ -12,8 +12,8 @@ package org.djutils.event.reference;
  * originally part of the DSOL project, see <a href="https://simulation.tudelft.nl/dsol/manual" target="_blank">
  * https://simulation.tudelft.nl/dsol/manual</a>.
  * <p>
- * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
+ * @author Peter Jacobs
+ * @author Alexander Verbraeck
  * @param <T> the type of the reference
  */
 public class StrongReference<T> extends Reference<T>
