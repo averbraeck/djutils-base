@@ -39,8 +39,7 @@ public class ImmutableVector<E> extends ImmutableAbstractList<E>
     }
 
     /**
-     * @param collection the immutable collection to use for the immutable
-     *            vector.
+     * @param collection the immutable collection to use for the immutable vector.
      */
     public ImmutableVector(final ImmutableAbstractCollection<? extends E> collection)
     {

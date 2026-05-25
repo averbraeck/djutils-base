@@ -58,8 +58,8 @@ public class ThrowSupplierTest
                 IllegalArgumentException.class);
         assertTrue(isStatusReported());
 
-        UnitTest.testFail(() -> Throw.when(new Object(), true, IllegalArgumentException.class, () -> reportStatus()), this.status,
-                IllegalArgumentException.class);
+        UnitTest.testFail(() -> Throw.when(new Object(), true, IllegalArgumentException.class, () -> reportStatus()),
+                this.status, IllegalArgumentException.class);
         assertTrue(isStatusReported());
 
         try
@@ -247,7 +247,7 @@ public class ThrowSupplierTest
     {
         Double d = null;
         Float f = null;
-        
+
         try
         {
             Double d1 = Throw.whenNaN(d, () -> reportStatus());
@@ -258,7 +258,7 @@ public class ThrowSupplierTest
         {
             fail("Throw.whenNaN() should not have thrown an exception");
         }
-        
+
         try
         {
             Double d1 = Throw.whenNaN(d, IllegalArgumentException.class, () -> reportStatus());
@@ -280,7 +280,7 @@ public class ThrowSupplierTest
         {
             fail("Throw.whenNaN() should not have thrown an exception");
         }
-        
+
         try
         {
             Float f1 = Throw.whenNaN(f, IllegalArgumentException.class, () -> reportStatus());

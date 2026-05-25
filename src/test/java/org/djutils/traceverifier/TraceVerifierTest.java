@@ -26,7 +26,7 @@ public class TraceVerifierTest
     /** Temporary directory that should be deleted by Junit at end of test. */
     @TempDir
     private Path testDir;
-    
+
     /**
      * Test the TraceVerifier class.
      * @throws IOException if that happens uncaught, this test has failed.

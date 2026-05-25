@@ -15,22 +15,25 @@ import org.djutils.exceptions.Throw;
  * defining a parser: The first is a classical manner with a constructor that defines the settings: <br>
  * 
  * <pre>
- *   NumberParser np = new NumberParser(true, true);
- *   String text = "+1.127E3 m/s";
- *   double d = np.parseDouble(text);
- *   String unit = text.substring(np.getTrailingPosition()).trim();
+ * NumberParser np = new NumberParser(true, true);
+ * 
+ * String text = "+1.127E3 m/s";
+ * 
+ * double d = np.parseDouble(text);
+ * 
+ * String unit = text.substring(np.getTrailingPosition()).trim();
  * </pre>
  * 
  * or, for a simple lenient setting without trailing information: <br>
  * 
  * <pre>
- *   double d = new NumberParser().parseDouble(text);
+ * double d = new NumberParser().parseDouble(text);
  * </pre>
  * 
  * Alternatively, chaining can be used: <br>
  * 
  * <pre>
- *   double d = new NumberParser().lenient().locale(Locale.US).noTrailing().parseDouble(text);
+ * double d = new NumberParser().lenient().locale(Locale.US).noTrailing().parseDouble(text);
  * </pre>
  * 
  * An instantiated NumberParser can be used multiple times, but the class is not thread-safe.
@@ -68,8 +71,8 @@ public class NumberParser
      * Create a new NumberParser, with settings for lenient parsing, whether or not to allow trailing information, and the
      * Locale to use.
      * @param trailing whether trailing information is accepted
-     * @param lenient when false, strict parsing according to the Locale will be performed; when true, certain
-     *            violations will be accepted
+     * @param lenient when false, strict parsing according to the Locale will be performed; when true, certain violations will
+     *            be accepted
      * @param locale the locale to use for parsing
      * @throws NullPointerException when locale is null
      */
@@ -85,8 +88,8 @@ public class NumberParser
      * Create a new NumberParser, with settings for lenient parsing, whether or not to allow trailing information, and the
      * current Locale.
      * @param trailing whether trailing information is accepted
-     * @param lenient when false, strict parsing according to the Locale will be performed; when true, certain
-     *            violations will be accepted
+     * @param lenient when false, strict parsing according to the Locale will be performed; when true, certain violations will
+     *            be accepted
      * @throws NullPointerException when locale is null
      */
     public NumberParser(final boolean trailing, final boolean lenient)
@@ -338,7 +341,9 @@ public class NumberParser
      * 
      * <pre>
      * NumberParser np = new NumberParser();
+     * 
      * double d = np.parseDouble("12.0 m/s");
+     * 
      * String unit = text.substring(np.getTrailingPosition()).trim();
      * </pre>
      * 

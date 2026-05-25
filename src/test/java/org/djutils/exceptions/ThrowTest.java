@@ -275,7 +275,7 @@ public class ThrowTest
             assertTrue(rte.getMessage().contains(arg4), "description is descriptive");
         }
     }
-    
+
     /**
      * Test the Throw.whenAnyNull method.
      */
@@ -292,7 +292,7 @@ public class ThrowTest
             assertTrue(e instanceof NullPointerException);
             assertTrue(e.getMessage().startsWith("argxx"));
         }
-        
+
         try
         {
             Throw.whenAnyNull(new Object(), "argxx");
@@ -312,7 +312,7 @@ public class ThrowTest
             assertTrue(e instanceof NullPointerException);
             assertTrue(e.getMessage().startsWith("argxx"));
         }
-        
+
         try
         {
             Throw.whenAnyNull(new Object(), "argxx", "abc", "argyy");
@@ -365,10 +365,11 @@ public class ThrowTest
         }
 
         // Check internal errors
-        
+
         UnitTest.testFail(() -> Throw.whenAnyNull(null, null), IllegalArgumentException.class);
         UnitTest.testFail(() -> Throw.whenAnyNull("abc", null), IllegalArgumentException.class);
-        UnitTest.testFail(() -> Throw.whenAnyNull(new Object(), "object", Double.valueOf("123.0")), IllegalArgumentException.class);
+        UnitTest.testFail(() -> Throw.whenAnyNull(new Object(), "object", Double.valueOf("123.0")),
+                IllegalArgumentException.class);
         UnitTest.testFail(() -> Throw.whenAnyNull("1", "object", "2", "nr2", "3"), IllegalArgumentException.class);
         UnitTest.testFail(() -> Throw.whenAnyNull("1", "object", "2", "nr2", "3", null), IllegalArgumentException.class);
     }
@@ -606,7 +607,7 @@ public class ThrowTest
             fail("Throw.whenNaN of a null value should NOT have resulted in an ArithmeticException");
         }
     }
-    
+
     /**
      * Test the Throw.whenNaN methods with one argument.
      */
@@ -626,7 +627,7 @@ public class ThrowTest
         Float ofnan = Float.NaN;
         double dnan = Double.NaN;
         float fnan = Float.NaN;
-        
+
         String s1 = "arg1";
 
         //
@@ -635,10 +636,10 @@ public class ThrowTest
 
         String message1arg = "Throw error has occurred for %s. Correct";
         String message1 = "Throw error has occurred for arg1. Correct";
-        
+
         try
         {
-            Throw.whenNaN(odnan, message1arg, s1); 
+            Throw.whenNaN(odnan, message1arg, s1);
             fail("Throw.whenNaN should have resulted in an ArithmeticException");
         }
         catch (ArithmeticException e)
@@ -758,7 +759,7 @@ public class ThrowTest
         Float ofnan = Float.NaN;
         double dnan = Double.NaN;
         float fnan = Float.NaN;
-        
+
         String s1 = "arg1";
         Integer i1 = 12;
 
@@ -768,10 +769,10 @@ public class ThrowTest
 
         String message2arg = "Throw error has occurred for %s, id=%d. Correct";
         String message2 = "Throw error has occurred for arg1, id=12. Correct";
-        
+
         try
         {
-            Throw.whenNaN(odnan, message2arg, s1, i1); 
+            Throw.whenNaN(odnan, message2arg, s1, i1);
             fail("Throw.whenNaN should have resulted in an ArithmeticException");
         }
         catch (ArithmeticException e)
@@ -1105,7 +1106,7 @@ public class ThrowTest
             fail("Throw.whenNaN of a null value should NOT have resulted in an IllegalArgumentException");
         }
     }
-    
+
     /**
      * Test the Throw.whenNaN methods with one argument.
      */
@@ -1125,7 +1126,7 @@ public class ThrowTest
         Float ofnan = Float.NaN;
         double dnan = Double.NaN;
         float fnan = Float.NaN;
-        
+
         String s1 = "arg1";
 
         //
@@ -1134,10 +1135,10 @@ public class ThrowTest
 
         String message1arg = "Throw error has occurred for %s. Correct";
         String message1 = "Throw error has occurred for arg1. Correct";
-        
+
         try
         {
-            Throw.whenNaN(odnan, IllegalArgumentException.class, message1arg, s1); 
+            Throw.whenNaN(odnan, IllegalArgumentException.class, message1arg, s1);
             fail("Throw.whenNaN should have resulted in an IllegalArgumentException");
         }
         catch (IllegalArgumentException e)
@@ -1257,7 +1258,7 @@ public class ThrowTest
         Float ofnan = Float.NaN;
         double dnan = Double.NaN;
         float fnan = Float.NaN;
-        
+
         String s1 = "arg1";
         Integer i1 = 12;
 
@@ -1267,10 +1268,10 @@ public class ThrowTest
 
         String message2arg = "Throw error has occurred for %s, id=%d. Correct";
         String message2 = "Throw error has occurred for arg1, id=12. Correct";
-        
+
         try
         {
-            Throw.whenNaN(odnan, IllegalArgumentException.class, message2arg, s1, i1); 
+            Throw.whenNaN(odnan, IllegalArgumentException.class, message2arg, s1, i1);
             fail("Throw.whenNaN should have resulted in an IllegalArgumentException");
         }
         catch (IllegalArgumentException e)

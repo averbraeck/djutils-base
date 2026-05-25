@@ -176,8 +176,7 @@ class Bounded implements Envelope
     /**
      * Determine if this object intersects a given Rectangle.
      * @param rectangle the rectangle
-     * @return true if this object intersects the given Rectangle; false if this object does not intersect the given
-     *         Rectangle
+     * @return true if this object intersects the given Rectangle; false if this object does not intersect the given Rectangle
      */
     public boolean intersects(final Rectangle rectangle)
     {

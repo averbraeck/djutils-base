@@ -621,18 +621,18 @@ public class LoggerTest
             CategoryLogger.addLogCategory(cat1);
             CategoryLogger.setLogLevel(cat1, Level.INFO);
             CategoryLogger.setPattern(cat1, "%class{0}.%method:%line - %msg%n");
-            
+
             lastLoggedResult = null;
             CategoryLogger.with(cat1).info("abc");
             assertTrue(lastLoggedResult.contains("testFqcnBarrier"));
             assertTrue(lastLoggedResult.contains("- abc"));
             lastLoggedResult = null;
-            
+
             ExtraLogger.info("def");
             assertTrue(lastLoggedResult.contains("testFqcnBarrier"));
             assertTrue(lastLoggedResult.contains("- def"));
             lastLoggedResult = null;
-            
+
             CategoryLogger.addLogCategory(ExtraLogger.EXTRACAT, ExtraLogger.class);
         }
         finally
@@ -654,12 +654,12 @@ public class LoggerTest
         /** extra category. */
         public static final LogCategory EXTRACAT = new LogCategory("EXTRA");
 
-        static 
+        static
         {
             CategoryLogger.addLogCategory(EXTRACAT, ExtraLogger.class);
             CategoryLogger.setPattern(EXTRACAT, "%class{0}.%method:%line - %msg%n");
         }
-        
+
         /**
          * Info message one level deeper.
          * @param msg the message

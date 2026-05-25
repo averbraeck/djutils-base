@@ -32,8 +32,8 @@ public interface Decoder
      * must return false.
      * @param address the address that corresponds with the byte
      * @param theByte the byte
-     * @return true if an output line has been completed by this call; false if at least one more byte can be appended
-     *         to the local accumulator before the current output line is full
+     * @return true if an output line has been completed by this call; false if at least one more byte can be appended to the
+     *         local accumulator before the current output line is full
      * @throws IOException when the output device throws this exception
      */
     boolean append(int address, byte theByte) throws IOException;
@@ -41,8 +41,7 @@ public interface Decoder
     /**
      * If the result of this Decoder should not be used to compare output lines for suppressing identical lines, this method
      * should return true; otherwise it should return false.
-     * @return true if the result of this Decoder should be ignored in testing for identical output lines; otherwise
-     *         false
+     * @return true if the result of this Decoder should be ignored in testing for identical output lines; otherwise false
      */
     boolean ignoreForIdenticalOutputCheck();
 

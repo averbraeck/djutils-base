@@ -84,8 +84,8 @@ public final class CompressedFileWriter implements AutoCloseable
      * Creates a writer to write data to a file, which can be a zipped file or a regular file. In particular if
      * {@code zipped = true}, then with {@code file = "myFile.csv"}, a file {@code myFile.csv.zip} will be created in which a
      * file {@code myFile.csv} is located. Writing occurs on this file.
-     * @param filePath path of the file to write; in case of a zipped file, the filename of the zip-file will end with
-     *            .zip, and the filename in the zip file will be the the filename without .zip.
+     * @param filePath path of the file to write; in case of a zipped file, the filename of the zip-file will end with .zip, and
+     *            the filename in the zip file will be the the filename without .zip.
      * @param zipped whether to contain the file in a zip file
      * @return BufferedWriter writer tot write in to
      * @throws IOException on error with filenames, file writing, closing, etc.

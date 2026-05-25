@@ -54,9 +54,11 @@ public class DecoderDumperTests
             assertTrue(output.contains(String.format(" %02x ", value)),
                     "Output contains hex value of the only input byte embedded between spaces");
         }
-        assertEquals(1, HexDumper.hexDumper(new byte[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}).split("\n").length,
+        assertEquals(1,
+                HexDumper.hexDumper(new byte[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}).split("\n").length,
                 "output of 16 byte input fills one lines");
-        assertEquals(2, HexDumper.hexDumper(new byte[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}).split("\n").length,
+        assertEquals(2,
+                HexDumper.hexDumper(new byte[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}).split("\n").length,
                 "output of 17 byte input fills two lines");
         assertTrue(HexDumper.hexDumper(0x12345, new byte[] {0, 1}).startsWith("00012340"),
                 "address offset is printed at start of output");

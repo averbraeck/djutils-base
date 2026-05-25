@@ -37,8 +37,8 @@ public class Base64Decoder implements Decoder
     /**
      * Construct a new Base64Decoder.
      * @param decodedBytesPerLine maximum number of decoded input characters resulting in one output line
-     * @param extraSpaceAfterEvery insert an extra space after every N output fields (a multiple of 3 makes sense for the
-     *            base64 decoder because base64 encodes three bytes into 4 characters)
+     * @param extraSpaceAfterEvery insert an extra space after every N output fields (a multiple of 3 makes sense for the base64
+     *            decoder because base64 encodes three bytes into 4 characters)
      */
     public Base64Decoder(final int decodedBytesPerLine, final int extraSpaceAfterEvery)
     {
@@ -114,8 +114,8 @@ public class Base64Decoder implements Decoder
             // Illegal byte in input
             if (!this.errorDetected) // First error
             {
-                CategoryLogger.always().info("illegal character found in Base64Decoder stream at address {}, character {}",
-                        address, theByte);
+                CategoryLogger.always()
+                    .info("illegal character found in Base64Decoder stream at address {}, character {}", address, theByte);
             }
             this.errorDetected = true;
             return false;

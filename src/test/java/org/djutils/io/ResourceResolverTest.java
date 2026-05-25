@@ -67,7 +67,7 @@ public class ResourceResolverTest
         var res5 = ResourceResolver.resolve(filename.toString(), ResourceResolver.class.getClassLoader(),
                 folder.toAbsolutePath().toString());
         assertEquals(res1.asUri(), res5.asUri());
-        
+
         String uri = res1.asUri().toString();
         var res7 = ResourceResolver.resolve(uri);
         assertEquals(res1.asUri(), res7.asUri());
@@ -166,7 +166,7 @@ public class ResourceResolverTest
         assertNotNull(jarURL);
         URL jar1 = ResourceResolver.resolve(jarFile.getAbsolutePath() + "!/" + file1.getName()).asUrl();
         assertNotNull(jar1);
-        
+
         var res1 = ResourceResolver.resolve(jarFile.getAbsolutePath() + "!/" + file1.getName());
         assertFalse(res1.isClassPath());
         assertFalse(res1.isFile());

@@ -45,11 +45,11 @@ public class MultiKeyMap<T>
 
     /**
      * Retrieve a value from this MultiKeyMap. Can create a new entry if it does not exist yet.
-     * @param supplier supplier of {@code T} in case the leaf does not exist yet. Set this to
-     *            <code>null</code> to suppress creation of new branches and a new leaf
+     * @param supplier supplier of {@code T} in case the leaf does not exist yet. Set this to <code>null</code> to suppress
+     *            creation of new branches and a new leaf
      * @param keys list of key objects
-     * @return the existing value, or the value that was obtained through the <code>supplier</code>. Returns
-     *         <code>null</code> if the leaf does not exist and <code>supplier</code> is <code>null</code>
+     * @return the existing value, or the value that was obtained through the <code>supplier</code>. Returns <code>null</code>
+     *         if the leaf does not exist and <code>supplier</code> is <code>null</code>
      */
     public T get(final Supplier<T> supplier, final Object... keys)
     {
@@ -81,8 +81,7 @@ public class MultiKeyMap<T>
      * Put (add or replace) a value in this MultiKeyMap.
      * @param newValue the new value
      * @param keys the key objects
-     * @return the previous value stored under the key objects, or null if no value was currently stored under the key
-     *         objects
+     * @return the previous value stored under the key objects, or null if no value was currently stored under the key objects
      */
     public T put(final T newValue, final Object... keys)
     {
@@ -108,8 +107,8 @@ public class MultiKeyMap<T>
 
     /**
      * Walk the tree up to (but not including) the last level.
-     * @param createBranches if true; missing branches are constructed; if false; missing branches cause this method to
-     *            return null;
+     * @param createBranches if true; missing branches are constructed; if false; missing branches cause this method to return
+     *            null;
      * @param keys the keys.
      * @return the lowest level map
      */
@@ -127,8 +126,8 @@ public class MultiKeyMap<T>
 
     /**
      * Retrieve a value. This uses a {@code List} rather than an array because that is easier to slice.
-     * @param supplier supplier of {@code T} for if it wasn't cached yet. Set <code>supplier</code> to null
-     *            to suppress construction of missing branches and a leaf
+     * @param supplier supplier of {@code T} for if it wasn't cached yet. Set <code>supplier</code> to null to suppress
+     *            construction of missing branches and a leaf
      * @param keys list of key objects
      * @return value, or null if no value was stored under the specified list of keys and <code>supplier</code> was null
      */

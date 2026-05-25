@@ -59,8 +59,7 @@ public final class ImmutableCollections
     /**
      * Search the immutable list for the specified object using the binary search algorithm. The list must be ordered according
      * to the natural ordering of its elements.
-     * @param il the list (must be ordered according to the natural
-     *            ordering of &lt;code&gt;T&lt;/code&gt;
+     * @param il the list (must be ordered according to the natural ordering of &lt;code&gt;T&lt;/code&gt;
      * @param key the element to search for.
      * @return if <code>key</code> is present in the list, the index of <code>key</code>, or, when <code>key</code> is not
      *         present in the list <code>(-(<i>insertion point</i>) - 1)</code> where <code>insertion point</code> is the index
@@ -75,8 +74,7 @@ public final class ImmutableCollections
     /**
      * Search the immutable list for the specified object using the binary search algorithm. The list must be ordered according
      * to the comparator.
-     * @param il the list (must be ordered according to the
-     *            &lt;code&gt;comparator&lt;/code&gt;
+     * @param il the list (must be ordered according to the &lt;code&gt;comparator&lt;/code&gt;
      * @param key the element to search for.
      * @param comparator a comparator for <code>T</code>
      * @return if <code>key</code> is present in the list, the index of <code>key</code>, or, when <code>key</code> is not
@@ -93,8 +91,7 @@ public final class ImmutableCollections
      * Determine if two immutable collections have no common members.
      * @param ic1 ImmutableCollection&lt;?&gt; one immutable collection
      * @param ic2 ImmutableCollection&lt;?&gt; another immutable collection
-     * @return true if the collections have no common members; false if the collections have at least one member in
-     *         common
+     * @return true if the collections have no common members; false if the collections have at least one member in common
      */
     public static boolean disjoint(final ImmutableCollection<?> ic1, final ImmutableCollection<?> ic2)
     {
@@ -105,8 +102,7 @@ public final class ImmutableCollections
      * Determine if an immutable collection and a (non immutable) collection have no common members.
      * @param ic1 ImmutableCollection&lt;?&gt; an immutable collection
      * @param c2 Collection&lt;?&gt; a (mutable) collection
-     * @return true if the collections have no common members; false if the collections have at least one member in
-     *         common
+     * @return true if the collections have no common members; false if the collections have at least one member in common
      */
     public static boolean disjoint(final ImmutableCollection<?> ic1, final Collection<?> c2)
     {
@@ -117,8 +113,7 @@ public final class ImmutableCollections
      * Determine if an immutable collection and a (non immutable) collection have no common members.
      * @param c1 Collection&lt;?&gt; a (mutable) collection
      * @param ic2 ImmutableCollection&lt;?&gt; an immutable collection
-     * @return true if the collections have no common members; false if the collections have at least one member in
-     *         common
+     * @return true if the collections have no common members; false if the collections have at least one member in common
      */
     public static boolean disjoint(final Collection<?> c1, final ImmutableCollection<?> ic2)
     {
@@ -130,8 +125,8 @@ public final class ImmutableCollections
      * -1 if there is no such occurrence.
      * @param source the list in which to find the first occurrence of <code>target</code>
      * @param target the pattern to find in <code>source</code>
-     * @return the index in <code>source</code> of the first occurrence of <code>target</code> or -1 if <code>target</code>
-     *         does not occur anywhere in <code>source</code>
+     * @return the index in <code>source</code> of the first occurrence of <code>target</code> or -1 if <code>target</code> does
+     *         not occur anywhere in <code>source</code>
      */
     public static int indexOfSubList(final ImmutableList<?> source, final ImmutableList<?> target)
     {
@@ -143,8 +138,8 @@ public final class ImmutableCollections
      * -1 if there is no such occurrence.
      * @param source the list in which to find the first occurrence of <code>target</code>
      * @param target the pattern to find in <code>source</code>
-     * @return the index in <code>source</code> of the first occurrence of <code>target</code> or -1 if <code>target</code>
-     *         does not occur anywhere in <code>source</code>
+     * @return the index in <code>source</code> of the first occurrence of <code>target</code> or -1 if <code>target</code> does
+     *         not occur anywhere in <code>source</code>
      */
     public static int indexOfSubList(final ImmutableList<?> source, final List<?> target)
     {
@@ -156,8 +151,8 @@ public final class ImmutableCollections
      * -1 if there is no such occurrence.
      * @param source the list in which to find the first occurrence of <code>target</code>
      * @param target the pattern to find in <code>source</code>
-     * @return the index in <code>source</code> of the first occurrence of <code>target</code> or -1 if <code>target</code>
-     *         does not occur anywhere in <code>source</code>
+     * @return the index in <code>source</code> of the first occurrence of <code>target</code> or -1 if <code>target</code> does
+     *         not occur anywhere in <code>source</code>
      */
     public static int indexOfSubList(final List<?> source, final ImmutableList<?> target)
     {
@@ -169,8 +164,8 @@ public final class ImmutableCollections
      * if there is no such occurrence.
      * @param source the list in which to find the last occurrence of <code>target</code>
      * @param target the pattern to find in <code>source</code>
-     * @return the index in <code>source</code> of the last occurrence of <code>target</code> or -1 if <code>target</code>
-     *         does not occur anywhere in <code>source</code>
+     * @return the index in <code>source</code> of the last occurrence of <code>target</code> or -1 if <code>target</code> does
+     *         not occur anywhere in <code>source</code>
      */
     public static int lastIndexOfSubList(final ImmutableList<?> source, final ImmutableList<?> target)
     {
@@ -182,8 +177,8 @@ public final class ImmutableCollections
      * if there is no such occurrence.
      * @param source the list in which to find the last occurrence of <code>target</code>
      * @param target the pattern to find in <code>source</code>
-     * @return the index in <code>source</code> of the last occurrence of <code>target</code> or -1 if <code>target</code>
-     *         does not occur anywhere in <code>source</code>
+     * @return the index in <code>source</code> of the last occurrence of <code>target</code> or -1 if <code>target</code> does
+     *         not occur anywhere in <code>source</code>
      */
     public static int lastIndexOfSubList(final ImmutableList<?> source, final List<?> target)
     {
@@ -195,8 +190,8 @@ public final class ImmutableCollections
      * if there is no such occurrence.
      * @param source the list in which to find the last occurrence of <code>target</code>
      * @param target the pattern to find in <code>source</code>
-     * @return the index in <code>source</code> of the last occurrence of <code>target</code> or -1 if <code>target</code>
-     *         does not occur anywhere in <code>source</code>
+     * @return the index in <code>source</code> of the last occurrence of <code>target</code> or -1 if <code>target</code> does
+     *         not occur anywhere in <code>source</code>
      */
     public static int lastIndexOfSubList(final List<?> source, final ImmutableList<?> target)
     {

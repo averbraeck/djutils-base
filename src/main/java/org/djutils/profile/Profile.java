@@ -198,8 +198,9 @@ public final class Profile
                     builder.append("          ");
                 }
                 // Name of the profiled method
-                builder.append(" | ").append(String.format(nameLineFormat, info.getName() == null ? id : info.getName()))
-                        .append(" |\n");
+                builder.append(" | ")
+                    .append(String.format(nameLineFormat, info.getName() == null ? id : info.getName()))
+                    .append(" |\n");
             }
         }
         return builder.append("-").append(line).append("-\n").toString();
@@ -279,7 +280,7 @@ public final class Profile
      * <br>
      * BSD-style license. See <a href="https://djutils.org/docs/current/djutils/licenses.html">DJUTILS License</a>.
      * <p>
-         * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
+     * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
      * @author <a href="http://www.tudelft.nl/pknoppers">Peter Knoppers</a>
      * @author <a href="http://www.transport.citg.tudelft.nl">Wouter Schakel</a>
      */

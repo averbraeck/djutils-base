@@ -164,10 +164,7 @@ public final class CategoryLogger
 
         // detach & stop existing
         st.appendersByFactoryId.forEach((id, app) ->
-        {
-            st.logger.detachAppender(app);
-            safeStop(app);
-        });
+        { st.logger.detachAppender(app); safeStop(app); });
         st.appendersByFactoryId.clear();
 
         // build with new pattern
@@ -304,10 +301,7 @@ public final class CategoryLogger
             // detach & stop this category's appenders
             Logger logger = st.logger;
             st.appendersByFactoryId.values().forEach(app ->
-            {
-                logger.detachAppender(app);
-                safeStop(app);
-            });
+            { logger.detachAppender(app); safeStop(app); });
             // silence the logger
             logger.setLevel(Level.OFF);
             logger.setAdditive(false);
@@ -446,10 +440,7 @@ public final class CategoryLogger
         ensureInit();
         defaultPattern = Objects.requireNonNull(pattern);
         CATEGORY_CFG.replaceAll((c, cfg) ->
-        {
-            cfg.pattern = pattern;
-            return cfg;
-        });
+        { cfg.pattern = pattern; return cfg; });
         CATEGORY_CFG.keySet().forEach(CategoryLogger::rebuildCategoryAppenders);
     }
 

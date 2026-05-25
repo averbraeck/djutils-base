@@ -87,8 +87,8 @@ public class TestImmutableHashMap
         assertTrue(map3.toString().startsWith("ImmutableHashMap ["), "toString returns something descriptive");
         assertEquals(mutableMap1.get(keys[0]), map3.getOrDefault(keys[0], Math.asin(2.0)),
                 "get with default returns value for key when it exists");
-        assertEquals(Math.asin(2.0), map3.getOrDefault(-123, Math.asin(2.0)),
-                0.00001, "get with default returns default for key when it does not exist");
+        assertEquals(Math.asin(2.0), map3.getOrDefault(-123, Math.asin(2.0)), 0.00001,
+                "get with default returns default for key when it does not exist");
         final ImmutableMap<Integer, Double> map4 =
                 new ImmutableHashMap<Integer, Double>((ImmutableAbstractMap<Integer, Double>) im1Wrap, Immutable.WRAP);
         boolean[] tested = new boolean[keys.length];

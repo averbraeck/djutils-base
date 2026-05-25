@@ -146,12 +146,12 @@ public class CompressedFileWriterTest
     {
         String tempDir = System.getProperty("java.io.tmpdir");
         String tempFilePath = tempDir + File.separator + UUID.randomUUID().toString() + ".zip";
-        
+
         // empty zip file
         CompressedFileWriter compressedFileWriter = new CompressedFileWriter(tempFilePath);
         compressedFileWriter.close();
         new File(tempFilePath).delete();
-        
+
         // empty entry in zip file
         compressedFileWriter = new CompressedFileWriter(tempFilePath);
         compressedFileWriter.next("data_2023.csv");

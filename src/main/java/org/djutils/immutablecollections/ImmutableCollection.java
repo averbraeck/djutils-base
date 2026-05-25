@@ -70,8 +70,7 @@ public interface ImmutableCollection<E> extends Iterable<E>
      * <p>
      * See java.util.Collection.toArray(T[]) for more details.
      * @param <T> the runtime type of the array to contain the immutable collection
-     * @param a otherwise,
-     *            a new array of the same runtime type is allocated for this purpose.
+     * @param a otherwise, a new array of the same runtime type is allocated for this purpose.
      * @return an array containing all of the elements in this immutable collection
      * @throws ArrayStoreException if the runtime type of the specified array is not a supertype of the runtime type of every
      *             element in this immutable collection

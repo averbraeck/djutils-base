@@ -72,8 +72,8 @@ public class Dumper<T>
 
     /**
      * Set the output compression mode.
-     * @param newState if true; groups of three or more output lines with the significant content are compressed; if
-     *            false; no output is suppressed
+     * @param newState if true; groups of three or more output lines with the significant content are compressed; if false; no
+     *            output is suppressed
      * @return this Dumper object (for method chaining)
      */
     public Dumper<T> setSuppressMultipleIdenticalLines(final boolean newState)
@@ -183,8 +183,8 @@ public class Dumper<T>
     /**
      * Append a slice of an array of bytes.
      * @param bytes byte array from which to take the bytes to append
-     * @param start index of first byte in <code>bytes</code> to append (NB. using non-zero does <b>not</b> cause a jump in
-     *            the address that is printed before the dumped bytes)
+     * @param start index of first byte in <code>bytes</code> to append (NB. using non-zero does <b>not</b> cause a jump in the
+     *            address that is printed before the dumped bytes)
      * @param len number of bytes to append
      * @return this Dumper object (for method chaining)
      * @throws IOException when an outputStream has been set and it throws an IOException
