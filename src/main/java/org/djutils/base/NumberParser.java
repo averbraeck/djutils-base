@@ -12,7 +12,7 @@ import org.djutils.exceptions.Throw;
 /**
  * NumberParser is a class that can parse a number in a strict or lenient way, and dependent on locale. It also provides help
  * for numbers that have trailing information in the String, such as a unit. The class has been defined to use two ways of
- * defining a parser: The first is a classical manner with a constructor that defines the settings: <br>
+ * defining a parser: The first is a classical manner with a constructor that defines the settings: 
  * 
  * <pre>
  * NumberParser np = new NumberParser(true, true);
@@ -41,7 +41,6 @@ import org.djutils.exceptions.Throw;
  * Information on how Java handles Locales from version 11 onward can be found at
  * <a href= "https://www.oracle.com/java/technologies/javase/jdk11-suported-locales.html">
  * https://www.oracle.com/java/technologies/javase/jdk11-suported-locales.html</a>.
- * <p>
  * <p>
  * Copyright (c) 2023-2026 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://djutils.org" target="_blank"> https://djutils.org</a>. The DJUTILS project is

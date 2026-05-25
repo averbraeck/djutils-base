@@ -14,7 +14,6 @@ package org.djutils.event;
  * listeners is done in a Map with the EventType as the key, and a List of References (weak or strong) to the Listeners. Note
  * that the term 'Local' used in the class name is opposed to remote event producers such as the RmiEventProducer.
  * <p>
- * <p>
  * Copyright (c) 2002-2026 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://djutils.org" target="_blank"> https://djutils.org</a>. The DJUTILS project is
  * distributed under a three-clause BSD-style license, which can be found at
