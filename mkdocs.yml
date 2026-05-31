@@ -22,8 +22,7 @@ extra_css:
 extra_javascript:
   - js/collapse_menu.js
   - js/mathjax.js
-  - https://polyfill.io/v3/polyfill.min.js?features=es6
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - js/tex-mml-chtml.js
     
 nav:
   - Home: index.md
@@ -73,16 +72,18 @@ nav:
     - DJUTILS-MATH API: https://djutils.org/docs/latest/djutils-math/apidocs/index.html
   - DJUTILS-SERIALIZATION:
     - Introduction: djutils-serialization/index.md
+    - Programming: djutils-serialization/programming.md
     - Coding types: djutils-serialization/coding-types.md
     - 'Primitive types (#0 - #8)': djutils-serialization/primitive-types.md
-    - 'String types (#9 - #10)': djutils-serialization/string-types.md
+    - 'String types (#9-10, #33-36)': djutils-serialization/string-types.md
     - 'Array types (#11 - #17)': djutils-serialization/array-types.md
     - 'Matrix types (#18 - #24)': djutils-serialization/matrix-types.md
     - Coding quantities: djutils-serialization/coding-quantities.md
     - Coding unit types: djutils-serialization/unit-types.md
-    - 'Scalar types with unit (#25 - #26)': djutils-serialization/scalar-units.md 
-    - 'Vector types with unit (#27 - #28)': djutils-serialization/vector-units.md 
-    - 'Matrix types with unit (#29 - #32)': djutils-serialization/matrix-units.md 
+    - 'Quantity unit types(#25 - #26)': djutils-serialization/quantity-units.md 
+    - 'Vector unit types(#27 - #28)': djutils-serialization/vector-units.md 
+    - 'Matrix unit types(#29 - #30)': djutils-serialization/matrix-units.md 
+    - 'Table types(#31-32, #43-44)': djutils-serialization/table-units.md 
     - 'Absolute unit types(#37 - #42)': djutils-serialization/absolute-units.md 
     - SERIALIZATION documentation: https://djutils.org/docs/latest/djutils-serialization/index.html
     - SERIALIZATION API: https://djutils.org/docs/latest/djutils-serialization/apidocs/index.html
