@@ -84,7 +84,7 @@ public class ThrowTest
         }
 
         String message3arg = "Throw error %4.1f has occurred for %s, value %d. Correct";
-        String message3 = "Throw error 20.0 has occurred for argument, value 10. Correct";
+        String message3 = String.format("Throw error %.1f has occurred for argument, value 10. Correct", 20.0);
         try
         {
             Throw.whenNull(objectNull, message3arg, d, s, i);
@@ -95,7 +95,7 @@ public class ThrowTest
         }
 
         String message4arg = "Throw error %4.1f has occurred for %s, hex=%h, value %d. Correct";
-        String message4 = "Throw error 20.0 has occurred for argument, hex=1a, value 10. Correct";
+        String message4 = String.format("Throw error %.1f has occurred for argument, hex=1a, value 10. Correct", 20.0);
         try
         {
             Throw.whenNull(objectNull, message4arg, d, s, hex, i);
