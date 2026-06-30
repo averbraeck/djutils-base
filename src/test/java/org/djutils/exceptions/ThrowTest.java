@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.function.Supplier;
 
 import org.djutils.test.UnitTest;
 import org.junit.jupiter.api.Test;
@@ -289,6 +290,7 @@ public class ThrowTest
         reportsNullMessage(assertThrows(DummyEx.class, () -> Throw.when(true, DummyEx.class, (String) null, null)));
         reportsNullMessage(assertThrows(DummyEx.class, () -> Throw.when(true, DummyEx.class, (String) null, "arg1")));
         reportsNullMessage(assertThrows(DummyEx.class, () -> Throw.when(true, DummyEx.class, (String) null, "arg1", "arg2")));
+        reportsNullMessage(assertThrows(DummyEx.class, () -> Throw.when(true, DummyEx.class, (Supplier<String>) null)));
     }
 
     /**
@@ -297,7 +299,7 @@ public class ThrowTest
      */
     private static void reportsNullMessage(final Exception exception)
     {
-        assertTrue(exception.getMessage().contains("[NullMessage")); // with "]", or with "; args=...]"
+        assertTrue(exception.getMessage().contains("[NullMessage")); // with "]", "; args=...]" or "Supplier]"
     }
 
     /**

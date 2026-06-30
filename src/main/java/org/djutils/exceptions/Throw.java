@@ -95,7 +95,7 @@ public final class Throw
     {
         if (condition)
         {
-            throwMessage(throwableClass, stringSupplier.get(), null);
+            throwMessage(throwableClass, getMessage(stringSupplier), null);
         }
     }
 
@@ -219,6 +219,16 @@ public final class Throw
     }
 
     /**
+     * Returns string from the supplier, or {@code "[NullMessageSupplier]"} when the supplier is {@code null}.
+     * @param stringSupplier the supplier that provides the message to use in the exception
+     * @return string from the supplier, or {@code "[NullMessageSupplier]"} when the supplier is {@code null}
+     */
+    private static String getMessage(final Supplier<String> stringSupplier)
+    {
+        return stringSupplier == null ? "[NullMessageSupplier]" : stringSupplier.get();
+    }
+
+    /**
      * Private method to handle the throwing an Exception, Throwable or Error.
      * @param throwableClass the Throwable type to throw
      * @param message the message to use in the exception, with potential formatting identifiers
@@ -330,7 +340,7 @@ public final class Throw
     {
         if (condition)
         {
-            throwMessage(throwableClass, stringSupplier.get(), null);
+            throwMessage(throwableClass, getMessage(stringSupplier), null);
         }
         return object;
     }
@@ -528,7 +538,7 @@ public final class Throw
     {
         if (object == null)
         {
-            throwMessage(NullPointerException.class, stringSupplier.get(), null);
+            throwMessage(NullPointerException.class, getMessage(stringSupplier), null);
         }
         return object;
     }
@@ -737,7 +747,7 @@ public final class Throw
     {
         if (Double.isNaN(value))
         {
-            throwMessage(ArithmeticException.class, stringSupplier.get(), null);
+            throwMessage(ArithmeticException.class, getMessage(stringSupplier), null);
         }
         return value;
     }
@@ -793,7 +803,7 @@ public final class Throw
     {
         if (Float.isNaN(value))
         {
-            throwMessage(ArithmeticException.class, stringSupplier.get(), null);
+            throwMessage(ArithmeticException.class, getMessage(stringSupplier), null);
         }
         return value;
     }
@@ -849,7 +859,7 @@ public final class Throw
     {
         if (value != null && Double.isNaN(value))
         {
-            throwMessage(ArithmeticException.class, stringSupplier.get(), null);
+            throwMessage(ArithmeticException.class, getMessage(stringSupplier), null);
         }
         return value;
     }
@@ -905,7 +915,7 @@ public final class Throw
     {
         if (value != null && Float.isNaN(value))
         {
-            throwMessage(ArithmeticException.class, stringSupplier.get(), null);
+            throwMessage(ArithmeticException.class, getMessage(stringSupplier), null);
         }
         return value;
     }
@@ -1059,7 +1069,7 @@ public final class Throw
     {
         if (Float.isNaN(value))
         {
-            throwMessage(throwableClass, stringSupplier.get(), null);
+            throwMessage(throwableClass, getMessage(stringSupplier), null);
         }
         return value;
     }
@@ -1121,7 +1131,7 @@ public final class Throw
     {
         if (Double.isNaN(value))
         {
-            throwMessage(throwableClass, stringSupplier.get(), null);
+            throwMessage(throwableClass, getMessage(stringSupplier), null);
         }
         return value;
     }
@@ -1145,7 +1155,7 @@ public final class Throw
     {
         if (value != null && Double.isNaN(value))
         {
-            throwMessage(throwableClass, stringSupplier.get(), null);
+            throwMessage(throwableClass, getMessage(stringSupplier), null);
         }
         return value;
     }
@@ -1237,7 +1247,7 @@ public final class Throw
     {
         if (value != null && Float.isNaN(value))
         {
-            throwMessage(throwableClass, stringSupplier.get(), null);
+            throwMessage(throwableClass, getMessage(stringSupplier), null);
         }
         return value;
     }
