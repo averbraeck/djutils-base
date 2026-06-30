@@ -1,6 +1,7 @@
 package org.djutils.exceptions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -273,6 +274,48 @@ public class ThrowTest
             assertTrue(rte.getMessage().contains(arg2), "description is descriptive");
             assertTrue(rte.getMessage().contains(arg3), "description is descriptive");
             assertTrue(rte.getMessage().contains(arg4), "description is descriptive");
+        }
+    }
+
+    /**
+     * Test that {@code Throw} does not fall in to an exception when the message is {@code null}.
+     */
+    @Test
+    void testNullMessage()
+    {
+        // Use DummyEx, so that any other exception due to a null message will fail the test
+        reportsNullMessage(assertThrows(DummyEx.class, () -> Throw.when(true, DummyEx.class, () -> null)));
+        reportsNullMessage(assertThrows(DummyEx.class, () -> Throw.when(true, DummyEx.class, (String) null)));
+        reportsNullMessage(assertThrows(DummyEx.class, () -> Throw.when(true, DummyEx.class, (String) null, null)));
+        reportsNullMessage(assertThrows(DummyEx.class, () -> Throw.when(true, DummyEx.class, (String) null, "arg1")));
+        reportsNullMessage(assertThrows(DummyEx.class, () -> Throw.when(true, DummyEx.class, (String) null, "arg1", "arg2")));
+    }
+
+    /**
+     * Check that thrown exception contains the fact that the original message was {@code null}.
+     * @param exception some dummy exception
+     */
+    private static void reportsNullMessage(final Exception exception)
+    {
+        assertTrue(exception.getMessage().contains("[NullMessage")); // with "]", or with "; args=...]"
+    }
+
+    /**
+     * Specific exception to prevent that {@code Throw} accidentally throws what is thought to be an arbitrary exception by
+     * tests. Note, perhaps a future implementation may start to throw some exception that would be used in a test.
+     */
+    public static class DummyEx extends Exception
+    {
+        /** */
+        private static final long serialVersionUID = 1L;
+
+        /**
+         * Constructor.
+         * @param message message
+         */
+        public DummyEx(final String message)
+        {
+            super(message);
         }
     }
 

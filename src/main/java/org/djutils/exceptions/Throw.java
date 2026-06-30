@@ -237,7 +237,18 @@ public final class Throw
         StackTraceElement[] ste = steList.toArray(new StackTraceElement[steList.size()]);
         String where = ste[0].getClassName() + "." + ste[0].getMethodName() + " (" + ste[0].getLineNumber() + "): ";
         String formattedMessage;
-        if (argList == null)
+        if (message == null)
+        {
+            if (argList == null)
+            {
+                formattedMessage = where + " [NullMessage]";
+            }
+            else
+            {
+                formattedMessage = where + " [NullMessage; args=" + argList + "]";
+            }
+        }
+        else if (argList == null)
         {
             formattedMessage = message;
         }
