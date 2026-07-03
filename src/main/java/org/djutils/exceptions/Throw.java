@@ -508,7 +508,7 @@ public final class Throw
     {
         if (object == null)
         {
-            if (message.matches("\\S+")) // \S+ is any non-whitespace character
+            if (message != null && message.matches("\\S+")) // \S+ is any non-whitespace character
             {
                 throwMessage(NullPointerException.class, message + " may not be null", null);
             }
@@ -719,7 +719,7 @@ public final class Throw
     {
         if (Double.isNaN(value))
         {
-            if (message.matches("\\S+")) // \S+ is any non-whitespace character
+            if (message != null && message.matches("\\S+")) // \S+ is any non-whitespace character
             {
                 throwMessage(ArithmeticException.class, message + " may not be NaN", null);
             }
@@ -775,7 +775,7 @@ public final class Throw
     {
         if (Float.isNaN(value))
         {
-            if (message.matches("\\S+")) // \S+ is any non-whitespace character
+            if (message != null && message.matches("\\S+")) // \S+ is any non-whitespace character
             {
                 throwMessage(ArithmeticException.class, message + " may not be NaN", null);
             }
@@ -831,7 +831,7 @@ public final class Throw
     {
         if (value != null && Double.isNaN(value))
         {
-            if (message.matches("\\S+")) // \S+ is any non-whitespace character
+            if (message != null && message.matches("\\S+")) // \S+ is any non-whitespace character
             {
                 throwMessage(ArithmeticException.class, message + " may not be NaN", null);
             }
@@ -887,7 +887,7 @@ public final class Throw
     {
         if (value != null && Float.isNaN(value))
         {
-            if (message.matches("\\S+")) // \S+ is any non-whitespace character
+            if (message != null && message.matches("\\S+")) // \S+ is any non-whitespace character
             {
                 throwMessage(ArithmeticException.class, message + " may not be NaN", null);
             }
@@ -1000,7 +1000,7 @@ public final class Throw
     {
         if (Double.isNaN(value))
         {
-            if (message.matches("\\S+")) // \S+ is any non-whitespace character
+            if (message != null && message.matches("\\S+")) // \S+ is any non-whitespace character
             {
                 throwMessage(throwableClass, message + " may not be NaN", null);
             }
@@ -1038,7 +1038,7 @@ public final class Throw
     {
         if (Float.isNaN(value))
         {
-            if (message.matches("\\S+")) // \S+ is any non-whitespace character
+            if (message != null && message.matches("\\S+")) // \S+ is any non-whitespace character
             {
                 throwMessage(throwableClass, message + " may not be NaN", null);
             }
@@ -1100,7 +1100,7 @@ public final class Throw
     {
         if (value != null && Double.isNaN(value))
         {
-            if (message.matches("\\S+")) // \S+ is any non-whitespace character
+            if (message != null && message.matches("\\S+")) // \S+ is any non-whitespace character
             {
                 throwMessage(throwableClass, message + " may not be NaN", null);
             }
@@ -1216,7 +1216,7 @@ public final class Throw
     {
         if (value != null && Float.isNaN(value))
         {
-            if (message.matches("\\S+")) // \S+ is any non-whitespace character
+            if (message != null && message.matches("\\S+")) // \S+ is any non-whitespace character
             {
                 throwMessage(throwableClass, message + " may not be NaN", null);
             }
