@@ -240,53 +240,68 @@ public final class Throw
     private static <T extends Throwable> void throwMessage(final Class<T> throwableClass, final String message,
             final List<Object> argList) throws T
     {
-        // create a clear message
-        List<StackTraceElement> steList = new ArrayList<>(Arrays.asList(new Throwable().getStackTrace()));
-        steList.remove(0); // remove the throwMessage(...) call
-        steList.remove(0); // remove the when(...) call
-        StackTraceElement[] ste = steList.toArray(new StackTraceElement[steList.size()]);
-        String where = ste[0].getClassName() + "." + ste[0].getMethodName() + " (" + ste[0].getLineNumber() + "): ";
-        String formattedMessage;
-        if (message == null)
+        T exception;
+        RuntimeException internalException = null;
+        try
         {
-            if (argList == null)
+            // create a clear message
+            List<StackTraceElement> steList = new ArrayList<>(Arrays.asList(new Throwable().getStackTrace()));
+            steList.remove(0); // remove the throwMessage(...) call
+            steList.remove(0); // remove the when(...) call
+            StackTraceElement[] ste = steList.toArray(new StackTraceElement[steList.size()]);
+            String where = ste[0].getClassName() + "." + ste[0].getMethodName() + " (" + ste[0].getLineNumber() + "): ";
+            String formattedMessage;
+            if (message == null)
             {
-                formattedMessage = where + " [NullMessage]";
+                if (argList == null)
+                {
+                    formattedMessage = where + "[NullMessage]";
+                }
+                else
+                {
+                    formattedMessage = where + "[NullMessage; args=" + argList + "]";
+                }
+            }
+            else if (argList == null)
+            {
+                formattedMessage = message;
             }
             else
             {
-                formattedMessage = where + " [NullMessage; args=" + argList + "]";
+                try
+                {
+                    formattedMessage = where + String.format(message, argList.toArray());
+                }
+                catch (IllegalFormatException e)
+                {
+                    formattedMessage = where + message + " [FormatException; args=" + argList + "]";
+                }
             }
-        }
-        else if (argList == null)
-        {
-            formattedMessage = message;
-        }
-        else
-        {
+
+            // throw exception through reflection
             try
             {
-                formattedMessage = where + String.format(message, argList.toArray());
+                Constructor<T> constructor = ClassUtil.resolveConstructor(throwableClass, new Class<?>[] {String.class});
+                exception = constructor.newInstance(formattedMessage);
+                exception.setStackTrace(ste);
             }
-            catch (IllegalFormatException exception)
+            catch (Throwable t)
             {
-                formattedMessage = where + message + " [FormatException; args=" + argList + "]";
+                internalException = new RuntimeException(throwableClass.getSimpleName()
+                        + " has no single String argument constructor for message: [" + formattedMessage + "]", t);
+                internalException.setStackTrace(ste);
+                throw internalException; // goes to catch, which throws it again
             }
-        }
-
-        // throw all other exceptions through reflection
-        T exception;
-        try
-        {
-            Constructor<T> constructor = ClassUtil.resolveConstructor(throwableClass, new Class<?>[] {String.class});
-            exception = constructor.newInstance(formattedMessage);
-            exception.setStackTrace(ste);
         }
         catch (Throwable t)
         {
-            RuntimeException rte = new RuntimeException(t.getMessage(), new Exception(formattedMessage));
-            rte.setStackTrace(ste);
-            throw rte;
+            if (internalException == null)
+            {
+                // unknown internal exception
+                internalException =
+                        new RuntimeException("Internal exception while composing exception of type " + throwableClass, t);
+            }
+            throw internalException;
         }
         throw exception;
     }

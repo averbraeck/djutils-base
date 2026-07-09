@@ -1461,4 +1461,35 @@ public class ThrowTest
         /** A method that does not throw an exception. */
         void doSomethingWithoutException();
     }
+
+    /**
+     * Test some throw succeeds even with internal failure.
+     */
+    @Test
+    void testInternalException()
+    {
+        assertTrue(assertThrows(RuntimeException.class, () -> Throw.when(true, NoConstructor.class, "Original message"))
+            .getMessage()
+            .contains("has no single String argument constructor for message"));
+        assertTrue(assertThrows(RuntimeException.class,
+                () -> Throw.when(true, IllegalArgumentException.class, "Message %s", new NoToString())).getMessage()
+                    .contains("Internal exception while composing exception of type"));
+    }
+
+    /** Causes internal exception as the exception class has no constructor with single String input. */
+    class NoConstructor extends RuntimeException
+    {
+        /** */
+        private static final long serialVersionUID = 1L;
+    }
+
+    /** Causes internal exception through String.format that is not an IllegalFormatException (which is caught internally). */
+    class NoToString
+    {
+        @Override
+        public String toString()
+        {
+            throw new UnsupportedOperationException();
+        }
+    }
 }
